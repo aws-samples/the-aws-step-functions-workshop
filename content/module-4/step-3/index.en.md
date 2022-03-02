@@ -1,14 +1,13 @@
 ---
-title: 'Implement callback'
+title: 'Review definition'
 weight: 63
 ---
 
-Navigate to the Lambda service in your account. Search for a function that contains the string `CallbackWithTaskToken`. This is the function that is responsible for processing the events added to the SQS Queue. We'll modify this function to implement a callback.
+Callback tasks provide a way to pause a workflow until a task token is returned. A task might need to wait for a human approval, integrate with a third party, or call legacy systems. For tasks like these, you can pause Step Functions indefinitely, and wait for an external process or workflow to complete. For these situations Step Functions allows you to pass a task token to the service integration. The task will pause until it receives that task token back with a `SendTaskSuccess` or `SendTaskFailure` call.
 
-As you review the code, you'll notice that the Lambda function receives the `TaskToken` from SQS and can return it to the state machine as a parameter in the `.sendTaskSuccess` method.
+To see a list of what integrated services support waiting for a task token (`.waitForTaskToken`), see [Optimized integrations for Step Functions](https://docs.aws.amazon.com/step-functions/latest/dg/connect-supported-services.html).
 
-Uncomment the code that looks like the image below and click the Deploy button.
+Although the callback logic is initially implemented in the ASL definition, the callback is not yet being executed in the Lambda function that processes the SQS messages.
 
-![Module 4 Workflow](/static/module4-lambda.png)
-
-Now return to your state machine (`WaitForCallbackStateMachine`) and start a new execution.
+State machine definition:
+![Module 4 Workflow](/static/img/module-4/module4-code.png)

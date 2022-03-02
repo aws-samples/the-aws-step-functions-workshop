@@ -1,13 +1,10 @@
 ---
-title: 'Review definition'
+title: 'Execute initial workflow'
 weight: 62
 ---
 
-Callback tasks provide a way to pause a workflow until a task token is returned. A task might need to wait for a human approval, integrate with a third party, or call legacy systems. For tasks like these, you can pause Step Functions indefinitely, and wait for an external process or workflow to complete. For these situations Step Functions allows you to pass a task token to the service integration. The task will pause until it receives that task token back with a `SendTaskSuccess` or `SendTaskFailure` call.
+Navigate to the state function in your account that begins with **"WaitForCallbackStateMachine"**. This state machine sends a task to SQS but the callback for it is not yet implemented.
 
-To see a list of what integrated services support waiting for a task token (`.waitForTaskToken`), see [Optimized integrations for Step Functions](https://docs.aws.amazon.com/step-functions/latest/dg/connect-supported-services.html).
+Execute the state machine with default input and you'll notice that this execution will become paused indefinitely at the `Start Task and Wait For Callback` state.
 
-Although the callback logic is initially implemented in the ASL definition, the callback is not yet being executed in the Lambda function that processes the SQS messages.
-
-State machine definition:
-![Module 4 Workflow](/static/module4-code.png)
+![Module 4 Workflow](/static/img/module-4/module4-initial-workflow.png)

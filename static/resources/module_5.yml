@@ -1,0 +1,168 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: AWS Step Functions sample project for mapping over an array of elements
+Resources:
+  MapStateStateMachine:
+    Type: 'AWS::StepFunctions::StateMachine'
+    Properties:
+      DefinitionString: !Sub
+        - |-
+          {
+          "StartAt": "HelloWorld",
+          "States": {
+          "HelloWorld": {
+          "Type": "Pass",
+          "Result": "Hello World!",
+           "End": true
+            }
+           }
+          }
+        - {
+            DDBTable: !Ref DDBTable,
+            SNSTopic: !Ref SNSTopic,
+            ReadFromSQSQueueLambda: !Ref ReadFromSQSQueueLambda,
+            DeleteFromSQSQueueLambda: !Ref DeleteFromSQSQueueLambda,
+          }
+      RoleArn: !GetAtt [StatesExecutionRole, Arn]
+  StatesExecutionRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: 'Allow'
+            Principal:
+              Service: states.amazonaws.com
+            Action: 'sts:AssumeRole'
+      Path: '/'
+      Policies:
+        - PolicyName: StatesExecutionPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 'lambda:InvokeFunction'
+                Resource:
+                  - !GetAtt ReadFromSQSQueueLambda.Arn
+                  - !GetAtt DeleteFromSQSQueueLambda.Arn
+              - Effect: Allow
+                Action:
+                  - 'dynamodb:PutItem'
+                Resource:
+                  - !GetAtt DDBTable.Arn
+              - Effect: Allow
+                Action:
+                  - 'sns:Publish'
+                Resource:
+                  - !Ref SNSTopic
+  ReadFromSQSQueueLambda:
+    Type: 'AWS::Lambda::Function'
+    Properties:
+      Handler: 'index.lambda_handler'
+      Role: !GetAtt [SQSLambdaExecutionRole, Arn]
+      Code:
+        ZipFile: !Sub
+          - |-
+            const aws = require('aws-sdk');
+
+            exports.lambda_handler = (event, context, callback) => {
+              const sqs = new aws.SQS();
+
+              sqs.receiveMessage({
+                QueueUrl: '${sqsQueueURL}',
+                AttributeNames: ['All'],
+                MaxNumberOfMessages: '10',
+                VisibilityTimeout: '30',
+                WaitTimeSeconds: '20'
+              }).promise()
+                .then(data => {
+                  if (!data.Messages) {
+                    callback(null, "No messages");
+                  } else {
+                    callback(null, data.Messages);
+                  }
+                })
+                .catch(err => {
+                  callback(err);
+                });
+            };
+          - { sqsQueueURL: !Ref SQSQueue }
+      Runtime: 'nodejs12.x'
+      Timeout: '60'
+      FunctionName: 'MapStateReadFromSQSQueueLambda'
+  DeleteFromSQSQueueLambda:
+    Type: 'AWS::Lambda::Function'
+    Properties:
+      Handler: 'index.lambda_handler'
+      Role: !GetAtt [SQSLambdaExecutionRole, Arn]
+      Code:
+        ZipFile: !Sub
+          - |-
+            const aws = require('aws-sdk');
+
+            exports.lambda_handler = (event, context, callback) => {
+              const sqs = new aws.SQS();
+
+              sqs.deleteMessage({
+                QueueUrl: '${sqsQueueURL}',
+                ReceiptHandle: event.ReceiptHandle
+              }).promise()
+                .then(data => {
+                  callback(null, data);
+                })
+                .catch(err => {
+                  callback(err);
+                });
+            };
+          - { sqsQueueURL: !Ref SQSQueue }
+      Runtime: 'nodejs12.x'
+      Timeout: '20'
+      FunctionName: 'MapStateDeleteFromSQSQueueLambda'
+  SQSLambdaExecutionRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: 'sts:AssumeRole'
+      Policies:
+        - PolicyName: LambdaSQSQueuePermissions
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 'sqs:ReceiveMessage'
+                  - 'sqs:DeleteMessage'
+                Resource: !GetAtt SQSQueue.Arn
+  DDBTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      ProvisionedThroughput:
+        ReadCapacityUnits: '1'
+        WriteCapacityUnits: '1'
+      AttributeDefinitions:
+        - AttributeName: 'MessageId'
+          AttributeType: 'S'
+      KeySchema:
+        - AttributeName: 'MessageId'
+          KeyType: 'HASH'
+      TableName: 'MapStateTable'
+  SQSQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: 'MapStateQueueforMessages'
+  SNSTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: 'MapStateTopicforMessages'
+Outputs:
+  StateMachineArn:
+    Value:
+      Ref: MapStateStateMachine
+  ExecutionInput:
+    Description: Sample input to StartExecution.
+    Value: '{}'

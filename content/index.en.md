@@ -1,5 +1,5 @@
 ---
-title: 'Serverless Microservices Orchestration with AWS Step Functions'
+title: 'The AWS Step Functions Workshop'
 weight: 0
 ---
 

@@ -1,19 +1,16 @@
 ---
-title: 'Start execution'
+title: 'Review workflow'
 weight: 32
 ---
 
-Exit Workflow Studio to "Start execution":
-![Module 1 Start Execution button](/static/module1-start-execution-btn.png)
+Navigate to the Step Functions service and find the state machine that starts with **"TimerStateMachine"**. In this sample app we will execute a task after waiting for a specified delay. Click Edit to find the button for Workflow Studio:
 
-Copy/paste the following values into the Input box:
+![Workflow Studio Button](/static/img/module-1/module1-workflow-studio.png)
 
-::code[{ "timer_seconds": 5 }]{showCopyAction=true language="js"}
+Review the definition in Workflow Studio:
 
-![Module 1 Start Execution](/static/module1-start-execution.png)
+![Module 1 Workflow](/static/img/module-1/module1-workflow.png)
 
-After your timer completes your graph inspector should look like this:
+The state machine is defined using Amazon States Language (ASL). Click the Definition button to view the ASL code. You can see that the ASL contains a "Wait" state.
 
-![Module 1 Result](/static/module1-results.png)
-
-Congratulations! You have executed a Step Functions state machine.
+![Module 1 Code](/static/img/module-1/module1-code.png)

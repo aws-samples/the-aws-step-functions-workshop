@@ -1,16 +1,26 @@
 ---
-title: 'Review workflow'
+title: 'Setup'
 weight: 41
 ---
 
-Navigate to the Step Functions service and find the state machine that starts with **"RequestResponseStateMachine"**. In this sample app we will wait for a specified delay, then we will publish to a SNS topic using the Request Response pattern.
+:::alert{header="Important" type="warning"}
+Follow the instructions on this page only if you are trying this in your own account. Otherwise, [click here](../step-2) to get started
+:::
 
-When you specify a service in the `"Resource"` string of your task state, and you only provide the resource, Step Functions will wait for an HTTP response from the service API and then will immediately progress to the next state. Step Functions will not wait for a job to complete. This called the Request Response pattern.
+- Run the command given below to download the CloudFormation template to your local machine.
 
-Review the definition in Workflow Studio:
+```bash
+curl ':assetUrl{path="/resources/module_2.yml"}' --output module_2.yml
+```
 
-![Module 2 Workflow](/static/module2-workflow.png)
-
-Notice the `"Resource"` string of the task state below. This code designates a Request Response service integration pattern.
-
-![Module 2 Code](/static/module2-code.png)
+- Navigate to the [CloudFormation](https://console.aws.amazon.com/cloudformation/home?region=us-east-1) page in the AWS Console.
+- Click on _Create stack -> With new resources (standard)_ as shown below
+  ![CloudFormation home page](/static/img/setup/setup-cloudformation-homepage.png)
+- On the _Create stack_ page, select _Upload a template file_ and then click on `Choose File` button. Select the file saved from the previous step.
+  ![CloudFormation choose file](/static/img/setup/setup-cloudformation-choose-file.png)
+- On the _Specify stack details_ page, specify _Stack name_ e.g. `SFW-Module-2`
+  ![CloudFormation stack name](/static/img/setup/setup-cloudformation-stack-name.png)
+- Click _Next_ two times and on the last `Review` page, scroll to the bottom. Click the checkbox shown and then click `Create stack`.
+  ![CloudFormation create stack](/static/img/setup/setup-cloudformation-create-stack.png)
+- Wait till the stack shows `CREATE_COMPLETE` status.
+  ![CloudFormation stack complete](/static/img/setup/setup-cloudformation-create-complete.png)

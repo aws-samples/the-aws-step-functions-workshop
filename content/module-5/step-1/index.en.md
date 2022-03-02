@@ -1,28 +1,26 @@
 ---
-title: 'Overview of the concept'
+title: 'Setup'
 weight: 71
 ---
 
-This sample project demonstrates dynamic parallelism using a Map and Choice state. This sample project creates the following:
+:::alert{header="Important" type="warning"}
+Follow the instructions on this page only if you are trying this in your own account. Otherwise, [click here](../step-2) to get started
+:::
 
-- Two AWS Lambda functions
+- Run the command given below to download the CloudFormation template to your local machine.
 
-- An Amazon Simple Queue Service (Amazon SQS) queue
+```bash
+curl ':assetUrl{path="/resources/module_5.yml"}' --output module_5.yml
+```
 
-- An Amazon Simple Notification Service (Amazon SNS) topic
-
-- An Amazon DynamoDB table
-
-- An AWS Step Functions state machine
-
-In this project, Step Functions uses an AWS Lambda function to pull messages off an Amazon SQS queue, and pass a JSON array of those messages to a Map state. For each message in the queue, the state machine writes the message to DynamoDB, invokes another Lambda function to remove the message from Amazon SQS, and then publishes the message to the Amazon SNS topic.
-
-![Visual Workflow](/static/ExtraModule-visual-workflow.png)
-
-For more information on Map states, Choice states and Step Functions service integrations, see the following:
-
-Visit [Map](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-map-state.html) to explore Map state.
-
-Visit [Choice](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-choice-state.html) to explore Choice state.
-
-Visit [Using AWS Step Functions with other services](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-service-integrations.html) for Step Functions service integrations
+- Navigate to the [CloudFormation](https://console.aws.amazon.com/cloudformation/home?region=us-east-1) page in the AWS Console.
+- Click on _Create stack -> With new resources (standard)_ as shown below
+  ![CloudFormation home page](/static/img/setup/setup-cloudformation-homepage.png)
+- On the _Create stack_ page, select _Upload a template file_ and then click on `Choose File` button. Select the file saved from the previous step.
+  ![CloudFormation choose file](/static/img/setup/setup-cloudformation-choose-file.png)
+- On the _Specify stack details_ page, specify _Stack name_ e.g. `SFW-Module-5`
+  ![CloudFormation stack name](/static/img/setup/setup-cloudformation-stack-name.png)
+- Click _Next_ two times and on the last `Review` page, scroll to the bottom. Click the checkbox shown and then click `Create stack`.
+  ![CloudFormation create stack](/static/img/setup/setup-cloudformation-create-stack.png)
+- Wait till the stack shows `CREATE_COMPLETE` status.
+  ![CloudFormation stack complete](/static/img/setup/setup-cloudformation-create-complete.png)

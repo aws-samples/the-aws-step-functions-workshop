@@ -1,10 +1,26 @@
 ---
-title: 'Execute initial workflow'
+title: 'Setup'
 weight: 61
 ---
 
-Navigate to the state function in your account that begins with **"WaitForCallbackStateMachine"**. This state machine sends a task to SQS but the callback for it is not yet implemented.
+:::alert{header="Important" type="warning"}
+Follow the instructions on this page only if you are trying this in your own account. Otherwise, [click here](../step-2) to get started
+:::
 
-Execute the state machine with default input and you'll notice that this execution will become paused indefinitely at the `Start Task and Wait For Callback` state.
+- Run the command given below to download the CloudFormation template to your local machine.
 
-![Module 4 Workflow](/static/module4-initial-workflow.png)
+```bash
+curl ':assetUrl{path="/resources/module_4.yml"}' --output module_4.yml
+```
+
+- Navigate to the [CloudFormation](https://console.aws.amazon.com/cloudformation/home?region=us-east-1) page in the AWS Console.
+- Click on _Create stack -> With new resources (standard)_ as shown below
+  ![CloudFormation home page](/static/img/setup/setup-cloudformation-homepage.png)
+- On the _Create stack_ page, select _Upload a template file_ and then click on `Choose File` button. Select the file saved from the previous step.
+  ![CloudFormation choose file](/static/img/setup/setup-cloudformation-choose-file.png)
+- On the _Specify stack details_ page, specify _Stack name_ e.g. `SFW-Module-4`
+  ![CloudFormation stack name](/static/img/setup/setup-cloudformation-stack-name.png)
+- Click _Next_ two times and on the last `Review` page, scroll to the bottom. Click the checkbox shown and then click `Create stack`.
+  ![CloudFormation create stack](/static/img/setup/setup-cloudformation-create-stack.png)
+- Wait till the stack shows `CREATE_COMPLETE` status.
+  ![CloudFormation stack complete](/static/img/setup/setup-cloudformation-create-complete.png)

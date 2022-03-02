@@ -1,0 +1,245 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: AWS Step Functions sample project for sending a message to an SQS queue and pausing the workflow until it receives a call back from Lambda.
+
+Parameters:
+  # Optional parameters passed by the Event Engine to the stack.
+  EEEventId:
+    Description: 'Unique ID of this Event'
+    Type: String
+  EETeamId:
+    Description: 'Unique ID of this Team'
+    Type: String
+  EEModuleId:
+    Description: 'Unique ID of this module'
+    Type: String
+  EEModuleVersion:
+    Description: 'Version of this module'
+    Type: String
+  EEAssetsBucket:
+    Description: 'Region-specific assets S3 bucket name (e.g. ee-assets-prod-us-east-1)'
+    Type: String
+  EEAssetsKeyPrefix:
+    Description: 'S3 key prefix where this modules assets are stored. (e.g. modules/my_module/v1/)'
+    Type: String
+  EECentralAccountId:
+    Description: 'AWS Account Id of the Central account'
+    Type: String
+  EETeamRoleArn:
+    Description: 'ARN of the Team Role'
+    Type: String
+  EEKeyPair:
+    Description: 'Name of the EC2 KeyPair generated for the Team'
+    Type: AWS::EC2::KeyPair::KeyName
+
+Resources:
+  LambdaExecutionRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: 'sts:AssumeRole'
+      Policies:
+        - PolicyName: SQSReceiveMessagePolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 'sqs:ReceiveMessage'
+                  - 'sqs:DeleteMessage'
+                  - 'sqs:GetQueueAttributes'
+                  - 'sqs:ChangeMessageVisibility'
+                Resource: !GetAtt [SQSQueue, Arn]
+        - PolicyName: CloudWatchLogsPolicy
+          PolicyDocument:
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 'logs:CreateLogGroup'
+                  - 'logs:CreateLogStream'
+                  - 'logs:PutLogEvents'
+                Resource: !Sub 'arn:${AWS::Partition}:logs:*:*:*'
+        - PolicyName: StatesExecutionPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 'states:SendTaskSuccess'
+                  - 'states:SendTaskFailure'
+                Resource: !Ref WaitForCallbackStateMachine
+
+  SQSQueue:
+    Type: 'AWS::SQS::Queue'
+    Properties:
+      DelaySeconds: 0
+      VisibilityTimeout: 30
+      RedrivePolicy:
+        deadLetterTargetArn: !GetAtt [SQSQueueDLQ, Arn]
+        maxReceiveCount: 1
+
+  SQSQueueDLQ:
+    Type: 'AWS::SQS::Queue'
+    Properties:
+      DelaySeconds: 0
+      VisibilityTimeout: 30
+
+  SNSTopic:
+    Type: 'AWS::SNS::Topic'
+    Properties:
+      DisplayName: 'StepFunctionsTemplate-CallbackTopic'
+
+  LambdaFunctionEventSourceMapping:
+    Type: 'AWS::Lambda::EventSourceMapping'
+    Properties:
+      BatchSize: 10
+      Enabled: true
+      EventSourceArn: !GetAtt [SQSQueue, Arn]
+      FunctionName: !GetAtt [CallbackWithTaskToken, Arn]
+
+  CallbackWithTaskToken:
+    Type: 'AWS::Lambda::Function'
+    Properties:
+      Handler: 'index.lambda_handler'
+      Role: !GetAtt [LambdaExecutionRole, Arn]
+      Code:
+        ZipFile: |
+
+          /**
+              MIT No Attribution
+              
+              Copyright 2021 Amazon Web Services
+              
+              Permission is hereby granted, free of charge, to any person obtaining a copy of this
+              software and associated documentation files (the "Software"), to deal in the Software
+              without restriction, including without limitation the rights to use, copy, modify,
+              merge, publish, distribute, sublicense, and/or sell copies of the Software, and to
+              permit persons to whom the Software is furnished to do so.
+              
+              THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+              INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+              PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+              HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+              OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+              SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+          */
+
+          console.log('Loading function');
+
+          var AWS = require('aws-sdk');
+          var stepfunctions = new AWS.StepFunctions({apiVersion: '2016-11-23'});
+
+          exports.lambda_handler = async(event, context, callback) => {
+
+              for (const record of event.Records) {
+                  const messageBody = JSON.parse(record.body);
+                  const taskToken = messageBody.TaskToken;
+
+                  const params = {
+                      output: "\"Callback task completed successfully.\"",
+                      taskToken: taskToken
+                  };
+
+                  /**
+                  * uncomment the lines below and redeploy the Lambda function
+                  */
+                  // console.log(`Calling Step Functions to complete callback task with params ${JSON.stringify(params)}`);
+                  // let response = await stepfunctions.sendTaskSuccess(params).promise();
+              }
+          };
+
+      Runtime: 'nodejs14.x'
+      Timeout: '25'
+
+  StatesExecutionRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: 'Allow'
+            Principal:
+              Service: states.amazonaws.com
+            Action: 'sts:AssumeRole'
+      Path: '/'
+      Policies:
+        - PolicyName: SNSPublishPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 'sns:Publish'
+                Resource: !Ref SNSTopic
+        - PolicyName: SQSSendMessagePolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 'sqs:SendMessage'
+                Resource: !GetAtt [SQSQueue, Arn]
+
+  WaitForCallbackStateMachine:
+    Type: 'AWS::StepFunctions::StateMachine'
+    Properties:
+      DefinitionString: !Sub
+        - |-
+          {
+            "Comment": "An example of the Amazon States Language for starting a task and waiting for a callback.",
+            "StartAt": "Start Task And Wait For Callback",
+            "States": {
+              "Start Task And Wait For Callback": {
+                "Type": "Task",
+                "Resource": "arn:${AWS::Partition}:states:::sqs:sendMessage.waitForTaskToken",
+                "Parameters": {
+                  "QueueUrl": "${sqsQueueUrl}",
+                  "MessageBody": {
+                    "MessageTitle": "Task started by Step Functions. Waiting for callback with task token.",
+                    "TaskToken.$": "$$.Task.Token"
+                  }
+                },
+                "Next": "Notify Success",
+                "Catch": [
+                {
+                  "ErrorEquals": [ "States.ALL" ],
+                  "Next": "Notify Failure"
+                }
+                ]
+              },
+              "Notify Success": {
+                "Type": "Task",
+                "Resource": "arn:${AWS::Partition}:states:::sns:publish",
+                "Parameters": {
+                  "Message": "Callback received. Task started by Step Functions succeeded.",
+                  "TopicArn": "${SimpleLambdaFunctionArn}"
+                },
+                "End": true
+              },
+              "Notify Failure": {
+                "Type": "Task",
+                "Resource": "arn:${AWS::Partition}:states:::sns:publish",
+                "Parameters": {
+                  "Message": "Task started by Step Functions failed.",
+                  "TopicArn": "${SimpleLambdaFunctionArn}"
+                },
+                "End": true
+              }
+            }
+          }
+
+        - { SimpleLambdaFunctionArn: !Ref SNSTopic, sqsQueueUrl: !Ref SQSQueue }
+      RoleArn: !GetAtt [StatesExecutionRole, Arn]
+
+Outputs:
+  StateMachineArn:
+    Value:
+      Ref: WaitForCallbackStateMachine
+  ExecutionInput:
+    Description: Sample input to StartExecution.
+    Value: >
+      {}

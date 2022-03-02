@@ -3,4 +3,4 @@ title: 'Workflows'
 weight: 14
 ---
 
-![Workflows](/static/intro-workflows.png)
+![Workflows](/static/img/intro/intro-workflows.png)

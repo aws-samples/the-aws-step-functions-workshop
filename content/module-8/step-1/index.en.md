@@ -1,14 +1,26 @@
 ---
-title: 'Overview of the concept'
+title: 'Setup'
 weight: 101
 ---
 
-AWS Step Functions integrates with AWS services, letting you call each service's API actions from your workflow. You can use Step Functions' AWS SDK integrations to call any of the over 200 AWS services directly from your state machine, giving you access to over 9,000 API actions.
+:::alert{header="Important" type="warning"}
+Follow the instructions on this page only if you are trying this in your own account. Otherwise, [click here](../step-2) to get started
+:::
 
-To use AWS SDK integrations, you specify the service name and API call, and, optionally, a service integration pattern. Note that the API action will always be camel case, and parameter names will be Pascal case. For example, you could use Step Functions' **startSyncExecution** API action and specify the parameter **StateMachineArn**. You can call AWS SDK services directly from the Amazon States Language in the Resource field of a task state. To do this, use the following syntax:
+- Run the command given below to download the CloudFormation template to your local machine.
 
-`arn:aws:states:::aws-sdk:serviceName:apiAction.[serviceIntegrationPattern]`
+```bash
+curl ':assetUrl{path="/resources/module_8.yml"}' --output module_8.yml
+```
 
-For example, for Amazon EC2, you might use `arn:aws:states:::aws-sdk:ec2:describeInstances`. This would return output as defined for the Amazon EC2 describeInstances API call.
-
-For Amazon S3, if you want to list buckets you might use `arn:aws:states:::aws-sdk:s3:listBuckets` which uses the `listBuckets` API call.
+- Navigate to the [CloudFormation](https://console.aws.amazon.com/cloudformation/home?region=us-east-1) page in the AWS Console.
+- Click on _Create stack -> With new resources (standard)_ as shown below
+  ![CloudFormation home page](/static/img/setup/setup-cloudformation-homepage.png)
+- On the _Create stack_ page, select _Upload a template file_ and then click on `Choose File` button. Select the file saved from the previous step.
+  ![CloudFormation choose file](/static/img/setup/setup-cloudformation-choose-file.png)
+- On the _Specify stack details_ page, specify _Stack name_ e.g. `SFW-Module-8`
+  ![CloudFormation stack name](/static/img/setup/setup-cloudformation-stack-name.png)
+- Click _Next_ two times and on the last `Review` page, scroll to the bottom. Click the checkbox shown and then click `Create stack`.
+  ![CloudFormation create stack](/static/img/setup/setup-cloudformation-create-stack.png)
+- Wait till the stack shows `CREATE_COMPLETE` status.
+  ![CloudFormation stack complete](/static/img/setup/setup-cloudformation-create-complete.png)

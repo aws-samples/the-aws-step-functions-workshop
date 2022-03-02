@@ -1,14 +1,19 @@
 ---
-title: "Let's play"
+title: 'Start execution'
 weight: 33
 ---
 
-Let's play around with Workflow Studio for a few minutes.
+Exit Workflow Studio to "Start execution":
+![Module 1 Start Execution button](/static/img/module-1/module1-start-execution-btn.png)
 
-Create a new state machine and drag and drop an Action and Flow State into your workflow. Note: some functionality is restricted in this workshop (eg. IAM role creation).
+Copy/paste the following values into the Input box:
 
-![Create State Machine](/static/module-1-create-state-machine.png)
+::code[{ "timer_seconds": 5 }]{showCopyAction=true language="js"}
 
-![Design Visually](/static/module-1-design.png)
+![Module 1 Start Execution](/static/img/module-1/module1-start-execution.png)
 
-You may Cancel out of Workflow Studio when we are ready to move on.
+After your timer completes your graph inspector should look like this:
+
+![Module 1 Result](/static/img/module-1/module1-results.png)
+
+Congratulations! You have executed a Step Functions state machine.

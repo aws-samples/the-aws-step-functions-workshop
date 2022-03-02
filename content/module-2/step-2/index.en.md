@@ -1,14 +1,16 @@
 ---
-title: 'Start execution'
+title: 'Review workflow'
 weight: 42
 ---
 
-Now go ahead and "Start execution" on this state machine using the following input values:
+Navigate to the Step Functions service and find the state machine that starts with **"RequestResponseStateMachine"**. In this sample app we will wait for a specified delay, then we will publish to a SNS topic using the Request Response pattern.
 
-::code[{ "message": "Welcome to re:Invent!", "timer_seconds": 5 }]{showCopyAction=true language="js"}
+When you specify a service in the `"Resource"` string of your task state, and you only provide the resource, Step Functions will wait for an HTTP response from the service API and then will immediately progress to the next state. Step Functions will not wait for a job to complete. This called the Request Response pattern.
 
-Navigate to the event history for this execution. You will notice that the execution time for the Send SNS Message task is relatively fast. The state machine proceeds as soon as the SNS Publish API is called.
+Review the definition in Workflow Studio:
 
-![Module 2 Result](/static/module2-results.png)
+![Module 2 Workflow](/static/img/module-2/module2-workflow.png)
 
-In this case the `"Send SNS Task"` completed in 120ms. Review your own execution event history to compare results.
+Notice the `"Resource"` string of the task state below. This code designates a Request Response service integration pattern.
+
+![Module 2 Code](/static/img/module-2/module2-code.png)
