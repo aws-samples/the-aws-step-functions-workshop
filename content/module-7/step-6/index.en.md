@@ -11,7 +11,7 @@ If you have named the state machines as per the instructions provided
 - select **ParallelProcessing-sm** from the list of state machines.
 - Click **Delete** button
 - Confirm by clicking **Delete state machine** button on the dialog box that is displayed.
-  ![Statemachine delete](/static/module-7-manual-delete-sm.png)
+  ![Statemachine delete](/static/img/module-7/module-7-manual-delete-sm.png)
 
 If you have chosen different names while creating the state machines, follow the above instructions while selecting the appropriate state machines.
 
