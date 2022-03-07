@@ -5,7 +5,11 @@ weight: 10
 
 ### Summary
 
-In this builder session we will learn how to use the request response, sync polling, and callback orchestration patterns in AWS Step Functions.
+In this workshop session we will learn how to use various features of AWS Step functions viz. request response, sync polling, and callback orchestration.
+
+We will learn to use the Workshop Studio GUI to design and build our step function state machines and will also learn how to design the step functions using technologies like AWS CDK (Cloud Development Kit) and AWS SAM (Serverless Application Model).
+
+Please follow the Clean Up instructions provided inside each module to delete the resources after you are done to avoid any charges.
 
 ### Target Audience
 
@@ -20,4 +24,4 @@ In this builder session we will learn how to use the request response, sync poll
 
 ### Session Duration
 
-- 2 hours
+- 3 hours
