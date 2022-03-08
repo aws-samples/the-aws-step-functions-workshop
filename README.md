@@ -1,5 +1,10 @@
 # Aws-workshop-template
 
+## Powerpoint template
+
+The images in the Introduction section were created from a Powerpoint at [this workdocs location](https://amazon.awsapps.com/workdocs/index.html#/document/8d80b53c20323c14316a722c047e8ae03136295b87f19d6839498a04568d5066).
+
+
 ## Repo structure
 
 ```bash
