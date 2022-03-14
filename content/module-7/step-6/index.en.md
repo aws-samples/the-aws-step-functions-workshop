@@ -23,3 +23,12 @@ Follow the instructions given below only if you are trying this in your own acco
 - Select the stack with name `SFW-Module-7` (or any name you have chosen for the stack) and then click Delete.
   ![CloudFormation delete](/static/img/setup/setup-cloudformation-delete.png)
 - Make sure the stack deletion completes successfully.
+
+## Manually delete the CloudWatch log group
+
+Navigate to **CloudWatch** and select **Log groups** under Logs
+
+- select the log group belonging to **ParallelProcessing-sm** step function.
+- Click on **Actions** dropdown and then select **Delete log group(s)**.
+  ![Cloudwatch loggroup delete](/static/img/module-7/module-7-cloudwatch-cleanup.png)
+- Confirm by clicking the **Delete** button in the pop up screen.
