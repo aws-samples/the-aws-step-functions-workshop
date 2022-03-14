@@ -3,7 +3,7 @@ title: 'Build a state machine with a Parallel State and Integrate it with API Ga
 weight: 93
 ---
 
-## Creating the State Machine
+### Creating the State Machine
 
 Three Lambda functions are already created for you in your AWS account. Follow the below steps to create a simple workflow using Workflow Studio.
 
@@ -67,7 +67,7 @@ Three Lambda functions are already created for you in your AWS account. Follow t
 
 Next step is to setup the integration with API Gateway.
 
-## Setting up the integration between API Gateway and Step Functions
+### Setting up the integration between API Gateway and Step Functions
 
 1. Go to the API Gateway console and select the API already created for this activity.
    ![API Console](/static/img/module-7/module-7-API-console.png)
