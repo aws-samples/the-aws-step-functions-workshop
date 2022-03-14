@@ -13,9 +13,9 @@ Follow the instructions on this page only if you are trying this in your own acc
 curl ':assetUrl{path="/resources/module_1.yml"}' --output module_1.yml
 ```
 
-| Region                              |                                                                                                                                                                                   Launch stack |
-| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| **US East (N. Virginia)** us-east-1 | [Launch](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/template?stackName=SFW-Module-1&templateURL=:assetUrl{path="/resources/module_1.yml" source="s3"}) |
+| Region                              |                                                                                                                    Launch stack |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------: |
+| **US East (N. Virginia)** us-east-1 | [Launch](https://static.us-east-1.prod.workshops.aws/public/9b3f2ea0-cf1e-42ca-84e8-f65800e20dd3/static/resources/module_1.yml) |
 
 - Navigate to the [CloudFormation](https://console.aws.amazon.com/cloudformation/home?region=us-east-1) page in the AWS Console.
 - Click on _Create stack -> With new resources (standard)_ as shown below
