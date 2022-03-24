@@ -1,6 +1,7 @@
 ---
 AWSTemplateFormatVersion: 2010-09-09
 Description: AWS Step Functions sample project for getting notified on AWS Batch job completion
+
 Resources:
   BatchJobNotificationStateMachine:
     Type: AWS::StepFunctions::StateMachine

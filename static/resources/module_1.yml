@@ -1,36 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: AWS Step Functions sample project for scheduling a task
 
-Parameters:
-  # Optional parameters passed by the Event Engine to the stack.
-  EEEventId:
-    Description: 'Unique ID of this Event'
-    Type: String
-  EETeamId:
-    Description: 'Unique ID of this Team'
-    Type: String
-  EEModuleId:
-    Description: 'Unique ID of this module'
-    Type: String
-  EEModuleVersion:
-    Description: 'Version of this module'
-    Type: String
-  EEAssetsBucket:
-    Description: 'Region-specific assets S3 bucket name (e.g. ee-assets-prod-us-east-1)'
-    Type: String
-  EEAssetsKeyPrefix:
-    Description: 'S3 key prefix where this modules assets are stored. (e.g. modules/my_module/v1/)'
-    Type: String
-  EECentralAccountId:
-    Description: 'AWS Account Id of the Central account'
-    Type: String
-  EETeamRoleArn:
-    Description: 'ARN of the Team Role'
-    Type: String
-  EEKeyPair:
-    Description: 'Name of the EC2 KeyPair generated for the Team'
-    Type: AWS::EC2::KeyPair::KeyName
-
 Resources:
   StatesExecutionRole:
     Type: 'AWS::IAM::Role'
