@@ -1,25 +1,33 @@
 ---
-title: 'Create the state machine and provision resources'
+title: 'Locate your resources and configure your state machine'
 weight: 72
 ---
 
-The following resources are already created for you in your AWS account. Navigate to these services on the AWS console to grab the required resource names and ARNs (Amazon Resource Name) which will be needed in the later steps of this exercise. It is recommended that you copy these values in a notepad.
+### Locate your resources
 
-- An Amazon SQS queue - will be similar to `MapStateQueueforMessages`
+Navigate to the services below in the AWS console to familiarize yourself with the resources. Make sure you are in the correct region. Copy the SNS Topic ARN (Amazon Resource Name) to a notepad. You will need this value later in the module. 
 
-- An Amazon SNS topic - will be similar to `MapStateTopicforMessages`
+- [Amazon SQS](https://console.aws.amazon.com/sqs/v2/home) queue - find **MapStateQueueforMessages**
 
-- A DynamoDB table - will be similar to `MapStateTable`
+- [Amazon SNS](https://console.aws.amazon.com/sns/v3/home) topic - find **MapStateTopicforMessages**
 
-- Two Lambda functions - will be similar to `MapStateReadFromSQSQueueLambda` and `MapStateDeleteFromSQSQueueLambda`
+- [Amazon DynamoDB](https://console.aws.amazon.com/dynamodbv2/home) table - find **MapStateTable**
 
-1. Navigate to Step Functions in your AWS console. Make sure you are in the same AWS region that is assigned for this session.
+- [AWS Lambda](https://console.aws.amazon.com/lambda/home) functions - find **MapStateReadFromSQSQueueLambda** and **MapStateDeleteFromSQSQueueLambda**
 
-2. If you are not on the State Machines page, click on State Machines on the left side menu and you will see a state machine that will look like **MapStateStateMachine-tshNzXAbA3tM**. Click on it and then click on **Edit** from the right top corner.
+### Configure your state machine
+
+1. Navigate to [Step Functions](https://console.aws.amazon.com/states/home) in the AWS console.
+
+2. Locate the state machine that contains **MapStateStateMachine** in its name. Click on it and then click on **Edit** in the top right corner.
 
 ![EDIT](/static/img/module-5/extra-credit-map-state-definition-edit.png)
 
-3. Select all under the **Definition** section and delete the existing **Definition** which is a hello world state definition. Now copy and paste the state machine definition from below which has **BLANK** values in the Map and Choice state (total of 4 places). Please make sure you update these **BLANKs** with the correct state syntax and parameters.
+3. Select all under the **Definition** section and delete the existing ASL definition. Now copy and paste the ASL definition below. This definition contains **BLANK** values in the Map and Choice state (total of 4 places). Your challenge is to update these **BLANKs** with the correct state syntax and parameters. (Completion hints are below.)
+
+    - Visit [Map](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-map-state.html) to learn about Map state syntax.
+
+    - Visit [Choice](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-choice-state.html) to learn about Choice state syntax.
 
 :::code{showCopyAction=true showLineNumbers=true language=json}
 
@@ -112,9 +120,6 @@ The following resources are already created for you in your AWS account. Navigat
 
 **HINTS**
 
-Visit [Map](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-map-state.html) to explore Map state syntax.
-
-Visit [Choice](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-choice-state.html) to explore Choice state syntax.
 
 - Choice State Syntax:
 
@@ -129,7 +134,7 @@ Visit [Choice](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-state
 }
 :::
 
-Map State Syntax:
+- Map State Syntax:
 
 :::code{showCopyAction=true showLineNumbers=true language=json}
 
@@ -142,7 +147,7 @@ Map State Syntax:
 }
 :::
 
-5. State machine definition may also have the sample resource parameters. Cross check and update the state machine definition parameters/resources with the resource names/ARNs noted in step 1. Make sure SNS topic ARN has your correct AWS account number.
+5. ASL definitions may contain resource parameters. Find and update the TopicArn with the correct value.
 
 6. Click on **Save** (select Save anyway if the warning comes)
    ![save](/static/img/module-5/extra-credit-map-state-definition.png)
