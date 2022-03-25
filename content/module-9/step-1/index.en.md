@@ -6,7 +6,7 @@ weight: 111
 ### Launch Cloud9 in your closest region
 
 :::alert{header="Important" type="warning"}
-Follow the instructions in this section only if you are trying this in your own account.
+Follow the instructions on this page only if you are executing this workshop in your own account. To skip these instructions [click here](../step-2).
 :::
 
 - Log into the AWS Console

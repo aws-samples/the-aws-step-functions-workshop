@@ -1,5 +1,5 @@
 ---
-title: 'Set up your own account'
+title: 'Setup'
 weight: 31
 ---
 
