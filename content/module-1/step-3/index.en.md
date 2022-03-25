@@ -16,4 +16,4 @@ After your timer completes your graph inspector should look like this:
 
 ![Module 1 Result](/static/img/module-1/module1-results.png)
 
-Congratulations! You have executed a Step Functions state machine.
+::alert[Congratulations! You have executed a Step Functions state machine.]{type="success"}

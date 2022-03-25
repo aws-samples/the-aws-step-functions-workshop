@@ -4,7 +4,7 @@ weight: 35
 ---
 
 :::alert{header="Important" type="warning"}
-Follow the instructions on this page only if you are trying this in your own account.
+Follow the instructions on this page only if you are trying to clean up resources in your own account.
 :::
 
 - Navigate to the [CloudFormation](https://console.aws.amazon.com/cloudformation/home?region=us-east-1) page in the AWS Console.

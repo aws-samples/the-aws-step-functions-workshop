@@ -6,5 +6,5 @@ weight: 30
 ## Module Goals
 
 - Navigate to Workflow Studio
-- Review ASL definition
+- Review an ASL definition
 - Execute a Hello World function state machine
