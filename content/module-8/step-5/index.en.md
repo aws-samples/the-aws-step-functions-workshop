@@ -3,11 +3,11 @@ title: 'Clean up'
 weight: 105
 ---
 
-## Manually delete the state machine
-
 :::alert{header="Important" type="warning"}
-Follow the instructions given below only if you are trying this in your own account.
+Follow the instructions on this page if you would like to clean up resources in your own account. Event Engine accounts do not require cleanup.
 :::
+
+## Manually delete the state machine
 
 Navigate to **Step Functions**
 If you named the state machines per the instructions provided:

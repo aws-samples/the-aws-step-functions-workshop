@@ -4,7 +4,7 @@ weight: 35
 ---
 
 :::alert{header="Important" type="warning"}
-Follow the instructions on this page only if you are trying to clean up resources in your own account.
+Follow the instructions on this page if you would like to clean up resources in your own account. Event Engine accounts do not require cleanup.
 :::
 
 - Navigate to the [CloudFormation](https://console.aws.amazon.com/cloudformation/home) page in the AWS Console.

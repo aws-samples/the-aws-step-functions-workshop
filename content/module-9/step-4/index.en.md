@@ -3,11 +3,11 @@ title: 'Clean up'
 weight: 113
 ---
 
-### CDK project clean up
-
 :::alert{header="Important" type="warning"}
-Follow the instructions below only if you are trying this in your own account.
+Follow the instructions on this page if you would like to clean up resources in your own account. Event Engine accounts do not require cleanup.
 :::
+
+### CDK project clean up
 
 When you're done trying out your API Gateway, you can destroy both the state machine and the API Gateway using the AWS CDK. Issue `cdk destroy` in your app's main directory.
 
