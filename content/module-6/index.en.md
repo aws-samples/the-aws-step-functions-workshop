@@ -5,6 +5,6 @@ weight: 80
 
 ## Module Goals
 
-- Overview
 - Build a state machine using Workflow Studio
-- Execute the state machine and review results
+- Learn about Input and Output data processing capabilities
+- Execute your state machine and review results

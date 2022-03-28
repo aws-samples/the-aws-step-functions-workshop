@@ -18,4 +18,4 @@ weight: 83
    }
    }
    :::
-3. Once the execution is successful, review the output in the `Execution output` tab. See how the data block in the input json gets added to the output of the lambda function. You can use this output to pick and choose what you want to pass onto the next task when you add one.
+3. Once the execution is successful, review the output in the `Execution output` tab. See how the data block in the input json gets added to the output of the lambda function. This output would be passed to the next state in your workflow.
