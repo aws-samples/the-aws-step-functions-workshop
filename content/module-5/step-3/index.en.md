@@ -151,3 +151,4 @@ Navigate to the services below in the AWS console to familiarize yourself with t
 
 6. Click on **Save** (select Save anyway if the warning comes)
    ![save](/static/img/module-5/extra-credit-map-state-definition.png)
+   

@@ -5,6 +5,6 @@ weight: 70
 
 ## Module Goals
 
-- Overview
-- Create the state machine and provision additional resources
+- Create a state machine using Map and Choice states
+- Learn Map and Choice state ASL syntax 
 - Execute the state machine and review the results
