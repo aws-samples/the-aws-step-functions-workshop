@@ -18,7 +18,6 @@ If you named the state machines per the instructions provided:
 
 If you have chosen different names while creating the state machines, follow the above instructions while selecting the appropriate state machines.
 
-
 - Navigate to the [CloudFormation](https://console.aws.amazon.com/cloudformation/home) page in the AWS Console.
 - Select the stack with name `SFW-Module-7` (or any name you have chosen for the stack) and then click Delete.
   ![CloudFormation delete](/static/img/setup/setup-cloudformation-delete.png)

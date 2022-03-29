@@ -5,7 +5,7 @@ weight: 90
 
 ## Module Goals
 
-- Overview
-- Build a state machine with a Parallel State and Integrate it with API Gateway
-- Execute the state machine through API Gateway and review results
-- Update the integration to make the execution synchronous
+- Build a state machine with a Parallel State and integrate it with API Gateway
+- Execute an asynchronous execution through a request to API Gateway
+- Configure the integration to be synchronous
+- Execute an synchronous execution through a request to API Gateway

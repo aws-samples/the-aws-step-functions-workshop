@@ -1,5 +1,5 @@
 ---
-title: 'Execute the state machine and review results'
+title: 'Execute the state machine'
 weight: 103
 ---
 
@@ -12,4 +12,4 @@ weight: 103
 
 - Inspect the **Execution event history** and verify if you see an s3 bucket in the output which starts with `univesalsdkintegrationbucket-`.
 
-Congratulations! You have successfully completed the module.
+::alert[**Congratulations!** You have successfully completed the module.]{type="success"}

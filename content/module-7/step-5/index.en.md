@@ -1,11 +1,11 @@
 ---
-title: 'Update the integration to make the execution synchronous'
+title: 'Execute a synchronous execution through API Gateway'
 weight: 95
 ---
 
-## Making the integration synchronous
+## Make the integration synchronous
 
-1. Go to the API Gateway console and select the API already created for this activity.
+1. Go to the API Gateway console and select the API created for this module.
    ![API Console](/static/img/module-7/module-7-API-console-4.png)
 2. From the list of resources find the `execution` resource and click on `POST`
    ![API Execution](/static/img/module-7/module-7-API-execution-new-4.png)
@@ -16,4 +16,6 @@ weight: 95
 6. You will notice a larger `Response Body` with more details from the state machine execution including the `input` and the `output`
    ![API Test Result Sync](/static/img/module-7/module-7-API-test-result-sync-4.png)
 
-Congratulations! You just setup a synchronous integration between API Gateway and Step Functions without writing a single line of code.
+::alert[**Congratulations!** You just executed a synchronous integration between API Gateway and Step Functions.]{type="success"}
+
+

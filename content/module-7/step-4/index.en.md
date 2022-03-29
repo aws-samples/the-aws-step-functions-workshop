@@ -1,9 +1,9 @@
 ---
-title: 'Execute the state machine through API Gateway and review results'
+title: 'Execute an asynchronous execution through API Gateway'
 weight: 94
 ---
 
-1. Go to the API Gateway console and select the API already created for this activity.
+1. Go to the API Gateway console and select the API created for this module.
    ![API Console](/static/img/module-7/module-7-API-console-3.png)
 2. From the list of resources find the `execution` resource and click on `POST`
    ![API Execution New](/static/img/module-7/module-7-API-execution-new.png)
@@ -18,7 +18,7 @@ weight: 94
    :::
    ![API Test](/static/img/module-7/module-7-API-test.png)
 5. Click `Test`
-6. Look at the `Response Body`, you can notice that it includes the reference to the `executionArn` and the `startDate`, this is because the State Machine was executed asynchronously
+6. Look at the `Response Body`. Notice that it includes references to the `executionArn` and the `startDate`. This is because the State Machine was executed asynchronously.
    ![API Test Result](/static/img/module-7/module-7-API-test-result.png)
 
-   In the next section, let's change the configuration to make it synchronous.
+::alert[**Congratulations!** You just executed an asynchronous integration between API Gateway and Step Functions.]{type="success"}
