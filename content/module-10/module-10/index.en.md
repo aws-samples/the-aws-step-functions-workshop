@@ -1,5 +1,5 @@
 ---
-title: 'Module 8 - Universal AWS SDK service integrations'
+title: 'Module 10 - Use Step Functions and AWS Batch with error handling'
 weight: 100
 ---
 
