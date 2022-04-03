@@ -53,10 +53,10 @@ Resources:
                   - logs:CreateLogStream
                   - logs:PutLogEvents
                 Resource: '*'
-  InputOuputProcessingStepFuntionRole:
+  InputOutputProcessingStepFunctionRole:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: InputOuputProcessingStepFuntionRole
+      RoleName: InputOutputProcessingStepFunctionRole
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:

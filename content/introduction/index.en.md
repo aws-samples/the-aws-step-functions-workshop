@@ -9,7 +9,7 @@ In this workshop session we will learn how to use various features of AWS Step f
 
 We will learn to use the Workshop Studio GUI to design and build our step function state machines and will also learn how to design the step functions using technologies like AWS CDK (Cloud Development Kit).
 
-Please follow the Clean Up instructions provided inside each module to delete the resources after you are done to avoid any charges.
+If you are following this workshop session using your own AWS account, please follow the Clean Up instructions provided inside each module to delete the resources after you are done to avoid any charges.
 
 ### Target Audience
 

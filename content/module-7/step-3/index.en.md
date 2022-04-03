@@ -7,7 +7,7 @@ weight: 93
 
 Follow the steps below to create a workflow using Workflow Studio.
 
-1. Navigate to [Step Functions](https://console.aws.amazon.com/states/home) in your AWS console. Make sure you are in the correct AWS region.
+1. Navigate to [Step Functions](https://console.aws.amazon.com/states/home) in your AWS console. Make sure you are in the same region where you deployed the resources using the CloudFormation template in the **setup** step.
 2. Click **Create state machine**.
 3. For `Choose authoring method` select **Design your workflow visually**, select state machine `Type` as **Express** and click on `Next`.
    ![Studio Selection](/static/img/module-7/module-7-studio-selection.png)

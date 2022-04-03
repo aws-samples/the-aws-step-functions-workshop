@@ -21,11 +21,13 @@ Follow the below steps to create a simple workflow using Workflow Studio.
    ![](/static/img/module-6/extra-credit-2-lambda-invoke-state.png)
 
 7. Configure the state.
-  - On the `Configuration` tab of the designer, enter `HelloFunctionWorkflow` for state name.
-  - You should have a Lambda function called `HelloFunction` already deployed to your acccount.
-  - Configure this state to invoke that function. Find the `API Parameters` field and click `Enter function name`. Scroll down the menu list until you find **HelloFunction:$LATEST**. Select this value.
 
-  ![](/static/img/module-6/extra-credit-2-configuration.png)
+- On the `Configuration` tab of the designer, enter `HelloFunctionWorkflow` for state name.
+- You should have a Lambda function called `HelloFunction` already deployed to your acccount.
+- Configure this state to invoke that function. Find the `API Parameters` field and click `Enter function name`. Scroll down the menu list until you find **HelloFunction:$LATEST**. Select this value.
+
+![](/static/img/module-6/extra-credit-2-configuration.png)
+
 - Click on `Input` tab and check the box for `filter input with InputPath - optional`. Enter `$.lambda` for the value.
   ![](/static/img/module-6/extra-credit-2-config-input.png)
 - Click on the `Output` tab and check the box to `Add original input to output using ResultPath`. Select `Combine original input with result`. Enter the following string as the ResultPath filter: `$.data.lambdaresult`.
@@ -34,6 +36,6 @@ Follow the below steps to create a simple workflow using Workflow Studio.
 - Click on the `Error handling` tab. Find the **Retry on errors** section and remove the default `Retrier #1` by clicking the edit icon to the right and scrolling down to click the **Remove** button.
   ![](/static/img/module-6/remove-retrier.png)
 - Click on **Next** and review the generated code and click **Next** again.
-- Provide a name to this state machine. For example: `Lambda-input-output-processing-sm`. For the IAM role, select an existing IAM role `InputOuputProcessingStepFunctionRole`
+- Provide a name to this state machine. For example: `Lambda-input-output-processing-sm`. For the IAM role, select an existing IAM role `InputOutputProcessingStepFunctionRole`
   ![](/static/img/module-6/extra-credit-2-name-iam-role.png)
 - You can leave the rest of the defaults and click on **Create state machine**.

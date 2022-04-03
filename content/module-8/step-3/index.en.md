@@ -3,7 +3,7 @@ title: 'Create the state machine and provision resources'
 weight: 102
 ---
 
-1. Navigate to Step Functions in your AWS console. Make sure you are in the same AWS region that is assigned for this session.
+1. Navigate to Step Functions in your AWS console. Make sure you are in the same region where you deployed the resources using the CloudFormation template in the **setup** step.
 
 2. If you are not on the `State machines` page, click on `State machines` on the left side menu and click **Create state machine**
 
@@ -13,7 +13,7 @@ weight: 102
 4. You should see the designer studio now which will look like this.
    ![](/static/img/module-6/extra-credit-2-studio-designer.png)
 
-5. For `Comment` on the right side, enter `A step functions example showing MAP and Choice state implementation`.
+5. For `Comment` on the right side, enter `A step functions example showing universal AWS SDK service integration with S3`.
 
 6. One the left hand side **Actions** menu, use the search bar and search for `ListBuckets`. You should see the **S3 ListBuckets** action show up.
 
