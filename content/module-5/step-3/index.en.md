@@ -29,16 +29,15 @@ Navigate to the services below in the AWS console to familiarize yourself with t
 
    - Visit [Choice](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-choice-state.html) to learn about Choice state syntax.
 
-:::code{showCopyAction=true showLineNumbers=true language=json}
-
+```bash
 {
-"Comment": "An example of the Amazon States Language for reading messages from an SQS queue and iteratively processing each message.",
-"StartAt": "Read messages from SQS queue",
-"States": {
-"Read messages from SQS queue": {
-"Type": "Task",
-"Resource": "arn:aws:states:::lambda:invoke",
-"OutputPath": "$.Payload",
+  "Comment": "An example of the Amazon States Language for reading messages from an SQS queue and iteratively processing each message.",
+  "StartAt": "Read messages from SQS queue",
+  "States": {
+    "Read messages from SQS queue": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "OutputPath": "$.Payload",
       "Parameters": {
         "FunctionName": "MapStateReadFromSQSQueueLambda"
       },
@@ -59,8 +58,8 @@ Navigate to the services below in the AWS console to familiarize yourself with t
       "Type": "Map",
       "Next": "Finish",
       "ItemsPath": "$",
-"Parameters": {
-"MessageNumber.$": "$$.**BLANK**",
+      "Parameters": {
+        "MessageNumber.$": "$$.**BLANK**",
         "MessageDetails.$": "$$.**BLANK**"
       },
       "Iterator": {
@@ -88,55 +87,53 @@ Navigate to the services below in the AWS console to familiarize yourself with t
             "Type": "Task",
             "Resource": "arn:aws:states:::lambda:invoke",
             "InputPath": "$.MessageDetails",
-"ResultPath": null,
-"Parameters": {
-"FunctionName": "MapStateDeleteFromSQSQueueLambda",
-"Payload": {
-"ReceiptHandle.$": "$.ReceiptHandle"
-}
-},
-"Next": "Publish message to SNS topic"
-},
-"Publish message to SNS topic": {
-"Type": "Task",
-"Resource": "arn:aws:states:::sns:publish",
-"InputPath": "$.MessageDetails",
+            "ResultPath": null,
+            "Parameters": {
+              "FunctionName": "MapStateDeleteFromSQSQueueLambda",
+              "Payload": {
+                "ReceiptHandle.$": "$.ReceiptHandle"
+              }
+            },
+            "Next": "Publish message to SNS topic"
+          },
+          "Publish message to SNS topic": {
+            "Type": "Task",
+            "Resource": "arn:aws:states:::sns:publish",
+            "InputPath": "$.MessageDetails",
             "Parameters": {
               "Subject": "Message from Step Functions!",
               "Message.$": "$.Body",
-"TopicArn": "arn:aws:sns:us-east-1:1234567890:MapStateTopicforMessages"
-},
-"End": true
+              "TopicArn": "arn:aws:sns:us-east-1:1234567890:MapStateTopicforMessages"
+            },
+            "End": true
+          }
+        }
+      }
+    },
+    "Finish": {
+      "Type": "Succeed"
+    }
+  }
 }
-}
-}
-},
-"Finish": {
-"Type": "Succeed"
-}
-}
-}
-:::
+```
 
 **HINTS**
 
 - Choice State Syntax:
 
-:::code{showCopyAction=true showLineNumbers=true language=json}
-
+```bash
 "Type": "Choice",
 "Choices": [
-{
-"Variable": "$",
-"StringEquals": "No messages",
-"Next": "Finish"
-}
-:::
+  {
+    "Variable": "$",
+    "StringEquals": "No messages",
+    "Next": "Finish"
+  }
+```
 
 - Map State Syntax:
 
-:::code{showCopyAction=true showLineNumbers=true language=json}
-
+```bash
 "Type": "Map",
 "Next": "Finish",
 "ItemsPath": "$",
@@ -144,7 +141,7 @@ Navigate to the services below in the AWS console to familiarize yourself with t
         "MessageNumber.$": "$$.Map.Item.Index",
         "MessageDetails.$": "$$.Map.Item.Value"
 }
-:::
+```
 
 5. ASL definitions may contain resource parameters. Find and update the TopicArn with the correct value.
 
