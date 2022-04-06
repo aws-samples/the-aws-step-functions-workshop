@@ -8,18 +8,18 @@ weight: 102
 2. If you are not on the `State machines` page, click on `State machines` on the left side menu and click **Create state machine**
 
 3. For `Choose authoring method` select **Design your workflow visually**, select state machine `Type` as **Standard** and click on `Next`.
-   ![Studio](/static/img/module-6/extra-credit-2-studio-selection.png)
+   ![Studio](/static/img/module-6/studio-selection.png)
 
 4. You should see the designer studio now which will look like this.
-   ![](/static/img/module-6/extra-credit-2-studio-designer.png)
+   ![](/static/img/module-6/studio-designer.png)
 
 5. For `Comment` on the right side, enter `A step functions example showing universal AWS SDK service integration with S3`.
 
 6. One the left hand side **Actions** menu, use the search bar and search for `ListBuckets`. You should see the **S3 ListBuckets** action show up.
 
 7. Drag & drop `ListBuckets` from the **Actions** section on the left side to the designer form where it says `Drag first state here`.
-   ![](/static/img/module-8/extra-credit-3-list-bucket.png)
-   ![](/static/img/module-8/extra-credit-3-list-bucket-state.png)
+   ![](/static/img/module-8/list-bucket.png)
+   ![](/static/img/module-8/list-bucket-state.png)
 
 8. Keep **Configuration, Input, Output and Error handling** as it is, however for any API call you can pass the required API parameters. Also, take a look at the **Integration type and Definition**.
 
@@ -29,7 +29,7 @@ weight: 102
 
 11. Under permissions choose **Choose existing role** and select `UniversalSDKRoleNameforStepfunctions` from the drop down.
 
-![](/static/img/module-8/extra-credit-3-IAM.png)
+![](/static/img/module-8/iam.png)
 
 12. Now click on **Create state machine**.
 

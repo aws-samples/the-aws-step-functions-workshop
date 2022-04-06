@@ -29,9 +29,7 @@ weight: 73
 You must confirm via email before the subscription is active.
 :::
 
-![SNS](/static/img/module-5/extra-credit-sns-subscription.png)
-
-
+![SNS](/static/img/module-5/sns-subscription.png)
 
 2. **Add messages to the Amazon SQS queue**
 
@@ -51,13 +49,13 @@ You must confirm via email before the subscription is active.
 
    - Choose Close.
 
-![SQS](/static/img/module-5/extra-credit-sqs-send-message.png)
+![SQS](/static/img/module-5/sqs-send-message.png)
 
 3. Click on **Start execution** and copy and paste the JSON below as your input payload.
-:::code{showCopyAction=true showLineNumbers=false language=json}
-{ "Comment": "Testing Map & Choice states" }
-:::
+   :::code{showCopyAction=true showLineNumbers=false language=json}
+   { "Comment": "Testing Map & Choice states" }
+   :::
 
 4. When an execution is complete, you can select states on the **Visual workflow** and browse the **Input** and **Output** under **Step details**. You can also check the DynamoDB table to see if the messages that you have put into the SQS queue have been successfully inserted.
 
-![DDB](/static/img/module-5/extra-credit-DDB-map-state.png)
+![DDB](/static/img/module-5/ddb-map-state.png)

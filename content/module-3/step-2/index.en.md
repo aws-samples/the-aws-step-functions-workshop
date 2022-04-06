@@ -9,11 +9,11 @@ Find the state machine in your account that starts with **"BatchJobNotification"
 
 Here is what the initial workflow looks like:
 
-![Module 3 Workflow](/static/img/module-3/module3-initial-workflow.png)
+![Module 3 Workflow](/static/img/module-3/initial-workflow.png)
 
 Here is what the Task definition looks like for the Batch job. Take note of the Resource node.
 
-![Module 3 Code](/static/img/module-3/module3-initial-code.png)
+![Module 3 Code](/static/img/module-3/initial-code.png)
 
 Now go ahead and "Start execution" on this state machine. You may use the default input. The Batch service is now performing a task, which may take minute or more to finish. But notice how quickly this workflow completes.
 

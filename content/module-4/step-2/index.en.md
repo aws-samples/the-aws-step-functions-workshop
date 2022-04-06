@@ -7,4 +7,4 @@ Navigate to the state function in your account that begins with **"WaitForCallba
 
 Execute the state machine with default input and you'll notice that this execution will become paused indefinitely at the `Start Task and Wait For Callback` state.
 
-![Module 4 Workflow](/static/img/module-4/module4-initial-workflow.png)
+![Module 4 Workflow](/static/img/module-4/initial-workflow.png)

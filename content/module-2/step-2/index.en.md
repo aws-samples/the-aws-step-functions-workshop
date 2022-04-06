@@ -9,8 +9,8 @@ When you specify a service in the `"Resource"` string of your task state, and yo
 
 Review the definition in Workflow Studio:
 
-![Module 2 Workflow](/static/img/module-2/module2-workflow.png)
+![Module 2 Workflow](/static/img/module-2/workflow.png)
 
 Notice the `"Resource"` string of the task state below. This code designates a Request Response service integration pattern.
 
-![Module 2 Code](/static/img/module-2/module2-code.png)
+![Module 2 Code](/static/img/module-2/code.png)

@@ -9,6 +9,6 @@ Now go ahead and "Start execution" on this state machine using the following inp
 
 Navigate to the event history for this execution. You will notice that the execution time for the Send SNS Message task is relatively fast. The state machine proceeds as soon as the SNS Publish API is called.
 
-![Module 2 Result](/static/img/module-2/module2-results.png)
+![Module 2 Result](/static/img/module-2/results.png)
 
 In this case the `"Send SNS Task"` completed in 120ms. Review your own execution event history to compare results.

@@ -5,7 +5,7 @@ weight: 72
 
 ### Locate your resources
 
-Navigate to the services below in the AWS console to familiarize yourself with the resources. Make sure you are in the correct region. Copy the SNS Topic ARN (Amazon Resource Name) to a notepad. You will need this value later in the module. 
+Navigate to the services below in the AWS console to familiarize yourself with the resources. Make sure you are in the correct region. Copy the SNS Topic ARN (Amazon Resource Name) to a notepad. You will need this value later in the module.
 
 - [Amazon SQS](https://console.aws.amazon.com/sqs/v2/home) queue - find **MapStateQueueforMessages**
 
@@ -21,13 +21,13 @@ Navigate to the services below in the AWS console to familiarize yourself with t
 
 2. Locate the state machine that contains **MapStateStateMachine** in its name. Click on it and then click on **Edit** in the top right corner.
 
-![EDIT](/static/img/module-5/extra-credit-map-state-definition-edit.png)
+![EDIT](/static/img/module-5/map-state-definition-edit.png)
 
 3. Select all under the **Definition** section and delete the existing ASL definition. Now copy and paste the ASL definition below. This definition contains **BLANK** values in the Map and Choice state (total of 4 places). Your challenge is to update these **BLANKs** with the correct state syntax and parameters. (Completion hints are below.)
 
-    - Visit [Map](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-map-state.html) to learn about Map state syntax.
+   - Visit [Map](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-map-state.html) to learn about Map state syntax.
 
-    - Visit [Choice](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-choice-state.html) to learn about Choice state syntax.
+   - Visit [Choice](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-choice-state.html) to learn about Choice state syntax.
 
 :::code{showCopyAction=true showLineNumbers=true language=json}
 
@@ -120,7 +120,6 @@ Navigate to the services below in the AWS console to familiarize yourself with t
 
 **HINTS**
 
-
 - Choice State Syntax:
 
 :::code{showCopyAction=true showLineNumbers=true language=json}
@@ -150,5 +149,4 @@ Navigate to the services below in the AWS console to familiarize yourself with t
 5. ASL definitions may contain resource parameters. Find and update the TopicArn with the correct value.
 
 6. Click on **Save** (select Save anyway if the warning comes)
-   ![save](/static/img/module-5/extra-credit-map-state-definition.png)
-   
+   ![save](/static/img/module-5/map-state-definition.png)

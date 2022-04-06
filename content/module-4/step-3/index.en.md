@@ -10,4 +10,4 @@ To see a list of what integrated services support waiting for a task token (`.wa
 Although the callback logic is initially implemented in the ASL definition, the callback is not yet being executed in the Lambda function that processes the SQS messages.
 
 State machine definition:
-![Module 4 Workflow](/static/img/module-4/module4-code.png)
+![Module 4 Workflow](/static/img/module-4/code.png)

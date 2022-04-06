@@ -3,4 +3,4 @@ title: 'Task Patterns'
 weight: 111
 ---
 
-![Task Patterns](/static/img/intro/intro-patterns.png)
+![Task Patterns](/static/img/intro/task-patterns.png)

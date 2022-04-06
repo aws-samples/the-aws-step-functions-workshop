@@ -2,6 +2,7 @@
 title: 'Clean up'
 weight: 96
 ---
+
 :::alert{header="Important" type="warning"}
 Follow the instructions on this page if you would like to clean up resources in your own account. Event Engine accounts do not require cleanup.
 :::
@@ -14,7 +15,7 @@ If you named the state machines per the instructions provided:
 - Select **ParallelProcessing-sm** from the list of state machines.
 - Click **Delete** button
 - Confirm by clicking **Delete state machine** button on the dialog box that is displayed.
-  ![Statemachine delete](/static/img/module-7/module-7-manual-delete-sm.png)
+  ![Statemachine delete](/static/img/module-7/manual-delete-sm.png)
 
 If you have chosen different names while creating the state machines, follow the above instructions while selecting the appropriate state machines.
 
@@ -29,5 +30,5 @@ Navigate to **CloudWatch** and select **Log groups** under Logs
 
 - select the log group belonging to **ParallelProcessing-sm** step function.
 - Click on **Actions** dropdown and then select **Delete log group(s)**.
-  ![Cloudwatch loggroup delete](/static/img/module-7/module-7-cloudwatch-cleanup.png)
+  ![Cloudwatch loggroup delete](/static/img/module-7/cloudwatch-cleanup.png)
 - Confirm by clicking the **Delete** button in the pop up screen.
