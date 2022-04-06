@@ -1,69 +1,137 @@
----
-AWSTemplateFormatVersion: 2010-09-09
-Description: AWS Step Functions sample project which sends an SNS notification when a Batch job succeeds or fails.
-
+AWSTemplateFormatVersion: '2010-09-09'
+Description: AWS Step Functions sample project for error handling
 Resources:
-  BatchJobNotificationStateMachine:
-    Type: AWS::StepFunctions::StateMachine
+  ErrorHandlingStateMachine:
+    Type: 'AWS::StepFunctions::StateMachine'
     Properties:
-      RoleArn: !GetAtt [BatchJobNotificationExecutionRole, Arn]
-      DefinitionString: !Sub
-        - |-
-          {
-            "Comment": "An example of a workflow which sends an SNS notification when a Batch job succeeds or fails.",
-            "StartAt": "Submit Batch Job",
-            "TimeoutSeconds": 3600,
-            "States": {
-              "Submit Batch Job": {
-                "Type": "Task",
-                "Resource": "arn:${AWS::Partition}:states:::batch:submitJob.sync",
-                "Parameters": {
-                  "JobName": "BatchJobNotification",
-                  "JobQueue": "${jobQueueArn}",
-                  "JobDefinition": "${jobDefinitionArn}"
-                },
-                "Next": "Notify Success",
-                "Retry": [
-                    {
-                      "ErrorEquals": [ "States.ALL" ],
-                      "IntervalSeconds": 30,
-                      "MaxAttempts": 2,
-                      "BackoffRate": 1.5
-                    }
-                ],
-                "Catch": [
-                    {
-                      "ErrorEquals": [ "States.ALL" ],
-                      "Next": "Notify Failure"
-                    }
-                ]
-              },
-              "Notify Success": {
-                "Type": "Task",
-                "Resource": "arn:${AWS::Partition}:states:::sns:publish",
-                "Parameters": {
-                  "Message": "Batch job submitted through Step Functions succeeded",
-                  "TopicArn": "${snsTopicArn}"
-                },
-                "End": true
-              },
-              "Notify Failure": {
-                "Type": "Task",
-                "Resource": "arn:${AWS::Partition}:states:::sns:publish",
-                "Parameters": {
-                  "Message": "Batch job submitted through Step Functions failed",
-                  "TopicArn": "${snsTopicArn}"
-                },
-                "End": true
-              }
+      DefinitionString: !Sub |
+        {
+          "Comment": "A Catch example of the Amazon States Language using an AWS Lambda function",
+          "StartAt": "StartExecution",
+          "States": {
+            "StartExecution": {
+              "Type": "Task",
+              "Resource": "arn:aws:lambda:us-east-1:123456789012:function:FailFunction",
+              "Catch": [ {
+                "ErrorEquals": ["CustomError"],
+                "Next": "CustomErrorFallback"
+              }, {
+                "ErrorEquals": ["States.TaskFailed"],
+                "Next": "ReservedTypeFallback"
+              }, {
+                "ErrorEquals": ["States.ALL"],
+                "Next": "CatchAllFallback"
+              } ],
+              "End": true
+            },
+            "CustomErrorFallback": {
+              "Type": "Pass",
+              "Result": "This is a fallback from a custom Lambda function exception",
+              "End": true
+            },
+            "ReservedTypeFallback": {
+              "Type": "Pass",
+              "Result": "This is a fallback from a reserved error code",
+              "End": true
+            },
+            "CatchAllFallback": {
+              "Type": "Pass",
+              "Result": "This is a fallback from any error code",
+              "End": true
             }
-          }
-        - {
-            snsTopicArn: !Ref SNSTopic,
-            jobQueueArn: !Ref BatchJobQueue,
-            jobDefinitionArn: !Ref BatchJobDefinition,
-          }
-  BatchJobNotificationExecutionRole:
+          } 
+        }
+      RoleArn: !GetAtt [StatesExecutionRole, Arn]
+  StatesExecutionRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: 'Allow'
+            Principal:
+              Service: states.amazonaws.com
+            Action: 'sts:AssumeRole'
+      Policies:
+        - PolicyName: StepFunctionsIamRoleInvokeLambda
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: 'lambda:InvokeFunction'
+                Resource: '*'
+
+  ErrorHandlingCustomErrorFunction:
+    Type: 'AWS::Lambda::Function'
+    Properties:
+      Handler: 'index.lambda_handler'
+      Role: !GetAtt [LambdaExecutionRole, Arn]
+      Code:
+        ZipFile: !Sub |
+          /**
+            MIT No Attribution
+            
+            Copyright 2022 Amazon Web Services
+            
+            Permission is hereby granted, free of charge, to any person obtaining a copy of this
+            software and associated documentation files (the "Software"), to deal in the Software
+            without restriction, including without limitation the rights to use, copy, modify,
+            merge, publish, distribute, sublicense, and/or sell copies of the Software, and to
+            permit persons to whom the Software is furnished to do so.
+            
+            THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+            INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+            PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+            HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+            OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+            SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+          */
+          exports.lambda_handler = async (event, context, callback) => {
+            function CustomError(message) {
+              this.name = 'CustomError';
+              this.message = message;
+            }
+            CustomError.prototype = new Error();
+
+            throw new CustomError('This is a custom error!');
+          };
+      Runtime: 'nodejs12.x'
+      Timeout: '11'
+      FunctionName: 'ErrorHandlingCustomErrorFunction'
+
+  ErrorHandlingSleep10Function:
+    Type: 'AWS::Lambda::Function'
+    Properties:
+      Handler: 'index.lambda_handler'
+      Role: !GetAtt [LambdaExecutionRole, Arn]
+      Code:
+        ZipFile: !Sub |
+          /**
+            MIT No Attribution
+            
+            Copyright 2022 Amazon Web Services
+            
+            Permission is hereby granted, free of charge, to any person obtaining a copy of this
+            software and associated documentation files (the "Software"), to deal in the Software
+            without restriction, including without limitation the rights to use, copy, modify,
+            merge, publish, distribute, sublicense, and/or sell copies of the Software, and to
+            permit persons to whom the Software is furnished to do so.
+            
+            THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+            INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+            PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+            HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+            OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+            SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+          */
+          exports.lambda_handler = (event, context, callback) => {
+            setTimeout(function(){}, 11000);
+          };
+      Runtime: 'nodejs12.x'
+      Timeout: '11'
+      FunctionName: 'ErrorHandlingSleep10Function'
+
+  LambdaExecutionRole:
     Type: 'AWS::IAM::Role'
     Properties:
       AssumeRolePolicyDocument:
@@ -71,186 +139,10 @@ Resources:
         Statement:
           - Effect: Allow
             Principal:
-              Service: states.amazonaws.com
+              Service: lambda.amazonaws.com
             Action: 'sts:AssumeRole'
-      Path: '/'
-      Policies:
-        - PolicyName: BatchJobNotificationAccessPolicy
-          PolicyDocument:
-            Version: '2012-10-17'
-            Statement:
-              - Effect: Allow
-                Action:
-                  - 'sns:Publish'
-                Resource:
-                  - !Ref SNSTopic
-              - Effect: Allow
-                Action:
-                  - 'batch:SubmitJob'
-                  - 'batch:DescribeJobs'
-                  - 'batch:TerminateJob'
-                Resource: '*'
-              - Effect: Allow
-                Action:
-                  - 'events:PutTargets'
-                  - 'events:PutRule'
-                  - 'events:DescribeRule'
-                Resource:
-                  - !Sub 'arn:${AWS::Partition}:events:${AWS::Region}:${AWS::AccountId}:rule/StepFunctionsGetEventsForBatchJobsRule'
-  SNSTopic:
-    Type: AWS::SNS::Topic
-  BatchVPC:
-    Type: AWS::EC2::VPC
-    Properties:
-      CidrBlock: 10.0.0.0/16
-  BatchInternetGateway:
-    Type: AWS::EC2::InternetGateway
-    DependsOn: BatchVPC
-  PublicRouteTable:
-    Type: AWS::EC2::RouteTable
-    DependsOn:
-      - BatchVPC
-      - BatchVPCGatewayAttachment
-    Properties:
-      VpcId:
-        Ref: BatchVPC
-  BatchVPCGatewayAttachment:
-    Type: AWS::EC2::VPCGatewayAttachment
-    DependsOn:
-      - BatchVPC
-      - BatchInternetGateway
-    Properties:
-      VpcId:
-        Ref: BatchVPC
-      InternetGatewayId:
-        Ref: BatchInternetGateway
-  BatchSecurityGroup:
-    Type: AWS::EC2::SecurityGroup
-    Properties:
-      SecurityGroupEgress:
-        - IpProtocol: tcp
-          FromPort: 80
-          ToPort: 80
-          CidrIp: 0.0.0.0/0
-        - IpProtocol: tcp
-          FromPort: 443
-          ToPort: 443
-          CidrIp: 0.0.0.0/0
-      GroupDescription: A security group for region-agnostic Batch resources
-      VpcId:
-        Ref: BatchVPC
-  BatchSubnet:
-    Type: AWS::EC2::Subnet
-    DependsOn: BatchVPCGatewayAttachment
-    Properties:
-      CidrBlock: 10.0.0.0/24
-      VpcId:
-        Ref: BatchVPC
-      MapPublicIpOnLaunch: 'True'
-  PublicRoute:
-    Type: AWS::EC2::Route
-    DependsOn:
-      - PublicRouteTable
-      - BatchVPCGatewayAttachment
-    Properties:
-      RouteTableId:
-        Ref: PublicRouteTable
-      DestinationCidrBlock: 0.0.0.0/0
-      GatewayId:
-        Ref: BatchInternetGateway
-  BatchSubnetRouteTableAssociation:
-    Type: AWS::EC2::SubnetRouteTableAssociation
-    Properties:
-      RouteTableId:
-        Ref: PublicRouteTable
-      SubnetId:
-        Ref: BatchSubnet
-  BatchAWSBatchServiceRole:
-    Type: AWS::IAM::Role
-    Properties:
-      AssumeRolePolicyDocument:
-        Version: '2012-10-17'
-        Statement:
-          - Effect: Allow
-            Principal:
-              Service: batch.amazonaws.com
-            Action: sts:AssumeRole
-      ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/service-role/AWSBatchServiceRole
-  BatchIamInstanceProfile:
-    Type: AWS::IAM::InstanceProfile
-    Properties:
-      Roles:
-        - Ref: BatchEcsInstanceRole
-  BatchEcsInstanceRole:
-    Type: AWS::IAM::Role
-    Properties:
-      AssumeRolePolicyDocument:
-        Version: '2008-10-17'
-        Statement:
-          - Sid: ''
-            Effect: Allow
-            Principal:
-              Service: ec2.amazonaws.com
-            Action: sts:AssumeRole
-      ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role
-  BatchJobDefinition:
-    Type: AWS::Batch::JobDefinition
-    Properties:
-      Type: container
-      ContainerProperties:
-        Image:
-          Fn::Join:
-            - ''
-            - - 137112412989.dkr.ecr.
-              - Ref: AWS::Region
-              - '.amazonaws.com/amazonlinux:latest'
-        Vcpus: 2
-        Memory: 2000
-        Command:
-          - echo
-          - Hello world
-      RetryStrategy:
-        Attempts: 1
-  BatchJobQueue:
-    Type: AWS::Batch::JobQueue
-    DependsOn:
-      - BatchComputeEnvironment
-    Properties:
-      Priority: 1
-      ComputeEnvironmentOrder:
-        - Order: 1
-          ComputeEnvironment:
-            Ref: BatchComputeEnvironment
-  BatchComputeEnvironment:
-    Type: AWS::Batch::ComputeEnvironment
-    DependsOn:
-      - BatchSubnet
-      - BatchSecurityGroup
-      - BatchIamInstanceProfile
-      - BatchAWSBatchServiceRole
-    Properties:
-      Type: MANAGED
-      ComputeResources:
-        Type: EC2
-        MinvCpus: 0
-        DesiredvCpus: 0
-        MaxvCpus: 64
-        InstanceTypes:
-          - optimal
-        Subnets:
-          - Ref: BatchSubnet
-        SecurityGroupIds:
-          - Ref: BatchSecurityGroup
-        InstanceRole:
-          Ref: BatchIamInstanceProfile
-      ServiceRole:
-        Ref: BatchAWSBatchServiceRole
+
 Outputs:
   StateMachineArn:
-    Value: !Ref BatchJobNotificationStateMachine
-  ExecutionInput:
-    Description: Sample input to StartExecution.
-    Value: >
-      {}
+    Value:
+      Ref: ErrorHandlingStateMachine
