@@ -5,6 +5,5 @@ weight: 100
 
 ## Module Goals
 
-- Overview
-- Create the state machine and provision resources
+- Create a state machine using an AWS SDK service integration 
 - Execute the state machine and review results
