@@ -13,7 +13,7 @@ weight: 102
 4. You should see the designer studio now which will look like this.
    ![](/static/img/module-6/studio-designer.png)
 
-5. For `Comment` on the right side, enter `A step functions example showing universal AWS SDK service integration with S3`.
+5. For `Comment` on the right side, enter `A sample workflow using a AWS SDK service integration with Amazon S3`.
 
 6. One the left hand side **Actions** menu, use the search bar and search for `ListBuckets`. You should see the **S3 ListBuckets** action show up.
 
@@ -21,7 +21,7 @@ weight: 102
    ![](/static/img/module-8/list-bucket.png)
    ![](/static/img/module-8/list-bucket-state.png)
 
-8. Keep **Configuration, Input, Output and Error handling** as it is, however for any API call you can pass the required API parameters. Also, take a look at the **Integration type and Definition**.
+8. Click on the S3 action. Use the defaults for **Configuration, Input, Output and Error handling**. Click the **Definition** button to review the ASL syntax you will generate.
 
 9. Now click on **Next** and review the generated code. Click on **Next** again.
 
