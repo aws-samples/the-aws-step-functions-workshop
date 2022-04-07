@@ -53,3 +53,5 @@ The **Response Body** output should be something like this:
 ```bash
 "Hello"
 ```
+
+::alert[**Congratulations!** You have successfully completed this module.]{type="success"}

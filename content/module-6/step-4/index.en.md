@@ -19,3 +19,5 @@ weight: 83
 }
 :::
 3. Once the execution is successful, review the output in the `Execution output` tab. See how the data block in the input json gets added to the output of the lambda function. This output would be passed to the next state in your workflow.
+
+::alert[**Congratulations!** You have executed a state machine using the using the Input and Output data processing features.]{type="success"}

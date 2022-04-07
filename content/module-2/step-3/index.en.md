@@ -12,3 +12,5 @@ Navigate to the event history for this execution. You will notice that the execu
 ![Module 2 Result](/static/img/module-2/results.png)
 
 In this case the `"Send SNS Task"` completed in 120ms. Review your own execution event history to compare results.
+
+::alert[**Congratulations!** You have executed a state machine using the Request Response pattern.]{type="success"}

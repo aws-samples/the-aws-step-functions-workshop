@@ -59,3 +59,5 @@ You must confirm via email before the subscription is active.
 4. When an execution is complete, you can select states on the **Visual workflow** and browse the **Input** and **Output** under **Step details**. You can also check the DynamoDB table to see if the messages that you have put into the SQS queue have been successfully inserted.
 
 ![DDB](/static/img/module-5/ddb-map-state.png)
+
+::alert[**Congratulations!** You have executed a state machine using the using Map and Choice states.]{type="success"}
