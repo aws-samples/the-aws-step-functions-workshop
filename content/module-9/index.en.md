@@ -8,4 +8,4 @@ weight: 110
 - Setup Cloud9 workspace and AWS CDK project
 - Use the AWS CDK to create an API Gateway REST API with Synchronous Express State Machine backend integration
 - Test the API Gateway
-- Clean up
+
