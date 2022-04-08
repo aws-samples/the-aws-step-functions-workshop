@@ -20,7 +20,7 @@ Follow the instructions on this page only if you are executing this workshop in 
 - Your workspace should now look like this:
   ![Cloud9 After](/static/img/setup/c9after.png)
 
-### Create the IAM Role
+### Create an IAM Role
 
 :::alert{header="Important" type="warning"}
 Follow the instructions in this section only if you are trying this in your own account.
@@ -132,4 +132,4 @@ if [ $? -eq 0 ]; then
 fi
 ```
 
-_Note_: The command above adds more disk space to the root volume of the EC2 instance that Cloud9 runs on. Once the command runs, the instance reboots which could take a minute or two to complete.
+_Note_: The command above adds more disk space to the root volume of the EC2 instance that Cloud9 runs on. Once the command runs, the instance reboots which could take a minute or two to complete. When this completes you are ready to move on to the next step.
