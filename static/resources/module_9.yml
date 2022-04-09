@@ -1,0 +1,91 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Custom resource to create a Cloud9 for Step Functions workshop'
+Resources:
+  Cloud9Environment1:
+    Type: AWS::Cloud9::EnvironmentEC2
+    Properties:
+      AutomaticStopTimeMinutes: 60
+      Description: 'Online IDE for workshop'
+      InstanceType: t3.small
+      Name: 'StepFunctionsWorkshop'
+  Cloud9InstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      InstanceProfileName: 'stepfunctionsworkshop-role'
+      Path: /
+      Roles:
+        - !Ref RootRole
+  RolePolicies:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: 'stepfunctionsAdminPolicy'
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Resource: '*'
+            Action:
+              - apigateway:*
+              - application-autoscaling:*
+              - autoscaling:*
+              - cloud9:*
+              - cloudformation:*
+              - cloudtrail:*
+              - cloudwatch:*
+              - codebuild:*
+              - codecommit:*
+              - codedeploy:*
+              - codepipeline:*
+              - config:*
+              - ec2messages:*
+              - ec2:*
+              - ecr:*
+              - ecs:*
+              - elasticloadbalancing:*
+              - es:*
+              - events:*
+              - iam:*
+              - kms:*
+              - lambda:*
+              - logs:*
+              - resource-groups:*
+              - s3:*
+              - ssm:*
+              - ssmmessages:*
+              - states:*
+              - sts:*
+              - tag:*
+            Effect: Allow
+            Sid: OverlyPermissivePolicy
+          - Resource: '*'
+            Action:
+              - ec2:ModifyReservedInstances
+              - ec2:PurchaseHostReservation
+              - ec2:PurchaseReservedInstancesOffering
+              - ec2:PurchaseScheduledInstances
+              - rds:PurchaseReservedDBInstancesOffering
+              - dynamodb:PurchaseReservedCapacityOfferings
+              - ec2:CancelSpotFleetRequests
+              - ec2:ModifySpotFleetRequest
+              - ec2:RequestSpotFleet
+              - ec2:RequestSpotInstances
+              - ec2:CancelSpotInstanceRequests
+              - ec2:CreateSpotDatafeedSubscription
+              - ec2:DeleteSpotDatafeedSubscription
+            Effect: Deny
+            Sid: DontBuyReservationsOrSpotPlz
+      Roles:
+        - !Ref RootRole
+  RootRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: 'stepfunctionsworkshop-role'
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Path: '/'
