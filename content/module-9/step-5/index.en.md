@@ -7,16 +7,20 @@ weight: 115
 Follow the instructions on this page if you would like to clean up resources in your own account. Event Engine accounts do not require cleanup.
 :::
 
-### CDK project clean up
+### Destroy resources created by CDK
 
-When you're done trying out your API Gateway, you can destroy both the state machine and the API Gateway using the AWS CDK. Issue `cdk destroy` in your app's main directory.
+When you have completed testing, you can destroy the API Gateway and the state machine the using AWS CDK. Copy/paste the following command into the terminal in the application's root directory.
 
-When it is complete you will see the success message below:
+```bash
+cdk destroy
+```
+
+When the `cdk destroy` is complete you will see the following message:
 ![CDK Destroy](/static/img/module-9/cdk-destroy.png)
 
 ### Delete CloudFormation Stack
 
 - Navigate to the [CloudFormation](https://console.aws.amazon.com/cloudformation/home) page in the AWS Console.
-- Select the stack with name `SFW-Module-9` (or any name you have chosen for the stack) and then click Delete.
+- Select the stack with name `SFW-Module-9` (or any name you have chosen for the stack) and then click Delete. This will clean up the Cloud9 environment and any other related resources in the stack.
   ![CloudFormation delete](/static/img/setup/setup-cloudformation-delete.png)
 - Make sure the stack deletion completes successfully.

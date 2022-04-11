@@ -77,15 +77,15 @@ export class StepfunctionsRestApiStack extends cdk.Stack {
       super(app, id);
 
       const machineDefinition = new stepfunctions.Pass(this, 'PassState', {
-          result: {value:"Hello!"},
+          result: {value:"Hello back to you!"},
       })
 
-      const stateMachine = new stepfunctions.StateMachine(this, 'MyStateMachine', {
+      const stateMachine = new stepfunctions.StateMachine(this, 'CDKStateMachine', {
           definition: machineDefinition,
           stateMachineType: stepfunctions.StateMachineType.EXPRESS,
       });
 
-      const api = new apigateway.StepFunctionsRestApi(this, 'StepFunctionsRestApi', { stateMachine: stateMachine });
+      const api = new apigateway.StepFunctionsRestApi(this, 'CDKStepFunctionsRestApi', { stateMachine: stateMachine });
     }
 }
 ```
@@ -99,11 +99,13 @@ import * as cdk from 'aws-cdk-lib';
 import { StepfunctionsRestApiStack } from '../lib/stepfunctions-rest-api-stack';
 
 const app = new cdk.App();
-new StepfunctionsRestApiStack(app, 'StepfunctionsRestApiStack');
+new StepfunctionsRestApiStack(app, 'CDKStepfunctionsRestApiStack');
 ```
 
-Save these source files. From the terminal run `cdk synth` from the main directory. The `cdk synth` command executes the app, which causes the resources defined in it to be translated into an AWS CloudFormation template.
+Save these source files. To deploy the Amazon API Gateway and the AWS Step Functions state machine to your AWS account, run the following command from the application root:
 
-To deploy the Amazon API Gateway and the AWS Step Functions state machine to your AWS account, run the `cdk deploy` command. You'll be asked to approve the IAM policies the AWS CDK has generated.
+```bash
+cdk deploy
+```
 
-After completing the deployment, CDK will display the REST API url as output. Please make a note of this as you will use it to the test the setup in the next step.
+You'll be asked to approve the IAM policies the AWS CDK has generated. After completing the deployment, CDK will display the REST API url as output. Copy this url. You will use it to the test the application in the next step.
