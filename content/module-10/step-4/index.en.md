@@ -3,14 +3,14 @@ title: 'Handle a failure using Catch'
 weight: 123
 ---
 
-`Task`, `Map` and `Parallel` states may contain a field named `Catch`. This field's value must be an array of objects, known as catchers. Each catcher can be configured to catch a specific type of error. ASL defines a set of built-in strings that name well-known errors, all beginning with the `States.` prefix. Catchers may also catch custom errors. A catcher may be configured to forward to a specific **fallback** state. Each fallback state may implement its own error handling logic. Built-in errors include:
+`Task`, `Map`, and `Parallel` states may contain a field named `Catch`. This field's value must be an array of objects, known as catchers. Each catcher can be configured to catch a specific type of error. ASL defines a set of built-in strings that name well-known errors, all beginning with the `States.` prefix. Catchers may also catch custom errors. Each catcher may be configured to forward to a specific **fallback** state. Each fallback state may implement error handling logic. Built-in error types include:
 
 - `States.ALL` - a wildcard that matches any known error name
 - `States.DataLimitExceeded` - an output exceeds quota
-- `States.Runtime` - an runtime exception could not be processed
+- `States.Runtime` - a runtime exception could not be processed
 - `States.HeartbeatTimeout` - a Task state failed to send a heartbeat
-- `States.Timeout` - a Task state either timed out
-- `States.TaskFailed` - a Task state failed during the execution
+- `States.Timeout` - a Task state timed out
+- `States.TaskFailed` - a Task state failed during execution
 - `States.Permissions` - a Task state had insufficient privileges
 
 Read the documentation for more information on [Error names](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-error-handling.html).
@@ -19,7 +19,7 @@ In this exercise, you will configure a state machine that will catch a custom er
 
 ### Catch a custom error
 
-1. Locate the **ErrorHandlingCustomErrorFunction** [Lambda function](https://console.aws.amazon.com/lambda/home). Review the code and copy the function ARN. Notice that the code throws an error named `CustomError`.
+1. Locate the **ErrorHandlingCustomErrorFunction** [Lambda function](https://console.aws.amazon.com/lambda/home). Copy the function ARN and review the code. Notice that the code throws an error named `CustomError`.
 
    ![Lambda function throws CustomError](/static/img/module-10/error-handling-lambda-function-custom-error.png)
 
@@ -37,16 +37,16 @@ In this exercise, you will configure a state machine that will catch a custom er
 
 4. Go to the **Execution output** tab to view the output of your workflow. It should show `This is a fallback from a custom Lambda function exception`
 
-5. To view your custom error message, select `StartExecution` in the Graph inspector pane and choose the **Step output** tab
+5. To view the output of the fallback state, select `CustomErrorFallback` state in the Graph inspector pane and click the **Step output** tab.
    ![Failure using Catch output](/static/img/module-10/error-handling-custom-error-catch-output.png)
-6. Go through the **Execution event history** to get more details
+6. Go to the **Execution event history** to get more details.
    ![Failure using Catch event history](/static/img/module-10/error-handling-custom-error-catch-event-history.png)
 
 
 
 ### Catch a timeout error
 
-1. Locate the **ErrorHandlingSleep10Function** [Lambda function](https://console.aws.amazon.com/lambda/home). Review the code and copy the function ARN. Notice that function is configured to sleep for 10 seconds.
+1. Locate the **ErrorHandlingSleep10Function** [Lambda function](https://console.aws.amazon.com/lambda/home). Copy the function ARN and review the code. Notice that the function is configured to sleep for 10 seconds.
 
    ![Lambda function sleeps for 10 seconds](/static/img/module-10/error-handling-lambda-sleep10.png)
 
@@ -64,10 +64,10 @@ In this exercise, you will configure a state machine that will catch a custom er
 
 6. Go to the **Execution output** tab to view the output of your workflow. It should show `This is a fallback from a timeout Lambda function exception`
 
-7. To view the error message, select `StartExecution` in the Graph inspector pane and choose the **Step output** tab
+5. To view the output of the fallback state, select `TimeoutFallback` state in the Graph inspector pane and click the **Step output** tab.
    ![Failure using Catch output](/static/img/module-10/error-handling-timeout-error-catch-output.png)
 
 8. Go through the **Execution event history** to get more details
    ![Failure using Catch event history](/static/img/module-10/error-handling-timeout-error-catch-event-history.png)
 
-   ::alert[Congratulations! You have successfully completed the module.]{type="success"}
+   ::alert[Congratulations! You have successfully completed the Error Handling module.]{type="success"}

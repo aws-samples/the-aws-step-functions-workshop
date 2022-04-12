@@ -3,26 +3,20 @@ title: 'Handle a failure using Retry'
 weight: 123
 ---
 
-### Locate your resources
-
-Navigate to the services below in the AWS console to familiarize yourself with the deployed resources. Make sure you are in the correct region.
-
-- [AWS Lambda](https://console.aws.amazon.com/lambda/home) functions - find functions starting with **ErrorHandling**. These functions are designed to produce errors. Copy the ARNs of these Lambda functions for later use. 
-
-- [Step Functions](https://console.aws.amazon.com/states/home) state machines - find the state machine starting with **ErrorHandling**
-
-### Configure ASL to implement a Retry with Lambda
-
 In the exercise below, you will create an ASL definition that invokes a Lambda function. The Lambda function is designed to fail. You will implement a `Retry` for this function, setting maximum attempts with an exponential backoff rate between retries.
 
-1. Click on the state machine named **ErrorHandlingStateMachineWithRetry-...** and click on the **Edit** button on the top right corner of the screen.
+1. Locate the **ErrorHandlingCustomErrorFunction** [Lambda function](https://console.aws.amazon.com/lambda/home). Copy the function ARN and review the code. Notice that the code is configured to throw an error.
 
-2. In the `Resource` field, replace the current value with the ARN of the Lambda function in your account named **ErrorHandlingCustomErrorFunction**. When the state machine invokes this function, the function will fail.
+   ![Lambda function throws FooError](/static/img/module-10/error-handling-lambda-foo-error.png)
+
+2. Now locate the **ErrorHandlingStateMachineWithRetry-...** [state machine](https://console.aws.amazon.com/states/home). Click on its link and click the **Edit** button on the top right corner of the screen. 
+
+3. In the `Resource` field, replace the current value with the ARN of the Lambda function copied in step 1. When the state machine invokes this function, the function will fail.
 
    ![Replace Lambda function ARN](/static/img/module-10/error-handling-state-machine-retry.png)
 
 
-3. Now implement a `Retry`. Copy the code shown below and and paste it beginning on line 8 between the `Resource` node and the `End` node. 
+4. Now implement a `Retry`. Copy the code shown below and and paste it beginning on line 8 between the `Resource` node and the `End` node. 
 
 ```bash
       "Retry": [
@@ -37,7 +31,7 @@ In the exercise below, you will create an ASL definition that invokes a Lambda f
       ],
 ```
 
-4. Review the Error Handling Parameters. These parameters define the behavior of the `Retry`.
+5. Review the Error Handling Parameters. These parameters define the behavior of the `Retry`.
 
 - ErrorEquals (Required)
 
@@ -55,20 +49,20 @@ In the exercise below, you will create an ASL definition that invokes a Lambda f
 
   > The multiplier by which the retry interval increases during each attempt (2.0 by default).
 
-For more information about error handling parameters, [review the documentation](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-error-handling.html).
+Review the documentation for more information about [error handling parameters](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-error-handling.html).
 
 
-5. Click **Save** and then **Start execution**. Accept the default input and click **Start execution** again.
+6. Click **Save** and then **Start execution**. Accept the default input and click **Start execution** again.
 
-6. To view your custom error message, select `StartExecution` in the Graph inspector pane and choose the **Exception** tab.
+7. To view your custom error message, select `StartExecution` in the Graph inspector pane and choose the **Exception** tab.
    ![Failure using Retry output](/static/img/module-10/error-handling-custom-error-retry-output.png)
 
-7. Review the **Execution event history** to get more details on the execution.
+8. Review the **Execution event history** to get more details on the execution.
    ![Failure using Retry event history](/static/img/module-10/error-handling-custom-error-retry-event-history.png)
 
 ### Having problems?
 
-Your ASL definition should be similar to the snippet below. Remember to replace the Lambda function ARN.
+Your ASL definition should be similar to the snippet below. Remember to replace the Lambda function ARN in the `Resource` node.
 
 ```bash
 {

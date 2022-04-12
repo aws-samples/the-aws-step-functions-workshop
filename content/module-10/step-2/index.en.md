@@ -7,7 +7,7 @@ This module demonstrates **error handling** using `Catch` and `Retry` fields. `T
 
 When a state has both Retry and Catch fields, Step Functions uses any appropriate retriers first, and only afterward applies the matching catcher transition if the retry policy fails to resolve the error.
 
-This module uses a Lambda function to show how Step Functions handles `Catch` and `Retry`.
+This module uses Lambda functions to simulate errors that will be handled by the Step Functions `Catch` and `Retry` states.
 
 Review the documentation:
 - [Error handling in Step Functions](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-error-handling.html)
