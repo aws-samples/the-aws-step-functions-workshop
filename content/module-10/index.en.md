@@ -5,6 +5,5 @@ weight: 120
 
 ## Module Goals
 
-- Overview
-- Try out different error scenarios
-- Clean up
+- Handle a failure using Retry
+- Handle a failure using Catch

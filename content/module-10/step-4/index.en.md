@@ -1,13 +1,73 @@
 ---
-title: 'Clean up'
-weight: 124
+title: 'Handle a failure using Catch'
+weight: 123
 ---
 
-:::alert{header="Important" type="warning"}
-Follow the instructions on this page if you would like to clean up resources in your own account. Event Engine accounts do not require cleanup.
-:::
+`Task`, `Map` and `Parallel` states may contain a field named `Catch`. This field's value must be an array of objects, known as catchers. Each catcher can be configured to catch a specific type of error. ASL defines a set of built-in strings that name well-known errors, all beginning with the `States.` prefix. Catchers may also catch custom errors. A catcher may be configured to forward to a specific **fallback** state. Each fallback state may implement its own error handling logic. Built-in errors include:
 
-- Navigate to the [CloudFormation](https://console.aws.amazon.com/cloudformation/home) page in the AWS Console.
-- Select the stack with name `SFW-Module-10` (or any name you have chosen for the stack) and then click Delete.
-  ![CloudFormation delete](/static/img/setup/setup-cloudformation-delete.png)
-- Make sure the stack deletion completes successfully.
+- `States.ALL` - a wildcard that matches any known error name
+- `States.DataLimitExceeded` - an output exceeds quota
+- `States.Runtime` - an runtime exception could not be processed
+- `States.HeartbeatTimeout` - a Task state failed to send a heartbeat
+- `States.Timeout` - a Task state either timed out
+- `States.TaskFailed` - a Task state failed during the execution
+- `States.Permissions` - a Task state had insufficient privileges
+
+Read the documentation for more information on [Error names](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-error-handling.html).
+
+In this exercise, you will configure a state machine that will catch a custom error and a `States.Timeout` error using the `Catch` field. 
+
+### Catch a custom error
+
+1. Locate the **ErrorHandlingCustomErrorFunction** [Lambda function](https://console.aws.amazon.com/lambda/home). Review the code and copy the function ARN. Notice that the code throws an error named `CustomError`.
+
+   ![Lambda function throws CustomError](/static/img/module-10/error-handling-lambda-function-custom-error.png)
+
+2. Now locate the **ErrorHandlingStateMachineWithCatch-...** [state machine](https://console.aws.amazon.com/states/home). Click on its link and click the **Edit** button on the top right corner of the screen. 
+
+3. In the `Resource` field, replace the current value with the ARN of the Lambda function copied in step 1. When the state machine invokes this function, the function will fail with the `CustomError`.
+
+   ![Replace Lambda function ARN](/static/img/module-10/error-handling-state-machine-catch.png)
+
+3. Review the `Catch` block of your ASL definition. Notice that it contains three catchers. The first catcher is configured to catch an error called `CustomError`. When it catches this error it passes flow control to the fallback state `CustomErrorFallback`.
+
+   ![Catch CustomError](/static/img/module-10/error-handling-state-machine-catch-custom-error.png)
+
+3. Click **Save** and then **Start execution**. Accept the default input and click **Start execution** again.
+
+4. Go to the **Execution output** tab to view the output of your workflow. It should show `This is a fallback from a custom Lambda function exception`
+
+5. To view your custom error message, select `StartExecution` in the Graph inspector pane and choose the **Step output** tab
+   ![Failure using Catch output](/static/img/module-10/error-handling-custom-error-catch-output.png)
+6. Go through the **Execution event history** to get more details
+   ![Failure using Catch event history](/static/img/module-10/error-handling-custom-error-catch-event-history.png)
+
+
+
+### Catch a timeout error
+
+1. Locate the **ErrorHandlingSleep10Function** [Lambda function](https://console.aws.amazon.com/lambda/home). Review the code and copy the function ARN. Notice that function is configured to sleep for 10 seconds.
+
+   ![Lambda function sleeps for 10 seconds](/static/img/module-10/error-handling-lambda-sleep10.png)
+
+2. Now locate the **ErrorHandlingStateMachineWithCatch-...** [state machine](https://console.aws.amazon.com/states/home). Click on its link and click the **Edit** button on the top right corner of the screen. 
+
+3. In the `Resource` field, replace the current value with the ARN of the Lambda function copied in step 1. When the state machine invokes this function, the function will sleep for 10 seconds.
+
+   ![Replace Lambda function ARN](/static/img/module-10/error-handling-state-machine-catch.png)
+
+4. Notice the `TimeoutSeconds` field for the `Task` is set to be 5 seconds. Notice the catcher configured to catch the `States.Timeout` error type. This catcher forwards to the `TimeoutFallback` state. 
+
+   ![Review the Timeout Catcher](/static/img/module-10/error-handling-state-machine-timeout.png)
+
+5. Click **Save** and then **Start execution**. Accept the default input and click **Start execution** again.
+
+6. Go to the **Execution output** tab to view the output of your workflow. It should show `This is a fallback from a timeout Lambda function exception`
+
+7. To view the error message, select `StartExecution` in the Graph inspector pane and choose the **Step output** tab
+   ![Failure using Catch output](/static/img/module-10/error-handling-timeout-error-catch-output.png)
+
+8. Go through the **Execution event history** to get more details
+   ![Failure using Catch event history](/static/img/module-10/error-handling-timeout-error-catch-event-history.png)
+
+   ::alert[Congratulations! You have successfully completed the module.]{type="success"}
