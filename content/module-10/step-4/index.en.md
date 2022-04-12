@@ -29,17 +29,17 @@ In this exercise, you will configure a state machine that will catch a custom er
 
    ![Replace Lambda function ARN](/static/img/module-10/error-handling-state-machine-catch.png)
 
-3. Review the `Catch` block of your ASL definition. Notice that it contains three catchers. The first catcher is configured to catch an error called `CustomError`. When it catches this error it passes flow control to the fallback state `CustomErrorFallback`.
+4. Review the `Catch` block of your ASL definition. Notice that it contains three catchers. The first catcher is configured to catch an error called `CustomError`. When it catches this error it passes flow control to the fallback state `CustomErrorFallback`.
 
    ![Catch CustomError](/static/img/module-10/error-handling-state-machine-catch-custom-error.png)
 
-3. Click **Save** and then **Start execution**. Accept the default input and click **Start execution** again.
+5. Click **Save** and then **Start execution**. Accept the default input and click **Start execution** again.
 
-4. Go to the **Execution output** tab to view the output of your workflow. It should show `This is a fallback from a custom Lambda function exception`
+6. Go to the **Execution output** tab to view the output of your workflow. It should show `This is a fallback from a custom Lambda function exception`
 
-5. To view the output of the fallback state, select `CustomErrorFallback` state in the Graph inspector pane and click the **Step output** tab.
+7. To view the output of the fallback state, select `CustomErrorFallback` state in the Graph inspector pane and click the **Step output** tab.
    ![Failure using Catch output](/static/img/module-10/error-handling-custom-error-catch-output.png)
-6. Go to the **Execution event history** to get more details.
+8. Go to the **Execution event history** to get more details.
    ![Failure using Catch event history](/static/img/module-10/error-handling-custom-error-catch-event-history.png)
 
 
@@ -64,7 +64,7 @@ In this exercise, you will configure a state machine that will catch a custom er
 
 6. Go to the **Execution output** tab to view the output of your workflow. It should show `This is a fallback from a timeout Lambda function exception`
 
-5. To view the output of the fallback state, select `TimeoutFallback` state in the Graph inspector pane and click the **Step output** tab.
+7. To view the output of the fallback state, select `TimeoutFallback` state in the Graph inspector pane and click the **Step output** tab.
    ![Failure using Catch output](/static/img/module-10/error-handling-timeout-error-catch-output.png)
 
 8. Go through the **Execution event history** to get more details
