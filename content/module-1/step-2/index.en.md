@@ -3,7 +3,7 @@ title: 'Review workflow'
 weight: 32
 ---
 
-Navigate to the Step Functions service and find the state machine that starts with **"TimerStateMachine"**. In this sample app we will execute a task after waiting for a specified delay. Click Edit to find the button for Workflow Studio:
+Navigate to [Step Functions in the console](https://console.aws.amazon.com/states/home) and click the state machine that starts with **"TimerStateMachine"**. In this sample app we will execute a task after waiting for a specified delay. Click **Edit**, and then click the button for Workflow Studio:
 
 ![Workflow Studio Button](/static/img/module-1/workflow-studio.png)
 
