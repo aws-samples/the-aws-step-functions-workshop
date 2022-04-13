@@ -3,4 +3,6 @@ title: 'Module 3 - Run a Job (.sync)'
 weight: 50
 ---
 
-In this module we will implement a synchronized task orchestration pattern called [Run a Job (.sync)](https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-sync). With this pattern, Step Functions will call a service integration and wait until its job is complete before advancing to the next state. To see a list of the integrated services that support synchronization, see [Optimized integrations for Step Functions](https://docs.aws.amazon.com/step-functions/latest/dg/connect-supported-services.html).
+For integrated services such as AWS Batch and Amazon ECS, Step Functions can wait for a task to complete before progressing to the next state. This task orchestration pattern is called [Run a Job (.sync)](https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-sync) in the documentation. To see a list of the integrated services that support synchronization, see [Optimized integrations for Step Functions](https://docs.aws.amazon.com/step-functions/latest/dg/connect-supported-services.html).
+
+ In this module you will configure and run a synchronized task using **Run a Job (.sync)**.
