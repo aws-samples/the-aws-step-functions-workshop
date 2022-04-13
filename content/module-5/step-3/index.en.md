@@ -1,149 +1,22 @@
 ---
-title: 'Locate your resources and configure your state machine'
-weight: 72
+title: 'Overview of the architecture'
+weight: 73
 ---
 
-### Locate your resources
+This module demonstrates dynamic parallelism using the Map and Choice states. This modules contains the following resources:
 
-Navigate to the services below in the AWS console to familiarize yourself with the resources. Make sure you are in the correct region. Copy the SNS Topic ARN (Amazon Resource Name) to a notepad. You will need this value later in the module.
+- Two AWS Lambda functions
 
-- [Amazon SQS](https://console.aws.amazon.com/sqs/v2/home) queue - find **MapStateQueueforMessages**
+- One Amazon Simple Queue Service (Amazon SQS) queue
 
-- [Amazon SNS](https://console.aws.amazon.com/sns/v3/home) topic - find **MapStateTopicforMessages**
+- One Amazon Simple Notification Service (Amazon SNS) topic
 
-- [Amazon DynamoDB](https://console.aws.amazon.com/dynamodbv2/home) table - find **MapStateTable**
+- One Amazon DynamoDB table
 
-- [AWS Lambda](https://console.aws.amazon.com/lambda/home) functions - find **MapStateReadFromSQSQueueLambda** and **MapStateDeleteFromSQSQueueLambda**
+- One AWS Step Functions state machine
 
-### Configure your state machine
+In this project, Step Functions invokes an AWS Lambda function that retrieves messages from an Amazon SQS queue. The Lambda function then returns a JSON array of those messages to a Map state. The Map state iterates through each message in the array dynamically creating separate workflow branches. Each workflow branch writes a message to DynamoDB, and then invokes a second Lambda function to remove the message from Amazon SQS. Finally the branch publishes the message to the Amazon SNS topic.
 
-1. Navigate to [Step Functions](https://console.aws.amazon.com/states/home) in the AWS console.
+![Visual Workflow](/static/img/module-5/visual-workflow.png)
 
-2. Locate the state machine that contains **MapStateStateMachine** in its name. Click on it and then click on **Edit** in the top right corner.
-
-![EDIT](/static/img/module-5/map-state-definition-edit.png)
-
-3. Select all under the **Definition** section and delete the existing ASL definition. Now copy and paste the ASL definition below. This definition contains **BLANK** values in the Map and Choice state (total of 4 places). Your challenge is to update these **BLANKs** with the correct state syntax and parameters. (Completion hints are below.)
-
-   - Visit [Map](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-map-state.html) to learn about Map state syntax.
-
-   - Visit [Choice](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-choice-state.html) to learn about Choice state syntax.
-
-```bash
-{
-  "Comment": "An example of the Amazon States Language for reading messages from an SQS queue and iteratively processing each message.",
-  "StartAt": "Read messages from SQS queue",
-  "States": {
-    "Read messages from SQS queue": {
-      "Type": "Task",
-      "Resource": "arn:aws:states:::lambda:invoke",
-      "OutputPath": "$.Payload",
-      "Parameters": {
-        "FunctionName": "MapStateReadFromSQSQueueLambda"
-      },
-      "Next": "Are there messages to process?"
-    },
-    "Are there messages to process?": {
-      "Type": "Choice",
-      "Choices": [
-        {
-          "Variable": "**BLANK**",
-          "StringEquals": "No messages",
-          "Next": "**BLANK**"
-        }
-      ],
-      "Default": "Process Messages"
-    },
-    "Process Messages": {
-      "Type": "Map",
-      "Next": "Finish",
-      "ItemsPath": "$",
-      "Parameters": {
-        "MessageNumber.$": "$$.**BLANK**",
-        "MessageDetails.$": "$$.**BLANK**"
-      },
-      "Iterator": {
-        "StartAt": "Write message to DynamoDB",
-        "States": {
-          "Write message to DynamoDB": {
-            "Type": "Task",
-            "Resource": "arn:aws:states:::dynamodb:putItem",
-            "ResultPath": null,
-            "Parameters": {
-              "TableName": "MapStateTable",
-              "ReturnConsumedCapacity": "TOTAL",
-              "Item": {
-                "MessageId": {
-                  "S.$": "$.MessageDetails.MessageId"
-                },
-                "Body": {
-                  "S.$": "$.MessageDetails.Body"
-                }
-              }
-            },
-            "Next": "Remove message from SQS queue"
-          },
-          "Remove message from SQS queue": {
-            "Type": "Task",
-            "Resource": "arn:aws:states:::lambda:invoke",
-            "InputPath": "$.MessageDetails",
-            "ResultPath": null,
-            "Parameters": {
-              "FunctionName": "MapStateDeleteFromSQSQueueLambda",
-              "Payload": {
-                "ReceiptHandle.$": "$.ReceiptHandle"
-              }
-            },
-            "Next": "Publish message to SNS topic"
-          },
-          "Publish message to SNS topic": {
-            "Type": "Task",
-            "Resource": "arn:aws:states:::sns:publish",
-            "InputPath": "$.MessageDetails",
-            "Parameters": {
-              "Subject": "Message from Step Functions!",
-              "Message.$": "$.Body",
-              "TopicArn": "arn:aws:sns:us-east-1:1234567890:MapStateTopicforMessages"
-            },
-            "End": true
-          }
-        }
-      }
-    },
-    "Finish": {
-      "Type": "Succeed"
-    }
-  }
-}
-```
-
-**HINTS**
-
-- Choice State Syntax:
-
-```bash
-"Type": "Choice",
-"Choices": [
-  {
-    "Variable": "$",
-    "StringEquals": "No messages",
-    "Next": "Finish"
-  }
-```
-
-- Map State Syntax:
-
-```bash
-"Type": "Map",
-"Next": "Finish",
-"ItemsPath": "$",
-      "Parameters": {
-        "MessageNumber.$": "$$.Map.Item.Index",
-        "MessageDetails.$": "$$.Map.Item.Value"
-}
-```
-
-5. ASL definitions may contain resource parameters. Find and update the TopicArn with the correct value.
-
-6. Click on **Save** (select Save anyway if the warning comes)
-   ![save](/static/img/module-5/map-state-definition.png)
+Learn more about [Step Functions service integrations](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-service-integrations.html).

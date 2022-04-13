@@ -1,63 +1,149 @@
 ---
-title: 'Execute the state machine and review results'
-weight: 73
+title: 'Locate your resources and configure your state machine'
+weight: 74
 ---
 
-1. **Subscribe to the Amazon SNS topic**
+### Locate your resources
 
-   - Open the [Amazon SNS console](https://console.aws.amazon.com/sns/home).
+Navigate to the services below in the AWS console to familiarize yourself with the resources. Make sure you are in the correct region. Copy the SNS Topic ARN (Amazon Resource Name) to a notepad. You will need this value later in the module.
 
-   - Choose Topics and choose the topic that was created by the Map state sample project.
+- [AWS Lambda](https://console.aws.amazon.com/lambda/home) - find **MapStateReadFromSQSQueueLambda** and **MapStateDeleteFromSQSQueueLambda**
 
-   - The name will be similar to **MapStateTopicforMessages**.
+- [Amazon SQS](https://console.aws.amazon.com/sqs/v2/home) - find **MapStateQueueforMessages**
 
-   - Under Subscriptions, choose Create subscription.
+- [Amazon DynamoDB](https://console.aws.amazon.com/dynamodbv2/home) - find **MapStateTable**
 
-   - The Create subscription page is displayed, listing the Topic ARN for the topic.
+- [Amazon SNS](https://console.aws.amazon.com/sns/v3/home) - find **MapStateTopicforMessages** *(copy the Topic ARN)*
 
-   - Under Protocol, choose Email.
+### Configure your state machine
 
-   - Under Endpoint, enter an email address to subscribe to the topic.
+1. Navigate to [Step Functions](https://console.aws.amazon.com/states/home) in the AWS console.
 
-   - Choose Create subscription.
+2. Locate the state machine that contains **MapStateStateMachine** in its name. Click on it and then click on **Edit** in the top right corner.
 
-   - Open the Subscription Confirmation email in the related account and open the Confirm subscription URL.
+![EDIT](/static/img/module-5/map-state-definition-edit.png)
 
-   - The Subscription confirmed page is displayed.
+3. Copy the ASL definition below by clicking the square icon in the top right corner of the code sample field. Replace the definition in your state machine with this copied code. This definition below contains a total of 4 **BLANK** values in the Map and Choice state fields. Read the documentation to learn how to the update these **BLANK** values with the correct state syntax and parameters. (Completion hints are below.)
 
-:::alert{header="Note" type="warning"}
-You must confirm via email before the subscription is active.
-:::
+   - Learn about [Map](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-map-state.html) state syntax.
 
-![SNS](/static/img/module-5/sns-subscription.png)
+   - Learn about [Choice](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-choice-state.html) state syntax.
 
-2. **Add messages to the Amazon SQS queue**
+```bash
+{
+  "Comment": "An example of the Amazon States Language for reading messages from an SQS queue and iteratively processing each message.",
+  "StartAt": "Read messages from SQS queue",
+  "States": {
+    "Read messages from SQS queue": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "OutputPath": "$.Payload",
+      "Parameters": {
+        "FunctionName": "MapStateReadFromSQSQueueLambda"
+      },
+      "Next": "Are there messages to process?"
+    },
+    "Are there messages to process?": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "**BLANK**",
+          "StringEquals": "No messages",
+          "Next": "**BLANK**"
+        }
+      ],
+      "Default": "Process Messages"
+    },
+    "Process Messages": {
+      "Type": "Map",
+      "Next": "Finish",
+      "ItemsPath": "$",
+      "Parameters": {
+        "MessageNumber.$": "$$.**BLANK**",
+        "MessageDetails.$": "$$.**BLANK**"
+      },
+      "Iterator": {
+        "StartAt": "Write message to DynamoDB",
+        "States": {
+          "Write message to DynamoDB": {
+            "Type": "Task",
+            "Resource": "arn:aws:states:::dynamodb:putItem",
+            "ResultPath": null,
+            "Parameters": {
+              "TableName": "MapStateTable",
+              "ReturnConsumedCapacity": "TOTAL",
+              "Item": {
+                "MessageId": {
+                  "S.$": "$.MessageDetails.MessageId"
+                },
+                "Body": {
+                  "S.$": "$.MessageDetails.Body"
+                }
+              }
+            },
+            "Next": "Remove message from SQS queue"
+          },
+          "Remove message from SQS queue": {
+            "Type": "Task",
+            "Resource": "arn:aws:states:::lambda:invoke",
+            "InputPath": "$.MessageDetails",
+            "ResultPath": null,
+            "Parameters": {
+              "FunctionName": "MapStateDeleteFromSQSQueueLambda",
+              "Payload": {
+                "ReceiptHandle.$": "$.ReceiptHandle"
+              }
+            },
+            "Next": "Publish message to SNS topic"
+          },
+          "Publish message to SNS topic": {
+            "Type": "Task",
+            "Resource": "arn:aws:states:::sns:publish",
+            "InputPath": "$.MessageDetails",
+            "Parameters": {
+              "Subject": "Message from Step Functions!",
+              "Message.$": "$.Body",
+              "TopicArn": "arn:aws:sns:us-east-1:1234567890:MapStateTopicforMessages"
+            },
+            "End": true
+          }
+        }
+      }
+    },
+    "Finish": {
+      "Type": "Succeed"
+    }
+  }
+}
+```
 
-   - Open the [Amazon SQS console](https://console.aws.amazon.com/sqs/home).
+**Completion Hints**
 
-   - Choose the queue that was created by the Map state sample project.
+- Copy/paste this code to replace the `Choice` state syntax:
 
-   - The name will be similar to **MapStateQueueforMessages**.
+```bash
+"Type": "Choice",
+"Choices": [
+  {
+    "Variable": "$",
+    "StringEquals": "No messages",
+    "Next": "Finish"
+  }
+```
 
-   - In the Queue Actions list, select Send a Message.
+- Copy/paste this code to replace the `Map` state syntax:
 
-   - On the Send a Message window, enter a message and choose Send Message.
+```bash
+"Type": "Map",
+"Next": "Finish",
+"ItemsPath": "$",
+      "Parameters": {
+        "MessageNumber.$": "$$.Map.Item.Index",
+        "MessageDetails.$": "$$.Map.Item.Value"
+}
+```
 
-   - Choose Send Another Message.
+5. ASL definitions may contain resource parameters. Update the TopicArn with the correct value, copied from above.
 
-   - Continue entering messages until you have several in the Amazon SQS queue.
-
-   - Choose Close.
-
-![SQS](/static/img/module-5/sqs-send-message.png)
-
-3. Click on **Start execution** and copy and paste the JSON below as your input payload.
-   :::code{showCopyAction=true showLineNumbers=false language=json}
-   { "Comment": "Testing Map & Choice states" }
-   :::
-
-4. When an execution is complete, you can select states on the **Visual workflow** and browse the **Input** and **Output** under **Step details**. You can also check the DynamoDB table to see if the messages that you have put into the SQS queue have been successfully inserted.
-
-![DDB](/static/img/module-5/ddb-map-state.png)
-
-::alert[**Congratulations!** You have executed a state machine using the using Map and Choice states.]{type="success"}
+6. Click on **Save** (select Save anyway if the warning comes)
+   ![save](/static/img/module-5/map-state-definition.png)
