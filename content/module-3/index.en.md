@@ -3,8 +3,4 @@ title: 'Module 3 - Run a Job (.sync)'
 weight: 50
 ---
 
-## Module Goals
-
-- Execute a state machine using an initial asynchronous task pattern.
-- Modify ASL definition to implement the Run a Job (.sync) pattern.
-- Execute the updated synchronous task and view results.
+In this module we will implement a synchronized task orchestration pattern called [Run a Job (.sync)](https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-sync). With this pattern, Step Functions will call a service integration and wait until its job is complete before advancing to the next state. To see a list of the integrated services that support synchronization, see [Optimized integrations for Step Functions](https://docs.aws.amazon.com/step-functions/latest/dg/connect-supported-services.html).
