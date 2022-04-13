@@ -1,13 +1,16 @@
 ---
-title: 'Clean up'
+title: 'Start execution'
 weight: 44
 ---
 
-:::alert{header="Important" type="warning"}
-Follow the instructions on this page if you would like to clean up resources in your own account. Event Engine accounts do not require cleanup.
-:::
+Now go ahead and "Start execution" on this state machine using the following input values:
 
-- Navigate to the [CloudFormation](https://console.aws.amazon.com/cloudformation/home) page in the AWS Console.
-- Select the stack with name `SFW-Module-2` (or any name you have chosen for the stack) and then click Delete.
-  ![CloudFormation delete](/static/img/setup/setup-cloudformation-delete.png)
-- Make sure the stack deletion completes successfully.
+::code[{ "message": "Welcome to re:Invent!", "timer_seconds": 5 }]{showCopyAction=true language="js"}
+
+Navigate to the Execution event history for this execution. You will notice that the execution time for the Send SNS Message task is relatively fast. The state machine proceeds as soon as the SNS Publish API is called.
+
+![Module 2 Result](/static/img/module-2/results.png)
+
+In this case the `"Send SNS Task"` completed in 120ms. Review your own execution event history to compare results.
+
+::alert[**Congratulations!** You have executed a state machine using the Request Response pattern.]{type="success"}

@@ -3,8 +3,6 @@ title: 'Module 2 - Request Response'
 weight: 40
 ---
 
-## Module Goals
+When Step Functions calls another service using the `Task` state, the default pattern is [Request Response](https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-default). With this task orchestration pattern, Step Functions will call the service and then immediately proceed to the next state. The `Task` state will not wait for the underlying job to complete.
 
-- Review ASL definition
-- Execute a state machine using a Request Response pattern
-- Inspect results in Execution event history
+In this module you will run a `Task` using the Request Response pattern.

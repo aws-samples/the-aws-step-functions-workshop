@@ -1,16 +1,24 @@
 ---
-title: 'Review workflow'
+title: 'Setup'
 weight: 42
 ---
 
-Navigate to [Step Functions in the console](https://console.aws.amazon.com/states/home) and click the state machine that starts with **"RequestResponseStateMachine"**. In this sample app we will wait for a specified delay, then we will publish to a SNS topic using the Request Response pattern.
+:::alert{header="Important" type="warning"}
+Follow the instructions on this page only if you are executing this workshop in your own account. To skip these instructions [click here](../step-2).
+:::
 
-When you specify a service in the `"Resource"` string of your task state, and you only provide the resource, Step Functions will wait for an HTTP response from the service API and then will immediately progress to the next state. Step Functions will not wait for a job to complete. This called the Request Response pattern.
+- Click on the `Launch` link against any of the regions in the table below to start the deployment.
+  | Region | Launch stack |
+  | ----------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+  | **US East (N. Virginia)** us-east-1 | [Launch](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/template?stackName=SFW-Module-2&templateURL=https://serverless-stepfunctions-artifacts-17oiei2i27urc.s3.amazonaws.com/resources/module_2.yml) |
+  | **Europe (Ireland)** eu-west-1 | [Launch](https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/create/template?stackName=SFW-Module-2&templateURL=https://serverless-stepfunctions-artifacts-17oiei2i27urc.s3.amazonaws.com/resources/module_2.yml) |
+  | **Asia Pacific (Singapore)** ap-southeast-1 | [Launch](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/create/template?stackName=SFW-Module-2&templateURL=https://serverless-stepfunctions-artifacts-17oiei2i27urc.s3.amazonaws.com/resources/module_2.yml) |
 
-Review the definition in Workflow Studio:
-
-![Module 2 Workflow](/static/img/module-2/workflow.png)
-
-Notice the `"Resource"` string of the task state below. This code designates a Request Response service integration pattern.
-
-![Module 2 Code](/static/img/module-2/code.png)
+- Location of the CloudFormation template will be auto populated in the `Amazon S3 URL` field as shown in the diagram below. Click `Next`
+  ![CloudFormation specify template](/static/img/setup/setup-cloudformation-specify-template.png)
+- On the _Specify stack details_ page, _Stack name_ would be auto populated to `SFW-Module-2`. You can specify a different name if you want.
+  ![CloudFormation stack name](/static/img/setup/setup-cloudformation-stack-name.png)
+- Click _Next_ two times and on the last `Review` page, scroll to the bottom. Click the checkbox `if shown` and then click `Create stack`.
+  ![CloudFormation create stack](/static/img/setup/setup-cloudformation-create-stack.png)
+- Wait till the stack shows `CREATE_COMPLETE` status.
+  ![CloudFormation stack complete](/static/img/setup/setup-cloudformation-create-complete.png)
