@@ -140,7 +140,7 @@ Navigate to the services below in the AWS console to familiarize yourself with t
       "Parameters": {
         "MessageNumber.$": "$$.Map.Item.Index",
         "MessageDetails.$": "$$.Map.Item.Value"
-}
+},
 ```
 
 5. ASL definitions may contain resource parameters. Update the TopicArn with the correct value, copied from above.
