@@ -1,13 +1,10 @@
 ---
-title: 'Clean up'
+title: 'Execute callback workflow'
 weight: 66
 ---
 
-:::alert{header="Important" type="warning"}
-Follow the instructions on this page if you would like to clean up resources in your own account. Event Engine accounts do not require cleanup.
-:::
+Return to [Step Functions](https://console.aws.amazon.com/states/home) and start a new execution of the **WaitForCallbackStateMachine** using the default input. This time you will notice that the state machine completes its execution because the Lambda function has implemented the callback.
 
-- Navigate to the [CloudFormation](https://console.aws.amazon.com/cloudformation/home) page in the AWS Console.
-- Select the stack with name `SFW-Module-4` (or any name you have chosen for the stack) and then click Delete.
-  ![CloudFormation delete](/static/img/setup/setup-cloudformation-delete.png)
-- Make sure the stack deletion completes successfully.
+![Module 4 Workflow](/static/img/module-4/modified-workflow.png)
+
+::alert[**Congratulations!** You have executed a state machine using the **Wait for Callback** pattern.]{type="success"}

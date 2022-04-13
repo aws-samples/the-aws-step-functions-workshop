@@ -1,10 +1,14 @@
 ---
-title: 'Execute callback workflow'
+title: 'Implement callback'
 weight: 65
 ---
 
-Execute the state machine again with default input. This time you will notice that the callback is sent by the Lambda function and the state machine is able to complete it's execution.
+Navigate to the [Lambda service in the console](https://console.aws.amazon.com/lambda/home) and find the function that contains the string **CallbackWithTaskToken**. This is the function that is responsible for processing the messages added to the SQS queue. You will modify this function to implement a callback.
 
-![Module 4 Workflow](/static/img/module-4/modified-workflow.png)
+Review the code and notice that the Lambda function receives the `TaskToken` from SQS and can return it to the state machine as a parameter in the `.sendTaskSuccess` method.
 
-::alert[**Congratulations!** You have executed a state machine using the Callback pattern.]{type="success"}
+Uncomment the code indicated in the image below and click the **Deploy** button.
+
+![Module 4 Workflow](/static/img/module-4/lambda.png)
+
+
