@@ -4,7 +4,7 @@ weight: 62
 ---
 
 :::alert{header="Important" type="warning"}
-Follow the instructions on this page only if you are executing this workshop in your own account. To skip these instructions [click here](../step-2).
+Follow the instructions on this page only if you are executing this workshop in your own account. To skip these instructions [click here](../step-3).
 :::
 
 - Click on the `Launch` link against any of the regions in the table below to start the deployment.
