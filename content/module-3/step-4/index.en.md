@@ -1,12 +1,12 @@
 ---
-title: 'Execute synchronous task'
+title: 'Modify definition'
 weight: 54
 ---
 
-Now run the state machine again using the default input. This time you will notice that the `Submit Batch Job` state will not advance until the job is completed.
+Now we'll modify the ASL definition to make the task synchronous. Click the Edit button and navigate to the Definition editor. Add the `.sync` method to the end of the Resource definition.
 
-![Module 3 Workflow](/static/img/module-3/modified-workflow.png)
+![Module 3 Workflow](/static/img/module-3/sync.png)
 
-Once the job completes (usually ~1-2 mins) the state machine will proceed.
+Save your modified ASL definition.
 
-::alert[**Congratulations!** You have executed a state machine using a synchronous task pattern.]{type="success"}
+

@@ -1,13 +1,12 @@
 ---
-title: 'Clean up'
+title: 'Execute synchronous task'
 weight: 55
 ---
 
-:::alert{header="Important" type="warning"}
-Follow the instructions on this page if you would like to clean up resources in your own account. Event Engine accounts do not require cleanup.
-:::
+Now run the state machine again using the default input. This time you will notice that the `Submit Batch Job` state will not advance until the job is completed.
 
-- Navigate to the [CloudFormation](https://console.aws.amazon.com/cloudformation/home) page in the AWS Console.
-- Select the stack with name `SFW-Module-3` (or any name you have chosen for the stack) and then click Delete.
-  ![CloudFormation delete](/static/img/setup/setup-cloudformation-delete.png)
-- Make sure the stack deletion completes successfully.
+![Module 3 Workflow](/static/img/module-3/modified-workflow.png)
+
+Once the job completes (usually ~1-2 mins) the state machine will proceed.
+
+::alert[**Congratulations!** You have executed a state machine using a synchronous task pattern.]{type="success"}
