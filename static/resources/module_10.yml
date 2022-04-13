@@ -1,23 +1,40 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: AWS Step Functions sample project for error handling
 Resources:
-  ErrorHandlingStateMachine:
+  ErrorHandlingStateMachineWithRetry:
     Type: 'AWS::StepFunctions::StateMachine'
     Properties:
       DefinitionString: !Sub |
         {
-          "Comment": "A Catch example of the Amazon States Language using an AWS Lambda function",
+          "Comment": "A state machine calling an AWS Lambda function with Retry",
           "StartAt": "StartExecution",
           "States": {
             "StartExecution": {
               "Type": "Task",
               "Resource": "arn:aws:lambda:us-east-1:123456789012:function:FailFunction",
+              "End": true
+            }
+          }
+        }
+      RoleArn: !GetAtt [StatesExecutionRole, Arn]
+  ErrorHandlingStateMachineWithCatch:
+    Type: 'AWS::StepFunctions::StateMachine'
+    Properties:
+      DefinitionString: !Sub |
+        {
+          "Comment": "A state machine calling an AWS Lambda function with Catch",
+          "StartAt": "StartExecution",
+          "States": {
+            "StartExecution": {
+              "Type": "Task",
+              "Resource": "arn:aws:lambda:us-east-1:123456789012:function:FailureFunction",
+              "TimeoutSeconds": 5,
               "Catch": [ {
                 "ErrorEquals": ["CustomError"],
                 "Next": "CustomErrorFallback"
               }, {
-                "ErrorEquals": ["States.TaskFailed"],
-                "Next": "ReservedTypeFallback"
+                "ErrorEquals": ["States.Timeout"],
+                "Next": "TimeoutFallback"
               }, {
                 "ErrorEquals": ["States.ALL"],
                 "Next": "CatchAllFallback"
@@ -29,18 +46,19 @@ Resources:
               "Result": "This is a fallback from a custom Lambda function exception",
               "End": true
             },
-            "ReservedTypeFallback": {
+            "TimeoutFallback": {
               "Type": "Pass",
-              "Result": "This is a fallback from a reserved error code",
+              "Result": "This is a fallback from a timeout error",
               "End": true
             },
             "CatchAllFallback": {
               "Type": "Pass",
-              "Result": "This is a fallback from any error code",
+              "Result": "This is a fallback from any error",
               "End": true
             }
           } 
         }
+
       RoleArn: !GetAtt [StatesExecutionRole, Arn]
   StatesExecutionRole:
     Type: 'AWS::IAM::Role'
@@ -87,13 +105,14 @@ Resources:
             SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
           */
           exports.lambda_handler = async (event, context, callback) => {
-            function CustomError(message) {
+            
+            function FooError(message) {
               this.name = 'CustomError';
               this.message = message;
             }
-            CustomError.prototype = new Error();
+            FooError.prototype = new Error();
 
-            throw new CustomError('This is a custom error!');
+            throw new FooError('This is a custom error!');
           };
       Runtime: 'nodejs12.x'
       Timeout: '11'
@@ -125,7 +144,7 @@ Resources:
             SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
           */
           exports.lambda_handler = (event, context, callback) => {
-            setTimeout(function(){}, 11000);
+            setTimeout(function(){}, 10000); // sleep for 10 seconds
           };
       Runtime: 'nodejs12.x'
       Timeout: '11'
@@ -143,6 +162,9 @@ Resources:
             Action: 'sts:AssumeRole'
 
 Outputs:
-  StateMachineArn:
+  StateMachineArnWithRetry:
     Value:
-      Ref: ErrorHandlingStateMachine
+      Ref: ErrorHandlingStateMachineWithRetry
+  StateMachineArnWithCatch:
+    Value:
+      Ref: ErrorHandlingStateMachineWithCatch
