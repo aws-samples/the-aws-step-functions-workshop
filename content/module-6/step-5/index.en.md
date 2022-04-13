@@ -11,7 +11,7 @@ Follow the instructions on this page if you would like to clean up resources in 
 Navigate to **Step Functions**
 If you named the state machines as per the instructions provided:
 
-- Select **Lambda-input-output-processing-sm** from the list of state machines.
+- Select **InputOutputProcessingMachine** from the list of state machines.
 - Click **Delete** button
 - Confirm by clicking **Delete state machine** button on the dialog box that is displayed.
 

@@ -1,18 +1,24 @@
 ---
-title: 'Overview of the concept'
-weight: 81
+title: 'Setup'
+weight: 82
 ---
 
-A Step Functions execution receives JSON text as input and passes that input to the first state in the workflow. Each individual state receive JSON as input and usually passes JSON as output to the next state. Understanding how this information flows from state to state and learning how to filter and manipulate this data is critical to designing and implementing effective workflows in Step Functions.
+:::alert{header="Important" type="warning"}
+Follow the instructions on this page only if you are executing this workshop in your own account. To skip these instructions [click here](../step-3).
+:::
 
-In the Amazon States Language, these fields filter and control the flow of JSON from state to state:
+- Click on the `Launch` link against any of the regions in the table below to start the deployment.
+  | Region | Launch stack |
+  | ----------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+  | **US East (N. Virginia)** us-east-1 | [Launch](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/template?stackName=SFW-Module-6&templateURL=https://serverless-stepfunctions-artifacts-17oiei2i27urc.s3.amazonaws.com/resources/module_6.yml) |
+  | **Europe (Ireland)** eu-west-1 | [Launch](https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/create/template?stackName=SFW-Module-6&templateURL=https://serverless-stepfunctions-artifacts-17oiei2i27urc.s3.amazonaws.com/resources/module_6.yml) |
+  | **Asia Pacific (Singapore)** ap-southeast-1 | [Launch](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/create/template?stackName=SFW-Module-6&templateURL=https://serverless-stepfunctions-artifacts-17oiei2i27urc.s3.amazonaws.com/resources/module_6.yml) |
 
-- `InputPath`
-
-- `OutputPath`
-
-- `ResultPath`
-
-- `Parameters`
-
-- `ResultSelector`
+- Location of the CloudFormation template will be auto populated in the `Amazon S3 URL` field as shown in the diagram below. Click `Next`
+  ![CloudFormation specify template](/static/img/setup/setup-cloudformation-specify-template.png)
+- On the _Specify stack details_ page, _Stack name_ would be auto populated to `SFW-Module-6`. You can specify a different name if you want.
+  ![CloudFormation stack name](/static/img/setup/setup-cloudformation-stack-name.png)
+- Click _Next_ two times and on the last `Review` page, scroll to the bottom. Click the checkbox `if shown` and then click `Create stack`.
+  ![CloudFormation create stack](/static/img/setup/setup-cloudformation-create-stack.png)
+- Wait till the stack shows `CREATE_COMPLETE` status.
+  ![CloudFormation stack complete](/static/img/setup/setup-cloudformation-create-complete.png)

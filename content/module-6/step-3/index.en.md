@@ -1,9 +1,7 @@
 ---
-title: 'Build a state machine using Workflow Studio'
-weight: 82
+title: 'Use Workflow Studio to build a state machine'
+weight: 83
 ---
-
-Follow the below steps to create a simple workflow using Workflow Studio.
 
 1. Navigate to [Step Functions](https://console.aws.amazon.com/states/home) in your AWS console. Make sure you are in the correct AWS region.
 
@@ -12,17 +10,21 @@ Follow the below steps to create a simple workflow using Workflow Studio.
 3. For `Choose authoring method` select **Design your workflow visually**, select state machine `Type` as **Standard** and click on **Next**.
    ![Studio](/static/img/module-6/studio-selection.png)
 
-4. You should see the designer studio now.
+4. You should see the Workflow Studio now.
    ![Studio Designer](/static/img/module-6/studio-designer.png)
 
-5. For `Comment` on the right side, enter `A step functions example showing input and output processing`.
+5. Enter a `Comment` on the right side: 
+
+```bash
+A step functions example showing input and output processing.
+```
 
 6. Drag and drop the **AWS Lambda Invoke** action from the `Actions` section on the left side to the designer form to where it says `Drag first state here`.
    ![Lambda Invoke](/static/img/module-6/lambda-invoke-state.png)
 
 7. Configure the state.
 
-- On the `Configuration` tab of the designer, enter `HelloFunctionWorkflow` for state name.
+- On the `Configuration` tab of the designer, enter a name for this state: `Invoke HelloFunction`.
 - You should have a Lambda function called `HelloFunction` already deployed to your acccount.
 - Configure this state to invoke that function. Find the `API Parameters` field and click `Enter function name`. Scroll down the menu list until you find **HelloFunction:$LATEST**. Select this value.
 
@@ -36,6 +38,6 @@ Follow the below steps to create a simple workflow using Workflow Studio.
 - Click on the `Error handling` tab. Find the **Retry on errors** section and remove the default `Retrier #1` by clicking the edit icon to the right and scrolling down to click the **Remove** button.
   ![Remove Retrier](/static/img/module-6/remove-retrier.png)
 - Click on **Next** and review the generated code and click **Next** again.
-- Provide a name to this state machine. For example: `Lambda-input-output-processing-sm`. For the IAM role, select an existing IAM role `InputOutputProcessingStepFunctionRole`
+- Enter the a State machine name: `InputOutputProcessingMachine`. For the Execution role, choose an existing role: `InputOutputProcessingStepFunctionRole`
   ![Iam Role](/static/img/module-6/name-iam-role.png)
-- You can leave the rest of the defaults and click on **Create state machine**.
+- Leave the rest of the defaults and click **Create state machine**.
