@@ -7,20 +7,21 @@ weight: 10
 
 In this workshop, you will learn how to use the primary features of AWS Step functions through a series of interactive modules. The workshop materials cover:
 
-- Amazon States Language (ASL)
-- Task Orchestration Patterns
-    - Request Response
-    - Run a Job (.sync)
-    - Wait for Callback (.waitForTaskToken)
-- States (Choice, Map, Parallel, Wait, etc.)
-- Workshop Studio
-- Input and output processing
-- AWS SDK integrations
-- API Gateway integration
-- AWS CDK construction
-- Error handling 
+    - Amazon States Language (ASL)
+    - Task Orchestration Patterns
+        - Request Response
+        - Run a Job (.sync)
+        - Wait for Callback (.waitForTaskToken)
+    - States (Task, Choice, Map, Parallel, Wait, Pass, Succeed, Fail)
+    - Standard Workflows and Express Workflows
+    - Workshop Studio
+    - Input and output processing
+    - AWS SDK integrations
+    - API Gateway integration
+    - AWS CDK construction
+    - Error handling 
 
-Each module is independent from the others. You may choose which modules to take and take them in any order.
+Each module is independent from the others. You may choose which modules to take and take them in any order. Several of the modules combine concepts in order to resemble real world scenarios more closely.
 
 ### Target Audience
 - Anyone interested in learning about AWS Step Functions.
