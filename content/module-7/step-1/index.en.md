@@ -1,6 +1,6 @@
 ---
 title: 'Module Goals'
-weight: 90
+weight: 91
 ---
 
 - Build a state machine with a Parallel State and integrate it with API Gateway

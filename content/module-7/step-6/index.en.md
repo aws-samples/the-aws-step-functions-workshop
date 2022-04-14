@@ -1,6 +1,6 @@
 ---
 title: 'Execute a synchronous execution through API Gateway'
-weight: 95
+weight: 96
 ---
 
 ## Make the integration synchronous

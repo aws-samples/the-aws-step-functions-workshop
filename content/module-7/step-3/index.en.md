@@ -1,6 +1,6 @@
 ---
 title: 'Overview of the architecture'
-weight: 92
+weight: 93
 ---
 
 This module contains the following resources:

@@ -1,6 +1,6 @@
 ---
 title: 'Execute an asynchronous execution through API Gateway'
-weight: 94
+weight: 95
 ---
 
 1. Go to the API Gateway console and select the API created for this module.

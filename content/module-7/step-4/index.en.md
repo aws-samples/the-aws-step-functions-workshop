@@ -1,6 +1,6 @@
 ---
 title: 'Build a state machine with a Parallel State and Integrate it with API Gateway'
-weight: 93
+weight: 94
 ---
 
 ### Create the State Machine
