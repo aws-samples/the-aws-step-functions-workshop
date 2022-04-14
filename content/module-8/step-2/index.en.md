@@ -1,18 +1,24 @@
 ---
-title: 'Overview of the concept'
+title: 'Setup'
 weight: 101
 ---
 
-AWS Step Functions integrates with many other AWS services. You can use Step Functions AWS SDK integrations to call any of the over 200 AWS services directly from your state machine, giving you access to over 9,000 API actions.
+:::alert{header="Important" type="warning"}
+Follow the instructions on this page only if you are executing this workshop in your own account. To skip these instructions [click here](../step-3).
+:::
 
-To use AWS SDK integrations, you specify the service name and API call. Some integrations require parameters and you may optionally specify a service integration pattern. Note that the API action will be camel case, and parameter names will be Pascal case. You can call AWS SDK services using Amazon States Language in the Resource field of a task state. To do this, use the following syntax:
+- Click on the `Launch` link against any of the regions in the table below to start the deployment.
+  | Region | Launch stack |
+  | ----------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+  | **US East (N. Virginia)** us-east-1 | [Launch](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/template?stackName=SFW-Module-8&templateURL=https://serverless-stepfunctions-artifacts-17oiei2i27urc.s3.amazonaws.com/resources/module_8.yml) |
+  | **Europe (Ireland)** eu-west-1 | [Launch](https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/create/template?stackName=SFW-Module-8&templateURL=https://serverless-stepfunctions-artifacts-17oiei2i27urc.s3.amazonaws.com/resources/module_8.yml) |
+  | **Asia Pacific (Singapore)** ap-southeast-1 | [Launch](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/create/template?stackName=SFW-Module-8&templateURL=https://serverless-stepfunctions-artifacts-17oiei2i27urc.s3.amazonaws.com/resources/module_8.yml) |
 
-`arn:aws:states:::aws-sdk:serviceName:apiAction.[serviceIntegrationPattern]`
-
-**Examples**
-
-- To start an execution in Step Functions use the syntax: `arn:aws:states:::aws-sdk:sfn:startExecution`. You will then add **StateMachineArn** as a parameter. This will return as output the return value of the Step Functions startExecution API call.
-
-- To describe Amazon EC2 instances, use the syntax: `arn:aws:states:::aws-sdk:ec2:describeInstances`. This will return as output the return value of the Amazon EC2 describeInstances API call.
-
-- To list buckets in Amazon S3, use `arn:aws:states:::aws-sdk:s3:listBuckets`. This will return as output the the return value of the Amazon S3 listBuckets API call.
+- Location of the CloudFormation template will be auto populated in the `Amazon S3 URL` field as shown in the diagram below. Click `Next`
+  ![CloudFormation specify template](/static/img/setup/setup-cloudformation-specify-template.png)
+- On the _Specify stack details_ page, _Stack name_ would be auto populated to `SFW-Module-8`. You can specify a different name if you want.
+  ![CloudFormation stack name](/static/img/setup/setup-cloudformation-stack-name.png)
+- Click _Next_ two times and on the last `Review` page, scroll to the bottom. Click the checkbox `if shown` and then click `Create stack`.
+  ![CloudFormation create stack](/static/img/setup/setup-cloudformation-create-stack.png)
+- Wait till the stack shows `CREATE_COMPLETE` status.
+  ![CloudFormation stack complete](/static/img/setup/setup-cloudformation-create-complete.png)

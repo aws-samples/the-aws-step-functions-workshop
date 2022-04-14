@@ -3,7 +3,7 @@ title: 'Create the state machine and provision resources'
 weight: 102
 ---
 
-1. Navigate to Step Functions in your AWS console. Make sure you are in the same region where you deployed the resources using the CloudFormation template in the **setup** step.
+1. Navigate to [Step Functions](https://console.aws.amazon.com/states/home) in your AWS console. Make sure you are in the correct region.
 
 2. If you are not on the `State machines` page, click on `State machines` on the left side menu and click **Create state machine**
 
@@ -13,7 +13,11 @@ weight: 102
 4. You should see the designer studio now which will look like this.
    ![](/static/img/module-6/studio-designer.png)
 
-5. For `Comment` on the right side, enter `A sample workflow using a AWS SDK service integration with Amazon S3`.
+5. Enter a `Comment` on the right side: 
+
+```bash
+A workflow that contains an AWS SDK service integration with Amazon S3.
+```
 
 6. One the left hand side **Actions** menu, use the search bar and search for `ListBuckets`. You should see the **S3 ListBuckets** action show up.
 
@@ -25,9 +29,9 @@ weight: 102
 
 9. Now click on **Next** and review the generated code. Click on **Next** again.
 
-10. Provide a name to your state machine, `UniversalSDKIntegration-sm`.
+10. Provide a name to your state machine, `ListBucketMachine`.
 
-11. Under permissions choose **Choose existing role** and select `UniversalSDKRoleNameforStepfunctions` from the drop down.
+11. Click the **Choose existing role** button and select `UniversalSDKRoleNameforStepfunctions` from the drop down.
 
 ![](/static/img/module-8/iam.png)
 

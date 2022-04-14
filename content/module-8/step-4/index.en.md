@@ -10,6 +10,6 @@ weight: 103
 }
 :::
 
-- Inspect the **Execution event history** to view a list of S3 buckets. You should find one that starts with `univesalsdkintegrationbucket-`.
+- Inspect the **Execution event history** to view a list events and find one called **TaskSucceeded**. Click to expand this event and you should find a list of S3 buckets with one named `univesalsdkintegrationbucket-`.
 
 ::alert[**Congratulations!** You have successfully completed an AWS SDK service integration.]{type="success"}
