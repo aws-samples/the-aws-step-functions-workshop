@@ -1,5 +1,5 @@
 ---
-title: 'Module 7 - Parallel State and integration with API Gateway'
+title: 'Module 7 - API Gateway, Parallel State, Express workflows'
 weight: 90
 ---
 Amazon API Gateway is a fully managed service that makes it easy for developers to create, publish, maintain, monitor, and secure APIs. Step Functions integrates directly with API Gateway, enabling you to trigger the execution of a state machine with an HTTP request. API Gateway can be used with both Standard and Express workflows. Integrations may be synchronous or asynchronous.
