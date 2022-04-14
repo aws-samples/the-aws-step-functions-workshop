@@ -1,19 +1,24 @@
 ---
-title: 'Overview of the concept'
-weight: 92
+title: 'Setup'
+weight: 91
 ---
 
-This module demonstrates how to configure a state machine that executes parallel workflow branches using the Parallel state. It also shows how to trigger the execution of a state machine from API Gateway. This module contains the following resources:
+:::alert{header="Important" type="warning"}
+Follow the instructions on this page only if you are executing this workshop in your own account. To skip these instructions [click here](../step-3).
+:::
 
-- Three AWS Lambda functions
-- One API Gateway
-- One AWS IAM Role used to integrate API Gateway with Step Functions
+- Click on the `Launch` link against any of the regions in the table below to start the deployment.
+  | Region | Launch stack |
+  | ----------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+  | **US East (N. Virginia)** us-east-1 | [Launch](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/template?stackName=SFW-Module-7&templateURL=https://serverless-stepfunctions-artifacts-17oiei2i27urc.s3.amazonaws.com/resources/module_7.yml) |
+  | **Europe (Ireland)** eu-west-1 | [Launch](https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/create/template?stackName=SFW-Module-7&templateURL=https://serverless-stepfunctions-artifacts-17oiei2i27urc.s3.amazonaws.com/resources/module_7.yml) |
+  | **Asia Pacific (Singapore)** ap-southeast-1 | [Launch](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/create/template?stackName=SFW-Module-7&templateURL=https://serverless-stepfunctions-artifacts-17oiei2i27urc.s3.amazonaws.com/resources/module_7.yml) |
 
-In this module, you will create an Express Workflow that receives an array of integers as input, and in parallel calculates the sum, the average, and the maximum and minimum values. The state machine returns a JSON object with the responses from each of the parallel tasks.
-
-Next, you will set up an asynchronous API Gateway integration with your state machine. You will execute the state machine by sending a request to API Gateway. You will then modify the integration to make the response from Step Functions synchronous.
-![Visual Workflow](/static/img/module-7/visual-workflow.png)
-
-For more information on Parallel states visit [Parallel States](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-parallel-state.html)
-
-For more information about the API Gateway integration types visit [API Gateway Integration](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-api-integration-types.html)
+- Location of the CloudFormation template will be auto populated in the `Amazon S3 URL` field as shown in the diagram below. Click `Next`
+  ![CloudFormation specify template](/static/img/setup/setup-cloudformation-specify-template.png)
+- On the _Specify stack details_ page, _Stack name_ would be auto populated to `SFW-Module-7`. You can specify a different name if you want.
+  ![CloudFormation stack name](/static/img/setup/setup-cloudformation-stack-name.png)
+- Click _Next_ two times and on the last `Review` page, scroll to the bottom. Click the checkbox `if shown` and then click `Create stack`.
+  ![CloudFormation create stack](/static/img/setup/setup-cloudformation-create-stack.png)
+- Wait till the stack shows `CREATE_COMPLETE` status.
+  ![CloudFormation stack complete](/static/img/setup/setup-cloudformation-create-complete.png)

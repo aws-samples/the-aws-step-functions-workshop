@@ -1,19 +1,24 @@
 ---
-title: 'Execute a synchronous execution through API Gateway'
-weight: 95
+title: 'Execute an asynchronous execution through API Gateway'
+weight: 94
 ---
 
-## Make the integration synchronous
-
 1. Go to the API Gateway console and select the API created for this module.
-   ![API Console](/static/img/module-7/api-console-4.png)
+   ![API Console](/static/img/module-7/api-console-3.png)
 2. From the list of resources find the `execution` resource and click on `POST`
-   ![API Execution](/static/img/module-7/api-execution-new-4.png)
-3. Click on `Integration Request`
-4. Edit the `Action` by clicking the gray pencil and change it to `StartSyncExecution` and click on the update button (gray checkmark)
-   ![API Execution Sync](/static/img/module-7/api-integration-setup-sync.png)
-5. Test your API again.
-6. You will notice a larger `Response Body` with more details from the state machine execution including the `input` and the `output`
-   ![API Test Result Sync](/static/img/module-7/api-test-result-sync-4.png)
+   ![API Execution New](/static/img/module-7/api-execution-new.png)
+3. Click on `Test`
+4. At the bottom of the page you will find a field called `Request Body`, paste the following json there and replace the sample `stateMachineArn` with the ARN of your State Machine.
+:::code{showCopyAction=true language=json}
+{
+"input": "{\"data\": [20,40,60,10,9]}",
+"name": "MyExecution",
+"stateMachineArn": "arn:aws:states:us-east-1:123456789012:stateMachine:ParallelProcessing-sm"
+}
+:::
+   ![API Test](/static/img/module-7/api-test.png)
+5. Click `Test`.  
+6. Look at the `Response Body`. Notice that it includes references to the `executionArn` and the `startDate`. These responses are returned because the State Machine was executed asynchronously.
+   ![API Test Result](/static/img/module-7/api-test-result.png)
 
-::alert[**Congratulations!** You just executed a synchronous integration between API Gateway and Step Functions.]{type="success"}
+::alert[**Congratulations!** You just executed an asynchronous integration between API Gateway and Step Functions.]{type="success"}

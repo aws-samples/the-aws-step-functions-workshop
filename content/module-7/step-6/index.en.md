@@ -1,34 +1,19 @@
 ---
-title: 'Clean up'
-weight: 96
+title: 'Execute a synchronous execution through API Gateway'
+weight: 95
 ---
 
-:::alert{header="Important" type="warning"}
-Follow the instructions on this page if you would like to clean up resources in your own account. Event Engine accounts do not require cleanup.
-:::
+## Make the integration synchronous
 
-## Manually delete the state machine
+1. Go to the API Gateway console and select the API created for this module.
+   ![API Console](/static/img/module-7/api-console-4.png)
+2. From the list of resources find the `execution` resource and click on `POST`
+   ![API Execution](/static/img/module-7/api-execution-new-4.png)
+3. Click on `Integration Request`
+4. Edit the `Action` by clicking the gray pencil and change it to `StartSyncExecution` and click on the update button (gray checkmark)
+   ![API Execution Sync](/static/img/module-7/api-integration-setup-sync.png)
+5. Test your API again.
+6. You will notice a larger `Response Body` with more details from the state machine execution including the `input` and the `output`
+   ![API Test Result Sync](/static/img/module-7/api-test-result-sync-4.png)
 
-Navigate to **Step Functions**
-If you named the state machines per the instructions provided:
-
-- Select **ParallelProcessing-sm** from the list of state machines.
-- Click **Delete** button
-- Confirm by clicking **Delete state machine** button on the dialog box that is displayed.
-  ![Statemachine delete](/static/img/module-7/manual-delete-sm.png)
-
-If you have chosen different names while creating the state machines, follow the above instructions while selecting the appropriate state machines.
-
-- Navigate to the [CloudFormation](https://console.aws.amazon.com/cloudformation/home) page in the AWS Console.
-- Select the stack with name `SFW-Module-7` (or any name you have chosen for the stack) and then click Delete.
-  ![CloudFormation delete](/static/img/setup/setup-cloudformation-delete.png)
-- Make sure the stack deletion completes successfully.
-
-## Manually delete the CloudWatch log group
-
-Navigate to **CloudWatch** and select **Log groups** under Logs
-
-- select the log group belonging to **ParallelProcessing-sm** step function.
-- Click on **Actions** dropdown and then select **Delete log group(s)**.
-  ![Cloudwatch loggroup delete](/static/img/module-7/cloudwatch-cleanup.png)
-- Confirm by clicking the **Delete** button in the pop up screen.
+::alert[**Congratulations!** You just executed a synchronous integration between API Gateway and Step Functions.]{type="success"}
