@@ -13,6 +13,8 @@ weight: 123
 - `States.TaskFailed` - a Task state failed during execution
 - `States.Permissions` - a Task state had insufficient privileges
 
+When a state has both Retry and Catch fields, Step Functions uses any appropriate retriers first, and only afterward applies the matching catcher transition if the retry policy fails to resolve the error.
+
 Read the documentation for more information on [Error names](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-error-handling.html).
 
 In this exercise, you will configure a state machine that will catch a custom error and a `States.Timeout` error using the `Catch` field. 

@@ -3,6 +3,8 @@ title: 'Handle a failure using Retry'
 weight: 123
 ---
 
+`Task` and `Parallel` states can have a field named `Retry`, whose value must be an array of objects known as retriers. An individual retrier represents a certain number of retries, usually at increasing time intervals.
+
 In the exercise below, you will create an ASL definition that invokes a Lambda function. The Lambda function is designed to fail. You will implement a `Retry` for this function, setting maximum attempts with an exponential backoff rate between retries.
 
 1. Locate the **ErrorHandlingCustomErrorFunction** [Lambda function](https://console.aws.amazon.com/lambda/home). Copy the function ARN and review the code. Notice that the code is configured to throw an error.
@@ -11,7 +13,7 @@ In the exercise below, you will create an ASL definition that invokes a Lambda f
 
 2. Now locate the **ErrorHandlingStateMachineWithRetry-...** [state machine](https://console.aws.amazon.com/states/home). Click on its link and click the **Edit** button on the top right corner of the screen. 
 
-3. In the `Resource` field, replace the current value with the ARN of the Lambda function copied in step 1. When the state machine invokes this function, the function will fail.
+3. In the `Resource` field, replace the current value with the ARN of the Lambda function copied in step 1. When the state machine invokes this function, the function will fail. You may start an execution to view the failure.
 
    ![Replace Lambda function ARN](/static/img/module-10/error-handling-state-machine-retry.png)
 
@@ -57,7 +59,7 @@ Review the documentation for more information about [error handling parameters](
 7. To view your custom error message, select `StartExecution` in the Graph inspector pane and choose the **Exception** tab.
    ![Failure using Retry output](/static/img/module-10/error-handling-custom-error-retry-output.png)
 
-8. Review the **Execution event history** to get more details on the execution.
+8. Review the **Execution event history** to get more details on the execution. Notice the retries in the event history.
    ![Failure using Retry event history](/static/img/module-10/error-handling-custom-error-retry-event-history.png)
 
 ### Having problems?
