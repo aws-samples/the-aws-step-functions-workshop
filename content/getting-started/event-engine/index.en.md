@@ -4,7 +4,7 @@ weight: 21
 ---
 
 :::alert{header="Important" type="warning"}
-This page guides you through the prerequisite steps before starting the workshop when attending an event hosted by AWS.
+This page guides you through the prerequisite steps before starting an AWS hosted event.
 :::
 
 To obtain your temporary AWS account, locate the 12 or 16 character **Event Hash** provided by your event organizer and [enter it here](https://dashboard.eventengine.run/login). This will change the lower right button to **Accept Terms & Login**. Click the button to proceed to the next step.
