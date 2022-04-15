@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: 'Custom resource to create a Cloud9 for Step Functions workshop'
+Description: 'Custom resource to create a AWS Cloud9 for Step Functions workshop'
 Resources:
   Cloud9Environment1:
     Type: AWS::Cloud9::EnvironmentEC2

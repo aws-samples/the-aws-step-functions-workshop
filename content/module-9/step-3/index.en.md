@@ -1,111 +1,76 @@
 ---
-title: 'CDK and Project Setup'
+title: 'AWS Cloud9 Workspace Setup'
 weight: 113
 ---
 
-The Cloud9 environment comes with some AWS utilities pre-installed. Run the following command in your Cloud9 terminal to verify that it contains an updated version of AWS CDK. It should be v2.x.
+- Log into the AWS Console
+- Navigate to [AWS Cloud9](https://console.aws.amazon.com/cloud9/home) in the console. Make sure you are in the correct region.
+- Select **StepFunctionsWorkshop** from the environment list and click **Open IDE** button. Maximize the terminal display by closing the **welcome tab** and the **lower work area**. Open a new **terminal** tab in the main work area:
+  ![AWS Cloud9 Before](/static/img/setup/c9before.png)
+- Your workspace should now look like this:
+  ![AWS Cloud9 After](/static/img/setup/c9after.png)
+
+### Attach a role to the AWS Cloud9 EC2 instance
+
+- From your **AWS Cloud9** IDE, click on **Manage EC2 Instance** in the top right menu as shown in the diagram below.
+  ![AWS Cloud9 manage](/static/img/setup/c9manageinstance.png)
+- Select the AWS Cloud9 instance by checking the box next to it, then choose **Actions / Security / Modify IAM Role**
+  ![AWS Cloud9 instance role](/static/img/setup/c9instancerole.png)
+- Choose **stepfunctionsworkshop-role** from the **IAM Role** drop down, and select **Save**
+- Return to your workspace and click the sprocket, or launch a new tab to open the Preferences tab
+- Select **AWS Settings** in the left navigation.
+- Turn off **AWS managed temporary credentials**
+- Close the Preferences tab
+  ![AWS Cloud9 aws settings](/static/img/setup/c9disableiam.png)
+
+Remove any existing credentials:
 
 ```bash
-cdk --version
+rm -vf ${HOME}/.aws/credentials
 ```
 
-### Bootstrapping AWS CDK
-
-Deploying AWS CDK apps into an AWS environment may require that you provision resources the AWS CDK needs to perform the deployment. These resources include an Amazon S3 bucket for storing files and IAM roles that grant permissions needed to perform deployments. The process of provisioning these initial resources is called bootstrapping. This typically needs to be done once per region in a given account.
+Install jq. We will use this to help us process json.
 
 ```bash
-cdk bootstrap aws://${AWS_ACCOUNT_ID}/${AWS_REGION}
+sudo yum install -y jq
 ```
 
-### Set Up Your AWS CDK Project
-
-Create a new directory for the AWS CDK app and initialize the project.
+Upgrade AWS CLI:
 
 ```bash
-mkdir stepfunctions-rest-api
-cd stepfunctions-rest-api
-cdk init --language typescript
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
 ```
 
-::alert[Be sure to name the directory `stepfunctions-rest-api`. The AWS CDK application template uses the name of the directory to generate names for source files and classes. If you use a different name, your app will not match this tutorial.]{header="Note"}
-
-### Use AWS CDK to create an API Gateway REST API with Synchronous Express State Machine backend integration
-
-First, we'll review the individual code snippets that define the Synchronous Express State Machine and the API Gateway REST API. Later we will put them together into an AWS CDK app. Last we will synthesize and deploy these resources. The code is written in TypeScript.
-
-#### Review the Step Functions state machine definition
-
-This AWS CDK code defines a simple state machine with a `pass` state.
+Configure AWS CLI with the current region as default:
 
 ```bash
-const machineDefinition = new sfn.Pass(this, 'PassState', {
-    result: {value:"Hello!"},
-})
-
-const stateMachine = new stepfunctions.StateMachine(this, 'MyStateMachine', {
-    definition: machineDefinition,
-    stateMachineType: stepfunctions.StateMachineType.EXPRESS,
-});
+echo "export AWS_DEFAULT_REGION=$(curl -s 169.254.169.254/latest/dynamic/instance-identity/document | jq -r .region)" >> ~/.bashrc
+echo "export AWS_REGION=\$AWS_DEFAULT_REGION" >> ~/.bashrc
+echo "export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)" >> ~/.bashrc
+source ~/.bashrc
 ```
 
-This snippet contains:
-
-- A machine definition named `PassState`, which is a `pass` state.
-- The state machine’s logical name: `MyStateMachine`.
-- The machine definition is set as the StateMachine definition.
-- The StateMachineType is set as `EXPRESS`. `StepFunctionsRestApi` will only allow a Synchronous Express state machine.
-
-#### Review the API Gateway REST API definition
-
-Next we will use `StepFunctionsRestApi` construct to create the API Gateway REST API with required permissions and default input/output mapping. This is a high level construct which contains many pre-defined configurations. We can use this definition to create an integration between the state machine and API Gateway.
+Verify that AWS_REGION is set correctly:
 
 ```bash
-const api = new apigateway.StepFunctionsRestApi(this, 'StepFunctionsRestApi', { stateMachine: stateMachine });
+test -n "$AWS_REGION" && echo AWS_REGION is "$AWS_REGION" || echo AWS_REGION is not set
 ```
 
-#### Put it together
-
-In the AWS CDK project, replace the contents of the `lib/stepfunctions-rest-api-stack.ts` file with the code below. You'll recognize the definitions of the Step Functions state machine and the API Gateway.
+Save the AWS_ACCOUNT_ID and AWS_REGION to the bash_profile:
 
 ```bash
-import * as cdk from 'aws-cdk-lib';
-import * as stepfunctions from 'aws-cdk-lib/aws-stepfunctions';
-import * as apigateway from 'aws-cdk-lib/aws-apigateway';
-
-export class StepfunctionsRestApiStack extends cdk.Stack {
-    constructor(app: cdk.App, id: string) {
-      super(app, id);
-
-      const machineDefinition = new stepfunctions.Pass(this, 'PassState', {
-          result: {value:"Hello back to you!"},
-      })
-
-      const stateMachine = new stepfunctions.StateMachine(this, 'CDKStateMachine', {
-          definition: machineDefinition,
-          stateMachineType: stepfunctions.StateMachineType.EXPRESS,
-      });
-
-      const api = new apigateway.StepFunctionsRestApi(this, 'CDKStepFunctionsRestApi', { stateMachine: stateMachine });
-    }
-}
+echo "export AWS_ACCOUNT_ID=${AWS_ACCOUNT_ID}" | tee -a ~/.bash_profile
+echo "export AWS_REGION=${AWS_REGION}" | tee -a ~/.bash_profile
+aws configure set default.region ${AWS_REGION}
+aws configure get default.region
 ```
 
-Replace the contents of `bin/stepfunctions-rest-api.ts` with the code below.
+Verify the that the AWS Cloud9 IDE is configured to use the correct IAM role:
 
 ```bash
-#!/usr/bin/env node
-import 'source-map-support/register';
-import * as cdk from 'aws-cdk-lib';
-import { StepfunctionsRestApiStack } from '../lib/stepfunctions-rest-api-stack';
-
-const app = new cdk.App();
-new StepfunctionsRestApiStack(app, 'CDKStepfunctionsRestApiStack');
+aws sts get-caller-identity --query Arn | grep stepfunctionsworkshop-role -q && echo "IAM role valid" || echo "IAM role NOT valid"
 ```
 
-Save these source files. To deploy the Amazon API Gateway and the AWS Step Functions state machine to your AWS account, run the following command from the application root:
-
-```bash
-cdk deploy
-```
-
-You'll be asked to approve the IAM policies the AWS CDK has generated. After completing the deployment, CDK will display the REST API url as output. Copy this url. You will use it to the test the application in the next step.
+If the IAM role is not valid, **DO NOT PROCEED**. Go back and confirm the steps on this page. If the role is valid click **Next**.
