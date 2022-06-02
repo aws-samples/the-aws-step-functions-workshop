@@ -38,8 +38,8 @@ First, we'll review the individual code snippets that define the Synchronous Exp
 This AWS CDK code defines a simple state machine with a `pass` state. Review this code now.
 
 ```bash
-const startState = new sfn.Pass(this, 'PassState', {
-    result: {value:"Hello!"},
+const startState = new stepfunctions.Pass(this, 'PassState', {
+    result: { value: 'Hello back to you!' },
 })
 
 const stateMachine = new stepfunctions.StateMachine(this, 'MyStateMachine', {
@@ -77,7 +77,7 @@ export class StepfunctionsRestApiStack extends cdk.Stack {
       super(app, id);
 
       const startState = new stepfunctions.Pass(this, 'PassState', {
-          result: {value:"Hello back to you!"},
+          result: { value:'Hello back to you!' },
       })
 
       const stateMachine = new stepfunctions.StateMachine(this, 'CDKStateMachine', {
