@@ -1,21 +1,8 @@
 ---
-title: 'Module 10 - Error Handling'
-weight: 120
+title: 'Module 10 - Deploy with AWS SAM'
+weight: 110
 ---
-Any state can encounter runtime errors. Errors can happen for various reasons:
 
-- State machine definition issues (for example, no matching rule in a Choice state)
+The [AWS Serverless Application Model (SAM)](https://aws.amazon.com/serverless/sam/) is an open-source framework for building serverless applications. It provides shorthand syntax to express functions, APIs, databases, and event source mappings. With just a few lines per resource, you can define the application you want and model it using YAML. During deployment, SAM transforms and expands the SAM syntax into AWS CloudFormation syntax, enabling you to build serverless applications faster.
 
-- Task failures (for example, an exception in a Lambda function)
-
-- Transient issues (for example, network partition events)
-
-By default, when a state reports an error, Step Functions causes the execution to fail entirely. However, Step Functions has error handling features that enable you to retry or catch states that fail. Error handling features can define retry protocols and also catch and handle a variety of error conditions.
-
-This module demonstrates **error handling** by using Lambda functions to simulate errors that are handled using the `Retry` and `Catch` fields. 
-
-Review the documentation:
-- [Error handling in Step Functions](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-error-handling.html)
-- [Error handling in AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/invocation-retries.html)
-
-
+In this module you will use AWS SAM to deploy an application that configures API Gateway to trigger a synchronous Step Functions Express workflow. 

@@ -1,75 +1,233 @@
 ---
-title: 'Handle a failure using Catch'
-weight: 123
+title: 'AWS SAM and Project Setup'
+weight: 114
 ---
 
-`Task`, `Map`, and `Parallel` states may contain a field named `Catch`. This field's value must be an array of objects, known as catchers. Each catcher can be configured to catch a specific type of error. ASL defines a set of built-in strings that name well-known errors, all beginning with the `States.` prefix. Catchers may also catch custom errors. Each catcher may be configured to forward to a specific **fallback** state. Each fallback state may implement error handling logic. Built-in error types include:
+The AWS Cloud9 environment comes with some AWS utilities pre-installed. Run the following command in your AWS Cloud9 terminal to verify that it contains an updated version of AWS SAM. It should be at least v1.3X.
 
-- `States.ALL` - a wildcard that matches any known error name
-- `States.DataLimitExceeded` - an output exceeds quota
-- `States.Runtime` - a runtime exception could not be processed
-- `States.HeartbeatTimeout` - a Task state failed to send a heartbeat
-- `States.Timeout` - a Task state timed out
-- `States.TaskFailed` - a Task state failed during execution
-- `States.Permissions` - a Task state had insufficient privileges
+```bash
+sam --version
+```
 
-When a state has both Retry and Catch fields, Step Functions uses any appropriate retriers first, and only afterward applies the matching catcher transition if the retry policy fails to resolve the error.
+### Set up your AWS SAM Project
+```bash
+mkdir stepfunctions-rest-api
+cd stepfunctions-rest-api
+```
 
-Read the documentation for more information on [Error names](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-error-handling.html).
+### Use AWS SAM to create an API Gateway REST API with Synchronous Express State Machine backend integration
 
-In this exercise, you will configure a state machine that will catch a custom error and a `States.Timeout` error using the `Catch` field. 
+First, we'll review the individual code snippets that define the Synchronous Express State Machine and the API Gateway REST API. Later we will put them together into an AWS SAM app. Then we will build and deploy these resources. 
 
-### Catch a custom error
+#### Review the Step Functions state machine definition
 
-1. Locate the **ErrorHandlingCustomErrorFunction** [Lambda function](https://console.aws.amazon.com/lambda/home). Copy the function ARN and review the code. Notice that the code throws an error named `CustomError`.
+This AWS SAM resource defines the configuration of a simple state machine.
+```bash
+  HelloWorldStateMachine:
+    Type: AWS::Serverless::StateMachine
+    Properties:
+      DefinitionUri: hello_world.asl.json
+      Role: !GetAtt HelloWorldStateMachineRole.Arn
+      Type: EXPRESS
+  HelloWorldStateMachineRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - !Sub states.${AWS::Region}.amazonaws.com
+            Action: sts:AssumeRole
+```
+Notice the snippet above contains
+- The State Machine definition is in the `hello_world.asl.json` file
+- The State Machine's IAM role is `HelloWorldStateMachineRole`
+- The State Machine Type is `EXPRESS`
 
-   ![Lambda function throws CustomError](/static/img/module-10/error-handling-lambda-function-custom-error.png)
+This Amazon States Language code will be in the `hello_world.asl.json` file. Review this code now.
 
-2. Now locate the **ErrorHandlingStateMachineWithCatch-...** [state machine](https://console.aws.amazon.com/states/home). Click on its link and click the **Edit** button on the top right corner of the screen. 
+```bash
+  {
+    "Comment": "A description of my state machine",
+    "StartAt": "Pass",
+    "States": {
+      "Pass": {
+        "Type": "Pass",
+        "End": true,
+        "Result": {
+          "value": "Hello back to you!"
+        }
+      }
+    }
+  }
+```
 
-3. In the `Resource` field, replace the current value with the ARN of the Lambda function copied in step 1. When the state machine invokes this function, the function will fail with the `CustomError`.
+Notice the snippet above contains a `Pass` state named `PassState` that returns a string "Hello back to you!". Add the snippet to a new file called `hello_world.asl.json`.
 
-   ![Replace Lambda function ARN](/static/img/module-10/error-handling-state-machine-catch.png)
+#### Review the API Gateway REST API definition
 
-4. Review the `Catch` block of your ASL definition. Notice that it contains three catchers. The first catcher is configured to catch an error called `CustomError`. When it catches this error it passes flow control to the fallback state `CustomErrorFallback`.
+Next we will use `AWS::Serverless::Api` construct to create the API Gateway REST API with required permissions and reference the input/output mapping in the `api.yaml` file. We can use this definition to create an integration between the state machine and API Gateway.
 
-   ![Catch CustomError](/static/img/module-10/error-handling-state-machine-catch-custom-error.png)
+```bash
+  HelloWorldApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: dev
+      DefinitionBody:
+        'Fn::Transform':
+          Name: 'AWS::Include'
+          Parameters:
+            Location: 'api.yaml'
+  RestApiRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+              - apigateway.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Policies:
+      - PolicyName: AllowSFNExec
+        PolicyDocument:
+          Version: 2012-10-17
+          Statement:
+            - Effect: Allow
+              Action: "states:StartSyncExecution"
+              Resource: !GetAtt HelloWorldStateMachine.Arn
+```
 
-5. Click **Save** and then **Start execution**. Accept the default input and click **Start execution** again.
+#### Review the api.yaml mapping file
+```
+openapi: "3.0.1"
+info:
+  title: "SAMStepFunctionsRestApi"
+  version: "1.0"
+paths:
+  /:
+    post:
+      responses:
+        "400":
+          description: "400 response"
+          content: {}
+        "200":
+          description: "200 response"
+          content: {}
+      x-amazon-apigateway-integration:
+        credentials: 
+          Fn::GetAtt: [RestApiRole, Arn]
+        httpMethod: "ANY"
+        uri: 
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:states:action/StartSyncExecution
+        responses:
+          "200":
+            statusCode: "200"
+            responseTemplates:
+              application/json: "{\"output\":$input.json('$.output')}"
+          "400":
+            statusCode: "400"
+        requestTemplates:
+          application/json: 
+             Fn::Sub:
+                "{\"input\": \"$util.escapeJavaScript($input.json('$'))\"\
+                , \"stateMachineArn\": \"${HelloWorldStateMachine}\"\
+                }"
+        passthroughBehavior: "when_no_match"
+        type: "aws"
+components: {}
+```
+The `api.yaml` file defines the request and response mapping for the API and connects the API Gateway to the Step Functions state machine. Add the snippet above to a new file called `api.yaml`.
 
-6. Go to the **Execution output** tab to view the output of your workflow. It should show `This is a fallback from a custom Lambda function exception`
+#### Put it together
 
-7. To view the output of the fallback state, select `CustomErrorFallback` state in the Graph inspector pane and click the **Step output** tab.
-   ![Failure using Catch output](/static/img/module-10/error-handling-custom-error-catch-output.png)
-8. Go to the **Execution event history** to get more details.
-   ![Failure using Catch event history](/static/img/module-10/error-handling-custom-error-catch-event-history.png)
+In the AWS SAM project, replace the contents of the `template.yaml` file with the code below. You'll recognize the definitions of the Step Functions state machine and the API Gateway.
 
+```bash
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  stepfunctions-rest-api
 
+  Sample SAM Template for stepfunctions-rest-api
 
-### Catch a timeout error
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 3
 
-1. Locate the **ErrorHandlingSleep10Function** [Lambda function](https://console.aws.amazon.com/lambda/home). Copy the function ARN and review the code. Notice that the function is configured to sleep for 10 seconds.
+Resources:
 
-   ![Lambda function sleeps for 10 seconds](/static/img/module-10/error-handling-lambda-sleep10.png)
+  HelloWorldApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: dev
+      DefinitionBody:
+        'Fn::Transform':
+          Name: 'AWS::Include'
+          Parameters:
+            Location: 'api.yaml'
 
-2. Now locate the **ErrorHandlingStateMachineWithCatch-...** [state machine](https://console.aws.amazon.com/states/home). Click on its link and click the **Edit** button on the top right corner of the screen. 
+  HelloWorldStateMachine:
+    Type: AWS::Serverless::StateMachine
+    Properties:
+      DefinitionUri: hello_world.asl.json
+      Role: !GetAtt HelloWorldStateMachineRole.Arn
+      Type: EXPRESS
 
-3. In the `Resource` field, replace the current value with the ARN of the Lambda function copied in step 1. When the state machine invokes this function, the function will sleep for 10 seconds.
+  RestApiRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+              - apigateway.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Policies:
+      - PolicyName: AllowSFNExec
+        PolicyDocument:
+          Version: 2012-10-17
+          Statement:
+            - Effect: Allow
+              Action: "states:StartSyncExecution"
+              Resource: !GetAtt HelloWorldStateMachine.Arn
+  HelloWorldStateMachineRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - !Sub states.${AWS::Region}.amazonaws.com
+            Action: sts:AssumeRole
+Outputs:
+  HelloWorldApi:
+    Description: "API Gateway endpoint URL to call Hello World State Machine"
+    Value: !Sub "https://${HelloWorldApi}.execute-api.${AWS::Region}.amazonaws.com/dev/"
+  HelloWorldStateMachineArn:
+    Description: "Hello World State Machine ARN"
+    Value: !Ref HelloWorldStateMachine
+  HelloWorldStateMachineRole:
+    Description: "IAM Role created for Hello World State Machine based on the specified SAM Policy Templates"
+    Value: !GetAtt HelloWorldStateMachineRole.Arn
+```
 
-   ![Replace Lambda function ARN](/static/img/module-10/error-handling-state-machine-catch.png)
+Save the template file. To deploy the Amazon API Gateway and the AWS Step Functions state machine to your AWS account, run the following commands from the application root:
 
-4. Notice the `TimeoutSeconds` field for the `Task` is set to be 5 seconds. Notice the catcher configured to catch the `States.Timeout` error type. This catcher forwards to the `TimeoutFallback` state. 
+```bash
+sam build
+sam deploy --guided
+```
+![AWS CDK diagram](/static/img/module-10/sam-deploy.png)
 
-   ![Review the Timeout Catcher](/static/img/module-10/error-handling-state-machine-timeout.png)
-
-5. Click **Save** and then **Start execution**. Accept the default input and click **Start execution** again.
-
-6. Go to the **Execution output** tab to view the output of your workflow. It should show `This is a fallback from a timeout Lambda function exception`
-
-7. To view the output of the fallback state, select `TimeoutFallback` state in the Graph inspector pane and click the **Step output** tab.
-   ![Failure using Catch output](/static/img/module-10/error-handling-timeout-error-catch-output.png)
-
-8. Go through the **Execution event history** to get more details
-   ![Failure using Catch event history](/static/img/module-10/error-handling-timeout-error-catch-event-history.png)
-
-   ::alert[Congratulations! You have successfully completed the Error Handling module.]{type="success"}
+After completing the deployment, AWS SAM will display the REST API url as output. Copy this url. You will use it to the test the application in the next step.

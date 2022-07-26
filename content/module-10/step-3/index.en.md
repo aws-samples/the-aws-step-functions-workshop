@@ -1,92 +1,76 @@
 ---
-title: 'Handle a failure using Retry'
-weight: 123
+title: 'AWS Cloud9 Workspace Setup'
+weight: 113
 ---
 
-`Task` and `Parallel` states can have a field named `Retry`, whose value must be an array of objects known as retriers. An individual retrier represents a certain number of retries, usually at increasing time intervals.
+- Log into the AWS Console
+- Navigate to [AWS Cloud9](https://console.aws.amazon.com/cloud9/home) in the console. Make sure you are in the correct region.
+- Select **StepFunctionsWorkshop** from the environment list and click **Open IDE** button. Maximize the terminal display by closing the **welcome tab** and the **lower work area**. Open a new **terminal** tab in the main work area:
+  ![AWS Cloud9 Before](/static/img/setup/c9before.png)
+- Your workspace should now look like this:
+  ![AWS Cloud9 After](/static/img/setup/c9after.png)
 
-In the exercise below, you will create an ASL definition that invokes a Lambda function. The Lambda function is designed to fail. You will implement a `Retry` for this function, setting maximum attempts with an exponential backoff rate between retries.
+### Attach a role to the AWS Cloud9 EC2 instance
 
-1. Locate the **ErrorHandlingCustomErrorFunction** [Lambda function](https://console.aws.amazon.com/lambda/home). Copy the function ARN and review the code. Notice that the code is configured to throw an error.
+- From your **AWS Cloud9** IDE, click on **Manage EC2 Instance** in the top right menu as shown in the diagram below.
+  ![AWS Cloud9 manage](/static/img/setup/c9manageinstance.png)
+- Select the AWS Cloud9 instance by checking the box next to it, then choose **Actions / Security / Modify IAM Role**
+  ![AWS Cloud9 instance role](/static/img/setup/c9instancerole.png)
+- Choose **stepfunctionsworkshop-role** from the **IAM Role** drop down, and select **Save**
+- Return to your workspace and click the sprocket, or launch a new tab to open the Preferences tab
+- Select **AWS Settings** in the left navigation.
+- Turn off **AWS managed temporary credentials**
+- Close the Preferences tab
+  ![AWS Cloud9 aws settings](/static/img/setup/c9disableiam.png)
 
-   ![Lambda function throws FooError](/static/img/module-10/error-handling-lambda-foo-error.png)
-
-2. Now locate the **ErrorHandlingStateMachineWithRetry-...** [state machine](https://console.aws.amazon.com/states/home). Click on its link and click the **Edit** button on the top right corner of the screen. 
-
-3. In the `Resource` field, replace the current value with the ARN of the Lambda function copied in step 1. When the state machine invokes this function, the function will fail. You may start an execution to view the failure.
-
-   ![Replace Lambda function ARN](/static/img/module-10/error-handling-state-machine-retry.png)
-
-
-4. Now implement a `Retry`. Copy the code shown below and and paste it beginning on line 8 between the `Resource` node and the `End` node. 
-
-```bash
-      "Retry": [
-        {
-          "ErrorEquals": [
-            "CustomError"
-          ],
-          "IntervalSeconds": 1,
-          "MaxAttempts": 2,
-          "BackoffRate": 2
-        }
-      ],
-```
-
-5. Review the Error Handling Parameters. These parameters define the behavior of the `Retry`.
-
-- ErrorEquals (Required)
-
-  > A non-empty array of strings that match error names. When a state reports an error, Step Functions scans through the retriers. When the error name appears in this array, it implements the retry policy described in this retrier.
-
-- IntervalSeconds (Optional)
-
-  > An integer that represents the number of seconds before the first retry attempt (1 by default). IntervalSeconds has a maximum value of 99999999.
-
-- MaxAttempts (Optional)
-
-  > A positive integer that represents the maximum number of retry attempts (3 by default). If the error recurs more times than specified, retries cease and normal error handling resumes. A value of 0 specifies that the error or errors are never retried. MaxAttempts has a maximum value of 99999999.
-
-- BackoffRate (Optional)
-
-  > The multiplier by which the retry interval increases during each attempt (2.0 by default).
-
-Review the documentation for more information about [error handling parameters](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-error-handling.html).
-
-
-6. Click **Save** and then **Start execution**. Accept the default input and click **Start execution** again.
-
-7. To view your custom error message, select `StartExecution` in the Graph inspector pane and choose the **Exception** tab.
-   ![Failure using Retry output](/static/img/module-10/error-handling-custom-error-retry-output.png)
-
-8. Review the **Execution event history** to get more details on the execution. Notice the retries in the event history.
-   ![Failure using Retry event history](/static/img/module-10/error-handling-custom-error-retry-event-history.png)
-
-### Having problems?
-
-Your ASL definition should be similar to the snippet below. Remember to replace the Lambda function ARN in the `Resource` node.
+Remove any existing credentials:
 
 ```bash
-{
-  "Comment": "A state machine calling an AWS Lambda function with Retry",
-  "StartAt": "StartExecution",
-  "States": {
-    "StartExecution": {
-      "Type": "Task",
-      "Resource": "arn:aws:lambda:us-east-1:123456789012:function:FailFunction",
-      "Retry": [
-        {
-          "ErrorEquals": [
-            "CustomError"
-          ],
-          "IntervalSeconds": 1,
-          "MaxAttempts": 2,
-          "BackoffRate": 2
-        }
-      ],
-      "End": true
-    }
-  }
-}
+rm -vf ${HOME}/.aws/credentials
 ```
-When you are ready, you may move onto the next page.
+
+Install jq. We will use this to help us process json.
+
+```bash
+sudo yum install -y jq
+```
+
+Upgrade AWS CLI:
+
+```bash
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+```
+
+Configure AWS CLI with the current region as default:
+
+```bash
+echo "export AWS_DEFAULT_REGION=$(curl -s 169.254.169.254/latest/dynamic/instance-identity/document | jq -r .region)" >> ~/.bashrc
+echo "export AWS_REGION=\$AWS_DEFAULT_REGION" >> ~/.bashrc
+echo "export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)" >> ~/.bashrc
+source ~/.bashrc
+```
+
+Verify that AWS_REGION is set correctly:
+
+```bash
+test -n "$AWS_REGION" && echo AWS_REGION is "$AWS_REGION" || echo AWS_REGION is not set
+```
+
+Save the AWS_ACCOUNT_ID and AWS_REGION to the bash_profile:
+
+```bash
+echo "export AWS_ACCOUNT_ID=${AWS_ACCOUNT_ID}" | tee -a ~/.bash_profile
+echo "export AWS_REGION=${AWS_REGION}" | tee -a ~/.bash_profile
+aws configure set default.region ${AWS_REGION}
+aws configure get default.region
+```
+
+Verify the that the AWS Cloud9 IDE is configured to use the correct IAM role:
+
+```bash
+aws sts get-caller-identity --query Arn | grep stepfunctionsworkshop-role -q && echo "IAM role valid" || echo "IAM role NOT valid"
+```
+
+If the IAM role is not valid, **DO NOT PROCEED**. Go back and confirm the steps on this page. If the role is valid click **Next**.
