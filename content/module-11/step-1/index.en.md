@@ -1,6 +1,6 @@
 ---
 title: 'Module Goals'
-weight: 121
+weight: 131
 ---
 
 - Handle a failure using Retry

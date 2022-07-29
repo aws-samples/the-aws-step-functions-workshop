@@ -1,6 +1,6 @@
 ---
 title: 'Module Goals'
-weight: 111
+weight: 121
 ---
 
 - Set up an AWS Cloud9 workspace

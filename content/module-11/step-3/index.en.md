@@ -1,6 +1,6 @@
 ---
 title: 'Handle a failure using Retry'
-weight: 123
+weight: 133
 ---
 
 `Task` and `Parallel` states can have a field named `Retry`, whose value must be an array of objects known as retriers. An individual retrier represents a certain number of retries, usually at increasing time intervals.

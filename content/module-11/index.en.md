@@ -1,6 +1,6 @@
 ---
 title: 'Module 11 - Error Handling'
-weight: 120
+weight: 130
 ---
 Any state can encounter runtime errors. Errors can happen for various reasons:
 

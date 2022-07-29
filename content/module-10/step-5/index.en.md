@@ -1,6 +1,6 @@
 ---
 title: 'Testing the project'
-weight: 115
+weight: 125
 ---
 
 After you create your API Gateway REST API with Synchronous Express State Machine as the backend integration, you can test the API Gateway.

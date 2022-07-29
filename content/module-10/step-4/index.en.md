@@ -1,6 +1,6 @@
 ---
 title: 'AWS SAM and Project Setup'
-weight: 114
+weight: 124
 ---
 
 The AWS Cloud9 environment comes with some AWS utilities pre-installed. Run the following command in your AWS Cloud9 terminal to verify that it contains an updated version of AWS SAM. It should be at least v1.3X.

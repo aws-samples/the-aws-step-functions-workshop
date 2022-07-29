@@ -1,6 +1,6 @@
 ---
 title: 'Handle a failure using Catch'
-weight: 123
+weight: 134
 ---
 
 `Task`, `Map`, and `Parallel` states may contain a field named `Catch`. This field's value must be an array of objects, known as catchers. Each catcher can be configured to catch a specific type of error. ASL defines a set of built-in strings that name well-known errors, all beginning with the `States.` prefix. Catchers may also catch custom errors. Each catcher may be configured to forward to a specific **fallback** state. Each fallback state may implement error handling logic. Built-in error types include:

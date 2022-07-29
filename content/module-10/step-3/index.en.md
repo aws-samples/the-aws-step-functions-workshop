@@ -1,6 +1,6 @@
 ---
 title: 'AWS Cloud9 Workspace Setup'
-weight: 113
+weight: 123
 ---
 
 - Log into the AWS Console
