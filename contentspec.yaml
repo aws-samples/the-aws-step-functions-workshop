@@ -3,6 +3,8 @@ version: 2.0
 defaultLocaleCode: en-US
 localeCodes:
   - en-US
+  - pt-BR
+  - es-US
 
 params:
   hello: world
