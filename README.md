@@ -14,8 +14,13 @@ The images in the Introduction section were created from a Powerpoint at [this w
 ├── static                            <-- Directory for static assets to be hosted alongside the workshop (ie. images, scripts, documents, etc) 
 └── content                           <-- Directory for workshop content markdown
     └── index.en.md                   <-- At the root of each directory, there must be at least one markdown file
+    └── index.pt.md                   <-- localized Portuguese content  
+    └── index.es.md                   <-- localized Spanish content  
     └── introduction                  <-- Directory for workshop content markdown
-        └── index.en.md               <-- Markdown file that would be render 
+        └── index.en.md               <-- Markdown file that would be rendered
+        └── index.pt.md                   <-- localized Portuguese content  
+        └── index.es.md                   <-- localized Spanish content  
+
 ```
 
 ## What's Included
