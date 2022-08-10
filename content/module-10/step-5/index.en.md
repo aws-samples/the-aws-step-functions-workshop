@@ -37,11 +37,11 @@ The **Response Body** output should be:
 ### Test the deployed API using cURL
 
 - Open a new terminal window in your AWS Cloud9 environment.
-- Copy the following cURL command and paste it into the terminal window, replacing `<api-id>` with your API's API ID and `<region>` with the region where your API is deployed.
+- Copy the following cURL command and paste it into the terminal window, replacing `<api-id>` with your API's API ID and `<region>` with the region where your API is deployed. You may have copied this URL in from the CloudFormation output in the last step. You can also find the full invoke URL in the API Gateway console by navigating to **Stages > dev**.
 
 ```bash
 curl -X POST\
- 'https://<api-id>.execute-api.<region>.amazonaws.com/prod' \
+ 'https://<api-id>.execute-api.<region>.amazonaws.com/dev' \
  -d '{"key":"Hello Step Functions"}' \
  -H 'Content-Type: application/json'
 ```
