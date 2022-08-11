@@ -1,75 +1,110 @@
 ---
-title: 'Handle a failure using Catch'
-weight: 123
+title: 'AWS CDK and Project Setup'
+weight: 124
 ---
 
-`Task`, `Map`, and `Parallel` states may contain a field named `Catch`. This field's value must be an array of objects, known as catchers. Each catcher can be configured to catch a specific type of error. ASL defines a set of built-in strings that name well-known errors, all beginning with the `States.` prefix. Catchers may also catch custom errors. Each catcher may be configured to forward to a specific **fallback** state. Each fallback state may implement error handling logic. Built-in error types include:
+The AWS Cloud9 environment comes with some AWS utilities pre-installed. Run the following command in your AWS Cloud9 terminal to verify that it contains an updated version of AWS CDK. It should be v2.x.
 
-- `States.ALL` - a wildcard that matches any known error name
-- `States.DataLimitExceeded` - an output exceeds quota
-- `States.Runtime` - a runtime exception could not be processed
-- `States.HeartbeatTimeout` - a Task state failed to send a heartbeat
-- `States.Timeout` - a Task state timed out
-- `States.TaskFailed` - a Task state failed during execution
-- `States.Permissions` - a Task state had insufficient privileges
+```bash
+cdk --version
+```
 
-When a state has both Retry and Catch fields, Step Functions uses any appropriate retriers first, and only afterward applies the matching catcher transition if the retry policy fails to resolve the error.
+### Bootstrapping AWS CDK
 
-Read the documentation for more information on [Error names](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-error-handling.html).
+Deploying AWS CDK apps into an AWS environment may require that you provision resources the AWS CDK needs to perform the deployment. These resources include an Amazon S3 bucket for storing files and IAM roles that grant permissions needed to perform deployments. The process of provisioning these initial resources is called bootstrapping. This typically needs to be done once per region in a given account.
 
-In this exercise, you will configure a state machine that will catch a custom error and a `States.Timeout` error using the `Catch` field. 
+```bash
+cdk bootstrap aws://${AWS_ACCOUNT_ID}/${AWS_REGION}
+```
 
-### Catch a custom error
+### Set Up Your AWS CDK Project
 
-1. Locate the **ErrorHandlingCustomErrorFunction** [Lambda function](https://console.aws.amazon.com/lambda/home). Copy the function ARN and review the code. Notice that the code throws an error named `CustomError`.
+Create a new directory for the AWS CDK app and initialize a TypeScript project.
 
-   ![Lambda function throws CustomError](/static/img/module-10/error-handling-lambda-function-custom-error.png)
+```bash
+mkdir stepfunctions-rest-api
+cd stepfunctions-rest-api
+cdk init --language typescript
+```
 
-2. Now locate the **ErrorHandlingStateMachineWithCatch-...** [state machine](https://console.aws.amazon.com/states/home). Click on its link and click the **Edit** button on the top right corner of the screen. 
+::alert[Be sure to name the directory `stepfunctions-rest-api`. The AWS CDK application template uses the name of the directory to generate names for source files and classes. If you use a different name, your app will not match this tutorial.]{header="Note"}
 
-3. In the `Resource` field, replace the current value with the ARN of the Lambda function copied in step 1. When the state machine invokes this function, the function will fail with the `CustomError`.
+### Use AWS CDK to create an API Gateway REST API with Synchronous Express State Machine backend integration
 
-   ![Replace Lambda function ARN](/static/img/module-10/error-handling-state-machine-catch.png)
+First, we'll review the individual code snippets that define the Synchronous Express State Machine and the API Gateway REST API. Later we will put them together into an AWS CDK app. Then we will synthesize and deploy these resources. 
 
-4. Review the `Catch` block of your ASL definition. Notice that it contains three catchers. The first catcher is configured to catch an error called `CustomError`. When it catches this error it passes flow control to the fallback state `CustomErrorFallback`.
+#### Review the Step Functions state machine definition
 
-   ![Catch CustomError](/static/img/module-10/error-handling-state-machine-catch-custom-error.png)
+This AWS CDK code defines a simple state machine with a `pass` state. Review this code now.
 
-5. Click **Save** and then **Start execution**. Accept the default input and click **Start execution** again.
+```bash
+const startState = new stepfunctions.Pass(this, 'PassState', {
+    result: { value: 'Hello back to you!' },
+})
 
-6. Go to the **Execution output** tab to view the output of your workflow. It should show `This is a fallback from a custom Lambda function exception`
+const stateMachine = new stepfunctions.StateMachine(this, 'MyStateMachine', {
+    definition: startState,
+    stateMachineType: stepfunctions.StateMachineType.EXPRESS,
+});
+```
 
-7. To view the output of the fallback state, select `CustomErrorFallback` state in the Graph inspector pane and click the **Step output** tab.
-   ![Failure using Catch output](/static/img/module-10/error-handling-custom-error-catch-output.png)
-8. Go to the **Execution event history** to get more details.
-   ![Failure using Catch event history](/static/img/module-10/error-handling-custom-error-catch-event-history.png)
+Notice the snippet above contains:
 
+- A `Pass` state construct named `PassState`. 
+- A StateMachine construct named `MyStateMachine`.
+    -  The StateMachine definition specifies its start state.
+    - The stateMachineType is `EXPRESS` (the `StepFunctionsRestApi` construct only allows a Synchronous Express state machine).
 
+#### Review the API Gateway REST API definition
 
-### Catch a timeout error
+Next we will use `StepFunctionsRestApi` construct to create the API Gateway REST API with required permissions and default input/output mapping. This is a high level construct which contains many pre-defined configurations. We can use this definition to create an integration between the state machine and API Gateway.
 
-1. Locate the **ErrorHandlingSleep10Function** [Lambda function](https://console.aws.amazon.com/lambda/home). Copy the function ARN and review the code. Notice that the function is configured to sleep for 10 seconds.
+```bash
+const api = new apigateway.StepFunctionsRestApi(this, 'StepFunctionsRestApi', { stateMachine: stateMachine });
+```
 
-   ![Lambda function sleeps for 10 seconds](/static/img/module-10/error-handling-lambda-sleep10.png)
+#### Put it together
 
-2. Now locate the **ErrorHandlingStateMachineWithCatch-...** [state machine](https://console.aws.amazon.com/states/home). Click on its link and click the **Edit** button on the top right corner of the screen. 
+In the AWS CDK project, replace the contents of the `lib/stepfunctions-rest-api-stack.ts` file with the code below. You'll recognize the definitions of the Step Functions state machine and the API Gateway.
 
-3. In the `Resource` field, replace the current value with the ARN of the Lambda function copied in step 1. When the state machine invokes this function, the function will sleep for 10 seconds.
+```bash
+import * as cdk from 'aws-cdk-lib';
+import * as stepfunctions from 'aws-cdk-lib/aws-stepfunctions';
+import * as apigateway from 'aws-cdk-lib/aws-apigateway';
 
-   ![Replace Lambda function ARN](/static/img/module-10/error-handling-state-machine-catch.png)
+export class StepfunctionsRestApiStack extends cdk.Stack {
+    constructor(app: cdk.App, id: string) {
+      super(app, id);
 
-4. Notice the `TimeoutSeconds` field for the `Task` is set to be 5 seconds. Notice the catcher configured to catch the `States.Timeout` error type. This catcher forwards to the `TimeoutFallback` state. 
+      const startState = new stepfunctions.Pass(this, 'PassState', {
+          result: { value:'Hello back to you!' },
+      })
 
-   ![Review the Timeout Catcher](/static/img/module-10/error-handling-state-machine-timeout.png)
+      const stateMachine = new stepfunctions.StateMachine(this, 'CDKStateMachine', {
+          definition: startState,
+          stateMachineType: stepfunctions.StateMachineType.EXPRESS,
+      });
 
-5. Click **Save** and then **Start execution**. Accept the default input and click **Start execution** again.
+      const api = new apigateway.StepFunctionsRestApi(this, 'CDKStepFunctionsRestApi', { stateMachine: stateMachine });
+    }
+}
+```
 
-6. Go to the **Execution output** tab to view the output of your workflow. It should show `This is a fallback from a timeout Lambda function exception`
+Replace the contents of `bin/stepfunctions-rest-api.ts` with the code below.
 
-7. To view the output of the fallback state, select `TimeoutFallback` state in the Graph inspector pane and click the **Step output** tab.
-   ![Failure using Catch output](/static/img/module-10/error-handling-timeout-error-catch-output.png)
+```bash
+#!/usr/bin/env node
+import 'source-map-support/register';
+import * as cdk from 'aws-cdk-lib';
+import { StepfunctionsRestApiStack } from '../lib/stepfunctions-rest-api-stack';
 
-8. Go through the **Execution event history** to get more details
-   ![Failure using Catch event history](/static/img/module-10/error-handling-timeout-error-catch-event-history.png)
+const app = new cdk.App();
+new StepfunctionsRestApiStack(app, 'CDKStepfunctionsRestApiStack');
+```
 
-   ::alert[Congratulations! You have successfully completed the Error Handling module.]{type="success"}
+Save these source files. To deploy the Amazon API Gateway and the AWS Step Functions state machine to your AWS account, run the following command from the application root:
+```bash
+cdk deploy
+```
+
+You'll be asked to approve the IAM policies the AWS CDK has generated. After completing the deployment, AWS CDK will display the REST API url as output. Copy this url. You will use it to the test the application in the next step.

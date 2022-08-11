@@ -1,21 +1,10 @@
 ---
-title: 'Module 10 - Error Handling'
+title: 'Module 10 - Deploy with AWS CDK'
 weight: 120
 ---
-Any state can encounter runtime errors. Errors can happen for various reasons:
 
-- State machine definition issues (for example, no matching rule in a Choice state)
+The [AWS Cloud Development Kit (CDK)](https://docs.aws.amazon.com/cdk/v2/guide/home.html) lets you build applications in the cloud with the power of a programming language. The AWS CDK supports TypeScript, JavaScript, Python, Java, C#/.Net, and (in developer preview) Go. Developers can use one of these supported programming languages to define reusable cloud components known as [Constructs](https://docs.aws.amazon.com/cdk/v2/guide/constructs.html). You compose these together into [Stacks](https://docs.aws.amazon.com/cdk/v2/guide/stacks.html) and [Apps](https://docs.aws.amazon.com/cdk/v2/guide/apps.html).
 
-- Task failures (for example, an exception in a Lambda function)
+![AWS CDK diagram](/static/img/module-10/AppStacks.png)
 
-- Transient issues (for example, network partition events)
-
-By default, when a state reports an error, Step Functions causes the execution to fail entirely. However, Step Functions has error handling features that enable you to retry or catch states that fail. Error handling features can define retry protocols and also catch and handle a variety of error conditions.
-
-This module demonstrates **error handling** by using Lambda functions to simulate errors that are handled using the `Retry` and `Catch` fields. 
-
-Review the documentation:
-- [Error handling in Step Functions](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-error-handling.html)
-- [Error handling in AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/invocation-retries.html)
-
-
+In this module you will use AWS CDK with TypeScript to deploy an application that configures API Gateway to trigger a synchronous Step Functions Express workflow. 

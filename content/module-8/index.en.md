@@ -1,19 +1,19 @@
 ---
-title: 'Module 8 - AWS SDK service integrations'
+title: 'Module 8 - Error Handling'
 weight: 100
 ---
+Any state can encounter runtime errors. Errors can happen for various reasons:
 
-AWS Step Functions integrates with many other AWS services. You can use Step Functions [AWS SDK service integrations](https://docs.aws.amazon.com/step-functions/latest/dg/supported-services-awssdk.html) to call over 200 AWS services directly from your state machine, giving you access to over 9,000 API actions.
+- State machine definition issues (for example, no matching rule in a Choice state)
 
-To use AWS SDK integrations, you specify the service name and API call. Some integrations require parameters and you may optionally specify a service integration pattern. Note that the API action will be camel case, and parameter names will be Pascal case. You can use Amazon States Language to  specify an AWS API action in the Resource field of a task state. To do this, use the following syntax:
+- Task failures (for example, an exception in a Lambda function)
 
-`arn:aws:states:::aws-sdk:serviceName:apiAction.[serviceIntegrationPattern]`
+- Transient issues (for example, network partition events)
 
-**Examples**
+By default, when a state reports an error, Step Functions causes the execution to fail entirely. However, Step Functions has error handling features that enable you to retry or catch states that fail. Error handling features can define retry protocols and also catch and handle a variety of error conditions.
 
-- To describe Amazon EC2 instances, use the syntax: `arn:aws:states:::aws-sdk:ec2:describeInstances`. This will return as output the return value of the Amazon EC2 describeInstances API call.
+This module demonstrates **error handling** by using Lambda functions to simulate errors that are handled using the `Retry` and `Catch` fields. 
 
-- To list buckets in Amazon S3, use `arn:aws:states:::aws-sdk:s3:listBuckets`. This will return as output the the return value of the Amazon S3 listBuckets API call.
-
-- To start a nested execution in Step Functions use the syntax: `arn:aws:states:::aws-sdk:sfn:startExecution`. You will then add StateMachineArn as a parameter. This will return as output the return value of the Step Functions nested workflow.
-
+Review the documentation:
+- [Error handling in Step Functions](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-error-handling.html)
+- [Error handling in AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/invocation-retries.html)
