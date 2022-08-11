@@ -1,5 +1,5 @@
 ---
-title: 'Module 9 - Deploy with AWS CDK'
+title: 'Module 10 - Deploy with AWS CDK'
 weight: 120
 ---
 

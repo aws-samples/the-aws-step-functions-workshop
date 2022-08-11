@@ -1,5 +1,5 @@
 ---
-title: 'Module 8 - AWS SDK service integrations'
+title: 'Module 9 - AWS SDK service integrations'
 weight: 110
 ---
 
