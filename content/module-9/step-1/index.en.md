@@ -3,7 +3,5 @@ title: 'Module Goals'
 weight: 111
 ---
 
-- Set up an AWS Cloud9 workspace
-- Create an AWS CDK project
-- Use AWS CDK to deploy an API Gateway REST API with a Synchronous Express State Machine backend integration
-- Test the API
+- Create a state machine that contains an AWS SDK service integration with AWS Simple Cloud Storage (S3)
+- Execute the state machine and review results

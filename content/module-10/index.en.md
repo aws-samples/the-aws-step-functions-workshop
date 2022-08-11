@@ -1,8 +1,10 @@
 ---
-title: 'Module 10 - Deploy with AWS SAM'
+title: 'Module 9 - Deploy with AWS CDK'
 weight: 120
 ---
 
-The [AWS Serverless Application Model (SAM)](https://aws.amazon.com/serverless/sam/) is an open-source framework for building serverless applications. It provides shorthand syntax to express functions, APIs, databases, and event source mappings. With just a few lines per resource, you can define the application you want and model it using YAML. During deployment, SAM transforms and expands the SAM syntax into [AWS CloudFormation](https://aws.amazon.com/cloudformation/) syntax, enabling you to build serverless applications faster.
+The [AWS Cloud Development Kit (CDK)](https://docs.aws.amazon.com/cdk/v2/guide/home.html) lets you build applications in the cloud with the power of a programming language. The AWS CDK supports TypeScript, JavaScript, Python, Java, C#/.Net, and (in developer preview) Go. Developers can use one of these supported programming languages to define reusable cloud components known as [Constructs](https://docs.aws.amazon.com/cdk/v2/guide/constructs.html). You compose these together into [Stacks](https://docs.aws.amazon.com/cdk/v2/guide/stacks.html) and [Apps](https://docs.aws.amazon.com/cdk/v2/guide/apps.html).
 
-In this module you will use AWS SAM to deploy an application that configures API Gateway to trigger a synchronous Step Functions Express workflow. 
+![AWS CDK diagram](/static/img/module-10/AppStacks.png)
+
+In this module you will use AWS CDK with TypeScript to deploy an application that configures API Gateway to trigger a synchronous Step Functions Express workflow. 

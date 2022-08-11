@@ -1,117 +1,46 @@
 ---
-title: 'AWS SAM and Project Setup'
+title: 'AWS CDK and Project Setup'
 weight: 124
 ---
 
-The AWS Cloud9 environment comes with some AWS utilities pre-installed. Run the following command in your AWS Cloud9 terminal to verify that it contains an updated version of AWS SAM. It should be at least v1.3X.
+The AWS Cloud9 environment comes with some AWS utilities pre-installed. Run the following command in your AWS Cloud9 terminal to verify that it contains an updated version of AWS CDK. It should be v2.x.
 
 ```bash
-sam --version
+cdk --version
 ```
 
-### Set up your AWS SAM Project Folder and Files
-```bash
-mkdir stepfunctions-rest-api-sam
-cd stepfunctions-rest-api-sam
-```
+### Bootstrapping AWS CDK
 
-Create three files in this project with the following command:
+Deploying AWS CDK apps into an AWS environment may require that you provision resources the AWS CDK needs to perform the deployment. These resources include an Amazon S3 bucket for storing files and IAM roles that grant permissions needed to perform deployments. The process of provisioning these initial resources is called bootstrapping. This typically needs to be done once per region in a given account.
 
 ```bash
-touch template.yaml api.yaml hello_world.asl.yaml
+cdk bootstrap aws://${AWS_ACCOUNT_ID}/${AWS_REGION}
 ```
 
-- `template.yaml` - This file is the primary AWS SAM configuration file. AWS SAM templates are an extension of AWS CloudFormation templates, with some additional components that make them easier to work with. For the full reference for AWS CloudFormation templates, see [AWS CloudFormation Template Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-reference.html) in the AWS CloudFormation User Guide.
+### Set Up Your AWS CDK Project
 
-- `api.yaml` - This file is the [OpenAPI](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.1.md) definition file that will configure the structure of the API Gateway endpoint. 
-
-- `hello_world.asl.yaml` - This file is the [Amazon States Language (ASL)](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html) definition file that will configure the workflow for your Step Functions state machine.
-
-
-### Use AWS SAM to create an API Gateway REST API with Synchronous Express State Machine backend integration
-
-First, you'll review code snippets for each file in this project. You'll copy/paste these snippets into the appropriate files. Then you will use SAM to build and deploy the project. Last you will test the deployment.
-
-#### Review the SAM template
-
-Review the code snippet below. This code belongs in your SAM template file `template.yaml`. Notice that this yaml file defines several resources including a [`AWS::Serverless::Api`](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-api.html) and a [`AWS::Serverless::StateMachine`](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-statemachine.html) with the type `EXPRESS`. Notice references to the two additional definition files: `api.yaml` and `hello_world.asl.yaml`. Notice that the file defines two IAM roles.
-
-Review the code and then copy/paste it into the `template.yaml` file.
+Create a new directory for the AWS CDK app and initialize a TypeScript project.
 
 ```bash
-AWSTemplateFormatVersion: '2010-09-09'
-Transform: AWS::Serverless-2016-10-31
-Description: >
-  stepfunctions-rest-api
-
-  Sample SAM Template for stepfunctions-rest-api
-
-# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
-Globals:
-  Function:
-    Timeout: 3
-
-Resources:
-
-  HelloWorldApi:
-    Type: AWS::Serverless::Api
-    Properties:
-      StageName: dev
-      DefinitionBody:
-        'Fn::Transform':
-          Name: 'AWS::Include'
-          Parameters:
-            Location: 'api.yaml'
-
-  HelloWorldStateMachine:
-    Type: AWS::Serverless::StateMachine
-    Properties:
-      DefinitionUri: hello_world.asl.json
-      Role: !GetAtt HelloWorldStateMachineRole.Arn
-      Type: EXPRESS
-
-  RestApiRole:
-    Type: 'AWS::IAM::Role'
-    Properties:
-      AssumeRolePolicyDocument:
-        Version: 2012-10-17
-        Statement:
-          - Effect: Allow
-            Principal:
-              Service:
-              - apigateway.amazonaws.com
-            Action:
-              - 'sts:AssumeRole'
-      Policies:
-      - PolicyName: AllowSFNExec
-        PolicyDocument:
-          Version: 2012-10-17
-          Statement:
-            - Effect: Allow
-              Action: "states:StartSyncExecution"
-              Resource: !GetAtt HelloWorldStateMachine.Arn
-  HelloWorldStateMachineRole:
-    Type: 'AWS::IAM::Role'
-    Properties:
-      AssumeRolePolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-          - Effect: Allow
-            Principal:
-              Service:
-                - !Sub states.${AWS::Region}.amazonaws.com
-            Action: sts:AssumeRole
-Outputs:
-  HelloWorldApi:
-    Description: "API Gateway endpoint URL to call Hello World State Machine"
-    Value: !Sub "https://${HelloWorldApi}.execute-api.${AWS::Region}.amazonaws.com/dev/"
-  HelloWorldStateMachineArn:
-    Description: "Hello World State Machine ARN"
-    Value: !Ref HelloWorldStateMachine
-  HelloWorldStateMachineRole:
-    Description: "IAM Role created for Hello World State Machine based on the specified SAM Policy Templates"
-    Value: !GetAtt HelloWorldStateMachineRole.Arn
+mkdir stepfunctions-rest-api
+cd stepfunctions-rest-api
+cdk init --language typescript
 ```
+
+::alert[Be sure to name the directory `stepfunctions-rest-api`. The AWS CDK application template uses the name of the directory to generate names for source files and classes. If you use a different name, your app will not match this tutorial.]{header="Note"}
+
+### Use AWS CDK to create an API Gateway REST API with Synchronous Express State Machine backend integration
+
+First, we'll review the individual code snippets that define the Synchronous Express State Machine and the API Gateway REST API. Later we will put them together into an AWS CDK app. Then we will synthesize and deploy these resources. 
+
+#### Review the Step Functions state machine definition
+
+This AWS CDK code defines a simple state machine with a `pass` state. Review this code now.
+
+```bash
+const startState = new stepfunctions.Pass(this, 'PassState', {
+    result: { value: 'Hello back to you!' },
+})
 
 #### Review the ASL definition
 
@@ -180,14 +109,70 @@ paths:
 components: {}
 ```
 
-#### Deploy the project
+const stateMachine = new stepfunctions.StateMachine(this, 'MyStateMachine', {
+    definition: startState,
+    stateMachineType: stepfunctions.StateMachineType.EXPRESS,
+});
+```
 
-To deploy the Amazon API Gateway and the AWS Step Functions state machine to your AWS account, run the following commands from the application root:
+Notice the snippet above contains:
+
+- A `Pass` state construct named `PassState`. 
+- A StateMachine construct named `MyStateMachine`.
+    -  The StateMachine definition specifies its start state.
+    - The stateMachineType is `EXPRESS` (the `StepFunctionsRestApi` construct only allows a Synchronous Express state machine).
+
+#### Review the API Gateway REST API definition
+
+Next we will use `StepFunctionsRestApi` construct to create the API Gateway REST API with required permissions and default input/output mapping. This is a high level construct which contains many pre-defined configurations. We can use this definition to create an integration between the state machine and API Gateway.
 
 ```bash
-sam build
-sam deploy --guided
+const api = new apigateway.StepFunctionsRestApi(this, 'StepFunctionsRestApi', { stateMachine: stateMachine });
 ```
-![AWS SAM deploy](/static/img/module-10/sam-deploy.png)
 
-After completing the deployment, AWS SAM will display the REST API url as output. Copy this url. You will use it to the test the application in the next step.
+#### Put it together
+
+In the AWS CDK project, replace the contents of the `lib/stepfunctions-rest-api-stack.ts` file with the code below. You'll recognize the definitions of the Step Functions state machine and the API Gateway.
+
+```bash
+import * as cdk from 'aws-cdk-lib';
+import * as stepfunctions from 'aws-cdk-lib/aws-stepfunctions';
+import * as apigateway from 'aws-cdk-lib/aws-apigateway';
+
+export class StepfunctionsRestApiStack extends cdk.Stack {
+    constructor(app: cdk.App, id: string) {
+      super(app, id);
+
+      const startState = new stepfunctions.Pass(this, 'PassState', {
+          result: { value:'Hello back to you!' },
+      })
+
+      const stateMachine = new stepfunctions.StateMachine(this, 'CDKStateMachine', {
+          definition: startState,
+          stateMachineType: stepfunctions.StateMachineType.EXPRESS,
+      });
+
+      const api = new apigateway.StepFunctionsRestApi(this, 'CDKStepFunctionsRestApi', { stateMachine: stateMachine });
+    }
+}
+```
+
+Replace the contents of `bin/stepfunctions-rest-api.ts` with the code below.
+
+```bash
+#!/usr/bin/env node
+import 'source-map-support/register';
+import * as cdk from 'aws-cdk-lib';
+import { StepfunctionsRestApiStack } from '../lib/stepfunctions-rest-api-stack';
+
+const app = new cdk.App();
+new StepfunctionsRestApiStack(app, 'CDKStepfunctionsRestApiStack');
+```
+
+Save these source files. To deploy the Amazon API Gateway and the AWS Step Functions state machine to your AWS account, run the following command from the application root:
+```bash
+cdk deploy
+```
+![AWS CDK diagram](/static/img/module-10/sam-deploy.png)
+
+You'll be asked to approve the IAM policies the AWS CDK has generated. After completing the deployment, AWS CDK will display the REST API url as output. Copy this url. You will use it to the test the application in the next step.
