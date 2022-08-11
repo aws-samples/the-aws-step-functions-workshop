@@ -1,0 +1,170 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: AWS Step Functions sample project for error handling
+Resources:
+  ErrorHandlingStateMachineWithRetry:
+    Type: 'AWS::StepFunctions::StateMachine'
+    Properties:
+      DefinitionString: !Sub |
+        {
+          "Comment": "A state machine calling an AWS Lambda function with Retry",
+          "StartAt": "StartExecution",
+          "States": {
+            "StartExecution": {
+              "Type": "Task",
+              "Resource": "arn:aws:lambda:us-east-1:123456789012:function:FailFunction",
+              "End": true
+            }
+          }
+        }
+      RoleArn: !GetAtt [StatesExecutionRole, Arn]
+  ErrorHandlingStateMachineWithCatch:
+    Type: 'AWS::StepFunctions::StateMachine'
+    Properties:
+      DefinitionString: !Sub |
+        {
+          "Comment": "A state machine calling an AWS Lambda function with Catch",
+          "StartAt": "StartExecution",
+          "States": {
+            "StartExecution": {
+              "Type": "Task",
+              "Resource": "arn:aws:lambda:us-east-1:123456789012:function:FailureFunction",
+              "TimeoutSeconds": 5,
+              "Catch": [ {
+                "ErrorEquals": ["CustomError"],
+                "Next": "CustomErrorFallback"
+              }, {
+                "ErrorEquals": ["States.Timeout"],
+                "Next": "TimeoutFallback"
+              }, {
+                "ErrorEquals": ["States.ALL"],
+                "Next": "CatchAllFallback"
+              } ],
+              "End": true
+            },
+            "CustomErrorFallback": {
+              "Type": "Pass",
+              "Result": "This is a fallback from a custom Lambda function exception",
+              "End": true
+            },
+            "TimeoutFallback": {
+              "Type": "Pass",
+              "Result": "This is a fallback from a timeout error",
+              "End": true
+            },
+            "CatchAllFallback": {
+              "Type": "Pass",
+              "Result": "This is a fallback from any error",
+              "End": true
+            }
+          } 
+        }
+
+      RoleArn: !GetAtt [StatesExecutionRole, Arn]
+  StatesExecutionRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: 'Allow'
+            Principal:
+              Service: states.amazonaws.com
+            Action: 'sts:AssumeRole'
+      Policies:
+        - PolicyName: StepFunctionsIamRoleInvokeLambda
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: 'lambda:InvokeFunction'
+                Resource: '*'
+
+  ErrorHandlingCustomErrorFunction:
+    Type: 'AWS::Lambda::Function'
+    Properties:
+      Handler: 'index.lambda_handler'
+      Role: !GetAtt [LambdaExecutionRole, Arn]
+      Code:
+        ZipFile: !Sub |
+          /**
+            MIT No Attribution
+            
+            Copyright 2022 Amazon Web Services
+            
+            Permission is hereby granted, free of charge, to any person obtaining a copy of this
+            software and associated documentation files (the "Software"), to deal in the Software
+            without restriction, including without limitation the rights to use, copy, modify,
+            merge, publish, distribute, sublicense, and/or sell copies of the Software, and to
+            permit persons to whom the Software is furnished to do so.
+            
+            THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+            INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+            PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+            HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+            OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+            SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+          */
+          exports.lambda_handler = async (event, context, callback) => {
+            
+            function FooError(message) {
+              this.name = 'CustomError';
+              this.message = message;
+            }
+            FooError.prototype = new Error();
+
+            throw new FooError('This is a custom error!');
+          };
+      Runtime: 'nodejs12.x'
+      Timeout: '11'
+      FunctionName: 'ErrorHandlingCustomErrorFunction'
+
+  ErrorHandlingSleep10Function:
+    Type: 'AWS::Lambda::Function'
+    Properties:
+      Handler: 'index.lambda_handler'
+      Role: !GetAtt [LambdaExecutionRole, Arn]
+      Code:
+        ZipFile: !Sub |
+          /**
+            MIT No Attribution
+            
+            Copyright 2022 Amazon Web Services
+            
+            Permission is hereby granted, free of charge, to any person obtaining a copy of this
+            software and associated documentation files (the "Software"), to deal in the Software
+            without restriction, including without limitation the rights to use, copy, modify,
+            merge, publish, distribute, sublicense, and/or sell copies of the Software, and to
+            permit persons to whom the Software is furnished to do so.
+            
+            THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+            INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+            PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+            HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+            OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+            SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+          */
+          exports.lambda_handler = (event, context, callback) => {
+            setTimeout(function(){}, 10000); // sleep for 10 seconds
+          };
+      Runtime: 'nodejs12.x'
+      Timeout: '11'
+      FunctionName: 'ErrorHandlingSleep10Function'
+
+  LambdaExecutionRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: 'sts:AssumeRole'
+
+Outputs:
+  StateMachineArnWithRetry:
+    Value:
+      Ref: ErrorHandlingStateMachineWithRetry
+  StateMachineArnWithCatch:
+    Value:
+      Ref: ErrorHandlingStateMachineWithCatch
