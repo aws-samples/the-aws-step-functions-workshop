@@ -25,7 +25,7 @@ touch template.yaml api.yaml hello_world.asl.yaml
 
 - `api.yaml` - This file is the [OpenAPI](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.1.md) definition file that will configure the structure of the API Gateway endpoint. 
 
-- `hello_world.asl.yaml` - this file is the [Amazon States Language (ASL)](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html) definition file that will configure the workflow for your Step Functions state machine.
+- `hello_world.asl.yaml` - This file is the [Amazon States Language (ASL)](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html) definition file that will configure the workflow for your Step Functions state machine.
 
 
 ### Use AWS SAM to create an API Gateway REST API with Synchronous Express State Machine backend integration
@@ -34,7 +34,7 @@ First, you'll review code snippets for each file in this project. You'll copy/pa
 
 #### Review the SAM template
 
-Review the code snippet below. This code belongs in your SAM template file `template.yaml`. Notice that this yaml file defines several resources including a `AWS::Serverless::Api` and a `AWS::Serverless::StateMachine` with the type `EXPRESS`. Notice references to the two additional definition files: `api.yaml` and `hello_world.asl.yaml`. Notice that the file defines two IAM roles.
+Review the code snippet below. This code belongs in your SAM template file `template.yaml`. Notice that this yaml file defines several resources including a [`AWS::Serverless::Api`](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-api.html) and a [`AWS::Serverless::StateMachine`](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-statemachine.html) with the type `EXPRESS`. Notice references to the two additional definition files: `api.yaml` and `hello_world.asl.yaml`. Notice that the file defines two IAM roles.
 
 Review the code and then copy/paste it into the `template.yaml` file.
 
@@ -137,7 +137,7 @@ Review the code and then copy/paste it into the `hello_world.asl.yaml` file.
 
 #### Review the api.yaml mapping file
 
-Review the code snippet below. This code belongs in your OpenAPI definition file `api.yaml`. This file defines a single post path that invokes a state machine with an arn that matches `HelloWorldStateMachine`.
+Review the code snippet below. This code belongs in your OpenAPI definition file `api.yaml`. This file defines a single post path configured to invoke the `HelloWorldStateMachine`.
 
 Review the code and then copy/paste it into the `api.yaml` file.
 
