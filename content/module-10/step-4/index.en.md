@@ -106,6 +106,5 @@ Save these source files. To deploy the Amazon API Gateway and the AWS Step Funct
 ```bash
 cdk deploy
 ```
-![AWS CDK diagram](/static/img/module-10/sam-deploy.png)
 
 You'll be asked to approve the IAM policies the AWS CDK has generated. After completing the deployment, AWS CDK will display the REST API url as output. Copy this url. You will use it to the test the application in the next step.
