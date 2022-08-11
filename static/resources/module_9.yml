@@ -19,10 +19,9 @@ Resources:
             Statement:
               - Effect: Allow
                 Action:
-                  - 's3:ListAllMyBuckets'
-                  - 's3:GetBucketLocation'
+                  - 'comprehend:DetectSentiment'
                 Resource:
-                  - 'arn:aws:s3:::*'
+                  - '*'
       RoleName: UniversalSDKRoleNameforStepfunctions
   S3Bucket:
     Type: 'AWS::S3::Bucket'

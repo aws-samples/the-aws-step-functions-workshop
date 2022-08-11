@@ -16,25 +16,35 @@ weight: 112
 5. Enter a `Comment` on the right side: 
 
 ```bash
-A workflow that contains an AWS SDK service integration with Amazon S3.
+A workflow that contains an AWS SDK service integration with Amazon Comprehend.
 ```
 
-6. One the left hand side **Actions** menu, use the search bar and search for `ListBuckets`. You should see the **S3 ListBuckets** action show up.
+6. On the left hand side **Actions** menu, use the search bar and search for `DetectSentiment`. You should see the **Comprehend DetectSentiment** action show up.
 
-7. Drag & drop `ListBuckets` from the **Actions** section on the left side to the designer form where it says `Drag first state here`.
-   ![](/static/img/module-9/list-bucket.png)
-   ![](/static/img/module-9/list-bucket-state.png)
+7. Drag & drop `DetectSentiment` from the **Actions** section on the left side to the designer form where it says `Drag first state here`.
+   ![](/static/img/module-9/detect-sentiment.png)
+   ![](/static/img/module-9/detect-sentiment-state.png)
 
-8. Click on the S3 action. Use the defaults for **Configuration, Input, Output and Error handling**. Click the **Definition** button to review the ASL syntax you will generate.
+8. Click on the Comprehend action.
+9. Update the API Parameters in the **Configuration** section to use the following:
+:::code{showCopyAction=true showLineNumbers=false language=json}
+{
+  "LanguageCode": "en",
+  "Text.$": "$.Comment"
+}
+:::
 
-9. Now click on **Next** and review the generated code. Click on **Next** again.
+The state machine will pass the execution input's Comment value to Comprehend for sentiment analysis.
 
-10. Provide a name to your state machine, `ListBucketMachine`.
+10. Use the defaults for **Input, Output and Error handling**. Click the **Definition** button to review the ASL syntax you will generate.
+    
+11. Now click on **Next** and review the generated code. Click on **Next** again.
+12. Provide a name to your state machine, `DetectSentimentMachine`.
 
-11. Click the **Choose existing role** button and select `UniversalSDKRoleNameforStepfunctions` from the drop down.
+13. Click the **Choose existing role** button and select `UniversalSDKRoleNameforStepfunctions` from the drop down.
 
 ![](/static/img/module-9/iam.png)
 
-12. Now click on **Create state machine**.
+14. Now click on **Create state machine**.
 
-13. You have successfully created the state machine.
+15. You have successfully created the state machine.
