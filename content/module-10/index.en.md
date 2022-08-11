@@ -8,3 +8,5 @@ The [AWS Cloud Development Kit (CDK)](https://docs.aws.amazon.com/cdk/v2/guide/h
 ![AWS CDK diagram](/static/img/module-10/AppStacks.png)
 
 In this module you will use AWS CDK with TypeScript to deploy an application that configures API Gateway to trigger a synchronous Step Functions Express workflow. 
+
+Estimated Duration: 30 minutes

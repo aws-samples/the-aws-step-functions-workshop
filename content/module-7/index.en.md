@@ -14,5 +14,4 @@ Learn more about [Parallel States](https://docs.aws.amazon.com/step-functions/la
 
 Learn more about [API Gateway Integration](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-api-integration-types.html).
 
-
-
+Estimated Duration: 25 minutes

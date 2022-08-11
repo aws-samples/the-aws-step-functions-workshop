@@ -13,3 +13,5 @@ In the Amazon States Language, these fields filter and control the flow of JSON 
 - `ResultSelector`
 
 Read the documentation to learn more about [Input and Output Processing](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-input-output-filtering.html).
+
+Estimated Duration: 25 minutes
