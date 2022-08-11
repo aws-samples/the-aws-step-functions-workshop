@@ -8,9 +8,9 @@ After you create your API Gateway REST API with Synchronous Express State Machin
 ### Test the deployed API Gateway using API Gateway console
 
 1. Open the [Amazon API Gateway console](https://console.aws.amazon.com/apigateway/) and sign in.
-2. Choose your REST API named, `SAMStepFunctionsRestApi`.
-3. In the **Resources** pane, you can select the method you want to test. Click on the `POST` method.
-   ![API Gateway POST](/static/img/module-10/api-gateway-testing.png)
+2. Choose your REST API named, `CDKStepFunctionsRestApi`.
+3. In the **Resources** pane, you can select the method you want to test. Click on the `ANY` method.
+   ![API GAteway ANY](/static/img/module-10/api-gateway-testing.png)
 4. In the **Method Execution** pane, in the **Client** box, choose **TEST**.
 5. Choose **POST** from the **Method Drop-down** menu. Copy/paste the JSON below into the **Request Body** field.
 :::code{showCopyAction=true showLineNumbers=true language=json}

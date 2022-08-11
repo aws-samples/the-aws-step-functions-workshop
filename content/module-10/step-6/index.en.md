@@ -9,14 +9,14 @@ Follow the instructions on this page if you would like to clean up resources in 
 
 ### Destroy resources created by CDK
 
-When you have completed testing, you can destroy the API Gateway and the state machine the using AWS SAM. Copy/paste the following command into the terminal in the application's root directory.
+When you have completed testing, you can destroy the API Gateway and the state machine the using AWS CDK. Copy/paste the following command into the terminal in the application's root directory.
 
 ```bash
-sam delete
+cdk destroy
 ```
 
-When the `sam delete` is complete you will see the following message:
-![SAM Delete](/static/img/module-10/sam-delete.png)
+When the `cdk destroy` is complete you will see the following message:
+![CDK Destroy](/static/img/module-10/cdk-destroy.png)
 
 ### Delete CloudFormation Stack
 
