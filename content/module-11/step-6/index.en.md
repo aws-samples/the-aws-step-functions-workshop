@@ -7,7 +7,7 @@ weight: 136
 Follow the instructions on this page if you would like to clean up resources in your own account. Event Engine accounts do not require cleanup.
 :::
 
-### Destroy resources created by CDK
+### Destroy resources created by SAM
 
 When you have completed testing, you can destroy the API Gateway and the state machine the using AWS SAM. Copy/paste the following command into the terminal in the application's root directory.
 
