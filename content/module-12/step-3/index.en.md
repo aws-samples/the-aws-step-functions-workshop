@@ -9,7 +9,7 @@ The CloudFormation Stack that you launched in the previous step has deployed Det
 
    ![CW All Metrics States](/static/img/module-12/state-machine.png)
 
-This state machine takes an input string, detects sentiment on this text, records the transaction in DyanmoDB. This state machine is triggered at frequent intervals. 
+This state machine takes an input string, detects sentiment on this text, records the transaction in DynamoDB. This state machine is triggered at frequent intervals. 
 
 In this exercise, you will use CloudWatch metric to monitor the DetectSentimentStateMachine Step Functions executions.
 
