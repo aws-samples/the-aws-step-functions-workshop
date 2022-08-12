@@ -1,6 +1,6 @@
 ---
 title: 'Fix the errors and check the X-Ray traces'
-weight: 103
+weight: 145
 ---
 
 1. Navigate to [DynamoDB console](https://console.aws.amazon.com/dynamodbv2/home). Make sure you are in the correct region.

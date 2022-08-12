@@ -1,6 +1,6 @@
 ---
 title: 'Module 12 - Observability'
-weight: 120
+weight: 140
 ---
 Observability helps you understand what is happening in your systems and applications. Gaining observability helps you detect, investigate, and remediate problems.
 

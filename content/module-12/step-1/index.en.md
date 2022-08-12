@@ -1,6 +1,6 @@
 ---
 title: 'Module Goals'
-weight: 121
+weight: 141
 ---
 
 - Monitor Step Functions executions with Amazon CloudWatch

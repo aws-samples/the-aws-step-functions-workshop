@@ -1,6 +1,6 @@
 ---
 title: 'Monitor Step Functions executions with Amazon CloudWatch'
-weight: 123
+weight: 143
 ---
 
 Monitoring is an important part of maintaining the reliability, availability, and performance of AWS Step Functions and your AWS solutions. 

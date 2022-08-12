@@ -1,6 +1,6 @@
 ---
 title: 'Debug failed Step Functions executions using AWS X-Ray'
-weight: 103
+weight: 144
 ---
 
 You can use AWS X-Ray to visualize the integration of your state machine, identify performance bottlenecks, and troubleshoot requests that resulted in an error. Your state machine sends trace data to X-Ray, and X-Ray processes the data to generate a service map and searchable trace summaries.
