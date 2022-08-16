@@ -11,7 +11,7 @@ Resources:
   Cloud9InstanceProfile:
     Type: AWS::IAM::InstanceProfile
     Properties:
-      InstanceProfileName: 'stepfunctionsworkshop-role'
+      InstanceProfileName: 'stepfunctionsworkshop-sam-role'
       Path: /
       Roles:
         - !Ref RootRole
@@ -78,7 +78,7 @@ Resources:
   RootRole:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: 'stepfunctionsworkshop-role'
+      RoleName: 'stepfunctionsworkshop-sam-role'
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:

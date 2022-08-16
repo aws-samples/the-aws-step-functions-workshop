@@ -8,3 +8,5 @@ weight: 30
 - Navigate to Workflow Studio
 - Review an ASL definition
 - Execute a Hello World function state machine
+
+**Estimated Duration: 10 minutes**

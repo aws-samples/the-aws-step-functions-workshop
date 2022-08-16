@@ -7,4 +7,6 @@ For integrated services such as AWS Batch and Amazon ECS, Step Functions can wai
 
 To see a sample High Performance Computing (HPC) project using AWS Batch, Step Functions and Run a Job (.sync) view [this blog post](https://aws.amazon.com/blogs/compute/orchestrating-high-performance-computing-with-aws-step-functions-and-aws-batch/).
 
-In this module you will configure and run a synchronized task using **Run a Job (.sync)**.
+ In this module you will configure and run a synchronized task using **Run a Job (.sync)**.
+
+**Estimated Duration: 10 minutes**

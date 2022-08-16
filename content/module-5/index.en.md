@@ -13,4 +13,4 @@ A [Choice state](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-sta
 ## Map state 
 If a workload has an unknown number of branches, the [Map state](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-map-state.html) can run a set of parallel steps for each element of an input array. To configure a `Map` state, you define an `Iterator`, which is a complete sub-workflow. When a Step Functions execution enters a `Map` state, it will iterate over a JSON array in the state input. For each item, the `Map` state will execute one sub-workflow, potentially in parallel. When all sub-workflow executions complete, the `Map` state will return an array containing the output for each item processed by the Iterator.
 
-
+**Estimated Duration: 20 minutes**

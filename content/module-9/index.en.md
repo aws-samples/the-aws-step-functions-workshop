@@ -17,3 +17,4 @@ To use AWS SDK integrations, you specify the service name and API call. Some int
 
 - To start a nested execution in Step Functions use the syntax: `arn:aws:states:::aws-sdk:sfn:startExecution`. You will then add StateMachineArn as a parameter. This will return as output the return value of the Step Functions nested workflow.
 
+**Estimated Duration: 10 minutes**
