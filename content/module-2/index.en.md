@@ -7,4 +7,4 @@ When Step Functions calls another service using the `Task` state, the default pa
 
 In this module you will run a `Task` using the Request Response pattern.
 
-Estimated Duration: 15 minutes
+**Estimated Duration: 15 minutes**

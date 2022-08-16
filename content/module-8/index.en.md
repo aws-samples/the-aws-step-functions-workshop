@@ -18,4 +18,4 @@ Review the documentation:
 - [Error handling in Step Functions](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-error-handling.html)
 - [Error handling in AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/invocation-retries.html)
 
-Estimated Duration: 20 minutes
+**Estimated Duration: 20 minutes**

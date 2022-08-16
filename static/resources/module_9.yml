@@ -23,19 +23,3 @@ Resources:
                 Resource:
                   - '*'
       RoleName: UniversalSDKRoleNameforStepfunctions
-  S3Bucket:
-    Type: 'AWS::S3::Bucket'
-    DeletionPolicy: Retain
-    Properties:
-      BucketName: !Join
-        - '-'
-        - - 'univesalsdkintegrationbucket'
-          - !Select
-            - 0
-            - !Split
-              - '-'
-              - !Select
-                - 2
-                - !Split
-                  - '/'
-                  - !Ref 'AWS::StackId'

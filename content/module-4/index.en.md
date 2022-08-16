@@ -9,4 +9,4 @@ For example, a task might require human approval, integrate with a third party, 
 
 In this module you will implement a **Wait for Callback** task orchestration pattern.
 
-Estimated Duration: 15 minutes
+**Estimated Duration: 15 minutes**

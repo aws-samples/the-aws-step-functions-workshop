@@ -7,4 +7,4 @@ For integrated services such as AWS Batch and Amazon ECS, Step Functions can wai
 
  In this module you will configure and run a synchronized task using **Run a Job (.sync)**.
 
- Estimated Duration: 10 minutes
+**Estimated Duration: 10 minutes**

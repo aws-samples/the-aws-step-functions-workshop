@@ -7,4 +7,4 @@ The [AWS Serverless Application Model (SAM)](https://aws.amazon.com/serverless/s
 
 In this module you will use AWS SAM to deploy an application that configures API Gateway to trigger a synchronous Step Functions Express workflow. 
 
-Estimated Duration: 30 minutes
+**Estimated Duration: 30 minutes**
