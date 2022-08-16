@@ -1,6 +1,6 @@
 ---
 title: 'Clean up'
-weight: 85
+weight: 86
 ---
 :::alert{header="Important" type="warning"}
 Follow the instructions on this page if you would like to clean up resources in your own account. Event Engine accounts do not require cleanup.
