@@ -1,21 +1,42 @@
 ---
-title: 'Clean up'
+title: 'Use the Data Flow Simulator to test data processing'
 weight: 85
 ---
-:::alert{header="Important" type="warning"}
-Follow the instructions on this page if you would like to clean up resources in your own account. Event Engine accounts do not require cleanup.
+
+## Using the Data Flow Simulator
+
+1. Click on the **Data flow simulator** button in the Graph Inspector. 
+
+The Data Flow Simulator allows developers to simulate the order of data processing that occurs in a single Task state during execution. This helps developers understand how to filter and manipulate data as it flows from state to state. Developers can specify a starting JSON input and evaluate it through each of the processing path stages.
+
+The simulator starts at the State Input stage. The input field automatically validates the JSON object, and highlights any syntax errors.
+
+![Data flow simulator](/static/img/module-6/simulator.png)
+
+2. Use the Data flow simulator to test InputPath values for the `InputOutputProcessingMachine` input payload
+3. Replace the default State Input with the input payload below and choose the InputPath stage. Set the InputPath to $.lambda.
+
+:::code{showCopyAction=true showLineNumbers=false language=json}
+{
+   "comment": "An input comment.",
+   "data": {
+      "value1": 23,
+      "value2": 17
+   },
+   "extra": "foo",
+   "lambda": {
+      "who": "AWS Step Functions"
+   }
+}
 :::
 
-## Manually delete the state machine
+![Data flow simulator](/static/img/module-6/input-path.png)
 
-Navigate to **Step Functions**
-If you named the state machines as per the instructions provided:
+The left panel shows the state input before the InputPath is applied. The panel on the right shows the state input after InputPath is applied.
 
-- Select **InputOutputProcessingMachine** from the list of state machines.
-- Click **Delete** button
-- Confirm by clicking **Delete state machine** button on the dialog box that is displayed.
+Developers can use the Data Flow Simulator to quickly implement the data processing they need in their state machines.
+Feel free to keep testing values for ResultSelector and OutputPath within the Data Flow Simulator.
 
-- Navigate to the [CloudFormation](https://console.aws.amazon.com/cloudformation/home) page in the AWS Console.
-- Select the stack with name `SFW-Module-6` (or any name you have chosen for the stack) and then click Delete.
-  ![CloudFormation delete](/static/img/setup/setup-cloudformation-delete.png)
-- Make sure the stack deletion completes successfully.
+For more information on the Data Flow Simulator, see the [AWS Blog](https://aws.amazon.com/blogs/compute/modeling-workflow-input-output-path-processing-with-data-flow-simulator/).
+ 
+::alert[**Congratulations!** You used the Data Flow Simulator to practice Input and Output data processing with Amazon States Language!]{type="success"}
