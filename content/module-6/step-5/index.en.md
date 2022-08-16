@@ -13,8 +13,7 @@ The simulator starts at the State Input stage. The input field automatically val
 
 ![Data flow simulator](/static/img/module-6/simulator.png)
 
-2. Use the Data flow simulator to test InputPath values for the `InputOutputProcessingMachine` input payload
-3. Replace the default State Input with the input payload below and choose the InputPath stage. Set the InputPath to $.lambda.
+2. Use the Data flow simulator to test data processing for the `InputOutputProcessingMachine` input payload. Replace the default State Input with the input payload below and choose the InputPath stage. Set the InputPath to $.lambda.
 
 :::code{showCopyAction=true showLineNumbers=false language=json}
 {
