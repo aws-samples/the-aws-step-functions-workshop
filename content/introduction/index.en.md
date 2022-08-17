@@ -18,7 +18,8 @@ In this workshop, you will learn how to use the primary features of AWS Step fun
     - Input and output processing
     - AWS SDK integrations
     - API Gateway integration
-    - AWS CDK construction
+    - AWS CDK deployments
+    - AWS SAM deployments
     - Error handling 
 
 Each module is independent from the others. You may choose which modules to take and take them in any order. Several of the modules combine concepts in order to resemble real world scenarios more closely.
