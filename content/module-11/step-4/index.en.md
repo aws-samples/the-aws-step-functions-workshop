@@ -66,7 +66,7 @@ Resources:
   HelloWorldStateMachine:
     Type: AWS::Serverless::StateMachine
     Properties:
-      DefinitionUri: hello_world.asl.json
+      DefinitionUri: hello_world.asl.yaml
       Role: !GetAtt HelloWorldStateMachineRole.Arn
       Type: EXPRESS
 
