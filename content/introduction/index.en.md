@@ -16,9 +16,9 @@ In this workshop, you will learn how to use the primary features of AWS Step fun
     - Standard Workflows and Express Workflows
     - Workshop Studio
     - Input and output processing
-    - AWS SDK integrations
     - API Gateway integration
     - Error handling 
+    - AWS SDK integrations
     - AWS CDK deployments
     - AWS SAM deployments
 
