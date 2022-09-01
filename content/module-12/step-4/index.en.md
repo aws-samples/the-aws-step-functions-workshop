@@ -1,65 +1,50 @@
 ---
-title: 'Debug failed Step Functions executions using AWS X-Ray'
+title: 'Monitor Step Functions executions with Amazon CloudWatch'
 weight: 144
+
 ---
 
-You can use AWS X-Ray to visualize the integration of your state machine, identify performance bottlenecks, and troubleshoot requests that resulted in an error. Your state machine sends trace data to X-Ray, and X-Ray processes the data to generate a service map and searchable trace summaries.
+Monitoring is an important part of maintaining the reliability, availability, and performance of AWS Step Functions and your AWS solutions. 
 
-With X-Ray enabled for your state machine, you can trace requests as they are executed in Step Functions. This gives you a detailed overview of an entire Step Functions request. You can use an X-Ray service map to view the latency of a request, including any AWS services that are integrated with X-Ray. You can also configure and customize the sampling rules in X-Ray, to control the amount of requests to record.
+The CloudFormation Stack that you launched in the previous step has deployed DetectSentimentStateMachine Step Functions.
 
-More details about X-Ray tracing can be found [here](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-xray-tracing.html)
+   ![CW All Metrics States](/static/img/module-12/state-machine.png)
 
-Let's enable X-Ray tracing on the DetectSentiment State machine.
+This state machine takes an input string, detects sentiment on this text, records the transaction in DyanmoDB. This state machine is triggered at frequent intervals. 
 
-1. Navigate to [Step Functions console](https://console.aws.amazon.com/states/home). Make sure you are in the correct region.
+In this exercise, you will use CloudWatch metric to monitor the DetectSentimentStateMachine Step Functions executions.
 
-2. Click **DetectSentimentStateMachine** State machine.
+The following Step Functions Execution metrics are available in CloudWatch 
+- ExecutionTime	
+- ExecutionThrottled
+- ExecutionsAborted	
+- ExecutionsFailed	
+- ExecutionsStarted	
+- ExecutionsSucceeded	
+- ExecutionsTimedOut
 
-3. In the `DetectSentimentStateMachine` page, click **Edit**.
+More details about these metrics can be found [here](https://docs.aws.amazon.com/step-functions/latest/dg/procedure-cw-metrics.html#cloudwatch-step-functions-execution-metrics)
 
-4. Under `Tracing` in the Edit page, select **Enable X-Ray tracing**.
+1. Navigate to [CloudWatch Console](https://console.aws.amazon.com/cloudwatch/home) in your AWS console. Make sure you are in the correct region.
 
-:::alert{header="Important" type="warning"}
-To trace executions with X-Ray, the Step Functions execution role must have X-Ray permissions. You can either let Step Functions create a new role for you with the necessary permissions by selecting "Create new role" under Permissions, or add them manually to your existing role. This has been already done for you.
-:::
+2. Under `Metrics` on the left navigation menu, click **All Metrics**. In the center, under `Metrics`, select **States**.
 
-5. Click **Save** at the top of the page.
+   ![CW All Metrics States](/static/img/module-12/cw-all-metrics-states.png)
 
-X-Ray tracing is now enabled. Next, go to the X-Ray console.
+3. Click **Execution Metrics** under `States` metrics.
 
-6. In the AWS console,type `X-Ray` in the search bar, click to open the X-Ray console.
+   ![Execution Metrics](/static/img/module-12/cw-states-execution-metrics.png)
 
-Wait for a few minutes until the X-Ray console is loaded with Service Map. You will see the following the Service Map for the DetectSentiment State machine. 
+4. Select all the metrics listed for `DetectSentimentStateMachine`. 
 
-   ![Service Map](/static/img/module-12/x-ray-service-map.png)
+   ![DetectSentiment Metrics](/static/img/module-12/cw-detect-sentiment-metrics.png)
 
-As per the X-Ray Service Map, Step Functions State Machine interacts with AWS Lambda service and Amazon DynamoDB. 
-The red legend on the DetectSentimentStateMachine indicates Faults. You will also notice a purple legend on the sentiment-table node, which indicates throttling. Click on the sentiment-table node to investigate this further.
+5. Click the **Graphed metrics** tab. Update the `Statistic` column of `ExecutionTime` to **Average** and the `Statistic` for rest of the metrics to **Sum**. On the top right change the legend from Line to `Number`.
 
-7. Click **sentiment-table** node.
+   ![Sum and Average](/static/img/module-12/cw-metrics-sum-avg.png)
 
-8. On the Service details pane on the right, select **Throttle** and click **View Traces**
+You can now see the execution metrics for DetectSentiment State Machine step functions. You will notice there are a few executions that have failed, indicated by ExecutionsFailed metrics.
 
-   ![View Traces](/static/img/module-12/x-ray-view-traces.png)
+   ![Updated Metrics](/static/img/module-12/cw-updated-metrics.png)
 
-9. In the `Traces` page under Trace list, click one of the traces. 
-
-   ![View Traces](/static/img/module-12/x-ray-traces-list.png)
-
-10. In the Trace details page, you will see an error icon on the AWS::StepFunctions::StateMachine segment.
-
-    ![View Traces](/static/img/module-12/x-ray-trace-error.png)
-
-11. Further down in the Trace, there is an error next to Record Transition subsegment. Click on the error icon.
-
-    ![View Traces](/static/img/module-12/x-ray-exception.png)
-
-The error is caused due to DynamoDB provisioned throughput throttling. In order to resolve the issue, you can either increase the provisioned write throughput or change the DynamoDB billing mode from provisioned to on-demand.
-
-
-
-
-
-
-
-
+In the next module, you will use X-Ray tracing to debug and identify the root cause of these failures.

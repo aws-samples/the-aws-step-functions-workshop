@@ -1,49 +1,36 @@
 ---
-title: 'Monitor Step Functions executions with Amazon CloudWatch'
+title: 'Logging Step Functions to CloudWatch'
 weight: 143
 ---
 
-Monitoring is an important part of maintaining the reliability, availability, and performance of AWS Step Functions and your AWS solutions. 
+Standard Workflows record execution history in AWS Step Functions, although you can optionally configure logging to Amazon CloudWatch Logs. When you create a Standard Workflow, it will not be configured to enable logging to CloudWatch Logs. To configure logging, you can pass the LoggingConfiguration parameter when using CreateStateMachine or UpdateStateMachine. You can further analyze your data in CloudWatch Logs by using CloudWatch Logs Insights. For more information see [Analyzing Log Data with CloudWatch Logs Insights](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/AnalyzingLogData.html).
 
-The CloudFormation Stack that you launched in the previous step has deployed DetectSentimentStateMachine Step Functions.
+Also read the [required IAM policies](https://docs.aws.amazon.com/step-functions/latest/dg/cw-logs.html#cloudwatch-iam-policy) for logging to CloudWatch Logs.
 
-   ![CW All Metrics States](/static/img/module-12/state-machine.png)
+1. Open the [Step Functions Console](https://console.aws.amazon.com/states/home) in your AWS console. Make sure you are in the correct region.
 
-This state machine takes an input string, detects sentiment on this text, records the transaction in DyanmoDB. This state machine is triggered at frequent intervals. 
+2. Click **State machines** on the left navigation and you will see the State machine - DetectSentimentMachine deployed for you as part of this lab.
 
-In this exercise, you will use CloudWatch metric to monitor the DetectSentimentStateMachine Step Functions executions.
+3. Click DetectSentimentMachine State machine. 
 
-The following Step Functions Execution metrics are available in CloudWatch 
-- ExecutionTime	
-- ExecutionThrottled
-- ExecutionsAborted	
-- ExecutionsFailed	
-- ExecutionsStarted	
-- ExecutionsSucceeded	
-- ExecutionsTimedOut
+4. In the DetectSentimentMachine page, click **Logging** tab. You will see the Log level is OFF which indicates logging is not enabled. 
 
-More details about these metrics can be found [here](https://docs.aws.amazon.com/step-functions/latest/dg/procedure-cw-metrics.html#cloudwatch-step-functions-execution-metrics)
+   ![CW Log disabled](/static/img/module-12/cw-log-disabled.png)
 
-1. Navigate to [CloudWatch Console](https://console.aws.amazon.com/cloudwatch/home) in your AWS console. Make sure you are in the correct region.
+    Let's enable CW Logging.
 
-2. Under `Metrics` on the left navigation menu, click **All Metrics**. In the center, under `Metrics`, select **States**.
+5. Click **Edit** at the top of the page.
 
-   ![CW All Metrics States](/static/img/module-12/cw-all-metrics-states.png)
+6. In the Edit DetectSentimentStateMachine page, update the **Logging** to **ALL** and keep the rest as default.
 
-3. Click **Execution Metrics** under `States` metrics.
+   ![CW Log enabled](/static/img/module-12/cw-logging-enabled.png)
 
-   ![Execution Metrics](/static/img/module-12/cw-states-execution-metrics.png)
+7. Click **Save** at the top of the page.
 
-4. Select all the metrics listed for `DetectSentimentStateMachine`. 
+8. In the IAM role dialog box, click **Save anyway**.
 
-   ![DetectSentiment Metrics](/static/img/module-12/cw-detect-sentiment-metrics.png)
+Wait for a few minutes. Refresh the page and you will see the CloudWatch Logs Insights section populated with logs.
 
-5. Click the **Graphed metrics** tab. Update the `Statistic` column of `ExecutionTime` to **Average** and the `Statistic` for rest of the metrics to **Sum**. On the top right change the legend from Line to `Number`.
+   ![CW Logs](/static/img/module-12/cw-logs.png)
 
-   ![Sum and Average](/static/img/module-12/cw-metrics-sum-avg.png)
-
-You can now see the execution metrics for DetectSentiment State Machine step functions. You will notice there are a few executions that have failed, indicated by ExecutionsFailed metrics.
-
-   ![Updated Metrics](/static/img/module-12/cw-updated-metrics.png)
-
-In the next module, you will use X-Ray tracing to debug and identify the root cause of these failures.
+Alternatively you can click open the CloudWatch Log group link to open the logs in the CloudWatch console.
