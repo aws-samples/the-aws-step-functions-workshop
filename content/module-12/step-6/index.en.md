@@ -9,7 +9,7 @@ weight: 146
 
 3. Click the **sentiment-table** in the center pane.
 
-4. Under Additional settings, click **Edit**.
+4. In Additional settings tab, click **Edit**.
 
 5. In the Edit read/write capacity page, select **On-demand Capacity** mode and click **Save** changes.
 
@@ -31,7 +31,7 @@ You will now notice that there are no more faults or throttles.
 
    ![No throttles](/static/img/module-12/x-ray-no-throttles.png)
 
-If you check the CloudWatch metrics for the Step Functions execution, you will see that the ExecutionsFailed has dropped to 0. 
+If you check the CloudWatch metrics for the Step Functions executions, you will see that the ExecutionsFailed has dropped to 0. 
 
    ![Zero Failed executions](/static/img/module-12/cw-states-execution-metrics-0.png)
 
