@@ -1,18 +1,18 @@
 ---
-title: 'Monitor Step Functions executions with Amazon CloudWatch Metrics'
+title: 'Monitor executions with Amazon CloudWatch Metrics'
 weight: 143
 
 ---
 
-Monitoring is an important part of maintaining the reliability, availability, and performance of AWS Step Functions and your AWS solutions. 
+Monitoring metrics is important to maintain the reliability, availability, and performance of your workflows. 
 
-The CloudFormation Stack that you launched in the previous step has deployed DetectSentimentStateMachine Step Functions and few other resources.
+This workshop deploys a state machine called *DetectSentimentStateMachine* and few other resources.
 
    ![DetectSentiment State Machine](/static/img/module-12/state-machine.png)
 
-This state machine takes an input string, detects sentiment of this text and records the transaction in DyanmoDB. This state machine is triggered at frequent intervals. 
+This state machine accepts an input string, detects sentiment of the text in the string, and records the result of the analysis in DyanmoDB. This state machine is triggered at frequent intervals by an Amazon EventBridge rule and an AWS Lambda function deployed to your account.
 
-In this exercise, you will use CloudWatch metric to monitor the DetectSentimentStateMachine Step Functions executions.
+In this exercise, you will use CloudWatch Metrics to monitor the *DetectSentimentStateMachine* workflow executions.
 
 The following Step Functions Execution metrics are available in CloudWatch 
 - ExecutionTime	
@@ -23,15 +23,15 @@ The following Step Functions Execution metrics are available in CloudWatch
 - ExecutionsSucceeded	
 - ExecutionsTimedOut
 
-More details about these metrics can be found [here](https://docs.aws.amazon.com/step-functions/latest/dg/procedure-cw-metrics.html#cloudwatch-step-functions-execution-metrics)
+More details about these metrics can be found [here](https://docs.aws.amazon.com/step-functions/latest/dg/procedure-cw-metrics.html#cloudwatch-step-functions-execution-metrics).
 
-1. Navigate to [CloudWatch Console](https://console.aws.amazon.com/cloudwatch/home) in your AWS console. Make sure you are in the correct region.
+1. Navigate to [CloudWatch console](https://console.aws.amazon.com/cloudwatch/home) in your AWS console. Make sure you are in the correct region.
 
-2. Under `Metrics` on the left navigation menu, click **All Metrics**. In the center, under `Metrics`, select **States**.
+2. Under `Metrics` on the left navigation menu, click **All Metrics**. Find the metrics box labed **States** and click it.
 
    ![CW All Metrics States](/static/img/module-12/cw-all-metrics-states.png)
 
-3. Click **Execution Metrics** under `States` metrics.
+3. Click **Execution Metrics**.
 
    ![Execution Metrics](/static/img/module-12/cw-states-execution-metrics.png)
 
@@ -56,7 +56,7 @@ More details about these metrics can be found [here](https://docs.aws.amazon.com
 
 8. Choose **Save dashboard**.
 
-You can now see the execution metrics for DetectSentiment State Machine Step Functions. You will notice there are a few executions that have failed, indicated by ExecutionsFailed metrics.
+You can now see the execution metrics for DetectSentiment State Machine Step Functions. You will notice there are executions that have failed, indicated by ExecutionsFailed metrics.
 
    ![Dashboard Metrics](/static/img/module-12/cw-dashboard.png)
 

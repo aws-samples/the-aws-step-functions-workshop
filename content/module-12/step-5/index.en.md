@@ -1,15 +1,15 @@
 ---
-title: 'Debug failed Step Functions executions using AWS X-Ray'
+title: 'Debug failed executions with AWS X-Ray Traces'
 weight: 145
 ---
 
-You can use AWS X-Ray to visualize the integration of your state machine, identify performance bottlenecks, and troubleshoot requests that resulted in an error. Your state machine sends trace data to X-Ray, and X-Ray processes the data to generate a service map and searchable trace summaries.
+You can use AWS X-Ray to visualize the integrations in your state machine, to identify performance bottlenecks, and to troubleshoot failed requests. When your state machine sends trace data to X-Ray, X-Ray processes the data to generate a service map and searchable trace summaries.
 
-With X-Ray enabled for your state machine, you can trace requests as they are executed in Step Functions. This gives you a detailed overview of an entire Step Functions request. You can use an X-Ray service map to view the latency of a request, including any AWS services that are integrated with X-Ray. You can also configure and customize the sampling rules in X-Ray, to control the amount of requests to record.
+With X-Ray enabled for your state machine, you can trace the paths of your requests giving you a detailed visual overview of your entire workflow. You can use X-Ray service maps to view request latency, including any AWS services that are integrated with X-Ray. You can also configure and customize the sampling rules in X-Ray to control the frequency of recorded requests.
 
-More details about X-Ray tracing can be found [here](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-xray-tracing.html)
+To learn more read [AWS X-Ray and Step Functions](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-xray-tracing.html).
 
-Let's enable X-Ray tracing on the DetectSentiment State machine.
+## Enable X-Ray tracing on DetectSentimentStateMachine.
 
 1. Navigate to [Step Functions console](https://console.aws.amazon.com/states/home). Make sure you are in the correct region.
 
@@ -25,18 +25,15 @@ To trace executions with X-Ray, the Step Functions execution role must have X-Ra
 
 5. Click **Save** at the top of the page.
 
-X-Ray tracing is now enabled. Next, go to the X-Ray console.
+6. Navigate to [X-Ray](https://console.aws.amazon.com/xray/home) in the AWS console.
 
-6. In the AWS console,type `X-Ray` in the search bar, click to open the X-Ray console.
-
-Wait for a few minutes until the X-Ray console is loaded with the Service Map. Rfersh the page, if needed.  You will see the following the Service Map for the DetectSentiment State machine. 
+Wait for a few minutes until the X-Ray console is loaded with the Service Map. Refresh the page, if needed.  You will see the following the Service Map for the DetectSentimentStateMachine. 
 
    ![Service Map](/static/img/module-12/x-ray-service-map.png)
 
-As per the X-Ray Service Map, Step Functions State Machine interacts with AWS Lambda and Amazon DynamoDB. 
-The red legend on the DetectSentimentStateMachine indicates Faults. You will also notice a purple legend on the sentiment-table node, which indicates throttling. Click on the sentiment-table node to investigate this further.
+This Service Map shows that your state machine interacts with AWS Lambda and Amazon DynamoDB. The red legend on the DetectSentimentStateMachine indicates Faults. The purple legend on the sentiment-table node indicates throttling.
 
-7. Click **sentiment-table** node.
+7. Click **sentiment-table** node to investigate this throttling.
 
 8. On the Service details pane on the right, select **Throttle** and click **View Traces**
 
@@ -54,7 +51,7 @@ The red legend on the DetectSentimentStateMachine indicates Faults. You will als
 
     ![View Traces](/static/img/module-12/x-ray-exception.png)
 
-The error is caused due to DynamoDB provisioned throughput throttling. 	The level of configured provisioned throughput for the table was exceeded. In order to resolve the issue, you can either increase the provisioned write throughput or change the DynamoDB billing mode from provisioned to on-demand.
+The error is caused by DynamoDB provisioned throughput throttling. The requested throughput exceeded the configured level of provisioned capacity. To resolve the issue, you can reduce your requested throughput by decreasing the frequency of your writes, or you can increase your capacity by increasing your provisioned write capacity units or by changing the DynamoDB billing mode from provisioned to on-demand.
 
 
 

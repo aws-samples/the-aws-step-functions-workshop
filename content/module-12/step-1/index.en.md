@@ -3,6 +3,6 @@ title: 'Module Goals'
 weight: 141
 ---
 
-- Monitor Step Functions executions with Amazon CloudWatch Metrics
-- Logging Step Functions to CloudWatch
-- Debug failed Step Functions executions using AWS X-Ray
+- Monitor executions with Amazon CloudWatch Metrics
+- Record execution history with Amazon CloudWatch Logs
+- Debug failed executions with AWS X-Ray Traces
