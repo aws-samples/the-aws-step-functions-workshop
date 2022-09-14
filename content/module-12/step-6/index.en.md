@@ -13,9 +13,9 @@ weight: 146
 
 4. In Additional settings tab, click **Edit**.
 
-5. In the Edit read/write capacity page, update the Provisioned capacity units under **Write capacity** to **50**
+5. In the Edit read/write capacity page, update the Provisioned capacity units under **Write capacity** to **10**
 
-   ![Update DDB](/static/img/module-12/ddb-wcu.png)
+![Update DDB](/static/img/module-12/ddb-wcu.png)
 
 :::alert{header="Important" type="warning"}
 Changing Provisioned capacity units on Amazon DynamoDB table can incur additional costs. Please review the [Amazon DynamoDB pricing](https://aws.amazon.com/dynamodb/pricing/) for provisioned capacity. We will provide instructions to delete these resources at the end of this module.
