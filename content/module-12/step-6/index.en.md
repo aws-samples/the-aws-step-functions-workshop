@@ -18,7 +18,7 @@ weight: 146
    ![Update DDB](/static/img/module-12/ddb-wcu.png)
 
 :::alert{header="Important" type="warning"}
-Changing Provisioned capacity units on Amazon DynamoDB table can incur additional costs. Please review the [Amazon DynamoDB pricing](https://aws.amazon.com/dynamodb/pricing/) for provisioned capacity.
+Changing Provisioned capacity units on Amazon DynamoDB table can incur additional costs. Please review the [Amazon DynamoDB pricing](https://aws.amazon.com/dynamodb/pricing/) for provisioned capacity. We will provide instructions to delete these resources at the end of this module.
 :::
 
 6. Click **Save changes**.

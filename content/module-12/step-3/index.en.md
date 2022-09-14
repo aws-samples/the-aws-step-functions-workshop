@@ -10,7 +10,7 @@ This workshop deploys a state machine called *DetectSentimentStateMachine* and f
 
    ![DetectSentiment State Machine](/static/img/module-12/state-machine.png)
 
-This state machine accepts an input string, detects sentiment of the text in the string, and records the result of the analysis in Amazon DynamoDB table. The Step Functions has the Lambda functions integration which uses the Amazon comprehend APIs to perform sentiment analysis. This state machine is triggered at frequent intervals by an Amazon EventBridge rule.
+This state machine accepts an input string, detects the sentiment of the text in the string, and records the result of the analysis in an Amazon DynamoDB table. The workflow invokes a Lambda function which calls Amazon Comprehend to perform the sentiment analysis. This state machine is triggered once per minute by an Amazon EventBridge rule.
 
 In this exercise, you will use CloudWatch Metrics to monitor the *DetectSentimentStateMachine* workflow executions.
 
