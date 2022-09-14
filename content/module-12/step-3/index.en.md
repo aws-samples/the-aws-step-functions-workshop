@@ -10,7 +10,7 @@ This workshop deploys a state machine called *DetectSentimentStateMachine* and f
 
    ![DetectSentiment State Machine](/static/img/module-12/state-machine.png)
 
-This state machine accepts an input string, detects sentiment of the text in the string, and records the result of the analysis in DyanmoDB. This state machine is triggered at frequent intervals by an Amazon EventBridge rule and an AWS Lambda function deployed to your account.
+This state machine accepts an input string, detects sentiment of the text in the string, and records the result of the analysis in Amazon DynamoDB table. The Step Functions has the Lambda functions integration which uses the Amazon comprehend APIs to perform sentiment analysis. This state machine is triggered at frequent intervals by an Amazon EventBridge rule.
 
 In this exercise, you will use CloudWatch Metrics to monitor the *DetectSentimentStateMachine* workflow executions.
 
@@ -43,11 +43,11 @@ More details about these metrics can be found [here](https://docs.aws.amazon.com
 
    ![Sum and Average](/static/img/module-12/cw-metrics-sum-avg.png)
 
-6. Click the edit pencil next to the graph title, and enter **Execution Metrics**. 
+6. Click the edit pencil next to the graph title,  type **Execution Metrics** and click **Apply**.
 
 7. In the top right, click the **Actions** dropdown and choose **Add to dashboard**.
 
--  In the **Add to dashboard** page, click **Create new**.
+-  In the Add to dashboard page, click **Create new**.
 - Enter *DetectSentiment* for the dashboard name and click **Create**.
 - For **widget type**, select Number.
 - Click **Add to dashboard**.

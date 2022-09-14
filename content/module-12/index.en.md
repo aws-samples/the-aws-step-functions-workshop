@@ -22,4 +22,4 @@ Review the documentation:
 - [Tracking execution status using Amazon EventBridge](https://docs.aws.amazon.com/step-functions/latest/dg/cw-events.html)
 - [AWS X-Ray and Step Functions](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-xray-tracing.html)
 
-
+**Estimated Duration: 30 minutes**
