@@ -94,14 +94,37 @@ Resources:
             Statement:
               - Effect: Allow
                 Action:
-                  - logs:CreateLogDelivery
-                  - logs:GetLogDelivery
-                  - logs:UpdateLogDelivery
-                  - logs:DeleteLogDelivery
-                  - logs:ListLogDeliveries
-                  - logs:PutResourcePolicy
-                  - logs:DescribeResourcePolicies
-                  - logs:DescribeLogGroups
+                  - "logs:GetLogRecord"
+                  - "logs:DescribeLogStreams"
+                  - "logs:DescribeSubscriptionFilters"
+                  - "logs:StartQuery"
+                  - "logs:DescribeMetricFilters"
+                  - "logs:GetLogDelivery"
+                  - "logs:ListLogDeliveries"
+                  - "logs:CreateLogStream"
+                  - "logs:GetLogEvents"
+                  - "logs:FilterLogEvents"
+                  - "logs:DescribeQueryDefinitions"
+                  - "logs:PutDestination"
+                  - "logs:DescribeResourcePolicies"
+                  - "logs:DescribeDestinations"
+                  - "logs:DescribeQueries"
+                  - "logs:DescribeLogGroups"
+                  - "logs:PutDestinationPolicy"
+                  - "logs:StopQuery"
+                  - "logs:TestMetricFilter"
+                  - "logs:PutQueryDefinition"
+                  - "logs:PutLogEvents"
+                  - "logs:CreateLogGroup"
+                  - "logs:PutMetricFilter"
+                  - "logs:CreateLogDelivery"
+                  - "logs:PutResourcePolicy"
+                  - "logs:DescribeExportTasks"
+                  - "logs:GetQueryResults"
+                  - "logs:UpdateLogDelivery"
+                  - "logs:PutSubscriptionFilter"
+                  - "logs:PutRetentionPolicy"
+                  - "logs:GetLogGroupFields"
                 Resource: "*"
         - PolicyName: DDBPutItem
           PolicyDocument:
