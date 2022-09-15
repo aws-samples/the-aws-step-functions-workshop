@@ -16,9 +16,9 @@ Follow the instructions on this page only if you are executing this workshop in 
   | **Asia Pacific (Sydney)** ap-southeast-2 | [Launch](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-2#/stacks/create/template?stackName=SFW-Module-12&templateURL=https://serverless-stepfunctions-artifacts-17oiei2i27urc.s3.amazonaws.com/resources/module_12.yml) |
 
 - Location of the CloudFormation template will be auto populated in the `Amazon S3 URL` field as shown in the diagram below. Click `Next`
-  ![CloudFormation specify template](/static/img/setup/setup-cloudformation-specify-template.png)
+  ![CloudFormation specify template](/static/img/module-12/setup-cloudformation-specify-template.png)
 - On the _Specify stack details_ page, _Stack name_ would be auto populated to `SFW-Module-12`. You can specify a different name if you want.
-  ![CloudFormation stack name](/static/img/setup/setup-cloudformation-stack-name.png)
+  ![CloudFormation stack name](/static/img/module-12/setup-cloudformation-stack-name.png)
 - Click _Next_ two times and on the last `Review` page, scroll to the bottom. Click the checkbox `if shown` and then click `Create stack`.
   ![CloudFormation create stack](/static/img/setup/setup-cloudformation-create-stack.png)
 - Wait till the stack shows `CREATE_COMPLETE` status.

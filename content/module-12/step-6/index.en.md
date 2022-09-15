@@ -3,7 +3,7 @@ title: 'Fix the errors and check the X-Ray traces'
 weight: 146
 ---
 
-## Change the DynamoDB table to On-demand capacity 
+## Update the DynamoDB Provisioned Capacity Units
 
 1. Navigate to [DynamoDB console](https://console.aws.amazon.com/dynamodbv2/home). Make sure you are in the correct region.
 
@@ -13,13 +13,19 @@ weight: 146
 
 4. In Additional settings tab, click **Edit**.
 
-5. In the Edit read/write capacity page, select **On-demand Capacity** mode and click **Save** changes.
+5. In the Edit read/write capacity page, update the Provisioned capacity units under **Write capacity** to **10**
 
-   ![Update DDB](/static/img/module-12/ddb-update-table.png)
+![Update DDB](/static/img/module-12/ddb-wcu.png)
 
-Changing from Provisioned to On-demand will take a few minutes. You can check the Table Status under Overview table and wait until it's updated to `Active`.
+:::alert{header="Important" type="warning"}
+Changing Provisioned capacity units on Amazon DynamoDB table can incur additional costs. Please review the [Amazon DynamoDB pricing](https://aws.amazon.com/dynamodb/pricing/) for provisioned capacity. We will provide instructions to delete these resources at the end of this module.
+:::
+
+6. Click **Save changes**.
+
+Wait for a few minutes until the new capacity settings has been updated successfully.
    
-   ![Updated DDB](/static/img/module-12/ddb-on-demand.png)
+   ![Updated DDB](/static/img/module-12/ddb-updated.png)
 
 ## Verify the fix with X-Ray
 
