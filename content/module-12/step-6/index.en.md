@@ -43,4 +43,4 @@ If you check the CloudWatch metrics for the Step Functions executions, you shoul
 
    ![Zero Failed executions](/static/img/module-12/cw-states-execution-metrics-0.png)
 
-   ::alert[Congratulations! You have successfully completed the Error Handling module.]{type="success"}
+   ::alert[Congratulations! You have successfully completed the Observability module.]{type="success"}
