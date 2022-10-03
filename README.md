@@ -44,7 +44,7 @@ The title will be the title on navigation panel on the left. The weight determin
 
 ## Development and Deployment Instructions
 
-All active development for this workshop should be performed in this GitLab repository. Once a development activity is complete the mainline branch in this repository will be merged into the mainline at Workshop Studio.
+All active development for this workshop should be performed in the GitLab repository. Once a development activity is complete the mainline branch in GitLab  will be merged into the mainline branch at Workshop Studio.
 
 For more detail, [read this Quip document](https://quip-amazon.com/F8Z8AlqRYDFB/Developing-and-deploying-The-AWS-Step-Functions-Workshop).
 
