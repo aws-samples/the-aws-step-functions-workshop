@@ -42,8 +42,15 @@ weight = 0
 
 The title will be the title on navigation panel on the left. The weight determines the order the page appears in the navigation panel.
 
+## Development and Deployment Instructions
+
+All active development for this workshop should be performed in the GitLab repository. Once a development activity is complete the mainline branch in GitLab  will be merged into the mainline branch at Workshop Studio.
+
+For more detail, [read this Quip document](https://quip-amazon.com/F8Z8AlqRYDFB/Developing-and-deploying-The-AWS-Step-Functions-Workshop).
+
 ## Local development
 
 The local development preview utility allows you to view changes to your content without having to push changes to the repository. You run the utility on your computer to perform local builds. When you update content, the webpages will automatically reload so you can view your changes. This makes content authoring and editing easier and faster. This project contains the *preview_build* utility for MacOs in the root directory.
 
 [Learn more about local development](https://studio.us-east-1.prod.workshops.aws/preview/580d5100-7d5d-4475-a08a-869479cdb428/builds/57a6cd8c-95a2-4fae-b2e7-03ee4935e9f4/en-US/authoring-a-workshop/local-development).
+
