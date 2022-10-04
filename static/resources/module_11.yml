@@ -32,7 +32,6 @@ Resources:
               - iam:PutRolePolicy
               - iam:DeleteRole
               - iam:PassRole
-              - states:TagResource
               - apigateway:DELETE
               - apigateway:GET
               - apigateway:PATCH
