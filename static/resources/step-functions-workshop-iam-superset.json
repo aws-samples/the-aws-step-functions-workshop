@@ -2,31 +2,10 @@
   {
     "Resource": "*",
     "Action": [
-      "lambda:*",
-      "logs:*",
-      "states:*",
-      "cloudwatch:*",
-      "sts:*",
-      "batch:*",
-      "events:*",
-      "sns:*",
-      "dynamodb:*",
-      "sns:*",
-      "sqs:*",
-      "apigateway:*",
-      "iam:PassRole",
-      "s3:*"
-      "comprehend:*"
-    ],
-    "Effect": "Allow",
-    "Sid": "AllowPolicy"
-  },
-  {
-    "Resource": "*",
-    "Action": [
       "apigateway:*",
       "application-autoscaling:*",
       "autoscaling:*",
+      "batch:*",
       "cloud9:*",
       "cloudformation:*",
       "cloudtrail:*",
@@ -35,7 +14,9 @@
       "codecommit:*",
       "codedeploy:*",
       "codepipeline:*",
+      "comprehend:*",
       "config:*",
+      "dynamodb:*",
       "ec2messages:*",
       "ec2:*",
       "ecr:*",
@@ -49,6 +30,8 @@
       "logs:*",
       "resource-groups:*",
       "s3:*",
+      "sns:*",
+      "sqs:*",
       "ssm:*",
       "ssmmessages:*",
       "states:*",
