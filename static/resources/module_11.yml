@@ -24,36 +24,15 @@ Resources:
         Statement:
           - Resource: '*'
             Action:
-              - apigateway:*
-              - application-autoscaling:*
-              - autoscaling:*
-              - cloud9:*
-              - cloudformation:*
-              - cloudtrail:*
-              - cloudwatch:*
-              - codebuild:*
-              - codecommit:*
-              - codedeploy:*
-              - codepipeline:*
-              - config:*
-              - ec2messages:*
-              - ec2:*
-              - ecr:*
-              - ecs:*
-              - elasticloadbalancing:*
-              - es:*
-              - events:*
-              - iam:*
-              - kms:*
-              - lambda:*
-              - logs:*
-              - resource-groups:*
-              - s3:*
-              - ssm:*
-              - ssmmessages:*
-              - states:*
-              - sts:*
-              - tag:*
+              - iam:CreateRole
+              - iam:AttachRolePolicy
+              - iam:CreatePolicy
+              - iam:CreatePolicyVersion
+              - iam:GetRole
+              - iam:PutRolePolicy
+              - iam:DeleteRole
+              - iam:PassRole
+              - states:TagResource
             Effect: Allow
             Sid: OverlyPermissivePolicy
           - Resource: '*'
@@ -89,3 +68,8 @@ Resources:
             Action:
               - sts:AssumeRole
       Path: '/'
+      ManagedPolicyArns:
+        - !Ref AmazonAPIGatewayAdministrator
+        - !Ref AWSStepFunctionsFullAccess
+        - !Ref AmazonS3FullAccess
+        - !Ref AWSCloudFormationFullAccess
