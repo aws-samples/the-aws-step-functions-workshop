@@ -33,6 +33,11 @@ Resources:
               - iam:DeleteRole
               - iam:PassRole
               - states:TagResource
+              - apigateway:DELETE
+              - apigateway:GET
+              - apigateway:PATCH
+              - apigateway:POST
+              - apigateway:PUT
             Effect: Allow
             Sid: OverlyPermissivePolicy
           - Resource: '*'
@@ -69,7 +74,6 @@ Resources:
               - sts:AssumeRole
       Path: '/'
       ManagedPolicyArns:
-        - !Ref AmazonAPIGatewayAdministrator
         - !Ref AWSStepFunctionsFullAccess
         - !Ref AmazonS3FullAccess
         - !Ref AWSCloudFormationFullAccess
