@@ -11,7 +11,7 @@ Resources:
   Cloud9InstanceProfile:
     Type: AWS::IAM::InstanceProfile
     Properties:
-      InstanceProfileName: 'stepfunctionsworkshop-sam-role'
+      InstanceProfileName: 'stepfunctionsworkshop-role'
       Path: /
       Roles:
         - !Ref RootRole
@@ -25,35 +25,10 @@ Resources:
           - Resource: '*'
             Action:
               - apigateway:*
-              - application-autoscaling:*
-              - autoscaling:*
-              - cloud9:*
-              - cloudformation:*
-              - cloudtrail:*
-              - cloudwatch:*
-              - codebuild:*
-              - codecommit:*
-              - codedeploy:*
-              - codepipeline:*
-              - config:*
-              - ec2messages:*
-              - ec2:*
-              - ecr:*
-              - ecs:*
-              - elasticloadbalancing:*
-              - es:*
-              - events:*
-              - iam:*
-              - kms:*
-              - lambda:*
-              - logs:*
-              - resource-groups:*
               - s3:*
-              - ssm:*
-              - ssmmessages:*
+              - cloudformation:*
               - states:*
-              - sts:*
-              - tag:*
+              - iam:* 
             Effect: Allow
             Sid: OverlyPermissivePolicy
           - Resource: '*'
@@ -78,7 +53,7 @@ Resources:
   RootRole:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: 'stepfunctionsworkshop-sam-role'
+      RoleName: 'stepfunctionsworkshop-role'
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:

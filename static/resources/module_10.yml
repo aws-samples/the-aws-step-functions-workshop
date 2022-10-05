@@ -24,36 +24,27 @@ Resources:
         Statement:
           - Resource: '*'
             Action:
-              - apigateway:*
-              - application-autoscaling:*
-              - autoscaling:*
-              - cloud9:*
-              - cloudformation:*
-              - cloudtrail:*
-              - cloudwatch:*
-              - codebuild:*
-              - codecommit:*
-              - codedeploy:*
-              - codepipeline:*
-              - config:*
-              - ec2messages:*
-              - ec2:*
-              - ecr:*
-              - ecs:*
-              - elasticloadbalancing:*
-              - es:*
-              - events:*
+              - cloudformation:CreateChangeSet
+              - cloudformation:DeleteStack
+              - cloudformation:DescribeChangeSet
+              - cloudformation:DescribeStackEvents
+              - cloudformation:DescribeStacks
+              - cloudformation:ExecuteChangeSet
+              - ecr:CreateRepository
+              - ecr:DeleteRepository
+              - ecr:DescribeRepositories
+              - ecr:SetRepositoryPolicy
               - iam:*
-              - kms:*
-              - lambda:*
-              - logs:*
-              - resource-groups:*
-              - s3:*
-              - ssm:*
-              - ssmmessages:*
-              - states:*
+              - s3:CreateBucket
+              - s3:DeleteBucketPolicy
+              - s3:PutBucketPolicy
+              - s3:PutBucketPublicAccessBlock
+              - s3:PutBucketVersioning
+              - s3:PutEncryptionConfiguration
+              - ssm:DeleteParameter
+              - ssm:GetParameters
+              - ssm:PutParameter
               - sts:*
-              - tag:*
             Effect: Allow
             Sid: OverlyPermissivePolicy
           - Resource: '*'
