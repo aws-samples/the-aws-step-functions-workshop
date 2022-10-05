@@ -38,7 +38,7 @@ Resources:
               - apigateway:POST
               - apigateway:PUT
             Effect: Allow
-            Sid: OverlyPermissivePolicy
+            Sid: DeployStepFunctionsWithSAMPolicy
           - Resource: '*'
             Action:
               - ec2:ModifyReservedInstances
