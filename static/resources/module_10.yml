@@ -30,21 +30,28 @@ Resources:
               - cloudformation:DescribeStackEvents
               - cloudformation:DescribeStacks
               - cloudformation:ExecuteChangeSet
+              - ecr-public:DeleteRepository
               - ecr:CreateRepository
-              - ecr:DeleteRepository
               - ecr:DescribeRepositories
               - ecr:SetRepositoryPolicy
-              - iam:*
+              - iam:AttachRolePolicy
+              - iam:CreateRole
+              - iam:DeleteRole
+              - iam:DeleteRolePolicy
+              - iam:DetachRolePolicy
+              - iam:GetRole
+              - iam:PutRolePolicy
               - s3:CreateBucket
+              - s3:DeleteBucket
               - s3:DeleteBucketPolicy
-              - s3:PutBucketPolicy
+              - s3:GetBucketPolicy
+              - s3:PutBucketPolicy"
               - s3:PutBucketPublicAccessBlock
               - s3:PutBucketVersioning
               - s3:PutEncryptionConfiguration
               - ssm:DeleteParameter
               - ssm:GetParameters
               - ssm:PutParameter
-              - sts:*
             Effect: Allow
             Sid: OverlyPermissivePolicy
           - Resource: '*'
