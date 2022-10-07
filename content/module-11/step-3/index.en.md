@@ -3,6 +3,11 @@ title: 'AWS Cloud9 Workspace Setup'
 weight: 133
 ---
 
+:::alert{header="Important" type="warning"}
+If you just completed the Cloud9 set up for Module 10 Deploy with AWS CDK, please navigate to the Cloud9 workspace management page and select **stepfunctionsworkshop-sam-role** from the **IAM Role** drop down, and select **Save**
+If you did not just complete Module 10, please continue with the instructions below.
+:::
+
 - Log into the AWS Console
 - Navigate to [AWS Cloud9](https://console.aws.amazon.com/cloud9/home) in the console. Make sure you are in the correct region.
 - Select **StepFunctionsWorkshop** from the environment list and click **Open IDE** button. Maximize the terminal display by closing the **welcome tab** and the **lower work area**. Open a new **terminal** tab in the main work area:
@@ -16,7 +21,7 @@ weight: 133
   ![AWS Cloud9 manage](/static/img/setup/c9manageinstance.png)
 - Select the AWS Cloud9 instance by checking the box next to it, then choose **Actions / Security / Modify IAM Role**
   ![AWS Cloud9 instance role](/static/img/setup/c9instancerole.png)
-- Choose **stepfunctionsworkshop-role** from the **IAM Role** drop down, and select **Save**
+- Choose **stepfunctionsworkshop-sam-role** from the **IAM Role** drop down, and select **Save**
 - Return to your workspace and click the sprocket, or launch a new tab to open the Preferences tab
 - Select **AWS Settings** in the left navigation.
 - Turn off **AWS managed temporary credentials**

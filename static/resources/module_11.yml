@@ -73,6 +73,6 @@ Resources:
               - sts:AssumeRole
       Path: '/'
       ManagedPolicyArns:
-        - !Ref AWSStepFunctionsFullAccess
-        - !Ref AmazonS3FullAccess
-        - !Ref AWSCloudFormationFullAccess
+        - arn:aws:iam::aws:policy/AWSStepFunctionsFullAccess
+        - arn:aws:iam::aws:policy/AmazonS3FullAccess
+        - arn:aws:iam::aws:policy/AWSCloudFormationFullAccess
