@@ -30,7 +30,7 @@ Resources:
               - cloudformation:DescribeStackEvents
               - cloudformation:DescribeStacks
               - cloudformation:ExecuteChangeSet
-              - ecr-public:DeleteRepository
+              - ecr:DeleteRepository
               - ecr:CreateRepository
               - ecr:DescribeRepositories
               - ecr:SetRepositoryPolicy

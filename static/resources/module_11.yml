@@ -24,13 +24,21 @@ Resources:
         Statement:
           - Resource: '*'
             Action:
-              - apigateway:*
-              - s3:*
-              - cloudformation:*
-              - states:*
-              - iam:* 
+              - iam:CreateRole
+              - iam:AttachRolePolicy
+              - iam:CreatePolicy
+              - iam:CreatePolicyVersion
+              - iam:GetRole
+              - iam:PutRolePolicy
+              - iam:DeleteRole
+              - iam:PassRole
+              - apigateway:DELETE
+              - apigateway:GET
+              - apigateway:PATCH
+              - apigateway:POST
+              - apigateway:PUT
             Effect: Allow
-            Sid: OverlyPermissivePolicy
+            Sid: DeployStepFunctionsWithSAMPolicy
           - Resource: '*'
             Action:
               - ec2:ModifyReservedInstances
@@ -53,7 +61,7 @@ Resources:
   RootRole:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: 'stepfunctionsworkshop-role'
+      RoleName: 'stepfunctionsworkshop-sam-role'
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -64,3 +72,7 @@ Resources:
             Action:
               - sts:AssumeRole
       Path: '/'
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AWSStepFunctionsFullAccess
+        - arn:aws:iam::aws:policy/AmazonS3FullAccess
+        - arn:aws:iam::aws:policy/AWSCloudFormationFullAccess
