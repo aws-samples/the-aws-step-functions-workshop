@@ -16,7 +16,7 @@ weight: 133
   ![AWS Cloud9 manage](/static/img/setup/c9manageinstance.png)
 - Select the AWS Cloud9 instance by checking the box next to it, then choose **Actions / Security / Modify IAM Role**
   ![AWS Cloud9 instance role](/static/img/setup/c9instancerole.png)
-- Choose **stepfunctionsworkshop-role** from the **IAM Role** drop down, and select **Save**
+- Choose **stepfunctionsworkshop-sam-role** from the **IAM Role** drop down, and select **Save**
 - Return to your workspace and click the sprocket, or launch a new tab to open the Preferences tab
 - Select **AWS Settings** in the left navigation.
 - Turn off **AWS managed temporary credentials**
@@ -70,7 +70,7 @@ aws configure get default.region
 Verify the that the AWS Cloud9 IDE is configured to use the correct IAM role:
 
 ```bash
-aws sts get-caller-identity --query Arn | grep stepfunctionsworkshop-role -q && echo "IAM role valid" || echo "IAM role NOT valid"
+aws sts get-caller-identity --query Arn | grep stepfunctionsworkshop-sam-role -q && echo "IAM role valid" || echo "IAM role NOT valid"
 ```
 
 If the IAM role is not valid, **DO NOT PROCEED**. Go back and confirm the steps on this page. If the role is valid click **Next**.
