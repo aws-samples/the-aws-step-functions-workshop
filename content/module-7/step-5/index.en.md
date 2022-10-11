@@ -13,7 +13,7 @@ weight: 95
 {
 "input": "{\"data\": [20,40,60,10,9]}",
 "name": "MyExecution",
-"stateMachineArn": "arn:aws:states:us-east-1:123456789012:stateMachine:ParallelProcessing-sm"
+"stateMachineArn": "arn:aws:states:us-east-1:123456789012:stateMachine:ParallelProcessingMachine"
 }
 :::
    ![API Test](/static/img/module-7/api-test.png)

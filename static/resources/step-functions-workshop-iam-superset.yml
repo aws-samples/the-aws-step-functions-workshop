@@ -16,6 +16,7 @@
       "apigateway:*",
       "iam:PassRole",
       "s3:*"
+      "comprehend:*"
     ],
     "Effect": "Allow",
     "Sid": "AllowPolicy"
