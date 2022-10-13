@@ -53,7 +53,7 @@ Resources:
               - ssm:GetParameters
               - ssm:PutParameter
             Effect: Allow
-            Sid: OverlyPermissivePolicy
+            Sid: DeployStepFunctionsWithCDKPolicy
           - Resource: '*'
             Action:
               - ec2:ModifyReservedInstances
