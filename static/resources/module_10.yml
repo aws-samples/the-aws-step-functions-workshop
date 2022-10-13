@@ -45,7 +45,7 @@ Resources:
               - s3:DeleteBucket
               - s3:DeleteBucketPolicy
               - s3:GetBucketPolicy
-              - s3:PutBucketPolicy"
+              - s3:PutBucketPolicy
               - s3:PutBucketPublicAccessBlock
               - s3:PutBucketVersioning
               - s3:PutEncryptionConfiguration
