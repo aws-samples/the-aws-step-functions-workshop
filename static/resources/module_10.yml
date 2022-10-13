@@ -30,6 +30,7 @@ Resources:
               - cloudformation:DescribeStackEvents
               - cloudformation:DescribeStacks
               - cloudformation:ExecuteChangeSet
+              - cloudformation:GetTemplate
               - ecr:DeleteRepository
               - ecr:CreateRepository
               - ecr:DescribeRepositories
@@ -51,6 +52,7 @@ Resources:
               - s3:PutEncryptionConfiguration
               - ssm:DeleteParameter
               - ssm:GetParameters
+              - ssm:GetParameters
               - ssm:PutParameter
             Effect: Allow
             Sid: DeployStepFunctionsWithCDKPolicy
@@ -71,6 +73,11 @@ Resources:
               - ec2:DeleteSpotDatafeedSubscription
             Effect: Deny
             Sid: DontBuyReservationsOrSpotPlz
+          - Resource: 'arn:aws:iam::*:role/cdk-*'
+            Action:
+              - sts:AssumeRole
+            Effect: Allow
+            Sid: AllowAssumeRoleforCDK          
       Roles:
         - !Ref RootRole
   RootRole:
