@@ -70,7 +70,7 @@ aws configure get default.region
 Verify the that the AWS Cloud9 IDE is configured to use the correct IAM role:
 
 ```bash
-aws sts get-caller-identity --query Arn | grep stepfunctionsworkshop-role -q && echo "IAM role valid" || echo "IAM role NOT valid"
+aws sts get-caller-identity --query Arn | grep stepfunctionsworkshop-cdk-role -q && echo "IAM role valid" || echo "IAM role NOT valid"
 ```
 
 If the IAM role is not valid, **DO NOT PROCEED**. Go back and confirm the steps on this page. If the role is valid click **Next**.

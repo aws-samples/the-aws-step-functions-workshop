@@ -13,11 +13,11 @@ After you create your API Gateway REST API with Synchronous Express State Machin
    ![API GAteway ANY](/static/img/module-10/api-gateway-testing.png)
 4. In the **Method Execution** pane, in the **Client** box, choose **TEST**.
 5. Choose **POST** from the **Method Drop-down** menu. Copy/paste the JSON below into the **Request Body** field.
-:::code{showCopyAction=true showLineNumbers=true language=json}
-{
-"key": "Hello Step Functions!"
-}
-:::
+   :::code{showCopyAction=true showLineNumbers=true language=json}
+   {
+   "key": "Hello Step Functions!"
+   }
+   :::
 6. Click **Test**. The following information will be displayed:
 
 - **Request** is the resource's path that was called for the method.
@@ -37,11 +37,11 @@ The **Response Body** output should be:
 ### Test the deployed API using cURL
 
 - Open a new terminal window in your AWS Cloud9 environment.
-- Copy the following cURL command and paste it into the terminal window, replacing `<api-id>` with your API's API ID and `<region>` with the region where your API is deployed. You may have copied this URL in from the CloudFormation output in the last step. You can also find the full invoke URL in the API Gateway console by navigating to **Stages > dev**.
+- Copy the following cURL command and paste it into the terminal window, replacing `<api-id>` with your API's API ID and `<region>` with the region where your API is deployed. You may have copied this URL in from the CloudFormation output in the last step. You can also find the full invoke URL in the API Gateway console by navigating to **Stages > prod**.
 
 ```bash
 curl -X POST\
- 'https://<api-id>.execute-api.<region>.amazonaws.com/dev' \
+ 'https://<api-id>.execute-api.<region>.amazonaws.com/prod' \
  -d '{"key":"Hello Step Functions"}' \
  -H 'Content-Type: application/json'
 ```

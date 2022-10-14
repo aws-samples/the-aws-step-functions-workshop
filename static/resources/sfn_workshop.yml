@@ -1,0 +1,46 @@
+AWSTemplateFormatVersion: 2010-09-09
+Resources:
+  SFWModule1:
+    Type: 'AWS::CloudFormation::Stack'
+    Properties:
+      TemplateURL: https://serverless-stepfunctions-artifacts-17oiei2i27urc.s3.amazonaws.com/resources/module_1.yml
+  SFWModule2:
+    Type: 'AWS::CloudFormation::Stack'
+    Properties:
+      TemplateURL: https://serverless-stepfunctions-artifacts-17oiei2i27urc.s3.amazonaws.com/resources/module_2.yml
+  SFWModule3:
+    Type: 'AWS::CloudFormation::Stack'
+    Properties:
+      TemplateURL: https://serverless-stepfunctions-artifacts-17oiei2i27urc.s3.amazonaws.com/resources/module_3.yml
+  SFWModule4:
+    Type: 'AWS::CloudFormation::Stack'
+    Properties:
+      TemplateURL: https://serverless-stepfunctions-artifacts-17oiei2i27urc.s3.amazonaws.com/resources/module_4.yml
+  SFWModule5:
+    Type: 'AWS::CloudFormation::Stack'
+    Properties:
+      TemplateURL: https://serverless-stepfunctions-artifacts-17oiei2i27urc.s3.amazonaws.com/resources/module_5.yml
+  SFWModule6:
+    Type: 'AWS::CloudFormation::Stack'
+    Properties:
+      TemplateURL: https://serverless-stepfunctions-artifacts-17oiei2i27urc.s3.amazonaws.com/resources/module_6.yml
+  SFWModule7:
+    Type: 'AWS::CloudFormation::Stack'
+    Properties:
+      TemplateURL: https://serverless-stepfunctions-artifacts-17oiei2i27urc.s3.amazonaws.com/resources/module_7.yml
+  SFWModule8:
+    Type: 'AWS::CloudFormation::Stack'
+    Properties:
+      TemplateURL: https://serverless-stepfunctions-artifacts-17oiei2i27urc.s3.amazonaws.com/resources/module_8.yml
+  SFWModule9:
+    Type: 'AWS::CloudFormation::Stack'
+    Properties:
+      TemplateURL: https://serverless-stepfunctions-artifacts-17oiei2i27urc.s3.amazonaws.com/resources/module_9.yml
+  SFWModule10:
+    Type: 'AWS::CloudFormation::Stack'
+    Properties:
+      TemplateURL: https://serverless-stepfunctions-artifacts-17oiei2i27urc.s3.amazonaws.com/resources/module_10.yml
+  SFWModule11:
+    Type: 'AWS::CloudFormation::Stack'
+    Properties:
+      TemplateURL: https://serverless-stepfunctions-artifacts-17oiei2i27urc.s3.amazonaws.com/resources/module_11.yml

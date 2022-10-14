@@ -9,30 +9,8 @@ localeCodes:
 # START Infrastructure
 infrastructure:
   cloudformationTemplates:
-    - templateLocation: static/resources/module_1.yml
-      label: Module 1 Hello World
-    - templateLocation: static/resources/module_2.yml
-      label: Module 2 Request Response
-    - templateLocation: static/resources/module_3.yml
-      label: Module 3 Run a Job
-    - templateLocation: static/resources/module_4.yml
-      label: Module 4 Callback with Task Token
-    - templateLocation: static/resources/module_5.yml
-      label: Module 5 Choice and Map State
-    - templateLocation: static/resources/module_6.yml
-      label: Module 6 Input Output Processing
-    - templateLocation: static/resources/module_7.yml
-      label: Module 7 API Gateway Parallel States
-    - templateLocation: static/resources/module_8.yml
-      label: Module 8 Error Handling
-    - templateLocation: static/resources/module_9.yml
-      label: Module 9 AWS SDK Integration
-    - templateLocation: static/resources/module_10.yml
-      label: Module 10 Deploy with AWS CDK
-    - templateLocation: static/resources/module_11.yml
-      label: Module 11 Deploy with AWS SAM
-    - templateLocation: static/resources/module_12.yml
-      label: Module 12 Observability
+    - templateLocation: static/resources/sfn_workshop.yml
+      label: sfnw
 # END Infrastructure
 
 # START Accounts
@@ -40,23 +18,23 @@ awsAccountConfig:
   accountSources:
     - WorkshopStudio
   participantRole:
-    iamPolicies:
-      - static/resources/step-functions-workshop-iam-superset.json
+    managedPolicies:
+      - 'arn:aws:iam::aws:policy/AdministratorAccess'
   regionConfiguration:
     minAccessibleRegions: 1
     maxAccessibleRegions: 3
     accessibleRegions:
       required:
-        - us-east-1
+        - us-west-2
       recommended:
-        - us-east-1
+        - us-west-2
       optional:
-        - us-east-1
+        - us-west-2
     deployableRegions:
       required:
-        - us-east-1
+        - us-west-2
       recommended:
-        - us-east-1
+        - us-west-2
       optional:
-        - us-east-1
+        - us-west-2
 # END Accounts
