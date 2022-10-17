@@ -1,3 +1,4 @@
 assets
 .DS_Store
 ~$The-AWS-Step-Functions-Workshop.pptx
+.aws-sam
