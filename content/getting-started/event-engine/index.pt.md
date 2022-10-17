@@ -7,28 +7,28 @@ weight: 21
 Esta página orienta você pelas etapas de pré-requisito antes de iniciar um evento hospedado pela AWS.
 :::
 
-To obtain your temporary AWS account, locate the 12 or 16 character **Event Hash** provided by your event organizer and [enter it here](https://dashboard.eventengine.run/login). This will change the lower right button to **Accept Terms & Login**. Click the button to proceed to the next step.
+Para obter sua conta temporária da AWS, localize o **Event Hash** de 12 ou 16 caracteres fornecidos pelo organizador do evento e [insira ele aqui](https://dashboard.eventengine.run/login). Isso mudará o botão inferior direito para **Accept Terms & Login**.  Clique no botão para prosseguir para o próximo passo.
 ![Event Engine Login](/static/img/event-engine/setup-event-engine-01.png)
 
-Click **Email One-Time Password (OTP)** button.
+Clique no botão **Email One-Time Password (OTP)**.
 ![Event Engine Email Password](/static/img/event-engine/setup-event-engine-02.png)
 
-Enter your own email account and click the **Send passcode** button.
+Entre com seu próprio e-mail e clique no botão **Send passcode**.
 ![Event Engine Send Code](/static/img/event-engine/setup-event-engine-03.png)
 
-In the email inbox, check the subject **Your one-time passcode** email and copy the passcode. Paste the copied passcode as shown below, then press the **Sign in** button.
+Na caixa de entrada do seu e-mail, procure pelo e-mail com o assunto **Your one-time passcode** e copie o passcode. Cole o passcode copiado conforme ilustrado abaixo e clique no botão **Sign in**.
 ![Event Engine Sign In](/static/img/event-engine/setup-event-engine-04.png)
 
-On the next screen, press the **AWS Console** button to receive a login link to log in to the console.
+Na tela seguinte, pressione o botão **AWS Console** para receber um link de login para fazer login no console.
 ![Event Engine AWS Console](/static/img/event-engine/setup-event-generator-aws-console-1.png)
 
-In the **AWS Console Login** modal window that appears, click the **Open AWS Console** button and the AWS Console will open in a new browser window.
+Na modal **AWS Console Login** que aparece, clique no botão **Open AWS Console** e o Console da AWS será aberto em uma nova janela do navegador.
 ![Event Engine Open AWS Console](/static/img/event-engine/setup-event-generator-aws-console-2.png)
 ![Event Engine Console](/static/img/event-engine/setup-event-generator-aws-console-3.png)
 
-If you see the following message, your browser has been previously logged into another AWS account.
+Se você vir a mensagem a seguir, seu navegador foi conectado anteriormente à outra conta da AWS.
 
-Click the **"here"** link to logout of your AWS Console, go back to Step 1 (AWS Console Login) above.
+Clique no link **"here"** para fazer logout do AWS Console, volte ao Passo 1 (AWS Console Login) acima.
 ![Event Engine Logout](/static/img/event-engine/setup-event-generator-aws-console-signout.png)
 
-::alert[**Congratulations!** You have successfully logged into the AWS Console. To start with the first module [click here](../../module-1).]{type="success"}
+::alert[**Parabéns!** Você fez o login com sucesso na console AWS. Para iniciar o primeiro módulo [clique aqui](../../module-1).]{type="success"}
