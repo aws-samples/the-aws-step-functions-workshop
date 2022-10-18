@@ -24,38 +24,38 @@ Resources:
         Statement:
           - Resource: '*'
             Action:
-              - apigateway:*
-              - application-autoscaling:*
-              - autoscaling:*
-              - cloud9:*
-              - cloudformation:*
-              - cloudtrail:*
-              - cloudwatch:*
-              - codebuild:*
-              - codecommit:*
-              - codedeploy:*
-              - codepipeline:*
-              - config:*
-              - ec2messages:*
-              - ec2:*
-              - ecr:*
-              - ecs:*
-              - elasticloadbalancing:*
-              - es:*
-              - events:*
-              - iam:*
-              - kms:*
-              - lambda:*
-              - logs:*
-              - resource-groups:*
-              - s3:*
-              - ssm:*
-              - ssmmessages:*
-              - states:*
-              - sts:*
-              - tag:*
+              - cloudformation:CreateChangeSet
+              - cloudformation:DeleteStack
+              - cloudformation:DescribeChangeSet
+              - cloudformation:DescribeStackEvents
+              - cloudformation:DescribeStacks
+              - cloudformation:ExecuteChangeSet
+              - cloudformation:GetTemplate
+              - ecr:DeleteRepository
+              - ecr:CreateRepository
+              - ecr:DescribeRepositories
+              - ecr:SetRepositoryPolicy
+              - iam:AttachRolePolicy
+              - iam:CreateRole
+              - iam:DeleteRole
+              - iam:DeleteRolePolicy
+              - iam:DetachRolePolicy
+              - iam:GetRole
+              - iam:PutRolePolicy
+              - s3:CreateBucket
+              - s3:DeleteBucket
+              - s3:DeleteBucketPolicy
+              - s3:GetBucketPolicy
+              - s3:PutBucketPolicy
+              - s3:PutBucketPublicAccessBlock
+              - s3:PutBucketVersioning
+              - s3:PutEncryptionConfiguration
+              - ssm:DeleteParameter
+              - ssm:GetParameters
+              - ssm:GetParameters
+              - ssm:PutParameter
             Effect: Allow
-            Sid: OverlyPermissivePolicy
+            Sid: DeployStepFunctionsWithCDKPolicy
           - Resource: '*'
             Action:
               - ec2:ModifyReservedInstances
@@ -73,6 +73,11 @@ Resources:
               - ec2:DeleteSpotDatafeedSubscription
             Effect: Deny
             Sid: DontBuyReservationsOrSpotPlz
+          - Resource: 'arn:aws:iam::*:role/cdk-*'
+            Action:
+              - sts:AssumeRole
+            Effect: Allow
+            Sid: AllowAssumeRoleforCDK          
       Roles:
         - !Ref RootRole
   RootRole:
