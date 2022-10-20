@@ -1,89 +1,73 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: 'Custom resource to create a AWS Cloud9 for Step Functions workshop'
 Resources:
-  Cloud9Environment1:
+  Cloud9EnvironmentCDK:
     Type: AWS::Cloud9::EnvironmentEC2
     Properties:
       AutomaticStopTimeMinutes: 60
       Description: 'Online IDE for workshop'
       InstanceType: t3.small
-      Name: 'StepFunctionsWorkshop'
-  Cloud9InstanceProfile:
+      Name: 'StepFunctionsCDKWorkshop'
+  Cloud9CDKInstanceProfile:
     Type: AWS::IAM::InstanceProfile
     Properties:
-      InstanceProfileName: 'stepfunctionsworkshop-role'
+      InstanceProfileName: 'stepfunctionsworkshop-cdk-role'
       Path: /
       Roles:
-        - !Ref RootRole
+        - !Ref CDKRootRole
   RolePolicies:
     Type: AWS::IAM::Policy
     Properties:
-      PolicyName: 'stepfunctionsAdminPolicy'
+      PolicyName: 'StepFunctionsWorkshopPolicy'
       PolicyDocument:
         Version: '2012-10-17'
         Statement:
           - Resource: '*'
             Action:
-              - cloudformation:CreateChangeSet
-              - cloudformation:DeleteStack
-              - cloudformation:DescribeChangeSet
-              - cloudformation:DescribeStackEvents
-              - cloudformation:DescribeStacks
-              - cloudformation:ExecuteChangeSet
-              - cloudformation:GetTemplate
-              - ecr:DeleteRepository
-              - ecr:CreateRepository
-              - ecr:DescribeRepositories
-              - ecr:SetRepositoryPolicy
-              - iam:AttachRolePolicy
               - iam:CreateRole
-              - iam:DeleteRole
-              - iam:DeleteRolePolicy
-              - iam:DetachRolePolicy
-              - iam:GetRole
-              - iam:PutRolePolicy
               - s3:CreateBucket
-              - s3:DeleteBucket
-              - s3:DeleteBucketPolicy
+              - iam:AttachRolePolicy
+              - cloudformation:CreateChangeSet
+              - iam:PutRolePolicy
+              - ssm:GetParameter
               - s3:GetBucketPolicy
-              - s3:PutBucketPolicy
-              - s3:PutBucketPublicAccessBlock
-              - s3:PutBucketVersioning
+              - ecr:DeleteRepository
               - s3:PutEncryptionConfiguration
               - ssm:DeleteParameter
+              - cloudformation:DescribeStackEvents
+              - iam:DetachRolePolicy
+              - iam:DeleteRolePolicy
+              - ecr:DescribeRepositories
+              - cloudformation:DescribeChangeSet
+              - cloudformation:ExecuteChangeSet
+              - s3:DeleteBucket
+              - s3:PutBucketVersioning
+              - iam:GetRole
+              - s3:PutBucketPublicAccessBlock
+              - ecr:CreateRepository
+              - iam:DeleteRole
               - ssm:GetParameters
-              - ssm:GetParameters
+              - s3:DeleteBucketPolicy
+              - cloudformation:DescribeStacks
               - ssm:PutParameter
+              - cloudformation:GetTemplate
+              - cloudformation:DeleteStack
+              - ecr:SetRepositoryPolicy
+              - s3:PutBucketPolicy
+              - ssm:GetParameter
             Effect: Allow
-            Sid: DeployStepFunctionsWithCDKPolicy
-          - Resource: '*'
-            Action:
-              - ec2:ModifyReservedInstances
-              - ec2:PurchaseHostReservation
-              - ec2:PurchaseReservedInstancesOffering
-              - ec2:PurchaseScheduledInstances
-              - rds:PurchaseReservedDBInstancesOffering
-              - dynamodb:PurchaseReservedCapacityOfferings
-              - ec2:CancelSpotFleetRequests
-              - ec2:ModifySpotFleetRequest
-              - ec2:RequestSpotFleet
-              - ec2:RequestSpotInstances
-              - ec2:CancelSpotInstanceRequests
-              - ec2:CreateSpotDatafeedSubscription
-              - ec2:DeleteSpotDatafeedSubscription
-            Effect: Deny
-            Sid: DontBuyReservationsOrSpotPlz
+            Sid: MinimumRequiredPolicy
           - Resource: 'arn:aws:iam::*:role/cdk-*'
             Action:
               - sts:AssumeRole
             Effect: Allow
-            Sid: AllowAssumeRoleforCDK          
+            Sid: AllowPassingRole
       Roles:
-        - !Ref RootRole
-  RootRole:
+        - !Ref CDKRootRole
+  CDKRootRole:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: 'stepfunctionsworkshop-role'
+      RoleName: 'stepfunctionsworkshop-cdk-role'
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
