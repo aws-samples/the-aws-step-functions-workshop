@@ -4,7 +4,7 @@ weight: 132
 ---
 
 :::alert{header="Important" type="warning"}
-Siga as instruções nesta página apenas se você estiver executando este workshop por conta própria. Para pular estas instruções [clique aqui](../step-3).
+Siga as instruções nesta página apenas se você estiver executando este workshop em sua própria conta. Para pular estas instruções [clique aqui](../step-3).
 :::
 
 - Clique no link `Lançar` em qualquer uma das regiões da tabela abaixo para iniciar a implantação.
