@@ -1,6 +1,6 @@
 ---
 title: 'Module 13 - Nested Workflows'
-weight: 140
+weight: 150
 ---
 Nested workflows are useful when you want to package parts of a state machine together, for example to be reused as a building block across multiple workflows. But nested workflows also allow you to mix Standard and Express workflows. Express workflows are often less costly than the equivalent Standard workflow, but it’s important to understand the differences between them. Your workflow might contain some steps that require functionality not available with Express workflows, such as the .waitForTaskToken and .sync invoke methods, or your workflow may run for more than 5 minutes. Or, you might require an “exactly once” workflow execution model. In this case, those steps would be part of a Standard workflow.  
 
