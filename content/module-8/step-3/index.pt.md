@@ -3,9 +3,9 @@ title: 'Tratando falha usando Retry'
 weight: 103
 ---
 
-Estados `Task` e `Parallel` podem ter um campo chamado `Retry`, com uma lista de objetos conhecidos como retentadores. Um retentador individual representa um certo número de retentativas, normalmente aumentando os intervalos de tempo.
+Estados `Task` e `Parallel` podem ter um campo chamado `Retry`, com uma lista de objetos conhecidos como retriers. Um retrier individual representa um certo número de retries, normalmente aumentando os intervalos de tempo.
 
-No exercício abaixo você criará uma definição de ASL que invocará uma função Lambda. A função Lambda foi criada para falhar. você implementará uma `Retry` para esta função, configurando o máximo de tentativas com uma taxa de recuo exponencial entre retentativas.
+No exercício abaixo você criará uma definição de ASL que invocará uma função Lambda. A função Lambda foi criada para falhar. você implementará um `Retry` para esta função, configurando o máximo de tentativas com uma taxa de recuo exponencial entre retries.
 
 1. Encontre a [função Lambda](https://console.aws.amazon.com/lambda/home) **ErrorHandlingCustomErrorFunction**. Copie o ARN da função e revise o código. Repare que a função está preparada para lançar um erro.
 
@@ -37,19 +37,19 @@ No exercício abaixo você criará uma definição de ASL que invocará uma fun�
 
 - ErrorEquals (Obrigatório)
 
-  > Uma lista não vazia com os nomes dos erros. Quando um estado reporta um erro a Step Function o procura nos retentadores. Quando o nome do erro aparece na lista ela implementa a política de retentativa definida no retentador.
+  > Uma lista não vazia com os nomes dos erros. Quando um estado reporta um erro a Step Function o procura nos retriers. Quando o nome do erro aparece na lista ela implementa a política de retry definida no retrier.
 
 - IntervalSeconds (Opcional)
 
-  > Um número inteiro que representa a quantidade de segundos que devem ser aguardados antes da retentativa (1 é o padrão). IntervalSeconds tem o valor máximo de 99999999.
+  > Um número inteiro que representa a quantidade de segundos que devem ser aguardados antes do retry (1 é o padrão). IntervalSeconds tem o valor máximo de 99999999.
 
 - MaxAttempts (Opcional)
 
-  > Um número inteiro que representa a quantidade máxima de retentativas (3 é o padrão). Se o número máximo de retentativas for excedido a execução é finalizada com tratamento de erro normal. O valor zero deve ser usado quando não se deve fazer nenhuma retentativa. MaxAttempts tem o valor máximo de 99999999.
+  > Um número inteiro que representa a quantidade máxima de retries (3 é o padrão). Se o número máximo de retries for excedido a execução é finalizada com tratamento de erro normal. O valor zero deve ser usado quando não se deve fazer nenhum retry. MaxAttempts tem o valor máximo de 99999999.
 
 - BackoffRate (Opcional)
 
-  > O multiplicador pelo qual o intervalo entre tentativas deve ser acrescido (2.0 é o padrão).
+  > O multiplicador pelo qual o intervalo entre retries deve ser acrescido (2.0 é o padrão).
 
 Revise a documentação para mais informações sobre [parâmetros de tramento de erros](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-error-handling.html).
 

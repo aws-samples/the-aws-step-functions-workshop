@@ -2,15 +2,15 @@
 title: 'Módulo 8 - Tratamento de Erros'
 weight: 100
 ---
-Qualquer estado pode encontra erros de execução. Erros podem ocorrer por vários motivos:
+Qualquer estado pode encontrar erros de execução. Erros podem ocorrer por vários motivos:
 
 - Falhas nas definições das máquinas de estado (por exemplo, estado Choice sem regra de comparação)
 
-- Falhas em execuçao de tarefas (por exemplo, uma exceção na função Lambda)
+- Falhas em execução de tarefas (por exemplo, uma exceção na função Lambda)
 
 - Problemas temporários (por exemplo, falhas de comunicação de redes)
 
-Por padrão, quando um estado reporta um erro a Step Functions causa falha na execução do fluxo de trabalho por inteiro. Entretanto, o Step Functions possui funcionalidades de tratamento de erros que lhe permitem fazer retentativas ou pegar o erro que causou a falha. as funcionalidades de tratamento de erros podem definir procedimentos de retentativas e pegar e tratar o erro com uma vaiedade de condições.
+Por padrão, quando um estado reporta um erro a Step Functions causa falha na execução do fluxo de trabalho por inteiro. Entretanto, o Step Functions possui funcionalidades de tratamento de erros que lhe permitem fazer retentativas ou pegar o erro que causou a falha. as funcionalidades de tratamento de erros podem definir procedimentos de retentativas ou pegar e tratar o erro com uma variedade de condições.
 
 Este módulo demonstra o **tratamento de erros** usando função Lambda para simular erros que serão tratados usando os campos `Retry` e `Catch`. 
 
