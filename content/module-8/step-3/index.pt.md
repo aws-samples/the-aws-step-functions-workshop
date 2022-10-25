@@ -1,11 +1,11 @@
 ---
-title: 'Tratando falha usando retentativas'
+title: 'Tratando falha usando Retry'
 weight: 103
 ---
 
 Estados `Task` e `Parallel` podem ter um campo chamado `Retry`, com uma lista de objetos conhecidos como retentadores. Um retentador individual representa um certo número de retentativas, normalmente aumentando os intervalos de tempo.
 
-No exercício abaixo você criará uma definição de ASL que invocará uma função Lambda. A função Lambda foi criada para falhar. você implementará uma `Retentativa` para esta função, configurando o máximo de tentativas com uma taxa de recuo exponencial entre retentativas.
+No exercício abaixo você criará uma definição de ASL que invocará uma função Lambda. A função Lambda foi criada para falhar. você implementará uma `Retry` para esta função, configurando o máximo de tentativas com uma taxa de recuo exponencial entre retentativas.
 
 1. Encontre a [função Lambda](https://console.aws.amazon.com/lambda/home) **ErrorHandlingCustomErrorFunction**. Copie o ARN da função e revise o código. Repare que a função está preparada para lançar um erro.
 
@@ -18,7 +18,7 @@ No exercício abaixo você criará uma definição de ASL que invocará uma fun�
    ![Replace Lambda function ARN](/static/img/module-8/error-handling-state-machine-retry.png)
 
 
-4. Agora implemente uma `Retentativa`. Copie o código exibido abaixo e cole começando na linha 8 entre os nós `Resource` e `End`. 
+4. Agora implemente um `Retry`. Copie o código exibido abaixo e cole começando na linha 8 entre os nós `Resource` e `End`. 
 
 ```bash
       "Retry": [
@@ -33,7 +33,7 @@ No exercício abaixo você criará uma definição de ASL que invocará uma fun�
       ],
 ```
 
-5. Revise os parâmetros de tratamento de erro. Esses parâmetros definem o comportamento da `Retentativa`.
+5. Revise os parâmetros de tratamento de erro. Esses parâmetros definem o comportamento do `Retry`.
 
 - ErrorEquals (Obrigatório)
 
