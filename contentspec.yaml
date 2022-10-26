@@ -24,17 +24,19 @@ awsAccountConfig:
     minAccessibleRegions: 1
     maxAccessibleRegions: 3
     accessibleRegions:
-      required:
-        - us-west-2
       recommended:
         - us-west-2
       optional:
         - us-west-2
+        - eu-west-1
+        - ap-southeast-1
+        - sa-east-1
     deployableRegions:
-      required:
-        - us-west-2
       recommended:
         - us-west-2
       optional:
         - us-west-2
+        - eu-west-1
+        - ap-southeast-1
+        - sa-east-1
 # END Accounts
