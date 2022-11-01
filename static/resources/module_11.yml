@@ -10,7 +10,7 @@ Resources:
       InstanceType: t3.small
       OwnerArn: !Join
         - ''
-        - - 'arn:aws:iam::'
+        - - 'arn:aws:sts::'
           - !Ref 'AWS::AccountId'
           - ':assumed-role/WSParticipantRole/Participant'
       Name: 'StepFunctionsWorkshop'
