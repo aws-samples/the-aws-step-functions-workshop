@@ -1,11 +1,4 @@
 AWSTemplateFormatVersion: 2010-09-09
-Parameters:
-  MyAssetsBucketName:
-    Description: Assets bucket name
-    Type: String
-  MyAssetsBucketPrefix:
-    Description: Assets bucket prefix
-    Type: String
 Resources:
   SFWModule1:
     Type: 'AWS::CloudFormation::Stack'
@@ -46,11 +39,11 @@ Resources:
   SFWModule10:
     Type: 'AWS::CloudFormation::Stack'
     Properties:
-      TemplateURL: !Sub 'https:///${MyAssetsBucketName}.s3.amazonaws.com/${MyAssetsBucketPrefix}module_10.yaml'
+      TemplateURL: https://serverless-stepfunctions-artifacts-17oiei2i27urc.s3.amazonaws.com/resources/module_10_event.yml
   SFWModule11:
     Type: 'AWS::CloudFormation::Stack'
     Properties:
-      TemplateURL: !Sub 'https:///${MyAssetsBucketName}.s3.amazonaws.com/${MyAssetsBucketPrefix}module_11.yaml'
+      TemplateURL: https://serverless-stepfunctions-artifacts-17oiei2i27urc.s3.amazonaws.com/resources/module_11_event.yml
   SFWModule12:
     Type: 'AWS::CloudFormation::Stack'
     Properties:

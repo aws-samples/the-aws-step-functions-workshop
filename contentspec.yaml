@@ -11,12 +11,6 @@ infrastructure:
   cloudformationTemplates:
     - templateLocation: static/resources/sfn_workshop.yml
       label: sfnw
-      parameters:
-        # magic vars
-        - templateParameter: MyAssetsBucketName
-          defaultValue: '{{.AssetsBucketName}}'
-        - templateParameter: MyAssetsBucketPrefix
-          defaultValue: '{{.AssetsBucketPrefix}}'
 # END Infrastructure
 
 # START Accounts
