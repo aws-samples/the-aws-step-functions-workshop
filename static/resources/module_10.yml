@@ -8,11 +8,7 @@ Resources:
       Description: 'Online IDE for workshop'
       ImageId: amazonlinux-2-x86_64
       InstanceType: t3.small
-      OwnerArn: !Join
-        - ''
-        - - 'arn:aws:sts::'
-          - !Ref 'AWS::AccountId'
-          - ':assumed-role/WSParticipantRole/Participant'
+      OwnerArn: !Sub 'arn:aws:sts::${AWS::AccountId}:assumed-role/WSParticipantRole/Participant'
       Name: 'StepFunctionsCDKWorkshop'
   Cloud9CDKInstanceProfile:
     Type: AWS::IAM::InstanceProfile
