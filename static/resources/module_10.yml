@@ -6,7 +6,13 @@ Resources:
     Properties:
       AutomaticStopTimeMinutes: 60
       Description: 'Online IDE for workshop'
+      ImageId: amazonlinux-2-x86_64
       InstanceType: t3.small
+      OwnerArn: !Join
+        - ''
+        - - 'arn:aws:iam::'
+          - !Ref 'AWS::AccountId'
+          - ':assumed-role/WSParticipantRole/Participant'
       Name: 'StepFunctionsCDKWorkshop'
   Cloud9CDKInstanceProfile:
     Type: AWS::IAM::InstanceProfile
