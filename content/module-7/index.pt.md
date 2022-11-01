@@ -1,5 +1,5 @@
 ---
-title: 'Module 7 - API Gateway, Parallel State e fluxos de trabalho Express'
+title: 'Módulo 7 - API Gateway, Parallel State e fluxos de trabalho Express'
 weight: 90
 ---
 O Amazon API Gateway é um serviço gerenciado que permite que desenvolvedores criem, publiquem, mantenham, monitorem e protejam APIs em qualquer escala com facilidade. O Step Functions integra diretamente com o API Gateway, permitindo que você engatilhe a execução de uma máquina de estado com uma requisição HTTP. O API Gateway pode ser usado com fluxos de trabalho Standard e Express. Integrações podem ser assíncronas ou síncronas. 
