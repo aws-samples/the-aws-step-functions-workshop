@@ -7,6 +7,7 @@ Resources:
       AutomaticStopTimeMinutes: 60
       Description: 'Online IDE for workshop'
       InstanceType: t3.small
+      OwnerArn: !Sub 'arn:aws:sts::${AWS::AccountId}:assumed-role/WSParticipantRole/Participant'
       Name: 'StepFunctionsWorkshop'
   Cloud9InstanceProfile:
     Type: AWS::IAM::InstanceProfile
