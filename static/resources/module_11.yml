@@ -24,38 +24,21 @@ Resources:
         Statement:
           - Resource: '*'
             Action:
-              - apigateway:*
-              - application-autoscaling:*
-              - autoscaling:*
-              - cloud9:*
-              - cloudformation:*
-              - cloudtrail:*
-              - cloudwatch:*
-              - codebuild:*
-              - codecommit:*
-              - codedeploy:*
-              - codepipeline:*
-              - config:*
-              - ec2messages:*
-              - ec2:*
-              - ecr:*
-              - ecs:*
-              - elasticloadbalancing:*
-              - es:*
-              - events:*
-              - iam:*
-              - kms:*
-              - lambda:*
-              - logs:*
-              - resource-groups:*
-              - s3:*
-              - ssm:*
-              - ssmmessages:*
-              - states:*
-              - sts:*
-              - tag:*
+              - iam:CreateRole
+              - iam:AttachRolePolicy
+              - iam:CreatePolicy
+              - iam:CreatePolicyVersion
+              - iam:GetRole
+              - iam:PutRolePolicy
+              - iam:DeleteRole
+              - iam:PassRole
+              - apigateway:DELETE
+              - apigateway:GET
+              - apigateway:PATCH
+              - apigateway:POST
+              - apigateway:PUT
             Effect: Allow
-            Sid: OverlyPermissivePolicy
+            Sid: DeployStepFunctionsWithSAMPolicy
           - Resource: '*'
             Action:
               - ec2:ModifyReservedInstances
@@ -89,3 +72,7 @@ Resources:
             Action:
               - sts:AssumeRole
       Path: '/'
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AWSStepFunctionsFullAccess
+        - arn:aws:iam::aws:policy/AmazonS3FullAccess
+        - arn:aws:iam::aws:policy/AWSCloudFormationFullAccess
