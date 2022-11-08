@@ -52,5 +52,5 @@ For more detail, [read this Quip document](https://quip-amazon.com/F8Z8AlqRYDFB/
 
 The local development preview utility allows you to view changes to your content without having to push changes to the repository. You run the utility on your computer to perform local builds. When you update content, the webpages will automatically reload so you can view your changes. This makes content authoring and editing easier and faster. This project contains the *preview_build* utility for MacOs in the root directory.
 
-[Learn more about local development](https://studio.us-east-1.prod.workshops.aws/preview/580d5100-7d5d-4475-a08a-869479cdb428/builds/57a6cd8c-95a2-4fae-b2e7-03ee4935e9f4/en-US/authoring-a-workshop/local-development).
+[Learn more about local development](https://catalog.workshops.aws/docs/en-US/create-a-workshop/authoring-a-workshop/local-development).
 
