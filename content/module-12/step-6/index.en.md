@@ -39,7 +39,7 @@ You should see now that there are no more faults or throttles.
 
    ![No throttles](/static/img/module-12/x-ray-no-throttles.png)
 
-If you check the CloudWatch metrics for the Step Functions executions, you should also see that the ExecutionsFailed has dropped to 0. 
+If you check the CloudWatch metrics for the Step Functions executions, you should also see the ExecutionsFailed drop to 0. 
 
    ![Zero Failed executions](/static/img/module-12/cw-states-execution-metrics-0.png)
 
