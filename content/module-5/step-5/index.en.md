@@ -39,7 +39,11 @@ You must confirm by clicking the emailed link before the subscription is active.
 
    - In the Send Message window, enter a message and click **Send Message**.
 
-   - Continue sending messages until you have several in the queue.
+   - Continue sending messages until you have many in the queue.
+
+   :::alert{header="Note" type="info"}
+   With only a few items in the queue, the SQS ReceiveMessage action may sometimes return only a single message. To increase your chances of retrieving and processing multiple messages, add more messages to the queue. 
+   :::
 
 ![SQS](/static/img/module-5/sqs-send-message.png)
 
