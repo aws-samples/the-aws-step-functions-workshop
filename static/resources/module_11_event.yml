@@ -8,7 +8,7 @@ Resources:
       Description: 'Online IDE for workshop'
       InstanceType: t3.small
       OwnerArn: !Sub 'arn:aws:sts::${AWS::AccountId}:assumed-role/WSParticipantRole/Participant'
-      Name: 'StepFunctionsWorkshop'
+      Name: 'StepFunctionsSAMWorkshop'
   Cloud9InstanceProfile:
     Type: AWS::IAM::InstanceProfile
     Properties:
