@@ -33,6 +33,7 @@ Resources:
               - iam:PutRolePolicy
               - iam:DeleteRole
               - iam:PassRole
+              - iam:GetRolePolicy
               - apigateway:DELETE
               - apigateway:GET
               - apigateway:PATCH
