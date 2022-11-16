@@ -56,10 +56,10 @@ Review the documentation for more information about [error handling parameters](
 
 6. Click **Save** and then **Start execution**. Accept the default input and click **Start execution** again.
 
-7. To view your custom error message, select `StartExecution` in the Graph inspector pane and choose the **Exception** tab.
+7. To view your custom error message, select `StartExecution` in the Graph inspector pane and review the **Input and output** tab.
    ![Failure using Retry output](/static/img/module-8/error-handling-custom-error-retry-output.png)
 
-8. Review the **Execution event history** to get more details on the execution. Notice the retries in the event history.
+8. Scroll down and review the **Events** table to get more details on the execution. Notice the retries in the event history.
    ![Failure using Retry event history](/static/img/module-8/error-handling-custom-error-retry-event-history.png)
 
 ### Having problems?
