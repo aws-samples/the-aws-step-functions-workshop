@@ -5,7 +5,9 @@ weight: 43
 
 Navigate to [Step Functions in the console](https://console.aws.amazon.com/states/home) and click the state machine that starts with **"RequestResponseStateMachine"**. In this sample app we will wait for a specified delay, then we will publish to a SNS topic using the Request Response pattern.
 
-When you specify a service in the `"Resource"` string of your task state, and you only provide the resource, Step Functions will wait for an HTTP response from the service API and then will immediately progress to the next state. Step Functions will not wait for a job to complete. This called the Request Response pattern.
+Step Functions will call the service API for the resource defined (using the `resource` string) in your task state. Step Functions will wait for an HTTP response from the service API and then immediately progress to the next state. This called the Request Response pattern.
+
+If the service API starts an asynchronous job Step Functions will not wait for that job to complete. You can learn more about how to start and poll the results of asynchronous jobs later on in the workshop.
 
 Review the definition in Workflow Studio:
 

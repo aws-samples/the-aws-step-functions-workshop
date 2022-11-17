@@ -11,14 +11,13 @@ In the exercise below, you will create an ASL definition that invokes a Lambda f
 
    ![Lambda function throws FooError](/static/img/module-8/error-handling-lambda-foo-error.png)
 
-2. Now locate the **ErrorHandlingStateMachineWithRetry-...** [state machine](https://console.aws.amazon.com/states/home). Click on its link and click the **Edit** button on the top right corner of the screen. 
+2. Now locate the **ErrorHandlingStateMachineWithRetry-...** [state machine](https://console.aws.amazon.com/states/home). Click on its link and click the **Edit** button on the top right corner of the screen.
 
-3. In the `Resource` field, replace the current value with the ARN of the Lambda function copied in step 1. When the state machine invokes this function, the function will fail. You may start an execution to view the failure.
+3. In the `Resource` field, replace the current value with the ARN of the Lambda function copied in step 1. When the state machine invokes this function, the function will fail. To view the failure Click **Save** and then **Start execution**. Accept the default input and click **Start execution** again.
 
    ![Replace Lambda function ARN](/static/img/module-8/error-handling-state-machine-retry.png)
 
-
-4. Now implement a `Retry`. Copy the code shown below and and paste it beginning on line 8 between the `Resource` node and the `End` node. 
+4. Now implement a `Retry`. Copy the code shown below and and paste it beginning on line 8 between the `Resource` node and the `End` node.
 
 ```bash
       "Retry": [
@@ -52,7 +51,6 @@ In the exercise below, you will create an ASL definition that invokes a Lambda f
   > The multiplier by which the retry interval increases during each attempt (2.0 by default).
 
 Review the documentation for more information about [error handling parameters](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-error-handling.html).
-
 
 6. Click **Save** and then **Start execution**. Accept the default input and click **Start execution** again.
 
@@ -89,4 +87,5 @@ Your ASL definition should be similar to the snippet below. Remember to replace 
   }
 }
 ```
+
 When you are ready, you may move onto the next page.
