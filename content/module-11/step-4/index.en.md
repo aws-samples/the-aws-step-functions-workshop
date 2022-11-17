@@ -180,6 +180,8 @@ paths:
 components: {}
 ```
 
+::alert[Cloud9 does not automatically save your files so be sure to save them]{header="Save your files!"}
+
 #### Deploy the project
 
 To deploy the Amazon API Gateway and the AWS Step Functions state machine to your AWS account, run the following commands from the application root:

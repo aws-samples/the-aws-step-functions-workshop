@@ -102,7 +102,9 @@ const app = new cdk.App();
 new StepfunctionsRestApiStack(app, 'CDKStepfunctionsRestApiStack');
 ```
 
-Save these source files. To deploy the Amazon API Gateway and the AWS Step Functions state machine to your AWS account, run the following command from the application root:
+::alert[Cloud9 does not automatically save your files so be sure to save them]{header="Save your files!"}
+
+To deploy the Amazon API Gateway and the AWS Step Functions state machine to your AWS account, run the following command from the application root:
 ```bash
 cdk deploy
 ```
