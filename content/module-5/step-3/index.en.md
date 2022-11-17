@@ -3,7 +3,7 @@ title: 'Overview of the architecture'
 weight: 73
 ---
 
-This module demonstrates dynamic parallelism using the Map and Choice states. This modules contains the following resources:
+This module demonstrates dynamic parallelism using the Map and Choice states. It contains the following resources:
 
 - Two AWS Lambda functions
 

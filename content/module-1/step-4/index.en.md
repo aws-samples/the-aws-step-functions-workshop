@@ -11,4 +11,4 @@ Create a new state machine and drag and drop an Action and Flow State into your 
 
 ![Design Visually](/static/img/module-1/design.png)
 
-You may Cancel out of Workflow Studio when you are ready to move on.
+You can exit Workflow Studio when you are ready to move on by clicking the Cancel button.
