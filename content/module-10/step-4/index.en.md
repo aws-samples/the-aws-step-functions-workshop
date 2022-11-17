@@ -31,7 +31,7 @@ cdk init --language typescript
 
 ### Use AWS CDK to create an API Gateway REST API with Synchronous Express State Machine backend integration
 
-First, we'll review the individual code snippets that define the Synchronous Express State Machine and the API Gateway REST API. Later we will put them together into an AWS CDK app. Then we will synthesize and deploy these resources. 
+First, we'll review the individual code snippets that define the Synchronous Express State Machine and the API Gateway REST API. Later we will put them together into an AWS CDK app. Then we will synthesize and deploy these resources.
 
 #### Review the Step Functions state machine definition
 
@@ -50,10 +50,10 @@ const stateMachine = new stepfunctions.StateMachine(this, 'MyStateMachine', {
 
 Notice the snippet above contains:
 
-- A `Pass` state construct named `PassState`. 
+- A `Pass` state construct named `PassState`.
 - A StateMachine construct named `MyStateMachine`.
-    -  The StateMachine definition specifies its start state.
-    - The stateMachineType is `EXPRESS` (the `StepFunctionsRestApi` construct only allows a Synchronous Express state machine).
+  - The StateMachine definition specifies its start state.
+  - The stateMachineType is `EXPRESS` (the `StepFunctionsRestApi` construct only allows a Synchronous Express state machine).
 
 #### Review the API Gateway REST API definition
 
@@ -65,7 +65,7 @@ const api = new apigateway.StepFunctionsRestApi(this, 'StepFunctionsRestApi', { 
 
 #### Put it together
 
-In the AWS CDK project, replace the contents of the `lib/stepfunctions-rest-api-stack.ts` file with the code below. You'll recognize the definitions of the Step Functions state machine and the API Gateway from the code you reviewed above.
+In the AWS CDK project, replace the contents of the `lib/stepfunctions-rest-api-stack.ts` (under the main project directory) file with the code below. You'll recognize the definitions of the Step Functions state machine and the API Gateway from the code you reviewed above.
 
 ```bash
 import * as cdk from 'aws-cdk-lib';
@@ -90,7 +90,7 @@ export class StepfunctionsRestApiStack extends cdk.Stack {
 }
 ```
 
-Replace the contents of `bin/stepfunctions-rest-api.ts` with the code below.
+Replace the contents of `bin/stepfunctions-rest-api.ts` (under the main project directory) with the code below.
 
 ```bash
 #!/usr/bin/env node
@@ -103,6 +103,7 @@ new StepfunctionsRestApiStack(app, 'CDKStepfunctionsRestApiStack');
 ```
 
 Save these source files. To deploy the Amazon API Gateway and the AWS Step Functions state machine to your AWS account, run the following command from the application root:
+
 ```bash
 cdk deploy
 ```
