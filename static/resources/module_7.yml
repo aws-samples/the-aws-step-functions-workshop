@@ -12,6 +12,14 @@ Resources:
         info:
           version: 1.0.0
           title: API Gateway State Machine integration
+        x-amazon-apigateway-policy:
+          Version: '2012-10-17'
+          Statement:
+            - Action: execute-api:Invoke
+              Resource:
+                - execute-api:/*/*/*
+              Effect: Allow
+              Principal: '*'
         openapi: 3.0.3
         paths:
           '/execution':

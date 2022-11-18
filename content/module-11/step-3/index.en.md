@@ -5,7 +5,7 @@ weight: 133
 
 - Log into the AWS Console
 - Navigate to [AWS Cloud9](https://console.aws.amazon.com/cloud9/home) in the console. Make sure you are in the correct region.
-- Select **StepFunctionsWorkshop** from the environment list and click **Open IDE** button. Maximize the terminal display by closing the **welcome tab** and the **lower work area**. Open a new **terminal** tab in the main work area:
+- Select **StepFunctionsSAMWorkshop** from the environment list and click **Open in Cloud9** button. Maximize the terminal display by closing the **welcome tab** and the **lower work area**. Open a new **terminal** tab in the main work area:
   ![AWS Cloud9 Before](/static/img/setup/c9before.png)
 - Your workspace should now look like this:
   ![AWS Cloud9 After](/static/img/setup/c9after.png)
