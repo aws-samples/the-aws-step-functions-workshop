@@ -7,7 +7,7 @@ Resources:
       AutomaticStopTimeMinutes: 60
       Description: 'Online IDE for workshop'
       InstanceType: t3.small
-      Name: 'StepFunctionsWorkshop'
+      Name: 'StepFunctionsSAMWorkshop'
   Cloud9InstanceProfile:
     Type: AWS::IAM::InstanceProfile
     Properties:
@@ -33,6 +33,7 @@ Resources:
               - iam:DeleteRole
               - iam:DeleteRolePolicy
               - iam:PassRole
+              - iam:GetRolePolicy
               - apigateway:DELETE
               - apigateway:GET
               - apigateway:PATCH
