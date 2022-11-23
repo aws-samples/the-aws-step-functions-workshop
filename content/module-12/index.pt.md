@@ -1,5 +1,5 @@
 ---
-title: 'Mõdule 12 - Observabilidade'
+title: 'Mõdulo 12 - Observabilidade'
 weight: 140
 ---
 A observabilidade ajuda você a entender o que está acontecendo em seus sistemas e aplicativos. Obter observabilidade ajuda a detectar, investigar e corrigir problemas.
