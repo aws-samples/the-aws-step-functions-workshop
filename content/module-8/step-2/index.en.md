@@ -1,6 +1,6 @@
 ---
 title: 'Setup'
-weight: 101
+weight: 102
 ---
 
 :::alert{header="Important" type="warning"}

@@ -1,0 +1,327 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: > 
+    AWS Step Functions project for the observability module - The AWS Step Functions Workshop
+
+Parameters:
+  TableName:
+    Type: String
+    Default: sentiment-table
+Resources:
+
+  DetectSentimentFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+        InlineCode: |
+            const comprehend = require('aws-sdk/clients/comprehend');
+            const comprehendClient = new comprehend();
+
+            exports.handler = async(event, context) => {
+                let response = {};
+                const subject = event;
+                const params = { 
+                  LanguageCode: 'en', /* required */
+                  Text: event.message /* required */
+                }
+                try {
+                    const data = await comprehendClient.detectSentiment(params).promise();
+
+                    console.log(`Comprehend response - ${JSON.stringify(data)}`);
+                    let r = Math.random().toString(36).substring(7);
+
+                    response = {
+                      "caseId": r,
+                      "sentimentResponse": data
+                    }
+    
+                    return response;
+                }
+                catch (err) {
+                    console.log(err);
+                    return err;
+                }
+            };
+        Handler: index.handler
+        Runtime: nodejs14.x
+        MemorySize: 256
+        FunctionName: 'detect-sentiment'
+        Policies:
+          - ComprehendBasicAccessPolicy: {}
+          
+  SentimentTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+      - AttributeName: caseId
+        AttributeType: S
+      KeySchema:
+      - AttributeName: caseId
+        KeyType: HASH
+      ProvisionedThroughput: 
+        ReadCapacityUnits: "1"
+        WriteCapacityUnits: "1"
+      TableName: !Ref TableName
+
+  StatesExecutionRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      RoleName: "sfn-lambda-ddb"
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: 'Allow'
+            Principal:
+              Service: states.amazonaws.com
+            Action: 'sts:AssumeRole'
+      Policies:
+        - PolicyName: StepFunctionsInvokeLambda
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: 'lambda:InvokeFunction'
+                Resource: '*'
+        - PolicyName: XRay
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: 'xray:*'
+                Resource: '*'
+        - PolicyName: CloudWatchLogging
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "logs:GetLogRecord"
+                  - "logs:DescribeLogStreams"
+                  - "logs:DescribeSubscriptionFilters"
+                  - "logs:StartQuery"
+                  - "logs:DescribeMetricFilters"
+                  - "logs:GetLogDelivery"
+                  - "logs:ListLogDeliveries"
+                  - "logs:CreateLogStream"
+                  - "logs:GetLogEvents"
+                  - "logs:FilterLogEvents"
+                  - "logs:DescribeQueryDefinitions"
+                  - "logs:PutDestination"
+                  - "logs:DescribeResourcePolicies"
+                  - "logs:DescribeDestinations"
+                  - "logs:DescribeQueries"
+                  - "logs:DescribeLogGroups"
+                  - "logs:PutDestinationPolicy"
+                  - "logs:StopQuery"
+                  - "logs:TestMetricFilter"
+                  - "logs:PutQueryDefinition"
+                  - "logs:PutLogEvents"
+                  - "logs:CreateLogGroup"
+                  - "logs:PutMetricFilter"
+                  - "logs:CreateLogDelivery"
+                  - "logs:PutResourcePolicy"
+                  - "logs:DescribeExportTasks"
+                  - "logs:GetQueryResults"
+                  - "logs:UpdateLogDelivery"
+                  - "logs:PutSubscriptionFilter"
+                  - "logs:PutRetentionPolicy"
+                  - "logs:GetLogGroupFields"
+                Resource: "*"
+        - PolicyName: DDBPutItem
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: 'dynamodb:PutItem'
+                Resource: !Sub "arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${TableName}"
+
+  DetectSentimentStateMachine:
+    Type: 'AWS::StepFunctions::StateMachine'
+    Properties:
+      DefinitionString: !Sub |
+        {
+          "Comment": "A state machine calling an AWS Lambda function with Catch",
+          "StartAt": "DetectSentiment",
+          "States": {
+            "DetectSentiment": {
+              "Type": "Task",
+              "Resource": "arn:aws:states:::lambda:invoke",
+              "Parameters": {
+                "FunctionName": "${DetectSentimentFunction}",
+                "Payload.$": "$"
+              },
+              "ResultSelector": {
+                "caseId.$": "$.Payload.caseId",
+                "sentiment.$": "$.Payload.sentimentResponse"
+              },
+              "TimeoutSeconds": 5,
+              "Next": "Parallel"
+            },
+            "Parallel": {
+              "Type": "Parallel",
+              "Branches": [
+                {
+                  "StartAt": "Good or Bad?",
+                  "States": {
+                    "Good or Bad?": {
+                      "Type": "Choice",
+                      "Choices": [
+                        {
+                          "Variable": "$.sentiment.Sentiment",
+                          "StringEquals": "POSITIVE",
+                          "Next": "Positive"
+                        }
+                      ],
+                      "Default": "Negative"
+                    },
+                    "Negative": {
+                      "Type": "Pass",
+                      "End": true
+                    },
+                    "Positive": {
+                      "Type": "Pass",
+                      "End": true
+                    }
+                  }
+                },
+                {
+                  "StartAt": "Record Transaction",
+                  "States": {
+                    "Record Transaction": {
+                      "Type": "Task",
+                      "Resource": "arn:aws:states:::dynamodb:putItem",
+                      "Parameters": {
+                        "TableName": "sentiment-table",
+                        "Item": {
+                          "caseId": {
+                            "S.$": "$.caseId"
+                          },
+                          "sentiment": {
+                            "S.$": "$.sentiment.Sentiment"
+                          },
+                          "score": {
+                            "S.$": "States.JsonToString($.sentiment.SentimentScore)"
+                          }
+                        }
+                      },
+                      "ResultPath": "$.ddbPutResult",
+                      "End": true
+                    }
+                  }
+                }
+              ],
+              "End": true
+            }
+          }
+        }
+      DefinitionSubstitutions: 
+        DetectSentimentFunction: !Ref DetectSentimentFunction
+      RoleArn: !GetAtt [StatesExecutionRole, Arn]
+
+  LoadTestFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: load-test-function
+      Description: Lambda to be invoked by the Event Bridge schedule.
+      InlineCode: |
+          const sfn = require('aws-sdk/clients/stepfunctions');
+          const stepfunctions = new sfn();
+
+          exports.handler = async(event, context) => {
+
+            let data;
+
+              let params = {
+                stateMachineArn: process.env.STATE_MACHINE, /* required */
+              }
+
+            const sentiment_array = [
+              "I love this tea. It helps curb my eating during the day. My Mom and I have given it all friends to try.",
+              "I'm Italian and I lived in Italy for years. I used to buy these cookies for my everyday breakfast with an Italian espresso. I couldn't find them anywhere here in the Bay area, so it's great to have them again.",
+              "In the 1980s I spent several summers in Italy. This biscotti is often given as a breakfast food or mid-day snack. They are simple and delicious and were not sold in the US back then. They are so good that I brought back two bags from a recent trip to Italy. It is great to see that they may now be found on Amazon!<br /><br />Note: it is great to open a bag, smell the contents, pour a glass of milk, then dip the Macines in the milk. Great routine and treat for kids!",
+              "I had heard a little about this product from the local pet store, then tried a small bag for our 2 cats of about 3 and 6 years respectively. The female, younger one took to it right away, and the older male, who was unfortunately weaned on the junk cat food with all the corn meal and etc... in it, and would usually refuse a diet change, actually liked it too. The older male is overweight and we were trying to switch him to soft food on the doctor's request, but he totally refused it. He is a posh cat after all. He still consumes too many calories, the fatty, but at least I know he's eating good food. Of course, I know this product seems to cost more than most other feline food on the market, but I just can't see feeding our animals the lousy alternatives that are out there, marketed as being healthy. Why do commercials show cats eating a vegetarian diet which is mostly corn meal? Is that right? I'll stay with this for now, but stay tuned.<br /><br />I'm updating this review after 9 months of using this cat food for our two cats. I upgraded the stars from 4 to 5 as it really has been a good food for the two of them. Garfield still eats a little too much, but he's just a big cat who doesn't exercise much, let's face it. Our female cat will be 4 years old in a couple months and she's so healthy. She's tiny, but happy and agile. I tried the chicken version of Holistic Select, but Garfield seemd to miss this sardine version so we went back to this one. I've ordered the duck version and will update this once they try it.",
+              "I started buying this after I noticed my 1 year old cat was already starting to lose his spunk so I decided it was time to start buying him real cat food...not the garbage in the super markets. I found this at the pet store out of the other million choices, and I'm sure there are other brands that are just as good but this is the one I went with to try first and it was a great purchase. My cat has been on this for the past 8 months and he's now just has active as he was when he was a kitten and his coat has became sooo soft. Mainly, he loved the taste even more! I highly recommend this brand to all my friends and family for their animals!",
+              "I have done a lot of research to find the best food for my cat, and this is an excellent food.  That is also according to my holistic veterinarian.  They put probiotics on the kibble as the last step, which is very important to me.  The best thing is that my cat loved it immediately and I had to stop mixing it with the old food because she only would eat Holistic Select.",
+              "This cat food was recommended by my vet because my 13 year old Cleo Cat was having trouble keeping any food down and was loosing weight.  It stopped her problems.  She doesn't eat as much as before since she seems to be more satisfied after eating which helps justify the added price.  It aids in digestion since the...ok sorry...smells are gone if ya know what I mean.  Had to add that so anyone experiencing problems with their cats can see there are a lot of benifits from this cat food.",
+              "I have a 4 year old male cat who has chronic urinary tract infections.  I feed him this dry food in combination with wet food (with water added to it) and Uri Ease.  The combination seems to keeps his UTI's under control.  If I switch to another type of dry food, his UTI gets worse.  The other cats seem to enjoy this food as well.  It's expensive but it seems to be the best solution for me.",
+              "Before I was educated about feline nutrition, I allowed my cats to become addicted to dry cat food. I always offered both canned and dry, but wish I would have fed them premium quality canned food and limited dry food. I have two 15 year old cats and two 5 year old cats. The only good quality dry foods they will eat are Wellness and Innova. Innova's manufacturer was recently purchased by Procter&Gamble. I began looking for a replacement. After once again offering several samples (from my local holistic pet store) Holistic Select was the only one (other than the usual Wellness and Innova) they would eat. For finicky cats, I recommend trying Holistic Select. It is a good quality food that is very palatable for finicky eaters.",
+              "My holistic vet recommended this, along with a few other brands. We tried them all, but my cats prefer this (especially the sardine version). The best part is their coats are so soft and clean and their eyes are so clear. AND (and I don't want to be rude, so I'll say this as delicately as I can) their waste is far less odorous than cats who eat the McDonalds junk found in most stores, which is a definite plus for me! The health benefits are so obvious - I highly recommend Holistic Select!",
+              "One of my cats is allergic to fish and beef. This formula is one of the few she can eat, and it has much better ingredients than the prescription diets available at the vet. Both of my kitties are very active, have soft shiny fur, and neither are fat. Dry food reduces tartar buildup on teeth, also.",
+              "Our cats thrive extremely well on this dry cat food.  They definitely have much less hair ball throw ups and their fur is great.  They are fit and not over weight.  This vendor ships extremely fast.  Is one of the top Amazon suppliers in our book!",
+              "I've been a fan of Hot & Spicy Maruchan Ramen for a long time. If you enjoy spice, and love ramen, you'll love this product. Too bad it's way too expensive here on Amazon. It's only \$3.36 per 12 at my Walmart.",
+              "I've been eating Ramen noodles since I was a little kid, and I've never found a better flavor than Hot & Spicy Chicken!  It isn't hot at all to a chilihead like me, but it sure is good!",
+              "I LOVE spicy ramen, but for whatever reasons this thing burns my stomach badly and the burning sensation doesn't go away for like 3 hours! Not sure if that is healthy or not .... and you can buy this at Walmart for \$0.28, way cheaper than Amazon.",
+              "Always being a fan of ramen as a quick and easy meal, finding it on amazon for a decent price and having it delivered to your door by the case is an amazing situation for anyone to find themselves in.",
+              "I must be a bit of a wuss, because this soup tastes to me how I imagine fire might taste. Typically I like spicy food if it has a good flavor.  I don't find this to be the case with this soup. Any flavor is killed off by the burn.",
+              "I really loved the spicy flavor these had.  I found myself liking the broth more than the noodles which is usually the opposite.  If you aren't used to the heat this might bother you and if you like hot hot foods this might not be enough.",
+              "Got these on sale for roughly 25 cents per cup, which is half the price of my local grocery stores, plus they rarely stock the spicy flavors. These things are a GREAT snack for my office where time is constantly crunched and sometimes you can't escape for a real meal. This is one of my favorite flavors of Instant Lunch and will be back to buy every time it goes on sale.",
+              "i have bought allot of different flavors and this happens to be one of my favorites and will be getting more soon",
+              "I love this flavor of ramen! I don't eat other flavors anymore because they taste too bland by comparison. For the convenience of having it delivered to my home (I have prime, so I get it in two days and don't have to pay for the shipping), the price on amazon isn't bad at all, but it is still cheaper to run down and pick up a case of this at the grocery store.",
+              "The BEST investment I've ever made for ginger. It's unbelievable! It's fibrous like the real ginger, has that spicy kick to it, but it's perfect with the sugar - calms it down.  It's very worth the \$40 for 5lbs of it!  I'll be getting more soon - I use these as a topper for my ginger cupcakes and cookies :",
+              "Delicious. I cannot get Australian ginger where I live. This compares favorably to Australian Ginger I've purchased in other cities. Now I can enjoy it without traveling.",
+              "I keep trying other brands.... cheaper brands. Stupid me! This ginger IS soooo worth the money. Tender, moist and never a let down.",
+              "My son has had acid reflux since birth and has been on every medication available with no improvement, Until an older gentleman came into his work place and told him about this product and I automatically ordered it for him. I was really not expecting any better results than the 1000 other things we have tried. What a surprise! He has not had any heartburn or symptoms since day 2 of starting eating one piece of this Ginger each morning. He can now eat anything and actually enjoy it. This product was a God send for him. Thank you all for it!",
+              "I bought this for our office to give people something sweet to snack on.  Because it's bite size it's easier for people to grab a couple a pieces rather than an entire licorice stick. My only complaint is that one of the bags broke open in shipping.",
+              "Twizzlers brand licorice is much better than that other well known brand.<br />If you can get these for \$2 to \$2.50 a package with free s/h it's a good deal.<br />The black and cherry have good taste; but the strawberry taste was too delicate and barely there",
+              "I love these.........very tasty!!!!!!!!!!!  Infact, I think I am addicted to them.<br />Buying them in packs of 6 bags - is very reasonable than going to Target and getting a bag.  Savings are about a \$1.00 a bag.  I use subscribe and save on these and several other product.  I love subscribe and save!!!!!!!!!!!",
+              "If you are looking for a less messy version of licorice for the children, then be sure to try these!  They're soft, easy to chew, and they don't get your hands all sticky and gross in the car, in the summer, at the beach, etc. We love all the flavos and sometimes mix these in with the chocolate to have a very nice snack! Great item, great price too, highly recommend!",
+              "I might be mistaken, but it appears that the pieces in this bag were reduced in size.  If they did do that, it was doubtlessly done to make it appear that the buyer got a better deal, having so many pieces after all.  The problem is that the pieces have to be a certain size in order to have enough flavor for your eating experience.  As it is, you have to use 2 or 3 pieces to match the old piece size;  it is not the same.",
+              "Being a fan of Newman's Pineapple salsa for quite a while, I was looking for a comparable salsa.  This is one of the best tasting salsas I've ever had.  My daughters love it too.  They don't like super chunky salsa and the Berry Mango has a nice smooth texture with small mango pieces.  The salsa is not too sweet, just sweet enough and although it's mild, it has a nice little kick to it.  At this price, it's a steal!",
+              "The SALSA smelled delicious, as I think it probably was - but, unfortunately, the person, at AMAZON, that is a packer (there is probably several) had very little stuffing to work with, especially on the bottoms.  Therefore, the bottoms were broken on all three bottles. As I reached for my computer; I was told NO RETURNS (cause it's a food item).  I then looked for a CUSTOMER SERVICE tag; and I found none on their NEW FACE LIFT.  THEY SEEM TO BE PROUD OF THEIR NEW FACE LIFT BUT...THEY SHOULD AT LEAST HAVE A PLACE TO CONTACT THEM IN EMERGENCIES!  LIKE: I BUY A LOT OF STUFF AND IT ALL COMES IN STYROFOAM BOXES.  NEVER WOULD I SHIP THINGS<br />ESPECIALLY SALSA - IN A CARDBOARD BOX WITH JUST A STRIPE OF LARGE BUBBLE WRAP ON IT.  NO MATTER HOW MUCH THE CARRIER (FED EX) IS CAREFUL, IT'S GOING TO BREAK SOMEWHERE ALONG THE LINE.  ESPECIALLY IN AN ALL GLASS CONTAINER!  BARBARA L. S.",
+              "This is one of the best salsas that I have found in a long time but stay away from the variety pack. The other two that come with it are not worth your money.",
+              "These remind me of dog treats I made once using pumpkin and cinnamon. They're kind of bland and not my favorite Back To Nature product. But my finace really loves them so that's where the three stars come from.",
+              "This is the best cornmeal. I made regular cornbread and hot water cornbread with this meal and both were outstanding. Also fried some oysters with this meal, it gave them a great texture and flovor.",
+              "This is a fabulous marinade!  I love to use it for chicken, either baked in the oven OR on the grill.  This has enough flavor & flair, I've even used it for dinner parties, only to receive rave reviews from my guests!! DEFINITELY worth the price! Super cheap and super easy! Love it!",
+              "Works with chicken fish beef or pork. Fast easy and makes it taste excellent. Plus buying in bulk is more than 50% off from box stores",
+              "Got this for my brother who is on Jorge Cruise diet and decided to try one for myself.  It actually tastes pretty good.",
+              "These singles sell for \$2.50 - \$3.36 at the store for 1 box of 24 singles. I'm not sure why Amazon is selling it for \$9.99 for a box of 24 singles.  Hazelnut coffee creamer is my favorite, but truly this is not a good buy.",
+              "AWESOME!!! such a yummy flavor I got it as a healthy alternative to the desserts we normally eat and I am so glad that I did there are so many things you can do with Jello desserts and still have them taste good and be good for you. I will definitentally be purchasing this product again the flavor was so wonderful.",
+              "I went to 4 grocery stores looking for this flavor of Jello for my green tomato jam recipe and finally found it here. This jello is wonderful! Evidently it's only carried in the stores during the summer but with harvest time in the Fall, I couldn't find it anywhere in town. This Jello tastes like watermelon and the jam recipe I made with it takes like watermelon jam! Great made as regular Jello too. Yummy!",
+              "What a deal this is the healthiest salt you can use.  This box should last our family the year no problem.  Iodized sea salt will not raise your blood pressure as regular salt will.",
+              "Perfect size sea salt for the table or the picnic basket.  We love it. Shakes well, no clumping and flows freely.",
+              "<span class=tiny> Length:: 0:26 Mins<br /><br /></span>The expiration date is 21 months from the day I bought this product. The tuna, tomato combination is delicious. This is one of the many items I re-order on Amazon every month or so.<br />edit: added a short video, so you see what this combination looks like.<br /><br />I was wearing one of those headlamps, but I didn't do a good job focusing on the tuna.<br />I should film it over, but it doesn't look like many people view this product anyway.",
+              "I've never heard of the SAFCOL brand before but I was tired of only trying the typical pouches; Starkist and Chicken of the Sea. I was really surprised as I thought it was a bit better than the other brands and with less seasoning.",
+              "these are the best tasting tuna pack they make in my opinion - make a great on the go snack, and really satisfying with the tomato",
+              "I have always purchased Star-Kist tuna but thought I would try this brand for a change of pace. The taste of the tuna was not pleasant, too much basil and other spices for me.",
+              "I'm not familiar with the Safcol brand but being a tuna addict, gave this a shot. The tuna tastes like it's good quality but I found the tomato basil flavor to be a bit bland. It's better than something plain but it didn't pack the punch I was hoping for. It's still a great option for a low calorie, low fat meal.",
+              "I found it much tastier than the plain tuna pouches out there. Excellent quality, and no need to 'dress it up'.<br /><br />I put it the micro on about 20% power for 1 minute and Shazam!<br /><br />I believe a little heating brings out the flavor.",
+              "Seriously this product was as tasteless as they come. There are much better tasting products out there but at 100 calories its better than a special k bar or cookie snack pack. You just have to season it or combine it with something else to share the flavor.",
+              "I read about pomegranate molasses so I had to try it! I haven't made anything with it yet, just eaten a little bit at a time but WOW is it decadent! It's dark, syrupy, sour, and a little sweet. A dab of this and I forget about dessert. It's just a really unique flavor with a pleasing metallic undertone. Yum!! I'm going to try making fesenjan next :-)",
+              "Used this in Moroccan recipes, as a syrup in a brilliant mixed beverage and as a swirled topping on sliced oranges soaked in orange water.  Wonderful, wonderful stuff!",
+              ]
+
+                  try {
+                  for (let i=0; i < 100; i++){
+                    const arrayIndex = Math.floor(Math.random()*sentiment_array.length)  
+
+                    params['input'] = JSON.stringify({'message': sentiment_array[arrayIndex] });
+                    params['name']=Math.random().toString(36).substring(7)
+                    
+                    console.log(JSON.stringify(params));
+
+                    data = await stepfunctions.startExecution(params).promise();
+
+                    console.log(`SFN response - ${JSON.stringify(data)}`);
+                  }
+
+                  return data;
+              }
+              catch (err) {
+                  console.log(err);
+                  return err;
+              }
+          };
+      Handler: index.handler
+      Runtime: nodejs14.x
+      MemorySize: 256
+      Timeout: 60
+      Environment:
+        Variables:
+          STATE_MACHINE: !Ref DetectSentimentStateMachine
+      Policies:
+        - StepFunctionsExecutionPolicy:
+            StateMachineName: !GetAtt DetectSentimentStateMachine.Name           
+      Events:
+        ScheduledFunction:
+          Type: Schedule
+          Properties:
+            Schedule: rate(1 minute)

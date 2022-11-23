@@ -1,34 +1,16 @@
 ---
-title: 'Clean up'
+title: 'Monitoring Express Workflows'
 weight: 97
 ---
 
-:::alert{header="Important" type="warning"}
-Follow the instructions on this page if you would like to clean up resources in your own account. Event Engine accounts do not require cleanup.
-:::
+Monitoring Express Workflows requires using different tools than the ones you use for Standard Workflows. Instead of using the Graph Inspector and the Execution Event History widgets as you would with Standard Workflows, with Express Workflows like `ParallelProcessingMachine` you would use CloudWatch for monitoring.
 
-### Manually delete the state machine
+1. Navigate to the Step Functions console and select the `ParallelProcessingMachine`.
+2. All execution history is sent to CloudWatch Logs. Use the Monitoring and Logging tabs in the Step Functions console to gain visibility into Express Workflow executions.
+3. The Monitoring tab shows six graphs with CloudWatch metrics for Execution Errors, Execution Succeeded, Execution Duration, Billed Duration, Billed Memory, and Executions Started. 
+    ![](/static/img/module-7/express-workflows-metrics.png)
+4. Navigate to the Logging tab to view recent logs and the logging configuration, with a link to CloudWatch Logs.
+    ![](/static/img/module-7/express-workflows-logs.png)
+5. Click to view the Cloudwatch log group to see the detailed history there.
 
-Navigate to **Step Functions**
-If you named the state machines per the instructions provided:
-
-- Select **ParallelProcessingMachine** from the list of state machines.
-- Click **Delete** button
-- Confirm by clicking **Delete state machine** button on the dialog box that is displayed.
-  ![Statemachine delete](/static/img/module-7/manual-delete-sm.png)
-
-If you chose a different names for your state machine, follow the instructions above while selecting the appropriate name.
-
-- Navigate to the [CloudFormation](https://console.aws.amazon.com/cloudformation/home) page in the AWS Console.
-- Select the stack with name `SFW-Module-7` (or any name you have chosen for the stack) and then click Delete.
-  ![CloudFormation delete](/static/img/setup/setup-cloudformation-delete.png)
-- Make sure the stack deletion completes successfully.
-
-### Manually delete the CloudWatch log group
-
-Navigate to [CloudWatch](https://console.aws.amazon.com/cloudwatch/home). Click **Logs** in the navigation and select **Log groups**.
-
-- select the log group belonging to **ParallelProcessingMachine**.
-- Click on **Actions** dropdown and then select **Delete log group(s)**.
-  ![Cloudwatch loggroup delete](/static/img/module-7/cloudwatch-cleanup.png)
-- Confirm by clicking the **Delete** button in the pop up screen.
+::alert[**Congratulations!** You just monitored the executions for your Step Functions Express Workflow.]{type="success"}

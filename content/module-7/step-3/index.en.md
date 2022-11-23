@@ -6,7 +6,7 @@ weight: 93
 This module contains the following resources:
 
 - Three AWS Lambda functions
-- One API Gateway
+- One API Gateway endpoint
 - One AWS IAM Role used to integrate API Gateway with Step Functions
 
 In this module, you will create an Express workflow that receives an array of integers as input, and in parallel calculates the sum, the average, and the maximum and minimum values. The state machine returns a JSON object with the responses from each of the parallel tasks.

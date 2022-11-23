@@ -58,15 +58,15 @@ Resources:
         ZipFile: |
           # -----------------------------------------------------------
           #    MIT No Attribution
-          #    
+          #
           #    Copyright 2022 Amazon Web Services
-          #    
+          #
           #    Permission is hereby granted, free of charge, to any person obtaining a copy of this
           #    software and associated documentation files (the "Software"), to deal in the Software
           #    without restriction, including without limitation the rights to use, copy, modify,
           #    merge, publish, distribute, sublicense, and/or sell copies of the Software, and to
           #    permit persons to whom the Software is furnished to do so.
-          #    
+          #
           #    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
           #    INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
           #    PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
@@ -94,15 +94,15 @@ Resources:
         ZipFile: |
           # -----------------------------------------------------------
           #    MIT No Attribution
-          #    
+          #
           #    Copyright 2022 Amazon Web Services
-          #    
+          #
           #    Permission is hereby granted, free of charge, to any person obtaining a copy of this
           #    software and associated documentation files (the "Software"), to deal in the Software
           #    without restriction, including without limitation the rights to use, copy, modify,
           #    merge, publish, distribute, sublicense, and/or sell copies of the Software, and to
           #    permit persons to whom the Software is furnished to do so.
-          #    
+          #
           #    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
           #    INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
           #    PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
@@ -130,15 +130,15 @@ Resources:
         ZipFile: |
           # -----------------------------------------------------------
           #    MIT No Attribution
-          #    
+          #
           #    Copyright 2022 Amazon Web Services
-          #    
+          #
           #    Permission is hereby granted, free of charge, to any person obtaining a copy of this
           #    software and associated documentation files (the "Software"), to deal in the Software
           #    without restriction, including without limitation the rights to use, copy, modify,
           #    merge, publish, distribute, sublicense, and/or sell copies of the Software, and to
           #    permit persons to whom the Software is furnished to do so.
-          #    
+          #
           #    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
           #    INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
           #    PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
@@ -166,6 +166,18 @@ Resources:
             Principal:
               Service: lambda.amazonaws.com
             Action: sts:AssumeRole
+      Path: '/'
+      Policies:
+        - PolicyName: AWSLambdaBasicExecutionRole
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: '*'
 
   IntegrationIamRole:
     Type: AWS::IAM::Role

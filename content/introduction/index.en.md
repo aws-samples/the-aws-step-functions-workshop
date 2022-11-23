@@ -5,7 +5,7 @@ weight: 10
 
 ### Summary
 
-In this workshop, you will learn how to use the primary features of AWS Step functions through a series of interactive modules. The workshop materials cover:
+In this workshop, you will learn how to use the primary features of AWS Step Functions through a series of interactive modules. The workshop materials cover:
 
     - Amazon States Language (ASL)
     - Task Orchestration Patterns
@@ -16,10 +16,11 @@ In this workshop, you will learn how to use the primary features of AWS Step fun
     - Standard Workflows and Express Workflows
     - Workshop Studio
     - Input and output processing
-    - AWS SDK integrations
     - API Gateway integration
-    - AWS CDK construction
     - Error handling 
+    - AWS SDK integrations
+    - AWS CDK deployments
+    - AWS SAM deployments
 
 Each module is independent from the others. You may choose which modules to take and take them in any order. Several of the modules combine concepts in order to resemble real world scenarios more closely.
 

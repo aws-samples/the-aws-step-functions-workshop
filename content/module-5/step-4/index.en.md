@@ -27,6 +27,8 @@ Navigate to the services below in the AWS console to familiarize yourself with t
 
    - Learn about [Map](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-map-state.html) state syntax.
 
+   - Learn about [Map State context objects](https://docs.aws.amazon.com/step-functions/latest/dg/input-output-contextobject.html#contextobject-map)
+   
    - Learn about [Choice](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-choice-state.html) state syntax.
 
 ```bash

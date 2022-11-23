@@ -1,11 +1,42 @@
 version: 2.0
 
+# BEGIN Locale
 defaultLocaleCode: en-US
 localeCodes:
   - en-US
-  - es-US
+# END Locale
 
-params:
-  hello: world
-  foo:
-    - bar
+# START Infrastructure
+infrastructure:
+  cloudformationTemplates:
+    - templateLocation: static/resources/sfn_workshop.yml
+      label: sfnw
+# END Infrastructure
+
+# START Accounts
+awsAccountConfig:
+  accountSources:
+    - WorkshopStudio
+  participantRole:
+    managedPolicies:
+      - 'arn:aws:iam::aws:policy/AdministratorAccess'
+  regionConfiguration:
+    minAccessibleRegions: 1
+    maxAccessibleRegions: 3
+    accessibleRegions:
+      recommended:
+        - us-west-2
+      optional:
+        - us-west-2
+        - eu-west-1
+        - ap-southeast-1
+        - sa-east-1
+    deployableRegions:
+      recommended:
+        - us-west-2
+      optional:
+        - us-west-2
+        - eu-west-1
+        - ap-southeast-1
+        - sa-east-1
+# END Accounts

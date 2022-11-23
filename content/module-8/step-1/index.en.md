@@ -3,5 +3,6 @@ title: 'Module Goals'
 weight: 101
 ---
 
-- Create a state machine that contains an AWS SDK service integration with AWS Simple Cloud Storage (S3)
-- Execute the state machine and review results
+- Define custom error types in your application code and catch them in your State Machine
+- Implement custom Retry and Catch logic in your State Machine
+- Implement task timeout logic in your State Machine
