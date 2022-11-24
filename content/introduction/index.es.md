@@ -16,10 +16,11 @@ En este taller, aprenderás como utilizar las funciones principales de AWS Step 
     - Flujos de trabajo Estándar y Flujos de trabajo Express 
     - Workflow Studio
     - Procesado de Entrada y Salida
-    - Integraciones con AWS SDK
     - Integración con API Gateway
-    - Contrucción con AWS CDK
-    - Manejado de errores 
+    - Manejado de errores
+    - Integraciones con AWS SDK
+    - Despliegues con AWS CDK
+    - Despliegues con AWS SAM
 
 Cada módulo es independiente del resto. Puedes seleccionar que módulos completar y el orden. Varios módulos combinan conceptos con el objetivo de simular escenarios reales.
 
