@@ -12,12 +12,12 @@ After you create your API Gateway REST API with Synchronous Express State Machin
 3. In the **Resources** pane, you can select the method you want to test. Click on the `POST` method.
    ![API Gateway POST](/static/img/module-11/api-gateway-testing.png)
 4. In the **Method Execution** pane, in the **Client** box, choose **TEST**.
-5. Choose **POST** from the **Method Drop-down** menu. Copy/paste the JSON below into the **Request Body** field.
-:::code{showCopyAction=true showLineNumbers=true language=json}
-{
-"key": "Hello Step Functions!"
-}
-:::
+5. Copy/paste the JSON below into the **Request Body** field.
+   :::code{showCopyAction=true showLineNumbers=true language=json}
+   {
+   "key": "Hello Step Functions!"
+   }
+   :::
 6. Click **Test**. The following information will be displayed:
 
 - **Request** is the resource's path that was called for the method.
