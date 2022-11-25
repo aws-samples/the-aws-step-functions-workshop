@@ -5,7 +5,7 @@ defaultLocaleCode: en-US
 localeCodes:
   - en-US
   - pt-BR
-  - es-US
+ # - es-US
 
 # START Infrastructure
 infrastructure:
