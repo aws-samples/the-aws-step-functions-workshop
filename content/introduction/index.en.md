@@ -5,7 +5,7 @@ weight: 10
 
 ### Summary
 
-In this workshop, you will learn how to use the primary features of AWS Step functions through a series of interactive modules. The workshop materials cover:
+In this workshop, you will learn how to use the primary features of AWS Step Functions through a series of interactive modules. The workshop materials cover:
 
     - Amazon States Language (ASL)
     - Task Orchestration Patterns

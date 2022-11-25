@@ -57,7 +57,7 @@ Notice the snippet above contains:
 
 #### Review the API Gateway REST API definition
 
-Next we will use `StepFunctionsRestApi` construct to create the API Gateway REST API with required permissions and default input/output mapping. This is a high level construct which contains many pre-defined configurations. We can use this definition to create an integration between the state machine and API Gateway.
+Next review the `StepFunctionsRestApi` construct below. This is a high level construct which contains many pre-defined configurations. You will use this construct to create the API Gateway REST API with required permissions and default input/output mapping. You will also use this construct to create an integration between the state machine and API Gateway.
 
 ```bash
 const api = new apigateway.StepFunctionsRestApi(this, 'StepFunctionsRestApi', { stateMachine: stateMachine });
@@ -65,7 +65,7 @@ const api = new apigateway.StepFunctionsRestApi(this, 'StepFunctionsRestApi', { 
 
 #### Put it together
 
-In the AWS CDK project, replace the contents of the `lib/stepfunctions-rest-api-stack.ts` file with the code below. You'll recognize the definitions of the Step Functions state machine and the API Gateway.
+In the AWS CDK project, replace the contents of the `lib/stepfunctions-rest-api-stack.ts` file with the code below. You'll recognize the definitions of the Step Functions state machine and the API Gateway from the code you reviewed above.
 
 ```bash
 import * as cdk from 'aws-cdk-lib';

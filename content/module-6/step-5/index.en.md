@@ -34,7 +34,7 @@ The simulator starts at the State Input stage. The input field automatically val
 The left panel shows the state input before the InputPath is applied. The panel on the right shows the state input after InputPath is applied.
 
 Developers can use the Data Flow Simulator to quickly implement the data processing they need in their state machines.
-Feel free to keep testing values for ResultSelector and OutputPath within the Data Flow Simulator.
+Feel free to keep testing values for Parameters, ResultSelector and OutputPath within the Data Flow Simulator. Please note that you will need to replace the default values throughout the simulator based on your payload transformations.
 
 For more information on the Data Flow Simulator, see the [AWS Blog](https://aws.amazon.com/blogs/compute/modeling-workflow-input-output-path-processing-with-data-flow-simulator/).
  
