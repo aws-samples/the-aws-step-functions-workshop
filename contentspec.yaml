@@ -4,7 +4,8 @@ version: 2.0
 defaultLocaleCode: en-US
 localeCodes:
   - en-US
-# END Locale
+  - pt-BR
+  - es-US
 
 # START Infrastructure
 infrastructure:
