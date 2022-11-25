@@ -1,6 +1,6 @@
 ---
 title: 'Tratando falhas usando Catch'
-weight: 104
+weight: 103
 ---
 
 Estados `Task`, `Map` e `Parallel` podem conter campos chamados `Catch`. O valor desse campos deve ser uma lista de objetos, conhecidos como catchers. Cada catcher pode ser considerado para pegar um determinado tipo de erro. ASL define um conjunto de palavras para os nomes de erros mais conhecidos, todos começando com o prefixo `States.`. Catchers também podem pegar erros customizados. Cada catcher pode ser configurado para encaminhar o erro para um estado **fallback**. Cada estado fallback pode implementar uma lógica de tratamento de erros. Tipos de erros nativos incluem:

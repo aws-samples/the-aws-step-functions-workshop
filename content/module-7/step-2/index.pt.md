@@ -17,7 +17,7 @@ Siga as instruções nessa página **apenas** se você estiver executando esse w
 
 - A localização do modelo do CloudFormation será preenchida automaticamente no campo `URL do Amazon S3`, conforme mostrado no diagrama abaixo. Clique em `Próximo`.
   ![CloudFormation specify template](/static/img/setup/setup-cloudformation-specify-template.png)
-- Na página _Especificar detalhes da pilha_, o _Nome da pilha_ será autopreenchido com `SFW-Module-6`. Você pode especificar um nome diferente se quiser.
+- Na página _Especificar detalhes da pilha_, o _Nome da pilha_ será autopreenchido com `SFW-Module-7`. Você pode especificar um nome diferente se quiser.
   ![CloudFormation stack name](/static/img/setup/setup-cloudformation-stack-name.png)
 - Clique _Próximo_ mais duas vezes e na última página `Revisar`, role até o final da página. Clique na caixa de seleção `se houver` e então clique `Criar pilha`.
   ![CloudFormation create stack](/static/img/setup/setup-cloudformation-create-stack.png)

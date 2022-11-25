@@ -1,6 +1,6 @@
 ---
 title: 'Tratando falha usando Retry'
-weight: 103
+weight: 102
 ---
 
 Estados `Task` e `Parallel` podem ter um campo chamado `Retry`, com uma lista de objetos conhecidos como retriers. Um retrier individual representa um certo número de retries, normalmente aumentando os intervalos de tempo.
