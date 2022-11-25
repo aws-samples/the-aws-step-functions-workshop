@@ -11,7 +11,7 @@ weight: 75
    
    - Clique no tópico **MapStateTopicforMessages**
 
-   - Abaixo de Assinaturas, clieque em Criar assinatura.
+   - Abaixo de Assinaturas, clique em Criar assinatura.
 
    - A página de criação de assinatura é exibida, listando um ARN de tópico desse tópico.
 
