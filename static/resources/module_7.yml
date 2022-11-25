@@ -12,6 +12,14 @@ Resources:
         info:
           version: 1.0.0
           title: API Gateway State Machine integration
+        x-amazon-apigateway-policy:
+          Version: '2012-10-17'
+          Statement:
+            - Action: execute-api:Invoke
+              Resource:
+                - execute-api:/*/*/*
+              Effect: Allow
+              Principal: '*'
         openapi: 3.0.3
         paths:
           '/execution':
@@ -158,6 +166,18 @@ Resources:
             Principal:
               Service: lambda.amazonaws.com
             Action: sts:AssumeRole
+      Path: '/'
+      Policies:
+        - PolicyName: AWSLambdaBasicExecutionRole
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: '*'
 
   IntegrationIamRole:
     Type: AWS::IAM::Role

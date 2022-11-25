@@ -39,9 +39,9 @@ In this exercise, you will configure a state machine that will catch a custom er
 
 6. Go to the **Execution output** tab to view the output of your workflow. It should show `This is a fallback from a custom Lambda function exception`
 
-7. To view the output of the fallback state, select `CustomErrorFallback` state in the Graph inspector pane and click the **Step output** tab.
+7. To view the output of the fallback state, select `CustomErrorFallback` state in the Graph inspector pane and click the **Input and output** tab.
    ![Failure using Catch output](/static/img/module-8/error-handling-custom-error-catch-output.png)
-8. Go to the **Execution event history** to get more details.
+8. Scroll down to the **Events** table to get more details.
    ![Failure using Catch event history](/static/img/module-8/error-handling-custom-error-catch-event-history.png)
 
 
@@ -64,12 +64,12 @@ In this exercise, you will configure a state machine that will catch a custom er
 
 5. Click **Save** and then **Start execution**. Accept the default input and click **Start execution** again.
 
-6. Go to the **Execution output** tab to view the output of your workflow. It should show `This is a fallback from a timeout Lambda function exception`
+6. Go to the **Execution Input and output** tab to view the output of your workflow. It should show `This is a fallback from a timeout Lambda function exception`
 
-7. To view the output of the fallback state, select `TimeoutFallback` state in the Graph inspector pane and click the **Step output** tab.
+7. To view the output of the fallback state, select `TimeoutFallback` state in the Graph inspector pane and click the **Input and output** tab.
    ![Failure using Catch output](/static/img/module-8/error-handling-timeout-error-catch-output.png)
 
-8. Go through the **Execution event history** to get more details
+8. Scroll down to the **Events** table to get more details
    ![Failure using Catch event history](/static/img/module-8/error-handling-timeout-error-catch-event-history.png)
 
    ::alert[Congratulations! You have successfully completed the Error Handling module.]{type="success"}
