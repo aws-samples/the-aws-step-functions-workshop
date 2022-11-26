@@ -5,23 +5,25 @@ weight: 123
 
 - Faça login no Console AWS
 - Navegue até [AWS Cloud9](https://console.aws.amazon.com/cloud9/home) no console. Verifique se você está na região correta.
-- Selecione **StepFunctionsWorkshop** na lista de ambientes e clique no botão **Abrir IDE**. Maximize a exibição do terminal fechando a **guia de boas-vindas** e a **área de trabalho inferior**. Abra uma nova guia **terminal** na área de trabalho principal:
-  ![AWS Cloud9 antes](/static/img/setup/c9before.png)
+- Selecione **StepFunctionsWorkshop** na lista de ambientes e clique no botão **Open in Cloud9**. Maximize a exibição do terminal fechando a **welcome tab** e a **lower work area**. Abra uma nova guia **terminal** na área de trabalho principal:
+  ![AWS Cloud9 Antes](/static/img/setup/c9before.png)
 - Seu espaço de trabalho agora deve ficar assim:
-  ![AWS Cloud9 depois](/static/img/setup/c9after.png)
+  ![AWS Cloud9 Depois](/static/img/setup/c9after.png)
 
 ### Anexar uma role à instância do AWS Cloud9 EC2
 
 - Na IDE do **AWS Cloud9**, clique em **Manage EC2 Instance** no menu superior direito, conforme mostrado no diagrama abaixo.
   ![AWS Cloud9 manage](/static/img/setup/c9manageinstance.png)
-- Selecione a instância do AWS Cloud9 marcando a caixa ao lado dela e escolha **Actions / Security / Modify IAM Role**
-  ![Função da instância do AWS Cloud9](/static/img/setup/c9instancerol.png)
+- Selecione a instância do AWS Cloud9 marcando a caixa ao lado dela e escolha **Actions / Security / Modify IAM Role**.
+  ![Função da instância do AWS Cloud9](/static/img/setup/c9instancerole.png)
 - Escolha **stepfunctionsworkshop-role** na lista suspensa **IAM Role** e selecione **Save**
 - Retorne ao seu espaço de trabalho e clique na roda dentada ou inicie uma nova guia para abrir a guia Preferências
-- Selecione **Configurações da AWS** na navegação à esquerda.
-- Desative as **credenciais temporárias gerenciadas pela AWS**
+- Selecione **AWS Settings** na navegação à esquerda.
+- Desative as **AWS managed temporary credentials**
 - Feche a guia Preferências
   ![Configurações do AWS Cloud9 aws](/static/img/setup/c9disableiam.png)
+
+Execute os comandos a seguir na janela do terminal.
 
 Remova quaisquer credenciais existentes:
 

@@ -9,7 +9,7 @@ Depois de criar sua API REST do API Gateway com Máquina de Estados Espresso Sí
 
 1. Abra o [console do Amazon API Gateway](https://console.aws.amazon.com/apigateway/) e faça login.
 2. Escolha sua API REST chamada `CDKStepFunctionsRestApi`.
-3. No painel **Recursos**, você pode selecionar o método que deseja testar. Clique no método 'QUALQUER'.
+3. No painel **Resources**, você pode selecionar o método que deseja testar. Clique no método 'ANY'.
    ![API Gateway ANY](/static/img/module-10/api-gateway-testing.png)
 4. No painel **Method Execution**, na caixa **Client**, escolha **TEST**.
 5. Escolha **POST** no menu suspenso **Method**. Copie/cole o JSON abaixo no campo **Request Body**.
@@ -18,7 +18,7 @@ Depois de criar sua API REST do API Gateway com Máquina de Estados Espresso Sí
 "key": "Hello Step Functions!"
 }
 :::
-6. Clique em **Testar**. As seguintes informações serão exibidas:
+6. Clique em **Test**. As seguintes informações serão exibidas:
 
 - **Request** é o caminho do recurso que foi chamado para o método.
 - **Status** é o código de status HTTP da resposta.
@@ -37,7 +37,7 @@ A saída do **Response Body** deve ser:
 ### Teste a API implantada usando cURL
 
 - Abra uma nova janela de terminal em seu ambiente AWS Cloud9.
-- Copie o seguinte comando cURL e cole-o na janela do terminal, substituindo `<api-id>` pelo ID da API da sua API e `<region>` pela região onde sua API está implantada. Você pode ter copiado esse URL da saída do CloudFormation na última etapa. Você também pode encontrar o URL de invocação completo no console do API Gateway navegando até **Stages > dev**.
+- Copie o seguinte comando cURL e cole-o na janela do terminal, substituindo `<api-id>` pelo ID da API da sua API e `<region>` pela região onde sua API está implantada. Você pode ter copiado esse URL da saída do CloudFormation na última etapa. Você também pode encontrar o URL de invocação completo no console do API Gateway navegando até **Stages > prod**.
 
 ```bash
 curl -X POST\

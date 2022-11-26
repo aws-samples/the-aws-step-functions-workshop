@@ -3,13 +3,13 @@ title: 'Limpeza'
 weight: 126
 ---
 
-:::alert{header="Important" type="warning"}
+:::alert{header="Importante" type="warning"}
 Siga as instruções nesta página se desejar limpar recursos em sua própria conta. As contas do Event Engine não requerem limpeza.
 :::
 
-### Destrua recursos criados pelo CDK
+### Exclua recursos criados pelo CDK
 
-Ao concluir o teste, você pode destruir o API Gateway e a máquina de estado usando o AWS CDK. Copie/cole o seguinte comando no terminal no diretório raiz do aplicativo.
+Ao concluir o teste, você pode excluir o API Gateway e a máquina de estado usando o AWS CDK. Copie/cole o seguinte comando no terminal no diretório raiz do aplicativo.
 
 ```bash
 cdk destroy
