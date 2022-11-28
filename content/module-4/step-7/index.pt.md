@@ -4,7 +4,7 @@ weight: 67
 ---
 
 :::alert{header="Important" type="warning"}
-Siga as instruções dessa página se voccê quiser fazer a remoção dos recursos criados na sua conta. Contas criadas pelo Event Engine não precisam de limpeza.
+Siga as instruções dessa página se você quiser fazer a remoção dos recursos criados na sua conta. Contas criadas pelo Event Engine não precisam de limpeza.
 :::
 
 - Navegue até a página do [CloudFormation](https://console.aws.amazon.com/cloudformation/home) no AWS Console.
