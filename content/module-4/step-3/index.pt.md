@@ -7,6 +7,6 @@ Navegue até [Step Functions no console](https://console.aws.amazon.com/states/h
 
 ![Module 4 architecture](/static/img/module-4/callback-architecture.png)
 
-Execute a maquina de estado agora usando uma entrada padrão. Veja que a execução ficará parada no estado `Start Task and Wait For Callback` indefinidamente.
+Execute a máquina de estado agora usando uma entrada padrão. Veja que a execução ficará parada no estado `Start Task and Wait For Callback` indefinidamente.
 
 ![Module 4 Workflow](/static/img/module-4/initial-workflow.png)
