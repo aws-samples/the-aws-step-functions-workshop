@@ -19,7 +19,7 @@ Navegue até os serviços abaixo no console da AWS para se familiarizar com os r
 
 1. Navegue para [Step Functions](https://console.aws.amazon.com/states/home) no console AWS.
 
-2. Localize a máquina de estados que contenha **MapStateStateMachine** no seu name. Clique nela e depois clique em **Edit** no canto direito superior.
+2. Localize a máquina de estados que contenha **MapStateStateMachine** no seu nome. Clique nela e depois clique em **Edit** no canto direito superior.
 
 ![EDIT](/static/img/module-5/map-state-definition-edit.png)
 

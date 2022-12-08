@@ -7,4 +7,4 @@ weight: 30
 
 - Navegue pelo Workflow Studio
 - Revise uma definição de ASL
-- Execute uma máquina de estado da função Hello World
+- Execute uma máquina de estado Hello World

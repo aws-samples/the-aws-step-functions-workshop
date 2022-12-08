@@ -20,6 +20,6 @@ Follow the instructions on this page only if you are executing this workshop in 
 - On the _Specify stack details_ page, _Stack name_ would be auto populated to `SFW-Module-12`. You can specify a different name if you want.
   ![CloudFormation stack name](/static/img/module-12/setup-cloudformation-stack-name.png)
 - Click _Next_ two times and on the last `Review` page, scroll to the bottom. Click the checkbox `if shown` and then click `Create stack`.
-  ![CloudFormation create stack](/static/img/setup/setup-cloudformation-create-stack.png)
+  ![CloudFormation create stack](/static/img/module-12/setup-cloudformation-create-stack.png)
 - Wait till the stack shows `CREATE_COMPLETE` status.
   ![CloudFormation stack complete](/static/img/setup/setup-cloudformation-create-complete.png)

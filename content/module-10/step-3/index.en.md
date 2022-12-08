@@ -16,12 +16,14 @@ weight: 123
   ![AWS Cloud9 manage](/static/img/setup/c9manageinstance.png)
 - Select the AWS Cloud9 instance by checking the box next to it, then choose **Actions / Security / Modify IAM Role**
   ![AWS Cloud9 instance role](/static/img/setup/c9instancerole.png)
-- Choose **stepfunctionsworkshop-cdk-role** from the **IAM Role** drop down, and select **Save**
+- Choose **stepfunctionsworkshop-cdk-role** from the **IAM Role** drop down, and select **Update IAM role**
 - Return to your workspace and click the sprocket, or launch a new tab to open the Preferences tab
 - Select **AWS Settings** in the left navigation.
 - Turn off **AWS managed temporary credentials**
 - Close the Preferences tab
   ![AWS Cloud9 aws settings](/static/img/setup/c9disableiam.png)
+
+Run the following commands in the terminal window.
 
 Remove any existing credentials:
 

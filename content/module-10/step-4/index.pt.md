@@ -27,15 +27,15 @@ cd stepfunctions-rest-api
 cdk init --language typescript
 ```
 
-::alert[Certifique-se de nomear o diretório `stepfunctions-rest-api`. O modelo de aplicativo AWS CDK usa o nome do diretório para gerar nomes para arquivos e classes de origem. Se você usar um nome diferente, seu aplicativo não corresponderá a este tutorial.]{header="Note"}
+::alert[Certifique-se de nomear o diretório `stepfunctions-rest-api`. O modelo de aplicação do AWS CDK usa o nome do diretório para gerar nomes para arquivos e classes de origem. Se você usar um nome diferente, seu aplicativo não corresponderá a este tutorial.]{header="Note"}
 
-### Use o AWS CDK para criar uma API REST do API Gateway com integração de back-end Máquina de Estados Espresso Síncrona
+### Use o AWS CDK para criar uma API REST do API Gateway com integração de back-end da Máquina de Estados Express Síncrona
 
-Primeiro, revisaremos os trechos de código individuais que definem a Máquina de Estados Espresso Síncrona e a API REST do API Gateway. Mais tarde, vamos juntá-los em um aplicativo AWS CDK. Em seguida, sintetizaremos e implantaremos esses recursos.
+Primeiro, revisaremos os trechos de código individuais que definem a Máquina de Estados Express Síncrona e a API REST do API Gateway. Mais tarde, vamos juntá-los em uma aplicação do AWS CDK. Em seguida, sintetizaremos e implantaremos esses recursos.
 
 #### Revise a definição de máquina de estado do Step Functions
 
-Este código AWS CDK define uma máquina de estado simples com um estado `pass`. Revise este código agora.
+Este código do AWS CDK define uma máquina de estado simples com um estado `pass`. Revise este código agora.
 
 ```bash
 const startState = new stepfunctions.Pass(this, 'PassState', {
@@ -102,7 +102,9 @@ const app = new cdk.App();
 new StepfunctionsRestApiStack(app, 'CDKStepfunctionsRestApiStack');
 ```
 
-Salve esses arquivos de origem. Para implantar o Amazon API Gateway e a máquina de estado do AWS Step Functions em sua conta da AWS, execute o seguinte comando na raiz do aplicativo:
+::alert[Cloud9 não salva seus arquivos automaticamente, então garanta que você os salvou.]{header="Salve seus arquivos!"}
+
+Para implantar o Amazon API Gateway e a máquina de estado do AWS Step Functions em sua conta da AWS, execute o seguinte comando na raiz do aplicativo:
 ```bash
 cdk deploy
 ```

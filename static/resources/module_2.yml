@@ -47,7 +47,7 @@ Resources:
                 "Resource": "arn:aws:states:::sns:publish",
                 "Parameters":{  
                   "TopicArn": "${topicArn}",
-                  "Message":"Hello from Step Functions!"
+                  "Message.$":"$.message"
                 },
                 "End": true
               }
@@ -66,7 +66,7 @@ Outputs:
       - |-
         {
           "topic": "${topicArn}",
-          "message": "HelloWorld",
-          "timer_seconds": 10
+          "message": "Welcome to re:Invent!",
+          "timer_seconds": 5
         }
       - { topicArn: !Ref SNSTopic }
