@@ -9,6 +9,6 @@ If you are at an AWS hosted event (eg. AWS re\:Invent, AWS Summit, Immersion Day
 
 ### Self-service option
 
-Se você deseja executar este workshop em sua própria conta da AWS, siga as instruções de configuração e limpeza fornecidas em cada módulo. Para começar com o primeiro módulo [clique aqui](../module-1).
+If you want to run this workshop in your own AWS account, follow the set up and clean up instructions provided inside each module. To start with the first module [click here](../module-1).
 
-::alert[Ao executar em sua própria conta, certifique-se de estar conectado como um usuário que tenha a política de permissões `AdministratorAccess` anexada a ele para evitar erros ao criar recursos usando os modelos do CloudFormation.]{header="Nota "}
+::alert[When running in your own account, please make sure you are logged in as a user which has `AdministratorAccess` persmissions policy attached to it in order to avoid errors while creating resources using the CloudFormation templates.]{header="Note"}
