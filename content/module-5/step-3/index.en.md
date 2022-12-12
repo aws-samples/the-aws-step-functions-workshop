@@ -5,17 +5,11 @@ weight: 73
 
 This module demonstrates dynamic parallelism using the Map and Choice states. It contains the following resources:
 
-- Two AWS Lambda functions
-
-- One Amazon Simple Queue Service (Amazon SQS) queue
-
-- One Amazon Simple Notification Service (Amazon SNS) topic
-
 - One Amazon DynamoDB table
 
 - One AWS Step Functions state machine
 
-In this project, Step Functions invokes an AWS Lambda function that retrieves messages from an Amazon SQS queue as a JSON array. A Choice state determines the path of the state machine execution. If there are messages to process, the Choice state passes a JSON array of those messages to a Map state. The Map state iterates through each message in the array dynamically creating separate workflow branches. Each workflow branch writes a message to DynamoDB, and then invokes a second Lambda function to remove the message from Amazon SQS. Finally the branch publishes the message to the Amazon SNS topic.
+In this module, you'll pass in a JSON array of orders to be processed by your state machine. A Map state is used to iterate over the input array, similar to a loop in programming languages. In each iteration, the map state dynamically creates separate workflow branches. A choice state is used to determine what action to take for that item in the JSON array, similar to an if statement in programming languages. If the current item's `priority` field has a value `"HIGH"`, Step Functions writes the order details into DynamoDB. If the current item's `priority` field is `"LOW"`, no action is taken. 
 
 ![Visual Workflow](/static/img/module-5/visual-workflow.png)
 
