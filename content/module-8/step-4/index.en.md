@@ -17,7 +17,7 @@ When a state has both Retry and Catch fields, Step Functions uses any appropriat
 
 Read the documentation for more information on [Error names](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-error-handling.html).
 
-In this exercise, you will configure a state machine that will catch a custom error and a `States.Timeout` error using the `Catch` field. 
+In this exercise, you will configure a state machine that will catch a custom error and a `States.Timeout` error using the `Catch` field.
 
 ### Catch a custom error
 
@@ -25,7 +25,7 @@ In this exercise, you will configure a state machine that will catch a custom er
 
    ![Lambda function throws CustomError](/static/img/module-8/error-handling-lambda-function-custom-error.png)
 
-2. Now locate the **ErrorHandlingStateMachineWithCatch-...** [state machine](https://console.aws.amazon.com/states/home). Click on its link and click the **Edit** button on the top right corner of the screen. 
+2. Now locate the **ErrorHandlingStateMachineWithCatch-...** [state machine](https://console.aws.amazon.com/states/home). Click on its link and click the **Edit** button on the top right corner of the screen.
 
 3. In the `Resource` field, replace the current value with the ARN of the Lambda function copied in step 1. When the state machine invokes this function, the function will fail with the `CustomError`.
 
@@ -44,21 +44,19 @@ In this exercise, you will configure a state machine that will catch a custom er
 8. Scroll down to the **Events** table to get more details.
    ![Failure using Catch event history](/static/img/module-8/error-handling-custom-error-catch-event-history.png)
 
-
-
 ### Catch a timeout error
 
 1. Locate the **ErrorHandlingSleep10Function** [Lambda function](https://console.aws.amazon.com/lambda/home). Copy the function ARN and review the code. Notice that the function is configured to sleep for 10 seconds.
 
    ![Lambda function sleeps for 10 seconds](/static/img/module-8/error-handling-lambda-sleep10.png)
 
-2. Now locate the **ErrorHandlingStateMachineWithCatch-...** [state machine](https://console.aws.amazon.com/states/home). Click on its link and click the **Edit** button on the top right corner of the screen. 
+2. Now locate the **ErrorHandlingStateMachineWithCatch-...** [state machine](https://console.aws.amazon.com/states/home). Click on its link and click the **Edit** button on the top right corner of the screen.
 
 3. In the `Resource` field, replace the current value with the ARN of the Lambda function copied in step 1. When the state machine invokes this function, the function will sleep for 10 seconds.
 
    ![Replace Lambda function ARN](/static/img/module-8/error-handling-state-machine-catch.png)
 
-4. Notice the `TimeoutSeconds` field for the `Task` is set to be 5 seconds. Notice the catcher configured to catch the `States.Timeout` error type. This catcher forwards to the `TimeoutFallback` state. 
+4. Notice the `TimeoutSeconds` field for the `Task` is set to be 5 seconds. Notice the catcher configured to catch the `States.Timeout` error type. This catcher forwards to the `TimeoutFallback` state.
 
    ![Review the Timeout Catcher](/static/img/module-8/error-handling-state-machine-timeout.png)
 
