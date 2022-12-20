@@ -39,7 +39,7 @@ Resources:
                       "Type": "Task",
                       "Resource": "arn:aws:states:::dynamodb:putItem",
                       "Parameters": {
-                        "TableName": MapStateTable,
+                        "TableName": "MapStateTable",
                         "Item": {
                           "id": {
                             "S.$": "$.orderId"
