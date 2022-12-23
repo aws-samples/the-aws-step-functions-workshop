@@ -155,7 +155,7 @@ Resources:
       Role: !GetAtt ParentStateMachineRole.Arn
 
   ParentStateMachineRole:
-    Type: "AWS::IAM::Role"
+    Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
         Version: 2012-10-17
@@ -207,6 +207,8 @@ Resources:
 
   ExpressLogGroup:
     Type: AWS::Logs::LogGroup
+    Properties:
+      RetentionInDays: 7
 
   ChildStateMachine:
     Type: AWS::Serverless::StateMachine
@@ -258,7 +260,7 @@ Resources:
       Role: !GetAtt ChildStateMachineRole.Arn
 
   ChildStateMachineRole:
-    Type: "AWS::IAM::Role"
+    Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
         Version: 2012-10-17
@@ -296,7 +298,7 @@ Resources:
                   - "*"
 
   SQSQueue:
-    Type: "AWS::SQS::Queue"
+    Type: AWS::SQS::Queue
     Properties:
       DelaySeconds: 0
       VisibilityTimeout: 30
@@ -305,76 +307,23 @@ Resources:
         maxReceiveCount: 1
 
   SQSQueueDLQ:
-    Type: "AWS::SQS::Queue"
+    Type: AWS::SQS::Queue
     Properties:
       DelaySeconds: 0
       VisibilityTimeout: 30
 
   SNSTopic:
-    Type: "AWS::SNS::Topic"
+    Type: AWS::SNS::Topic
     Properties:
       DisplayName: "ShipPackageLambdaFunction"
 
-  ShipPackageLambdaFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      Role: !GetAtt ShipLambdaExecutionRole.Arn
-      InlineCode: |
-        console.log('Loading function');
-        var AWS = require('aws-sdk');
-        var stepfunctions = new AWS.StepFunctions({apiVersion: '2016-11-23'});
-
-        exports.lambdaHandler = async(event, context, callback) => {
-
-            await new Promise(resolve => setTimeout(resolve, Math.floor(Math.random() * 6000) + 1000));
-
-              
-            for (const record of event.Records) {
-                const body = JSON.parse(record.body);
-                
-                console.log('body',body)
-                const taskToken =body.TaskToken;
-
-                const params = {
-                    output: "\"Callback task completed successfully.\"",
-                    taskToken: taskToken
-                };
-                console.log(`Calling Step Functions to complete callback task with params ${JSON.stringify(params)}`);
-                try {
-                    let response = await stepfunctions.sendTaskSuccess(params).promise();
-                } catch (error) {
-                    let response = await stepfunctions.sendTaskFailure({"taskToken": taskToken, "error":500,"cause":error}).promise();
-                    return { 'statusCode': 500,
-                        'body': {
-                            'updated': True
-                        }
-                    }
-            }
-            }
-            return { 'statusCode': 200,
-                        'body': {
-                            'updated': True
-                        }
-                    }
-        }
-      Handler: index.lambdaHandler
-      Runtime: nodejs16.x
-      Timeout: 8
-      Events:
-        SQSEvent:
-          Type: SQS
-          Properties:
-            Queue: !GetAtt SQSQueue.Arn
-            BatchSize: 10
-            Enabled: true
-  
   UpdateDatabaseLambdaFunction:
     Type: AWS::Serverless::Function
     Properties:
       Role: !GetAtt UpdateDatabaseLambdaFunctionRole.Arn
       InlineCode: |
         exports.lambdaHandler = async(event, context, callback) => {
-      
+
           await new Promise(resolve => setTimeout(resolve, 300));
             return { "statusCode": 200,
             "body": {
@@ -387,7 +336,7 @@ Resources:
       Timeout: 3
 
   UpdateDatabaseLambdaFunctionRole:
-    Type: "AWS::IAM::Role"
+    Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
         Version: "2012-10-17"
@@ -406,6 +355,61 @@ Resources:
                   - "logs:CreateLogStream"
                   - "logs:PutLogEvents"
                 Resource: !Sub "arn:${AWS::Partition}:logs:*:*:*"
+
+  ShipPackageLambdaFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt ShipLambdaExecutionRole.Arn
+      InlineCode: |
+        console.log('Loading function');
+        var AWS = require('aws-sdk');
+        var stepfunctions = new AWS.StepFunctions({ apiVersion: '2016-11-23' });
+
+        exports.lambdaHandler = async (event, context, callback) => {
+
+            await new Promise(resolve => setTimeout(resolve, Math.floor(Math.random() * 6000) + 1000));
+
+
+            for (const record of event.Records) {
+                const body = JSON.parse(record.body);
+
+                console.log('body', body)
+                const taskToken = body.TaskToken;
+
+                const params = {
+                    output: "\"Callback task completed successfully.\"",
+                    taskToken: taskToken
+                };
+                console.log(`Calling Step Functions to complete callback task with params ${JSON.stringify(params)}`);
+                try {
+                    let response = await stepfunctions.sendTaskSuccess(params).promise();
+                } catch (error) {
+                    let response = await stepfunctions.sendTaskFailure({ "taskToken": taskToken, "error": 500, "cause": error }).promise();
+                    return {
+                        'statusCode': 500,
+                        'body': {
+                            'updated': True
+                        }
+                    }
+                }
+            }
+            return {
+                'statusCode': 200,
+                'body': {
+                    'updated': True
+                }
+            }
+        }
+      Handler: index.lambdaHandler
+      Runtime: nodejs16.x
+      Timeout: 8
+      Events:
+        SQSEvent:
+          Type: SQS
+          Properties:
+            Queue: !GetAtt SQSQueue.Arn
+            BatchSize: 10
+            Enabled: true
 
   ShipLambdaExecutionRole:
     Type: "AWS::IAM::Role"
@@ -449,9 +453,12 @@ Resources:
                 Resource: "*"
 
 Outputs:
-  StateMachineArn:
+  ParentStateMachineArn:
     Value:
       Ref: ParentStateMachine
+  ChildStateMachineArn:
+    Value:
+      Ref: ChildStateMachine
   ExecutionInput:
     Description: Sample input to StartExecution.
     Value: |
