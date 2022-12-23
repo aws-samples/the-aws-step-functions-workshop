@@ -4,13 +4,13 @@ weight: 154
 
 ---
 
-An Express workflow containing these steps has already been created in your account, with a name beginning with _ChildStateMachine_.
+Let's replace the steps in our Standard workflow with a nested Express workflow. An Express workflow containing these steps has already been created in your account, with a name beginning with _ChildStateMachine_.
 
 1. In the [Step Functions Console](https://console.aws.amazon.com/states/home), select “State machines” on the left-hand side and then click on the state machine with the name beginning with *ChildStateMachine*. From the “Details” box at the top, copy the ARN value, as you will use it in a subsequent step.  
 
 2. Next, open the state machine with the name beginning with *ParentStateMachine*. Click Edit and then click the Workflow Studio button on the right-hand side to edit the state machine in Workflow Studio.  
 
-3. Start by deleting the **Update Order History**, **Update Data Warehouse**, **Update Customer Profile**, and **Update Inventory** steps by clicking on each step and clicking **Delete all selected states**.  
+3. Start by deleting the **Update Order History**, **Update Data Warehouse**, **Update Customer Profile**, and **Update Inventory** steps by selecting the steps and clicking **Delete all selected states**.  
 
     ![Delete existing workflow steps](/static/img/module-13/delete-steps-from-workflow.png)
 
@@ -26,8 +26,8 @@ An Express workflow containing these steps has already been created in your acco
 
 7. When you’ve made the updates, click the **Apply and Exit** button and then the **Save** button.  
 
-8. You will receive a warning that the changes may affect which resources your state machine needs to access and therefore, updates to the IAM role used by your state machine may be required. For simplicity, the role already contains the required permissions, but in the real world, you should make sure to review the IAM role used by your state machine.  
+8. You may receive a warning that the changes could affect which resources your state machine needs to access and therefore, updates to the IAM role used by your state machine may be required. For simplicity, the role already contains the required permissions, but in the real world, you should make sure to review the IAM role used by your state machine.  
 
-9. Run the updated state machine by clicking the **Start Execution** button in the upper right corner. The state machine does not require any input - you can leave the “Comment” attribute that’s included by default, if you wish. Click **Start Execution**. You can now watch the state machine as the steps are executed and you should see a fully green diagram. Now, click the “State Machines” link on the left side and choose the workflow starting with ChildStateMachine. On the “Monitoring” tab, you should see a value of 1 for the “Executions Started” metric, and a value of 1 for the “Executions Succeeded” metric, indicating the nested workflow was executed successfully.  
+9. Run the updated state machine by clicking the **Start Execution** button in the upper right corner. The state machine does not require any input - you can leave the “Comment” attribute that’s included by default, if you wish. Click **Start Execution**. You can now watch the state machine as the steps are executed and you should see a fully green diagram. Now, click the “State Machines” link on the left side and choose the workflow starting with _ChildStateMachine_. On the “Monitoring” tab, you should see a value of 1 for the “Executions Started” metric, and a value of 1 for the “Executions Succeeded” metric, indicating the nested workflow was executed successfully.  
 
     ![Child Express workflow execution stats](/static/img/module-13/child-state-machine-execution-stats.png)
