@@ -3,7 +3,7 @@ title: 'Execute a máquina de estados e revise os resultados'
 weight: 75
 ---
 
-1. **SAssine um tópico Amazon SNS (opcional)**
+1. **Assine um tópico Amazon SNS (opcional)**
 
    - Abra o [console Amazon SNS](https://console.aws.amazon.com/sns/home).
 
