@@ -5,7 +5,7 @@ weight: 10
 
 ### Sumário
 
-Neste workshop, você aprenderá a usar os principais recursos das funções do AWS Step por meio de uma série de módulos interativos. Os materiais do workshop cobrem:
+Neste workshop, você aprenderá a usar os principais recursos das funções do AWS Step Functions por meio de uma série de módulos interativos. Os materiais do workshop cobrem:
 
     - Amazon States Language (ASL)
     - Padrões de Orquestração de Tarefas

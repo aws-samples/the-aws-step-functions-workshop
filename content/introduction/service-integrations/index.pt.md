@@ -5,4 +5,4 @@ weight: 18
 
 ![Integrações com AWS SDK'](/static/img/intro/service-integrations.png)
 
-[Lista de serviços suportados](https://docs.aws.amazon.com/step-functions/latest/dg/supported-services-awssdk.html)
+[Lista de serviços suportados](https://docs.aws.amazon.com/pt_br/step-functions/latest/dg/supported-services-awssdk.html)
