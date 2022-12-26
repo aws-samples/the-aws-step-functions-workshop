@@ -13,7 +13,7 @@ Navegue até o Workshop Studio [página de entrada do evento](https://catalog.wo
 Insira sua própria conta de e-mail e clique no botão **Enviar senha**.
 ![Código de envio de evento hospedado](/static/img/hosted-event/setup-hosted-event-2.png)
 
-Na caixa de entrada do seu e-mail, verifique o e-mail com o assunto **Sua senha única** e copie a senha. Cole a senha copiada conforme mostrado abaixo e pressione o botão **Entrar**.
+Na caixa de entrada do seu e-mail, verifique o e-mail com o assunto **Your one-time passcode** e copie a senha. Cole a senha copiada conforme mostrado abaixo e pressione o botão **Entrar**.
 ![Entrar no evento hospedado](/static/img/hosted-event/setup-hosted-event-3.png)
 
 Insira o **código de acesso ao evento** fornecido pelo seu facilitador (Exemplo: _abcd-012345-ef_) e selecione **Avançar**
