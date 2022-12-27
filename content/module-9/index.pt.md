@@ -3,7 +3,7 @@ title: 'Módulo 9 - Integrações de serviços do AWS SDK'
 weight: 110
 ---
 
-O AWS Step Functions se integra a muitos outros serviços da AWS. Você pode usar o Step Functions [AWS SDK service integrations](https://docs.aws.amazon.com/step-functions/latest/dg/supported-services-awssdk.html) para chamar mais de 220 serviços da AWS diretamente da sua máquina de estado, oferecendo acesso a mais de 10.000 ações de API.
+O AWS Step Functions se integra a muitos outros serviços da AWS. Você pode usar o Step Functions [AWS SDK service integrations](https://docs.aws.amazon.com/pt_br/step-functions/latest/dg/supported-services-awssdk.html) para chamar mais de 220 serviços da AWS diretamente da sua máquina de estado, oferecendo acesso a mais de 10.000 ações de API.
 
 Para usar as integrações do AWS SDK, você especifica o nome do serviço e a chamada da API. Algumas integrações exigem parâmetros e você pode, opcionalmente, especificar um padrão de integração de serviços. Observe que a ação da API será camel case e os nomes dos parâmetros serão Pascal case. Você pode usar a Amazon States Language para especificar uma ação de API da AWS no campo Resource de um estado de tarefa. Para fazer isso, use a seguinte sintaxe:
 
