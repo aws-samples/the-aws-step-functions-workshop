@@ -14,9 +14,9 @@ weight: 123
 
 - Na IDE do **AWS Cloud9**, clique em **Manage EC2 Instance** no menu superior direito, conforme mostrado no diagrama abaixo.
   ![AWS Cloud9 manage](/static/img/setup/c9manageinstance.png)
-- Selecione a instância do AWS Cloud9 marcando a caixa ao lado dela e escolha **Actions / Security / Modify IAM Role**.
+- Selecione a instância do AWS Cloud9 marcando a caixa ao lado dela e escolha **Ações / Segurança / Modificar função do IAM**.
   ![Função da instância do AWS Cloud9](/static/img/setup/c9instancerole.png)
-- Escolha **stepfunctionsworkshop-role** na lista suspensa **IAM Role** e selecione **Save**
+- Escolha **stepfunctionsworkshop-cdk-role** na lista suspensa **Função do IAM** e selecione **Atualizar função do IAM**
 - Retorne ao seu espaço de trabalho e clique na roda dentada ou inicie uma nova guia para abrir a guia Preferências
 - Selecione **AWS Settings** na navegação à esquerda.
 - Desative as **AWS managed temporary credentials**
@@ -72,7 +72,7 @@ aws configure get default.region
 Verifique se o AWS Cloud9 IDE está configurado para usar a função correta do IAM:
 
 ```bash
-aws sts get-caller-identity --query Arn | grep stepfunctionsworkshop-role -q && echo "IAM role valid" || echo "IAM role NOT valid"
+aws sts get-caller-identity --query Arn | grep stepfunctionsworkshop-cdk-role -q && echo "IAM role valid" || echo "IAM role NOT valid"
 ```
 
 Se a função do IAM não for válida, **NÃO CONTINUE**. Volte e confirme as etapas nesta página. Se a função for válida, clique em **Next**.

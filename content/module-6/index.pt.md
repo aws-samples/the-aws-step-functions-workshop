@@ -12,6 +12,6 @@ No Amazon States Language (Idioma de estados da Amazon) os campos a seguir filtr
 - `Parameters`
 - `ResultSelector`
 
-Leia a documentação para aprender mais sobre [Processamento de Entrada e Saída](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-input-output-filtering.html).
+Leia a documentação para aprender mais sobre [Processamento de Entrada e Saída](https://docs.aws.amazon.com/pt_br/step-functions/latest/dg/concepts-input-output-filtering.html).
 
 **Duração Estimada: 25 minutos**
