@@ -26,7 +26,7 @@ Let’s say you ran the original Standard Workflow 1,000 times in the N. Virgini
 
 ### Nested Express Workflow
 
-Instead, we’re now charged for the Express Workflow. Let us assume that each Express Workflow invocation runs for an average of 11,300ms and does not use more than 64-MB of memory.  
+Instead, you're now charged for the Express Workflow. Let us assume that each Express Workflow invocation runs for an average of 11,300ms and does not use more than 64-MB of memory.  
 
 **Duration cost** = `(Avg billed duration ms / 100) * price per 100 ms`  
 **Execution cost** = `$0.000001 per request`  
@@ -38,8 +38,16 @@ Instead, we’re now charged for the Express Workflow. Let us assume that each E
 
 To summarize, in this example, it costs 7.5x more to keep those steps in the Standard Workflow. Moving the steps that do not require the execution guarantees of a Standard Workflow into a nested Express Workflow can result in savings for your workload.
 
-### How Express Workflow Duration Affects Cost
+## How Express Workflow Duration Affects Cost
 
-The cost savings is dependent on the number of steps you remove from your Standard Workflow and the duration of the nested Express Workflow. In the example, you removed three (3) state transitions by replacing four (4) task steps with one nested workflow step. The chart below shows the cost of 1,000 executions of the Standard workflow steps, plotted against the cost of the same steps when moved to a nested Express workflow, over a variety of durations. As you can see, the Express workflow is less expensive, even if it runs for one minute.
+The cost savings is dependent on the number of steps you remove from your Standard Workflow and their duration. If the steps run for a very long time (but still within the 5 minute time limit for an Express workflow), it may be less costly to leave them in the Standard workflow. In the example, you removed three (3) state transitions by replacing four (4) task steps with one (1) nested workflow step. The chart below shows the cost of 1,000 executions of the three (3) Standard workflow steps, plotted against the cost of the same steps when moved to a nested Express workflow, over a variety of durations. You can see the range of durations where the nested Express workflow is less costly. For more information about the cost of both Standard and Express workflows, see the [AWS Pricing Calculator](https://calculator.aws/).
 
 ![Cost comparison chart](/static/img/module-13/cost-comparison-by-duration.png)
+
+## Conclusion
+
+In this module, we were able to reduce cost by moving steps from a Standard workflow into a nested Express workflow. As mentioned [in the introduction](../), you can benefit both in terms of cost savings and modularity. Here are other examples of some other situations where you might want to nest a workflow inside of another:
+
+1. A state machine which retrieves data from several sources and performs some pre-processing steps.
+2. An [Inline Map](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-asl-use-map-state-inline.html) state which runs several steps for hundreds or thousands of items.
+3. A sub-process owned by one team, which is used by other teams. For example, sending a customer a notification may require fetching their preferred contact method from a CRM system, checking whether they've opted in to certain types of messages, checking for applicable promotions, etc.
