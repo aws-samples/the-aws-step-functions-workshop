@@ -21,7 +21,7 @@ In this section, you'll use the `States.MathAdd` intrinsic to add two numbers to
       }
     ```
 
-![Pass State Input](/static/img/module-6/pass-state-input.png)
+![Pass State Input](/static/img/module-6/pass-state-input-intrinsic.png)
 
 4. Click on **Start execution** and use the JSON below as your input payload.
 :::code{showCopyAction=true showLineNumbers=false language=json}
@@ -37,6 +37,8 @@ In this section, you'll use the `States.MathAdd` intrinsic to add two numbers to
    }
 }
 :::
-5. Once the execution is successful, review the output in the `Execution output` tab. You'll see the sum field has the sum of value1 and value2 from the input.
+4. Once the execution is successful, review the output in the `Execution output` tab. You'll see the sum field has the sum of value1 and value2 from the input.
+
+![Execution Output](/static/img/module-6/intrinsic-execution-output.png)
 
 ::alert[**Congratulations!** You used an intrinsic function to perform basic data processing without needing to write any code!]{type="success"}
