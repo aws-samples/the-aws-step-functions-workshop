@@ -4,7 +4,7 @@ weight: 155
 
 ---
 
-Cost and performance are key reasons to consider nesting Express workflows within Standard workflows.  
+Cost optimization is a key reason to consider nesting Express workflows within Standard workflows.  
 
 ## Pricing
 
@@ -14,7 +14,7 @@ Cost and performance are key reasons to consider nesting Express workflows withi
 
 ## Pricing Comparison
 
-Moving the 4 Lambda task steps from our Standard Workflow and replacing them with one call to a nested Express Workflow eliminates 3 steps from each state machine execution.
+Moving the four Lambda task steps from our Standard Workflow and replacing them with one nested Express workflow execution step eliminates three steps from each state machine execution.
 
 Let’s say you ran the original Standard Workflow 1,000 times in the N. Virginia region. You would be charged for 3,000 more state transitions than the modified workflow.
 
@@ -40,7 +40,7 @@ To summarize, in this example, it costs 7.5x more to keep those steps in the Sta
 
 ## How Express Workflow Duration Affects Cost
 
-The cost savings is dependent on the number of steps you remove from your Standard Workflow and their duration. If the steps run for a very long time (but still within the 5 minute time limit for an Express workflow), it may be less costly to leave them in the Standard workflow. In the example, you removed three (3) state transitions by replacing four (4) task steps with one (1) nested workflow step. The chart below shows the cost of 1,000 executions of the three (3) Standard workflow steps, plotted against the cost of the same steps when moved to a nested Express workflow, over a variety of durations. You can see the range of durations where the nested Express workflow is less costly. For more information about the cost of both Standard and Express workflows, see the [AWS Pricing Calculator](https://calculator.aws/).
+The cost savings is dependent on the number of steps you remove from your Standard Workflow and their duration. If the steps run for a very long time (but still within the five minute time limit for an Express workflow), it may be less costly to leave them in the Standard workflow. In the example, you removed three state transitions by replacing four task steps with one nested workflow step. The chart below shows the cost of 1,000 executions of the three Standard workflow steps, plotted against the cost of the same steps when moved to a nested Express workflow, over a variety of durations. You can see the range of durations where the nested Express workflow is less costly. For more information about the cost of both Standard and Express workflows, see the [AWS Pricing Calculator](https://calculator.aws/).
 
 ![Cost comparison chart](/static/img/module-13/cost-comparison-by-duration.png)
 
@@ -49,5 +49,5 @@ The cost savings is dependent on the number of steps you remove from your Standa
 In this module, we were able to reduce cost by moving steps from a Standard workflow into a nested Express workflow. As mentioned [in the introduction](../), you can benefit both in terms of cost savings and modularity. Here are other examples of some other situations where you might want to nest a workflow inside of another:
 
 1. A state machine which retrieves data from several sources and performs some pre-processing steps.
-2. An [Inline Map](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-asl-use-map-state-inline.html) state which runs several steps for hundreds or thousands of items.
-3. A sub-process owned by one team, which is used by other teams. For example, sending a customer a notification may require fetching their preferred contact method from a CRM system, checking whether they've opted in to certain types of messages, checking for applicable promotions, etc.
+1. An [Inline Map](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-asl-use-map-state-inline.html) state which runs several steps for hundreds or thousands of items.
+1. A sub-process owned by one team, which is used by other teams. For example, sending a customer a notification may require fetching their preferred contact method from a CRM system, checking whether they've opted in to certain types of messages, checking for applicable promotions, etc.
