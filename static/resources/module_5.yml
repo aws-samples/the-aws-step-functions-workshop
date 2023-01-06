@@ -91,10 +91,10 @@ Resources:
         ReadCapacityUnits: '1'
         WriteCapacityUnits: '1'
       AttributeDefinitions:
-        - AttributeName: 'MessageId'
+        - AttributeName: 'id'
           AttributeType: 'S'
       KeySchema:
-        - AttributeName: 'MessageId'
+        - AttributeName: 'id'
           KeyType: 'HASH'
       TableName: 'MapStateTable'
 Outputs:
