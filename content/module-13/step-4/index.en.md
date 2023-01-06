@@ -31,3 +31,5 @@ Let's replace the steps in our Standard workflow with a nested Express workflow.
 9. Run the updated state machine by clicking the **Start Execution** button in the upper right corner. The state machine does not require any input - you can leave the “Comment” attribute that’s included by default, if you wish. Click **Start Execution**. You can now watch the state machine as the steps are executed and you should see a fully green diagram. Now, click the “State Machines” link on the left side and choose the workflow starting with _ChildStateMachine_. On the “Monitoring” tab, you should see a value of 1 for the “Executions Started” metric, and a value of 1 for the “Executions Succeeded” metric, indicating the nested workflow was executed successfully.  
 
     ![Child Express workflow execution stats](/static/img/module-13/child-state-machine-execution-stats.png)
+
+::alert[**Congratulations!** You replaced several Standard workflow steps with a nested Express workflow!]{type="success"}
