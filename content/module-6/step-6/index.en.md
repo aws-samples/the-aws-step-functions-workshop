@@ -37,7 +37,7 @@ In this section, you'll use the `States.MathAdd` intrinsic to add two numbers to
    }
 }
 :::
-4. Once the execution is successful, review the output in the `Execution output` tab. You'll see the sum field has the sum of value1 and value2 from the input.
+5. Once the execution is successful, review the output in the `Execution output` tab. You'll see the sum field has the sum of value1 and value2 from the input.
 
 ![Execution Output](/static/img/module-6/intrinsic-execution-output.png)
 
