@@ -65,7 +65,7 @@ const api = new apigateway.StepFunctionsRestApi(this, 'StepFunctionsRestApi', { 
 
 #### Put it together
 
-In the AWS CDK project, replace the contents of the `lib/stepfunctions-rest-api-stack.ts` (under the main project directory) file with the code below. You'll recognize the definitions of the Step Functions state machine and the API Gateway from the code you reviewed above.
+In the AWS CDK project, replace the contents of the `lib/stepfunctions-rest-api-stack.ts` (under the main project directory) file with the code below. You'll recognize the definitions of the Step Functions state machine and the API Gateway.
 
 ```bash
 import * as cdk from 'aws-cdk-lib';

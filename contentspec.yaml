@@ -4,7 +4,7 @@ version: 2.0
 defaultLocaleCode: en-US
 localeCodes:
   - en-US
-# END Locale
+  - pt-BR
 
 # START Infrastructure
 infrastructure:
@@ -28,15 +28,17 @@ awsAccountConfig:
         - us-west-2
       optional:
         - us-west-2
+        - us-east-2
         - eu-west-1
         - ap-southeast-1
-        - sa-east-1
+        - ca-central-1
     deployableRegions:
       recommended:
         - us-west-2
       optional:
         - us-west-2
+        - us-east-2
         - eu-west-1
         - ap-southeast-1
-        - sa-east-1
+        - ca-central-1
 # END Accounts

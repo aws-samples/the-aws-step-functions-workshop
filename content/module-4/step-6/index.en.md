@@ -8,3 +8,5 @@ Return to [Step Functions](https://console.aws.amazon.com/states/home) and start
 ![Module 4 Workflow](/static/img/module-4/modified-workflow.png)
 
 ::alert[**Congratulations!** You have executed a state machine using the **Wait for Callback** pattern.]{type="success"}
+
+
