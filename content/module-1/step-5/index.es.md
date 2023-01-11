@@ -1,13 +1,13 @@
 ---
-title: 'Limpizando el entorno'
+title: 'Limpieza'
 weight: 35
 ---
 
-:::alert{header="Important" type="warning"}
-Sigue estas instrucciones si quieres eliminar los recursos creados en este laboratorio en tú propia cuenta de AWS. Las cuentas creadas por Event Engine no requiren este paso.
+:::alert{header="Importante" type="warning"}
+Siga las instrucciones de esta página si desea limpiar los recursos en su propia cuenta. Las cuentas de Event Engine no requieren limpieza.
 :::
 
-- Navega a la página de [CloudFormation](https://console.aws.amazon.com/cloudformation/home) en la consola de AWS.
-- Selecciona la pila con el nombre `SFW-Module-1` (u otro nombre que hayas escogido para tu pila) y clickea en Eliminar.
+- Navegue a la página [CloudFormation](https://console.aws.amazon.com/cloudformation/home) en la consola de AWS.
+- Seleccione la pila con el nombre `SFW-Module-1` (o cualquier nombre que haya elegido para la pila) y luego haga clic en Eliminar.
   ![CloudFormation delete](/static/img/setup/setup-cloudformation-delete.png)
-- Asegúrate de que el proceso de eliminación se completa correctamente.
+- Asegúrese de que la eliminación de la pila se complete con éxito.
