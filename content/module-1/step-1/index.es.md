@@ -1,5 +1,5 @@
 ---
-title: 'Setup'
+title: 'Configuración'
 weight: 31
 ---
 
@@ -19,7 +19,7 @@ Sigue las instrucciones de esta página solamente si estás ejecutando el labora
   ![CloudFormation specify template](/static/img/setup/setup-cloudformation-specify-template.png)
 - En la sección _Especificar los detalles de la pila_, _Nomber de la pila_ debería autocompletarse con `SFW-Module-1`. Puedes especificar otro nombre si te parece apropiado.
   ![CloudFormation stack name](/static/img/setup/setup-cloudformation-stack-name.png)
-- Haz click en _Siguiente_ 2 veces y en la pagína de `Revizar`, ve al final. Marca las casillas de verificación `si aparecen` y luego haz click en `Enviar`.
+- Haz click en _Siguiente_ 2 veces y en la pagína de `Revisar`, ve al final. Marca las casillas de verificación `si aparecen` y luego haz click en `Enviar`.
   ![CloudFormation create stack](/static/img/setup/setup-cloudformation-create-stack.png)
 - Espera hasta que la pila muestre el estado `CREATE_COMPLETE`.
   ![CloudFormation stack complete](/static/img/setup/setup-cloudformation-create-complete.png)
