@@ -3,7 +3,7 @@ title: 'Configuración'
 weight: 42
 ---
 
-:::alert{header="Importante" type="warning"}
+:::alert{header="Important" type="warning"}
 Siga las instrucciones de esta página solo si está ejecutando este taller en su propia cuenta. Para saltar estas instrucciones [haga clic aquí](../step-3).
 :::
 
