@@ -25,7 +25,7 @@ Um fluxo de trabalho que executa tarefas em paralelo.
 
 - Arraste e solte `AWS Lambda Invoke` da seção **Actions** ao lado esquerdo da tela para o designer onde diz `Drag state here`.
   ![Invoke Lambda Function 1](/static/img/module-7/lambda-invoke-function1.png)
-- Na aba `Configuration` do designer, digite `SumValues` para o **State name**. 
+- Na aba **Configuration** do designer, digite `SumValues` para o **State name**. 
 - Na seção de API parameters, selecione do drop down de **Function name** a função com `SumFunction` no nome.
   ![Configuration Sum State](/static/img/module-7/configuration-sum-state.png)
 - Na aba `Output`, desmarque a opção `Filter output with OutputPath` e marque a opção `Transform result with ResultSelector`. Cole o seguinte texto em JSON no campo de texto:
@@ -39,7 +39,7 @@ Um fluxo de trabalho que executa tarefas em paralelo.
 
 - Arraste e solte `AWS Lambda Invoke` da seção **Actions** ao lado esquerdo da tela para o designer onde diz `Drag state here`.
   ![Invoke Lambda Function 2](/static/img/module-7/lambda-invoke-function2.png)
-- Na aba `Configuration` do designer, digite `AverageValues` para o **State name**.
+- Na aba **Configuration** do designer, digite `AverageValues` para o **State name**.
 - Na seção API parameters, selecione do drop down **Function name** a função com `AvgFunction` no nome.
   ![Configuration Avg State](/static/img/module-7/configuration-avg-state.png)
 - Na aba `Output`, desmarque a opção `Filter output with OutputPath` e marque a opção `Transform result with ResultSelector`, depois cole o seguinte texto em JSON no campo de texto:
@@ -52,7 +52,7 @@ Um fluxo de trabalho que executa tarefas em paralelo.
 
 - Arraste e solte `AWS Lambda Invoke` da seção **Actions** ao lado esquerdo da tela para o designer entre as duas ações existentes.
   ![Invoke Lambda Function 3](/static/img/module-7/lambda-invoke-function3.png)
-- Na aba `Configuration` do designer, digite `MaxMinValues` para o **State name**.
+- Na aba **Configuration** do designer, digite `MaxMinValues` para o **State name**.
 - Na seção API parameters, selecione do drop down **Function name** a função com `MaxMinFunction` no nome.
   ![Max Min State](/static/img/module-7/configuration-maxmin-state.png)
 - Na aba `Output`, desmarque a opção `Filter output with OutputPath` e marque a opção `Transform result with ResultSelector`, depois cole o seguinte texto em JSON no campo de texto:

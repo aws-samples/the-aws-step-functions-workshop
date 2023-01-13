@@ -18,5 +18,5 @@ Se você nomeou a máquina de estado de acordo com as instruções fornecidas:
 
 - Navegue até a página [CloudFormation](https://console.aws.amazon.com/cloudformation/home) no Console da AWS.
 - Selecione a pilha com o nome `SFW-Module-9` (ou qualquer nome que você tenha escolhido para a pilha) e clique em Excluir.
-  ![CloudFormation delete](/static/img/setup/setup-cloudformation-delete.png)
+  ![Supprimer la pile CloudFormation](/static/img/setup/setup-cloudformation-delete.png)
 - Certifique-se de que a exclusão da pilha seja concluída com êxito.
