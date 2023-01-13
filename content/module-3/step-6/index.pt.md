@@ -9,5 +9,5 @@ Siga as instruções dessa página se você quiser fazer a remoção dos recurso
 
 - Navegue até a página do [CloudFormation](https://console.aws.amazon.com/cloudformation/home) no AWS Console.
 - Selecione a pilha com o nome `SFW-Module-3` (ou o nome que você usou na criação da pilha) e clique em Limpar.
-  ![CloudFormation delete](/static/img/setup/setup-cloudformation-delete.png)
+  ![Supprimer la pile CloudFormation](/static/img/setup/setup-cloudformation-delete.png)
 - Aguarde até a conclusão da deleção com sucesso.

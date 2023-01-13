@@ -25,7 +25,7 @@ A step functions workflow that executes tasks in parallel.
 
 - Drag & drop `AWS Lambda Invoke` from the **Actions** section on the left side to the designer form where it says `Drag state here`.
   ![Invoke Lambda Function 1](/static/img/module-7/lambda-invoke-function1.png)
-- On the `Configuration` tab of the designer, enter `SumValues` for state name.
+- On the **Configuration** tab of the designer, enter `SumValues` for state name.
 - In the API parameters section, select from the drop down of **Function name** the function with `SumFunction` in the name.
   ![Configuration Sum State](/static/img/module-7/configuration-sum-state.png)
 - On the `Output` tab, uncheck the option for `Filter output with OutputPath` and check the option for `Transform result with ResultSelector`. Paste the following json in the textbox:
@@ -39,7 +39,7 @@ A step functions workflow that executes tasks in parallel.
 
 - Drag & drop `AWS Lambda Invoke` from the **Actions** section on the left side to the designer form where it says `Drag state here`.
   ![Invoke Lambda Function 2](/static/img/module-7/lambda-invoke-function2.png)
-- On the `Configuration` tab of the designer, enter `AverageValues` for state name.
+- On the **Configuration** tab of the designer, enter `AverageValues` for state name.
 - In the API parameters section, select from the drop down of **Function name** the function with `AvgFunction` in the name.
   ![Configuration Avg State](/static/img/module-7/configuration-avg-state.png)
 - On the `Output` tab, uncheck the option for `Filter output with OutputPath` and check the option for `Transform result with ResultSelector` then paste the following json in the textbox
@@ -52,7 +52,7 @@ A step functions workflow that executes tasks in parallel.
 
 - Drag & drop `AWS Lambda Invoke` from the **Actions** section on the left side to the designer form between the two existing actions.
   ![Invoke Lambda Function 3](/static/img/module-7/lambda-invoke-function3.png)
-- On the `Configuration` tab of the designer, enter `MaxMinValues` for state name.
+- On the **Configuration** tab of the designer, enter `MaxMinValues` for state name.
 - In the API parameters section, select from the drop down of **Function name** the one with `MaxMinFunction` in the name.
   ![Max Min State](/static/img/module-7/configuration-maxmin-state.png)
 - On the `Output` tab, uncheck the option for `Filter output with OutputPath` and check the option for `Transform result with ResultSelector` then paste the following json in the textbox

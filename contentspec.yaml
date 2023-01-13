@@ -5,6 +5,8 @@ defaultLocaleCode: en-US
 localeCodes:
   - en-US
   - pt-BR
+  - fr-FR
+# END Locale
 
 # START Infrastructure
 infrastructure:
@@ -19,7 +21,7 @@ awsAccountConfig:
     - WorkshopStudio
   participantRole:
     managedPolicies:
-      - 'arn:aws:iam::aws:policy/AdministratorAccess'
+      - "arn:aws:iam::aws:policy/AdministratorAccess"
   regionConfiguration:
     minAccessibleRegions: 1
     maxAccessibleRegions: 3

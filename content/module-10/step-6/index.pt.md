@@ -22,5 +22,5 @@ Quando o `cdk destroy` estiver completo, você verá a seguinte mensagem:
 
 - Navegue até a página [CloudFormation](https://console.aws.amazon.com/cloudformation/home) no Console AWS.
 - Selecione a stack com o nome `SFW-Module-10` (ou qualquer nome que você escolheu para a stack) e clique em Excluir. Isso limpará o ambiente AWS Cloud9 e quaisquer outros recursos relacionados na stack.
-  ![CloudFormation delete](/static/img/setup/setup-cloudformation-delete.png)
+  ![Supprimer la pile CloudFormation](/static/img/setup/setup-cloudformation-delete.png)
 - Certifique-se de que a exclusão da pilha foi concluída com êxito.

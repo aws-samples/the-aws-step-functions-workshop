@@ -19,12 +19,12 @@ weight: 83
 A step functions example showing input and output processing.
 ```
 
-6. Drag and drop the **AWS Lambda Invoke** action from the `Actions` section on the left side to the designer form to where it says `Drag first state here`.
+6. Drag and drop the **AWS Lambda Invoke** action from the **Actions** section on the left side to the designer form to where it says `Drag first state here`.
    ![Lambda Invoke](/static/img/module-6/lambda-invoke-state.png)
 
 7. Configure the state.
 
-- On the `Configuration` tab of the designer, enter a name for this state: `Invoke HelloFunction`.
+- On the **Configuration** tab of the designer, enter a name for this state: `Invoke HelloFunction`.
 - You should have a Lambda function called `HelloFunction` already deployed to your acccount.
 - Configure this state to invoke that function. Find the `API Parameters` field and click `Enter function name`. Scroll down the menu list until you find **HelloFunction:$LATEST**. Select this value.
 
