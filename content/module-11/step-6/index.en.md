@@ -22,5 +22,5 @@ When the `sam delete` is complete you will see the following message:
 
 - Navigate to the [CloudFormation](https://console.aws.amazon.com/cloudformation/home) page in the AWS Console.
 - Select the stack with name `SFW-Module-11` (or any name you have chosen for the stack) and then click Delete. This will clean up the AWS Cloud9 environment and any other related resources in the stack.
-  ![Supprimer la pile CloudFormation](/static/img/setup/setup-cloudformation-delete.png)
+  ![CloudFormation delete](/static/img/setup/setup-cloudformation-delete.png)
 - Make sure the stack deletion completes successfully.

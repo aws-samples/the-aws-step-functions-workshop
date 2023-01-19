@@ -22,5 +22,5 @@ Quando o `sam delete` estiver completo, você verá a seguinte mensagem:
 
 - Navegue até a página [CloudFormation](https://console.aws.amazon.com/cloudformation/home) no Console AWS.
 - Selecione a pilha com o nome `SFW-Module-11` (ou qualquer nome que você escolheu para a pilha) e clique em Excluir. Isso limpará o ambiente AWS Cloud9 e quaisquer outros recursos relacionados na pilha.
-  ![Supprimer la pile CloudFormation](/static/img/setup/setup-cloudformation-delete.png)
+  ![CloudFormation exclusão](/static/img/setup/setup-cloudformation-delete.png)
 - Certifique-se de que a exclusão da pilha foi concluída com êxito.
