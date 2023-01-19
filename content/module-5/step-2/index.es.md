@@ -8,12 +8,12 @@ Siga las instrucciones de esta página solo si está ejecutando este taller en s
 :::
 
 - Haga clic en el enlace "Lanzar" contra cualquiera de las regiones de la tabla a continuación para iniciar la implementación.
-  | Región | Lanzar pila |
+  | Región | Desplegar pila |
   | ----------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-  | **US East (N. Virginia)** us-east-1 | [Lanzar](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/template?stackName=SFW-Module-5&templateURL=https://serverless-stepfunctions-artifacts-17oiei2i27urc.s3.amazonaws.com/resources/module_5.yml) |
-  | **Europe (Irlanda)** eu-west-1 | [Lanzar](https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/create/template?stackName=SFW-Module-5&templateURL=https://serverless-stepfunctions-artifacts-17oiei2i27urc.s3.amazonaws.com/resources/module_5.yml) |
-  | **Asia Pacific (Singapur)** ap-southeast-1 | [Lanzar](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/create/template?stackName=SFW-Module-5&templateURL=https://serverless-stepfunctions-artifacts-17oiei2i27urc.s3.amazonaws.com/resources/module_5.yml) |
-  | **Asia Pacific (Sydney)** ap-southeast-2 | [Lanzar](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-2#/stacks/create/template?stackName=SFW-Module-5&templateURL=https://serverless-stepfunctions-artifacts-17oiei2i27urc.s3.amazonaws.com/resources/module_5.yml) |
+  | **US East (N. Virginia)** us-east-1 | [Desplegar](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/template?stackName=SFW-Module-5&templateURL=https://serverless-stepfunctions-artifacts-17oiei2i27urc.s3.amazonaws.com/resources/module_5.yml) |
+  | **Europe (Irlanda)** eu-west-1 | [Desplegar](https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/create/template?stackName=SFW-Module-5&templateURL=https://serverless-stepfunctions-artifacts-17oiei2i27urc.s3.amazonaws.com/resources/module_5.yml) |
+  | **Asia Pacific (Singapur)** ap-southeast-1 | [Desplegar](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/create/template?stackName=SFW-Module-5&templateURL=https://serverless-stepfunctions-artifacts-17oiei2i27urc.s3.amazonaws.com/resources/module_5.yml) |
+  | **Asia Pacific (Sydney)** ap-southeast-2 | [Desplegar](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-2#/stacks/create/template?stackName=SFW-Module-5&templateURL=https://serverless-stepfunctions-artifacts-17oiei2i27urc.s3.amazonaws.com/resources/module_5.yml) |
 
 - La ubicación de la plantilla de CloudFormation se rellenará automáticamente en el campo "URL de Amazon S3" como se muestra en el diagrama a continuación. Haga clic en "Siguiente"
   ![CloudFormation specify template](/static/img/setup/setup-cloudformation-specify-template.png)
