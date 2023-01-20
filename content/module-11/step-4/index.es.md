@@ -1,6 +1,6 @@
 ---
-título: 'AWS SAM y configuración de proyecto'
-peso: 134
+title: 'AWS SAM y configuración de proyecto'
+weight: 134
 ---
 
 El entorno AWS Cloud9 viene con algunas utilidades AWS preinstaladas. Ejecuta el siguiente comando en tu terminal AWS Cloud9 para verificar que contiene una versión actualizada de AWS SAM. Debería ser al menos v1.3X.

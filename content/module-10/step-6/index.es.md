@@ -1,6 +1,6 @@
 ---
-título: 'Limpiar'
-peso: 126
+title: 'Limpiar'
+weight: 126
 ---
 
 :::alerta{encabezado="Important" tipo="warning"}
