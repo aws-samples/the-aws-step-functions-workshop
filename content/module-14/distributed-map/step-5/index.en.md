@@ -16,4 +16,8 @@ weight: 5
    * ![Distributed Map Pattern](/static/img/module-14/DistributedMap-SubWorkflowDetails.png)
 6. The Distributed Map state will store the results of the Map Run into the results S3 bucket.
 7. The Reducer function retrieves the data stored in the results S3 bucket and compares the highest average temperatures found in the S3 sub-workflows.
-8. The Reducer function will store the results of the data analysis in the DynamoDB table **ResultsDynamoDBTable**
+8. The Reducer function will store the results of the data analysis in the DynamoDB table **ResultsDynamoDBTable**. You can use the gear icon on the right side of the screen to select which columns you want to view.
+
+![DynamoDB Results](/static/img/module-14/DistributedMap-DynamoDB-Results.png)
+
+::alert[**Congratulations!** You used Distributed Map state to quickly process a large dataset using parallel processing.]{type="success"}

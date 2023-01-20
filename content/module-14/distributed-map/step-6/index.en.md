@@ -8,6 +8,6 @@ Follow the instructions on this page if you would like to clean up resources in 
 :::
 
 - Navigate to the [CloudFormation](https://console.aws.amazon.com/cloudformation/home) page in the AWS Console.
-- Select the stack with name `SFW-Module-5` (or any name you have chosen for the stack) and then click Delete.
+- Select the stack with name `SFW-Module-14` (or any name you have chosen for the stack) and then click Delete.
   ![Supprimer la pile CloudFormation](/static/img/setup/setup-cloudformation-delete.png)
 - Make sure the stack deletion completes successfully.
