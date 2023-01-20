@@ -19,7 +19,7 @@ Para obtener más información, lea [AWS X-Ray y Step Functions](https://docs.aw
 
 4. En la sección `Tracing` de la página de edición, selecciona **Enable X-Ray tracing**.
 
-:::alert{header="Important" type="warning"}
+:::alert{header="Importante" type="warning"}
 Para trazar ejecuciones con X-Ray, el rol de ejecución de Step Functions debe tener permisos de X-Ray. Puedes dejar que Step Functions cree un nuevo rol para ti con los permisos necesarios seleccionando "Crear nuevo rol" en Permisos, o agregarlos manualmente a tu rol existente. Esto ya se ha hecho por ti.
 :::
 

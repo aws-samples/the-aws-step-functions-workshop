@@ -3,7 +3,7 @@ title: 'Evento organizado por AWS'
 weight: 21
 ---
 
-:::alert{header="Important" type="warning"}
+:::alert{header="Importante" type="warning"}
 Esta página te guiará a través de los pasos necesarios antes de empezar un evento organizado por AWS.
 :::
 
@@ -28,7 +28,7 @@ Una vez dentro del evento, en el menú de navegación de la izquierda podrás ve
 En el menú de navegación de la izquierda en la sección **AWS account access** hay dos URLs **Open AWS console** and **Get AWS CLI credentials**. Selecciona la opción **Open AWS console** para abrir la consola de AWS en una nueva pestaña.
 ![Hosted Event Open Console](/static/img/hosted-event/setup-hosted-event-8.png)
 
-:::alert{header="Important" type="warning"}
+:::alert{header="Importante" type="warning"}
 Puedes cerrar esta pestaña/ventana y regresar a la pestaña/ventana principal del evento para continuar con el taller.
 Ve a **Module 1 - Hello World** en el panel de la izquierda para comenzar.
 :::

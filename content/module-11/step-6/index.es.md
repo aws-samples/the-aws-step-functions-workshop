@@ -3,7 +3,7 @@ title: 'Clean up'
 weight: 136
 ---
 
-::alert{header="Important" type="warning"}
+::alert{header="Importante" type="warning"}
 Siga las instrucciones en esta página si desea limpiar los recursos en su propia cuenta. Las cuentas de Event Engine no requieren limpieza.
 :::
 

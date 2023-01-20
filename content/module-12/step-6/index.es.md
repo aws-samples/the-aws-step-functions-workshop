@@ -17,7 +17,7 @@ weight: 146
 
 ![Update DDB](/static/img/module-12/ddb-wcu.png)
 
-:::alert{header="Important" type="warning"}
+:::alert{header="Importante" type="warning"}
 Cambiar las unidades de capacidad provisionadas en una tabla de Amazon DynamoDB puede generar costos adicionales. Por favor revise el [precio de Amazon DynamoDB](https://aws.amazon.com/dynamodb/pricing/) para la capacidad provisionada. Proporcionaremos instrucciones para eliminar estos recursos al final de este módulo.
 :::
 

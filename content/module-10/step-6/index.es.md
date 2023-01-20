@@ -3,7 +3,7 @@ title: 'Limpiar'
 weight: 126
 ---
 
-:::alerta{encabezado="Important" tipo="warning"}
+:::alerta{encabezado="Importante" tipo="warning"}
 Siga las instrucciones en esta página si desea limpiar los recursos en su propia cuenta. Las cuentas de Event Engine no requieren limpieza.
 :::
 

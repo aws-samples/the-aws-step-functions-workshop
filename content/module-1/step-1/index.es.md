@@ -3,7 +3,7 @@ title: 'Configuración'
 weight: 31
 ---
 
-:::alert{header="Important" type="warning"}
+:::alert{header="Importante" type="warning"}
 Sigue las instrucciones de esta página solamente si estás ejecutando el laboratorio en tu propia cuenta de AWS. Para saltarte estas instrucciones [haz click aquí](../step-2).
 :::
 
