@@ -28,7 +28,7 @@ Después de crear su API Gateway REST integrando la máquina de estado Express s
 - **Registros** son las entradas simuladas de Amazon CloudWatch Logs que se habrían escrito si este método se hubiera llamado fuera de la consola de API Gateway.
   ::alert[Aunque las entradas de CloudWatch Logs son simuladas, los resultados de la llamada al método son reales.]{header="Nota"}
 
-La salida de **Cuerpo de la respuesta** debería ser:
+La salida de **Cuerpo de respuesta** debería ser:
 
 ```bash
 "Hello back to you!"
