@@ -10,8 +10,8 @@ Nesse módulo você vai aprender sobre como o API Gateway integra com fluxos de 
 
   ![API Gateway to Step Functions architecture](/static/img/module-7/architecture.png)
 
-Aprenda mais sobre [Parallel States](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-parallel-state.html).
+Aprenda mais sobre [Parallel States](https://docs.aws.amazon.com/pt_br/step-functions/latest/dg/amazon-states-language-parallel-state.html).
 
-Aprenda mais sobre [Integração com o API Gateway](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-api-integration-types.html).
+Aprenda mais sobre [Integração com o API Gateway](https://docs.aws.amazon.com/pt_br/apigateway/latest/developerguide/api-gateway-api-integration-types.html).
 
 **Duração estimada: 25 minutos**

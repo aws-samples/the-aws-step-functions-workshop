@@ -15,7 +15,7 @@ Por padrão, quando um estado reporta um erro a Step Functions causa falha na ex
 Este módulo demonstra o **tratamento de erros** usando função Lambda para simular erros que serão tratados usando os campos `Retry` e `Catch`. 
 
 Revisando a documentação:
-- [Tratamento de erro em Step Functions](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-error-handling.html)
-- [Tratamento de erro em AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/invocation-retries.html)
+- [Tratamento de erro em Step Functions](https://docs.aws.amazon.com/pt_br/step-functions/latest/dg/concepts-error-handling.html)
+- [Tratamento de erro em AWS Lambda](https://docs.aws.amazon.com/pt_br/lambda/latest/dg/invocation-retries.html)
 
 **Duraçao estimada: 20 minutos**

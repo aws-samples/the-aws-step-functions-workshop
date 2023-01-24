@@ -1,10 +1,10 @@
 ---
-title: 'Módule 5 - Estado Choice e Estado Map'
+title: 'Módulo 5 - Estado Choice e Estado Map'
 weight: 70
 ---
 
 ## Estado Choice
-Um [estado Choice](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-choice-state.html) adiciona lógica condicional a uma máquina de estado. Além da maioria dos campos dos campos comuns, o estado `Choice` possui os campos adicionais abaixo:
+Um [estado Choice](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-choice-state.html) adiciona lógica condicional a uma máquina de estado. Além da maioria dos campos comuns, o estado `Choice` possui os campos adicionais abaixo:
 
 - Choices (Obrigatório) - um conjunto de regras de escolha que determinar qual será o próximo estado da máquina de estados.
 

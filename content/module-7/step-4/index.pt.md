@@ -16,7 +16,7 @@ Siga os passos abaixo para criar uma máquina de estado usando o Workflow Studio
 5. Digite o seguinte comentário em `Comment` no lado direito da tela: 
 
 ```bash
-A step functions workflow that executes tasks in parallel.
+Um fluxo de trabalho que executa tarefas em paralelo.
 ```
 
 6. Arraste e solte `Parallel` da seção **Flow** do lado esquerdo da tela para o designer onde diz `Drag first state here`.
@@ -25,7 +25,7 @@ A step functions workflow that executes tasks in parallel.
 
 - Arraste e solte `AWS Lambda Invoke` da seção **Actions** ao lado esquerdo da tela para o designer onde diz `Drag state here`.
   ![Invoke Lambda Function 1](/static/img/module-7/lambda-invoke-function1.png)
-- Na aba `Configuration` do designer, digite `SumValues` para o **State name**. 
+- Na aba **Configuration** do designer, digite `SumValues` para o **State name**. 
 - Na seção de API parameters, selecione do drop down de **Function name** a função com `SumFunction` no nome.
   ![Configuration Sum State](/static/img/module-7/configuration-sum-state.png)
 - Na aba `Output`, desmarque a opção `Filter output with OutputPath` e marque a opção `Transform result with ResultSelector`. Cole o seguinte texto em JSON no campo de texto:
@@ -39,7 +39,7 @@ A step functions workflow that executes tasks in parallel.
 
 - Arraste e solte `AWS Lambda Invoke` da seção **Actions** ao lado esquerdo da tela para o designer onde diz `Drag state here`.
   ![Invoke Lambda Function 2](/static/img/module-7/lambda-invoke-function2.png)
-- Na aba `Configuration` do designer, digite `AverageValues` para o **State name**.
+- Na aba **Configuration** do designer, digite `AverageValues` para o **State name**.
 - Na seção API parameters, selecione do drop down **Function name** a função com `AvgFunction` no nome.
   ![Configuration Avg State](/static/img/module-7/configuration-avg-state.png)
 - Na aba `Output`, desmarque a opção `Filter output with OutputPath` e marque a opção `Transform result with ResultSelector`, depois cole o seguinte texto em JSON no campo de texto:
@@ -52,7 +52,7 @@ A step functions workflow that executes tasks in parallel.
 
 - Arraste e solte `AWS Lambda Invoke` da seção **Actions** ao lado esquerdo da tela para o designer entre as duas ações existentes.
   ![Invoke Lambda Function 3](/static/img/module-7/lambda-invoke-function3.png)
-- Na aba `Configuration` do designer, digite `MaxMinValues` para o **State name**.
+- Na aba **Configuration** do designer, digite `MaxMinValues` para o **State name**.
 - Na seção API parameters, selecione do drop down **Function name** a função com `MaxMinFunction` no nome.
   ![Max Min State](/static/img/module-7/configuration-maxmin-state.png)
 - Na aba `Output`, desmarque a opção `Filter output with OutputPath` e marque a opção `Transform result with ResultSelector`, depois cole o seguinte texto em JSON no campo de texto:
@@ -75,17 +75,17 @@ A step functions workflow that executes tasks in parallel.
 1. Navegue para o [console do API Gateway](https://console.aws.amazon.com/apigateway/home) e selecione a API criada para esse módulo: `API Gateway State Machine integration`.
    ![API Console](/static/img/module-7/api-console.png)
 2. Da lista de recursos, ache o recurso `execution` e clique em `POST`.
-   ![API Execution](/static/img/module-7/api-execution.png)
-3. Clique em `Integration Request`
-4. Para o `Integration type` selecione `AWS Service`
+   ![API Execution](/static/img/module-7/pt-br/api-execution.png)
+3. Clique em `Solicitação de Integração`
+4. Para o `Tipo de Integração` selecione `Serviço da AWS`
 5. Configure a integração:
 
-- **AWS Region**: selecione a região da AWS onde você criou a Máquina de Estado
-- **AWS Service**: selecione `Step Functions` do drop down
-- **HTTP Method**: selecione `POST`
-- **Action Type**: selecione `Use action name`
-- **Action**: tipo `StartExecution`
-- **Execution role**: ache no [IAM](https://console.aws.amazon.com/iamv2/home) a role com `IntegrationIamRole` no nome e use a ARN dessa role
-  ![API Integration Setup](/static/img/module-7/api-integration-setup.png)
+- **Região da AWS**: selecione a região da AWS onde você criou a Máquina de Estado
+- **Serviço da AWS**: selecione `Step Functions` do drop down
+- **Método HTTP**: selecione `POST`
+- **Tipo de ação**: selecione `Usar nome da ação`
+- **Ação**: `StartExecution`
+- **Função de execução**: ache no [IAM](https://console.aws.amazon.com/iamv2/home) a role com `IntegrationIamRole` no nome e use a ARN dessa role
+  ![API Integration Setup](/static/img/module-7/pt-br/api-integration-setup.png)
 - Clique `Save`. Quando solicitado, se você tiver certeza que quer alterar a integração, clique em `Ok`.
   Você acaba de configurar a integração entre o API Gateway e o Step Functions.

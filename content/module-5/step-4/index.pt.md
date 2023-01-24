@@ -23,7 +23,7 @@ Navegue até os serviços abaixo no console da AWS para se familiarizar com os r
 
 ![EDIT](/static/img/module-5/map-state-definition-edit.png)
 
-3. Copie a definição do ASL abaixo clicando no ícone quadrado no canto superior direito do exemplo de código. Substitua a definição do ASL na sua máquina de estado com essa copiada. Essa definição possui um total de 4 valores **BLANK** nos campos dos estados Map e Choice. Leia a documentação para saber como atualizar esses valores **BLANK** values with the correct state syntax and parameters. (Completion hints are below.)
+3. Copie a definição do ASL abaixo clicando no ícone quadrado no canto superior direito do exemplo de código. Substitua a definição do ASL na sua máquina de estado com essa copiada. Essa definição possui um total de 4 valores **BLANK** nos campos dos estados Map e Choice. Leia a documentação para saber como atualizar esses valores **BLANK** com a síntaxe de estado correta e seus parâmetros. (Dicas para completar abaixo.)
 
    - Aprenda sobre a síntaxe do estado [Map](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-map-state.html).
 

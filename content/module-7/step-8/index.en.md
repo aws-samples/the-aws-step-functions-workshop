@@ -21,7 +21,7 @@ If you chose a different names for your state machine, follow the instructions a
 
 - Navigate to the [CloudFormation](https://console.aws.amazon.com/cloudformation/home) page in the AWS Console.
 - Select the stack with name `SFW-Module-7` (or any name you have chosen for the stack) and then click Delete.
-  ![CloudFormation delete](/static/img/setup/setup-cloudformation-delete.png)
+  ![CloudFormation exclusão](/static/img/setup/setup-cloudformation-delete.png)
 - Make sure the stack deletion completes successfully.
 
 ### Manually delete the CloudWatch log group

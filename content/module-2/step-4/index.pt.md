@@ -3,7 +3,7 @@ title: 'Iniciando a execução'
 weight: 44
 ---
 
-Agora clique em "Start execution" dessa state machine usando os seguintes valores de entrada:
+Agora clique em "Start execution" dessa máquina de estados usando os seguintes valores de entrada:
 
 ::code[{ "message": "Welcome to re:Invent!", "timer_seconds": 5 }]{showCopyAction=true language="js"}
 
