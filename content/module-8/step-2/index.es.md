@@ -4,7 +4,7 @@ weight: 102
 ---
 
 :::alert{header="Importante" type="warning"}
-Sigue las instrucciones de esta página solo si está ejecutando este taller en su propia cuenta. Para saltar estas instrucciones [Haz clic aquí](../step-3).
+Sigue las instrucciones de esta página solo si estás ejecutando este taller en tu propia cuenta. Para saltar estas instrucciones [Haz clic aquí](../step-3).
 :::
 
 - Haz clic en el enlace "Lanzar" contra cualquiera de las regiones de la tabla a continuación para iniciar la implementación.
