@@ -4,28 +4,28 @@ weight: 133
 ---
 
 - Inicie sesión en la consola de AWS
-- Navegue a [AWS Cloud9](https://console.aws.amazon.com/cloud9/home) en la consola. Asegúrese de estar en la región correcta.
-- Seleccione **StepFunctionsCDKWorkshop** de la lista de entornos y haga clic en **Open in Cloud9**. Maximice la pantalla de terminal cerrando la pestaña **Welcome** y el **área de trabajo inferior**. Abra una nueva pestaña de **terminal** en el área de trabajo principal:
+- Navega a [AWS Cloud9](https://console.aws.amazon.com/cloud9/home) en la consola. Asegúrese de estar en la región correcta.
+- Selecciona **StepFunctionsCDKWorkshop** de la lista de entornos y Haz clic en **Open in Cloud9**. Maximice la pantalla de terminal cerrando la pestaña **Welcome** y el **área de trabajo inferior**. Abra una nueva pestaña de **terminal** en el área de trabajo principal:
   ![AWS Cloud9 Before](/static/img/setup/c9before.png)
 - Su espacio de trabajo debería verse así:
   ![AWS Cloud9 After](/static/img/setup/c9after.png)
 
 ### Adjuntar un rol a la instancia EC2 de AWS Cloud9
 
-- Desde su IDE **AWS Cloud9**, haga clic en **Manage EC2 instance** en el menú de la parte superior derecha como se muestra en el diagrama a continuación.
+- Desde su IDE **AWS Cloud9**, Haz clic en **Manage EC2 instance** en el menú de la parte superior derecha como se muestra en el diagrama a continuación.
   ![AWS Cloud9 manage](/static/img/setup/c9manageinstance.png)
-- Seleccione la instancia de AWS Cloud9 marcando la casilla junto a ella, luego elija **Acciones / Seguridad / Modificar rol de IAM**
+- Selecciona la instancia de AWS Cloud9 marcando la casilla junto a ella, luego elige **Acciones / Seguridad / Modificar rol de IAM**
   ![AWS Cloud9 instance role](/static/img/setup/c9instancerole.png)
-- Elija **stepfunctionsworkshop-sam-role** desde el menú desplegable **Role de IAM**, y seleccione **Actualizar rol de IAM**
+- Elige **stepfunctionsworkshop-sam-role** desde el menú desplegable **Role de IAM**, y selecciona **Actualizar rol de IAM**
 - Regrese a su espacio de trabajo y vaya a  Preferencias
-- Seleccione **AWS Settings** en la navegación izquierda.
+- Selecciona **AWS Settings** en la navegación izquierda.
 - Desactive **AWS managed temporary credentials**
 - Cierra la pestaña Preferencias
   ![AWS Cloud9 aws settings](/static/img/setup/c9disableiam.png)
 
 Ejecute los siguientes comandos en la ventana de terminal.
 
-Elimine cualquier credencial existente:
+Elimina cualquier credencial existente:
 
 ```bash
 rm -vf ${HOME}/.aws/credentials
@@ -37,7 +37,7 @@ Instale jq. Lo usaremos para ayudarnos a procesar json.
 sudo yum install -y jq
 ```
 
-Actualice AWS CLI:
+Actualiza AWS CLI:
 
 ```bash
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
@@ -45,7 +45,7 @@ unzip awscliv2.zip
 sudo ./aws/install
 ```
 
-Configure el AWS CLI con la región actual como predeterminada:
+Configura el AWS CLI con la región actual como predeterminada:
 
 ```bash
 echo "export AWS_DEFAULT_REGION=$(curl -s 169.254.169.254/latest/dynamic/instance-identity/document | jq -r .region)" >> ~/.bashrc

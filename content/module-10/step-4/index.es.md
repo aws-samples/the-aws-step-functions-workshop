@@ -16,7 +16,7 @@ Desplegar aplicaciones AWS CDK en un entorno de AWS puede requerir que provision
 cdk bootstrap aws://${AWS_ACCOUNT_ID}/${AWS_REGION}
 ```
 
-### Configure su proyecto AWS CDK
+### Configura su proyecto AWS CDK
 Cree un nuevo directorio para la aplicación AWS CDK e inicialice un proyecto de TypeScript.
 
 ```bash
@@ -27,7 +27,7 @@ cdk init --language typescript
 
 ::alert[Asegúrese de nombrar el directorio `stepfunctions-rest-api`. La plantilla de aplicación de AWS CDK utiliza el nombre del directorio para generar nombres de archivos y clases. Si utiliza un nombre diferente, su aplicación no coincidirá con este tutorial.]{header="Nota"}
 
-### Utilice AWS CDK para crear una API Gateway REST API integrando de Máquina de Estado Express Síncrona
+### Utiliza AWS CDK para crear una API Gateway REST API integrando de Máquina de Estado Express Síncrona
 
 Primero, revisaremos los fragmentos de código individuales que definen la máquina de estado de Express síncrona y la API Gateway REST API. Luego, los combinaremos en una aplicación de AWS CDK. Luego, sintetizaremos y desplegaremos estos recursos.
 
@@ -51,11 +51,11 @@ Fíjate en el fragmento anterior contiene:
 - Un estado construct `Pass` llamado `PassState`.
 - Un construct `StateMachine` llamado `MyStateMachine`.
   - La definición del StateMachine especifíca su estado inicial.
-  - El tipo de stateMachine es `EXPRESS` (el construct `StepFunctionsRestApi` solo permite una máquina de estado sincrónica Express).
+  - El tipo de stateMachine es `EXPRESS` (el construct `StepFunctionsRestApi` solo permite una máquina de estado síncrona Express).
 
 #### Revisa la definición de la API Gateway REST API
 
-A continuación, revise el construct `StepFunctionsRestApi` a continuación. Este es un construct de alto nivel que contiene muchas configuraciones predefinidas. Utilizará este construct para crear la API REST en API Gateway con los permisos requeridos y el mapeo de entrada/salida predeterminado. También utilizará este construct para crear una integración entre la máquina de estado y API Gateway.
+A continuación, revisa el construct `StepFunctionsRestApi` a continuación. Este es un construct de alto nivel que contiene muchas configuraciones predefinidas. Utilizará este construct para crear la API REST en API Gateway con los permisos requeridos y el mapeo de entrada/salida predeterminado. También utilizará este construct para crear una integración entre la máquina de estado y API Gateway.
 
 ```bash
 const api = new apigateway.StepFunctionsRestApi(this, 'StepFunctionsRestApi', { stateMachine: stateMachine });

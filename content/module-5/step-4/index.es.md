@@ -1,26 +1,26 @@
 ---
-title: 'Localice sus recursos y configure su máquina estatal'
+title: 'Localiza los recursos y configura la máquina de estado'
 weight: 74
 ---
 
-### Localice sus recursos
+### Localiza los recursos
 
-Navegue hasta los siguientes servicios en la consola de AWS para familiarizarse con los recursos. Asegúrese de estar en la región correcta. Copie el ARN del tópico de SNS (nombre de recurso de Amazon) en un bloc de notas. Necesitará este valor más adelante en el módulo.
+Navega hasta los siguientes servicios en la consola de AWS para familiarizarse con los recursos. Asegúrese de estar en la región correcta. Copia el ARN del tópico de SNS (nombre de recurso de Amazon) en un bloc de notas. Necesitará este valor más adelante en el módulo.
 
 
-- [AWS Lambda](https://console.aws.amazon.com/lambda/home) - busque **MapStateReadFromSQSQueueLambda** y **MapStateDeleteFromSQSQueueLambda**
+- [AWS Lambda](https://console.aws.amazon.com/lambda/home) - busca **MapStateReadFromSQSQueueLambda** y **MapStateDeleteFromSQSQueueLambda**
 
-- [Amazon SQS](https://console.aws.amazon.com/sqs/v2/home) - busque **MapStateQueueforMessages**
+- [Amazon SQS](https://console.aws.amazon.com/sqs/v2/home) - busca **MapStateQueueforMessages**
 
-- [Amazon DynamoDB](https://console.aws.amazon.com/dynamodbv2/home) - busque **MapStateTable**
+- [Amazon DynamoDB](https://console.aws.amazon.com/dynamodbv2/home) - busca **MapStateTable**
 
-- [Amazon SNS](https://console.aws.amazon.com/sns/v3/home) - busque **MapStateTopicforMessages** *(copy the Topic ARN)*
+- [Amazon SNS](https://console.aws.amazon.com/sns/v3/home) - busca **MapStateTopicforMessages** *(copy the Topic ARN)*
 
 ### Configura tu máquina de estados
 
 1. Vaya a [Step Functions](https://console.aws.amazon.com/states/home) en la consola de AWS.
 
-2. Busque la máquina de estado que contiene **MapStateStateMachine** en su nombre. Haga clic en él y, a continuación, en **Edit** en la esquina superior derecha.
+2. Busca la máquina de estado que contiene **MapStateStateMachine** en su nombre. Haz clic en él y, a continuación, en **Edit** en la esquina superior derecha.
 
 ![EDIT](/static/img/module-5/map-state-definition-edit.png)
 
@@ -147,7 +147,7 @@ Navegue hasta los siguientes servicios en la consola de AWS para familiarizarse 
 },
 ```
 
-5. Las definiciones de ASL pueden contener parámetros de recursos. Actualice el `TopicArn` con el valor correcto, copiado de arriba.
+5. Las definiciones de ASL pueden contener parámetros de recursos. Actualiza el `TopicArn` con el valor correcto, copiado de arriba.
 
-6. Haga clic en **Save** (seleccione Guardar de todos modos si aparece la advertencia)
+6. Haz clic en **Save** (selecciona Guardar de todos modos si aparece la advertencia)
     ![save](/static/img/module-5/map-state-definition.png)

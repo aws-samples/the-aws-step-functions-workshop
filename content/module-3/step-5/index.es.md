@@ -1,5 +1,5 @@
 ---
-title: 'Ejecutar tarea sincrónica'
+title: 'Ejecutar tarea síncrona'
 weight: 55
 ---
 
@@ -9,4 +9,4 @@ Ahora ejecute nuevamente la máquina de estado utilizando la entrada predetermin
 
 Una vez que se complete el trabajo (generalmente ~1-2 min), la máquina de estado continuará.
 
-::alert[**¡Enhorabuena!** Ha ejecutado una máquina de estado utilizando un patrón de tarea sincrónica.]{type="success"}
+::alert[**¡Enhorabuena!** Has ejecutado una máquina de estado utilizando un patrón de tarea síncrona.]{type="success"}

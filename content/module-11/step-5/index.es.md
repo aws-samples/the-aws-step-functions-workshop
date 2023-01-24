@@ -3,22 +3,22 @@ title: 'Probando el proyecto'
 weight: 135
 ---
 
-Después de crear su API REST integrando una máquina de estados express sincrónica como backend, puede probar la API.
+Después de crear su API REST integrando una máquina de estados express síncrona como backend, puedes probar la API.
 
 ### Prueba el API Gateway implementado usando la consola de API Gateway
 
 1. Abra la [consola de Amazon API Gateway](https://console.aws.amazon.com/apigateway/) y inicie sesión.
 2. Elige tu REST API llamado, `SAMStepFunctionsRestApi`.
-3. En el panel **Recursos**, puede seleccionar el método que desea probar. Haga clic en el método `POST`.
+3. En el panel **Recursos**, puedes seleccionar el método que deseas probar. Haz clic en el método `POST`.
    ![API Gateway POST](/static/img/module-11/api-gateway-testing.png)
 4. En el panel **Ejecución del método**, en el cuadro **Cliente**, elige **PRUEBA**.
-5. Copie/pegue el JSON de abajo en el campo **Cuerpo de la solicitud**.
+5. Copia/pega el JSON de abajo en el campo **Cuerpo de la solicitud**.
    :::code{showCopyAction=true showLineNumbers=true language=json}
    {
    "key": "Hello Step Functions!"
    }
    :::
-6. Haga clic en **Probar**. Se mostrará la siguiente información:
+6. Haz clic en **Probar**. Se mostrará la siguiente información:
 
 - **Solicitud** es la ruta del recurso que se llamó para el método.
 - **Estado** es el código de estado HTTP de la respuesta.

@@ -24,38 +24,38 @@ Las siguientes métricas de ejecución de Step Functions están disponibles en C
 
 Más detalles sobre estas métricas se pueden encontrar [aquí](https://docs.aws.amazon.com/step-functions/latest/dg/procedure-cw-metrics.html#cloudwatch-step-functions-execution-metrics).
 
-1. Navegue a la [consola de CloudWatch](https://console.aws.amazon.com/cloudwatch/home) en su consola de AWS. Asegúrate de estar en la región correcta.
+1. Navega a la [consola de CloudWatch](https://console.aws.amazon.com/cloudwatch/home) en su consola de AWS. Asegúrate de estar en la región correcta.
 
-2. Bajo `Métricas` en el menú de navegación izquierdo, haga clic en **Todas las métricas**. Encuentra el cuadro de métricas llamado **Estados** y haga clic en él.
+2. Bajo `Métricas` en el menú de navegación izquierdo, Haz clic en **Todas las métricas**. Encuentra el cuadro de métricas llamado **Estados** y Haz clic en él.
 
 ![CW All Metrics States](/static/img/module-12/cw-all-metrics-states.png)
 
-3. Haga clic en **Métricas de ejecución**.
+3. Haz clic en **Métricas de ejecución**.
 
 ![Execution Metrics](/static/img/module-12/cw-states-execution-metrics.png)
 
-4. Seleccione todas las métricas listadas para `DetectSentimentStateMachine`.
+4. Selecciona todas las métricas listadas para `DetectSentimentStateMachine`.
 
 ![DetectSentiment Metrics](/static/img/module-12/cw-detect-sentiment-metrics.png)
 
-5. Haga clic en la pestaña **Métricas diagramadas**. Actualice la columna `Estadística` de `ExecutionTime` a **Media** y la columna `Estadística` para el resto de las métricas a **Suma**. En la parte superior derecha, cambie la leyenda de **Línea** a **Número**.
+5. Haz clic en la pestaña **Métricas diagramadas**. Actualiza la columna `Estadística` de `ExecutionTime` a **Media** y la columna `Estadística` para el resto de las métricas a **Suma**. En la parte superior derecha, cambie la leyenda de **Línea** a **Número**.
 
    ![Suma y promedio](/static/img/module-12/cw-metrics-sum-avg.png)
 
-6. Haga clic en el lápiz de edición junto al título del gráfico, escriba **Métricas de ejecución** y haga clic en **Aplicar**.
+6. Haz clic en el lápiz de edición junto al título del gráfico, escriba **Métricas de ejecución** y Haz clic en **Aplicar**.
 
-7. En la parte superior derecha, haga clic en el menú desplegable **Acciones** y elija **Añadir al panel**.
+7. En la parte superior derecha, Haz clic en el menú desplegable **Acciones** y elige **Añadir al panel**.
 
--  En la página Añadir al panel, haga clic en **Crear nuevo**.
-- Escriba *DetectSentiment* para el nombre del panel y haga clic en **Crear**.
-- Para **tipo de widget**, seleccione Número.
-- Haga clic en **Añadir al panel**.
+-  En la página Añadir al panel, Haz clic en **Crear nuevo**.
+- Escriba *DetectSentiment* para el nombre del panel y Haz clic en **Crear**.
+- Para **tipo de widget**, selecciona Número.
+- Haz clic en **Añadir al panel**.
 
    ![Métricas CW](/static/img/module-12/cw-add-dashboard.png)
 
-8. Elija **Guardar panel**.
+8. Elige **Guardar panel**.
 
-Ahora puede ver las métricas de ejecución para DetectSentiment State Machine Step Functions. Notará que hay ejecuciones que han fallado, indicadas por las métricas ExecutionsFailed.
+Ahora puedes ver las métricas de ejecución para DetectSentiment State Machine Step Functions. Notará que hay ejecuciones que han fallado, indicadas por las métricas ExecutionsFailed.
 
    ![Métricas del panel](/static/img/module-12/cw-dashboard.png)
 

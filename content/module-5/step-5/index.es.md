@@ -7,9 +7,9 @@ weight: 75
 
  - Abra la [consola de Amazon SNS](https://console.aws.amazon.com/sns/home).
 
- - Haga clic para ver los temas 
+ - Haz clic para ver los temas 
  
- - Haga clic en el tema **MapStateTopicForMessages**
+ - Haz clic en el tema **MapStateTopicForMessages**
 
  - En Suscripciones, selecciona Crear suscripción.
 
@@ -33,11 +33,11 @@ Debe confirmarlo haciendo clic en el enlace enviado por correo electrónico para
 
  - Abra la [consola de Amazon SQS](https://console.aws.amazon.com/sqs/home).
 
- - Haga clic en la cola **MapStateQueueForMessages**.
+ - Haz clic en la cola **MapStateQueueForMessages**.
 
  - Haz clic en el botón **Enviar y recibir mensajes**.
 
- - En la ventana Enviar mensaje, introduzca un mensaje y pulse **Enviar mensaje**.
+ - En la ventana Enviar mensaje, introduce un mensaje y pulse **Enviar mensaje**.
 
  - Sigue enviando mensajes hasta que tengas muchos en la cola.
 
@@ -47,13 +47,13 @@ Con solo unos pocos elementos en la cola, la acción SQS ReceiveMessage a veces 
 
 ![SQS](/static/img/module-5/sqs-send-message.png)
 
-3. Regrese a [Step Functions](https://console.aws.amazon.com/states/home). Haga clic en **MapStateMachine** y **Start execution**. Copia y pega el JSON de abajo como carga de entrada.
+3. Regrese a [Step Functions](https://console.aws.amazon.com/states/home). Haz clic en **MapStateMachine** y **Start execution**. Copia y pega el JSON de abajo como carga de entrada.
    :::code{showCopyAction=true showLineNumbers=false language=json}
    { "Comment": "Testing Map & Choice states" }
    :::
 
-4. Cuando se complete una ejecución, seleccione algunos de los estados del **Graph View** y consulte sus valores **Input** y **Output**. Si creaste una suscripción por correo electrónico, deberías recibir mensajes de correo electrónico. También puede consultar la tabla [DynamoDB](https://console.aws.amazon.com/dynamodbv2/home) para ver si los elementos se han insertado correctamente en **MapStateTable**.
+4. Cuando se complete una ejecución, selecciona algunos de los estados del **Graph View** y consulte sus valores **Input** y **Output**. Si creaste una suscripción por correo electrónico, deberías recibir mensajes de correo electrónico. También puedes consultar la tabla [DynamoDB](https://console.aws.amazon.com/dynamodbv2/home) para ver si los elementos se han insertado correctamente en **MapStateTable**.
 
 ![DDB](/static/img/module-5/ddb-map-state.png)
 
-::alert[**¡Enhorabuena!** Ha ejecutado una máquina de estados utilizando los estados Map y Choice.]{type="success"}
+::alert[**¡Enhorabuena!** Has ejecutado una máquina de estados utilizando los estados Map y Choice.]{type="success"}

@@ -7,6 +7,6 @@ El [AWS Cloud Development Kit (CDK)](https://docs.aws.amazon.com/cdk/v2/guide/ho
 
 ![AWS CDK diagram](/static/img/module-10/AppStacks.png)
 
-En este módulo utilizará AWS CDK con TypeScript para desplegar una aplicación que configure API Gateway para desencadenar un flujo de trabajo sincrónico de Step Functions Express.
+En este módulo utilizará AWS CDK con TypeScript para desplegar una aplicación que configura API Gateway para desencadenar un flujo de trabajo síncrono de Step Functions Express.
 
 **Duración estimada: 30 minutos**

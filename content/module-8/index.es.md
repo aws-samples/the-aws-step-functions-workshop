@@ -14,7 +14,7 @@ De manera predeterminada, cuando un estado informa un error, Step Functions hace
 
 Este módulo demuestra **error handling** mediante el uso de funciones Lambda para simular errores que se manejan utilizando los campos `Retry` y `Catch`.
 
-Revise la documentación:
+Revisa la documentación:
 - [Error handling in Step Functions](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-error-handling.html)
 - [Error handling in AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/invocation-retries.html)
 

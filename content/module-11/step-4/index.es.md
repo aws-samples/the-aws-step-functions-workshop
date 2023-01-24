@@ -28,15 +28,15 @@ touch template.yaml api.yaml hello_world.asl.json
 
 - `hello_world.asl.json` - Este archivo es el archivo de definición de [Amazon States Language (ASL)](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html) que configurará el flujo de trabajo de su máquina de estado de Step Functions.
 
-### Utilice AWS SAM para crear una API REST con integrando un máquina de estado de Express sincrónica
+### Utiliza AWS SAM para crear una API REST con integrando un máquina de estado de Express síncrona
 
 Primero, revisará fragmentos de código para cada archivo en este proyecto. Copiará / pegará estos fragmentos en los archivos adecuados. Luego usará SAM para construir y desplegar el proyecto. Finalmente, probará el despliegue.
 
 #### Revisar la plantilla SAM
 
-Revise el fragmento de código a continuación. Este código pertenece a su archivo de plantilla SAM `template.yaml`. Observe que este archivo yaml define varios recursos, incluyendo un [`AWS::Serverless::Api`](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-api.html) y un [`AWS::Serverless::StateMachine`](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-statemachine.html) con el tipo `EXPRESS`. Observe las referencias a los dos archivos de definición adicionales: `api.yaml` y `hello_world.asl.json`. Observe que el archivo define dos roles de IAM.
+Revisa el fragmento de código a continuación. Este código pertenece a su archivo de plantilla SAM `template.yaml`. Observa que este archivo yaml define varios recursos, incluyendo un [`AWS::Serverless::Api`](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-api.html) y un [`AWS::Serverless::StateMachine`](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-statemachine.html) con el tipo `EXPRESS`. Observa las referencias a los dos archivos de definición adicionales: `api.yaml` y `hello_world.asl.json`. Observa que el archivo define dos roles de IAM.
 
-Revise el código y luego cópielo y péguelo en el archivo `template.yaml`.
+Revisa el código y luego cópielo y péguelo en el archivo `template.yaml`.
 
 ```bash
 AWSTemplateFormatVersion: '2010-09-09'
@@ -193,4 +193,4 @@ sam deploy --guided
 
 ![AWS SAM deploy](/static/img/module-11/sam-deploy.png)
 
-Después de completar el despliegue, AWS SAM mostrará la url de la API REST como salida. Copie esta url. La usará para probar la aplicación en el siguiente paso.
+Después de completar el despliegue, AWS SAM mostrará la url de la API REST como salida. Copia esta url. La usará para probar la aplicación en el siguiente paso.

@@ -5,5 +5,5 @@ weight: 131
 
 - Configurar un espacio de trabajo de AWS Cloud9
 - Crear un proyecto AWS SAM
-- Utilizar AWS SAM para implementar una API Gateway REST API integrando de máquina de estado express sincrónica como backend
+- Utilizar AWS SAM para implementar una API Gateway REST API integrando de máquina de estado express síncrona como backend
 - Probar la API

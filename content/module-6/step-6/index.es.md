@@ -9,8 +9,8 @@ Los ejemplos de operaciones básicas incluyen operaciones matemáticas, creació
 Para una lista completa de `intrinsics`, vea la página de documentación [aquí](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-intrinsic-functions.html).
 
 En esta sección, usará `States.MathAdd` para sumar dos números sin necesidad de usar una función Lambda para realizar la operación.
-1. Vuelva a navegar a Workflow Studio para la máquina de estados `InputOutputProcessingMachine`.
-2. Agregue un nuevo `Pass State` a la máquina de estados después del estado Lambda Invoke. Tenga en cuenta que no está limitado a ustilizar `Pass State` para `intrinsics`, podrá usarlos en cualquier estado que admita parámetros.
+1. Vuelve a navegar a Workflow Studio para la máquina de estados `InputOutputProcessingMachine`.
+2. Agrega un nuevo `Pass State` a la máquina de estados después del estado Lambda Invoke. Tenga en cuenta que no está limitado a ustilizar `Pass State` para `intrinsics`, podrá usarlos en cualquier estado que admita parámetros.
 
 ![Pass State Input](/static/img/module-6/pass-state-diagram.png)
 
@@ -23,7 +23,7 @@ En esta sección, usará `States.MathAdd` para sumar dos números sin necesidad 
 
 ![Pass State Input](/static/img/module-6/pass-state-input-intrinsic.png)
 
-4. A continuación salve las modificaciones, haga clic en **Start execution** y use el JSON a continuación como entrada.
+4. A continuación salva  las modificaciones, Haz clic en **Start execution** y use el JSON a continuación como entrada.
 :::code{showCopyAction=true showLineNumbers=false language=json}
 {
    "comment": "Un comentario de entrada.",
@@ -37,7 +37,7 @@ En esta sección, usará `States.MathAdd` para sumar dos números sin necesidad 
    }
 }
 :::
-5. Una vez que la ejecución sea exitosa, revise la salida en la pestaña `Execution input and output`. Verá que el campo sum tiene la suma de value1 y value2 de la entrada.
+5. Una vez que la ejecución sea exitosa, revisa la salida en la pestaña `Execution input and output`. Verás que el campo sum tiene la suma de value1 y value2 de la entrada.
 
 ![Execution Output](/static/img/module-6/intrinsic-execution-output.png)
 

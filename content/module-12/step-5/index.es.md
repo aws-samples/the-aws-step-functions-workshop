@@ -20,7 +20,7 @@ Para obtener más información, lea [AWS X-Ray y Step Functions](https://docs.aw
 4. En la sección `Tracing` de la página de edición, selecciona **Enable X-Ray tracing**.
 
 :::alert{header="Importante" type="warning"}
-Para trazar ejecuciones con X-Ray, el rol de ejecución de Step Functions debe tener permisos de X-Ray. Puedes dejar que Step Functions cree un nuevo rol para ti con los permisos necesarios seleccionando "Crear nuevo rol" en Permisos, o agregarlos manualmente a tu rol existente. Esto ya se ha hecho por ti.
+Para trazar ejecuciones con X-Ray, el rol de ejecución de Step Functions debe tener permisos de X-Ray. Puedes dejar que Step Functions cree un nuevo rol para ti con los permisos necesarios seleccionando "Crear nuevo rol" en Permisos, o agregarlos manualmente a tu rol existente. Esto ya lo has hecho anteriormente.
 :::
 
 5. Haz clic en **Guardar** en la parte superior de la página.
@@ -33,22 +33,22 @@ Espera unos minutos hasta que la consola de X-Ray se cargue con el Mapa de servi
 
 Este mapa de servicios muestra que su máquina de estado interactúa con AWS Lambda y Amazon DynamoDB. La leyenda roja en la máquina de estado DetectSentiment indica fallos. La leyenda morada en el nodo sentiment-table indica limitaciones de velocidad.
 
-7. Haga clic en el nodo **sentiment-table** para investigar estas limitaciones de velocidad.
+7. Haz clic en el nodo **sentiment-table** para investigar estas limitaciones de velocidad.
 
-8. En el panel de detalles del servicio en la derecha, seleccione **Limitaciones** y haga clic en **Ver rastreos**
+8. En el panel de detalles del servicio en la derecha, selecciona **Limitaciones** y Haz clic en **Ver rastreos**
 
    ![View Traces](/static/img/module-12/x-ray-view-traces.png)
 
-9. En la página `Trazas` bajo la lista de trazas, haga clic en una de las trazas. 
+9. En la página `Trazas` bajo la lista de trazas, Haz clic en una de las trazas. 
 
    ![View Traces](/static/img/module-12/x-ray-traces-list.png)
 
-10. En la página de detalles de la traza, verá un icono de error en el segmento AWS::StepFunctions::StateMachine.
+10. En la página de detalles de la traza, verás un icono de error en el segmento AWS::StepFunctions::StateMachine.
 
     ![View Traces](/static/img/module-12/x-ray-trace-error.png)
 
-11. Más abajo en la traza, hay un error junto al subsegmento Record Transaction. Haga clic en el icono de error.
+11. Más abajo en la traza, hay un error junto al subsegmento Record Transaction. Haz clic en el icono de error.
 
     ![View Traces](/static/img/module-12/x-ray-exception.png)
 
-El error se debe a una limitación en la capacidad provisionada de la tabla de DynamoDB. El rendimiento solicitado excedió el nivel de capacidad provisionada configurado. Para resolver el problema, puede reducir el rendimiento solicitado disminuyendo la frecuencia de sus escrituras o puede aumentar su capacidad aumentando las unidades de escritura provisionadas o cambiando el modo de facturación de DynamoDB de provisionado a bajo demanda.
+El error se debe a una limitación en la capacidad provisionada de la tabla de DynamoDB. El rendimiento solicitado excedió el nivel de capacidad provisionada configurado. Para resolver el problema, puedes reducir el rendimiento solicitado disminuyendo la frecuencia de sus escrituras o puedes aumentar su capacidad aumentando las unidades de escritura provisionadas o cambiando el modo de facturación de DynamoDB de provisionado a bajo demanda.
