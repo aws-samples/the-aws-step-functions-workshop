@@ -1,5 +1,5 @@
 ---
-title: 'Ejecuta la máquina de estados y revisa los resultados'
+title: 'Ejecuta la máquina de estado y revisa los resultados'
 weight: 75
 ---
 
@@ -56,4 +56,4 @@ Con solo unos pocos elementos en la cola, la acción SQS ReceiveMessage a veces 
 
 ![DDB](/static/img/module-5/ddb-map-state.png)
 
-::alert[**¡Enhorabuena!** Has ejecutado una máquina de estados utilizando los estados Map y Choice.]{type="success"}
+::alert[**¡Enhorabuena!** Has ejecutado una máquina de estado utilizando los estados Map y Choice.]{type="success"}

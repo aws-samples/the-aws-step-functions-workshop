@@ -5,7 +5,7 @@ weight: 74
 
 ### Localiza los recursos
 
-Navega hasta los siguientes servicios en la consola de AWS para familiarizarse con los recursos. Asegúrese de estar en la región correcta. Copia el ARN del tópico de SNS (nombre de recurso de Amazon) en un bloc de notas. Necesitará este valor más adelante en el módulo.
+Navega hasta los siguientes servicios en la consola de AWS para familiarizarse con los recursos. Asegúrese de estar en la región correcta. Copia el ARN del tema de SNS (nombre de recurso de Amazon) en un bloc de notas. Necesitará este valor más adelante en el módulo.
 
 
 - [AWS Lambda](https://console.aws.amazon.com/lambda/home) - busca **MapStateReadFromSQSQueueLambda** y **MapStateDeleteFromSQSQueueLambda**
@@ -14,9 +14,9 @@ Navega hasta los siguientes servicios en la consola de AWS para familiarizarse c
 
 - [Amazon DynamoDB](https://console.aws.amazon.com/dynamodbv2/home) - busca **MapStateTable**
 
-- [Amazon SNS](https://console.aws.amazon.com/sns/v3/home) - busca **MapStateTopicforMessages** *(copy the Topic ARN)*
+- [Amazon SNS](https://console.aws.amazon.com/sns/v3/home) - busca **MapStateTopicforMessages** *(copia el ARN del tema)*
 
-### Configura tu máquina de estados
+### Configura tu máquina de estado
 
 1. Vaya a [Step Functions](https://console.aws.amazon.com/states/home) en la consola de AWS.
 
@@ -24,7 +24,7 @@ Navega hasta los siguientes servicios en la consola de AWS para familiarizarse c
 
 ![EDIT](/static/img/module-5/map-state-definition-edit.png)
 
-3. Copia la definición de ASL que aparece a continuación haciendo clic en el icono cuadrado de la esquina superior derecha del campo de ejemplo de código. Sustituya la definición en su máquina de estados por este código copiado. La siguiente definición contiene un total de 4 valores **BLANK** en los campos de estado `Map` y `Choice`. Lea la documentación para obtener información sobre cómo actualizar estos valores **BLANK** con la sintaxis de estado y los parámetros correctos. (Las sugerencias de finalización se encuentran a continuación).
+3. Copia la definición de ASL que aparece a continuación haciendo clic en el icono cuadrado de la esquina superior derecha del campo de ejemplo de código. Sustituya la definición en su máquina de estado por este código copiado. La siguiente definición contiene un total de 4 valores **BLANK** en los campos de estado `Map` y `Choice`. Lea la documentación para obtener información sobre cómo actualizar estos valores **BLANK** con la sintaxis de estado y los parámetros correctos. (Las sugerencias de finalización se encuentran a continuación).
 
  - Obtenga información sobre la sintaxis de estados de [Map](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-map-state.html).
 
