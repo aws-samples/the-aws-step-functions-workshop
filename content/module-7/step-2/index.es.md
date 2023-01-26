@@ -17,9 +17,9 @@ Sigue las instrucciones de esta página solo si estás ejecutando este taller en
 
 - La ubicación de la plantilla de CloudFormation se rellenará automáticamente en el campo "URL de Amazon S3" como se muestra en el diagrama a continuación. Haz clic en "Siguiente"
   ![CloudFormation specify template](/static/img/setup/setup-cloudformation-specify-template.png)
-- En la página _Detalles de la pila_, el _Nombre de la pila_ se rellenará automáticamente con "SFW-Module-7". Puede especificar un nombre diferente si lo deseas.
+- En la página _Detalles de la pila_, el _Nombre de la pila_ se rellenará automáticamente con "SFW-Module-7". Puedes especificar un nombre diferente si lo deseas.
   ![CloudFormation stack name](/static/img/setup/setup-cloudformation-stack-name.png)
-- Haz clic en _Siguiente_ dos veces y en la última página de `Revisar`, desplázate hacia abajo. Marca la casilla `si se muestra` y luego Haz clic en `Enviar`.
+- Haz clic en _Siguiente_ dos veces y en la última página de `Revisar`, desplázate hacia abajo. Marca la casilla `si se muestra` y luego haz clic en `Enviar`.
   ![CloudFormation create stack](/static/img/setup/setup-cloudformation-create-stack.png)
 - Espera hasta que la pila muestre el estado `CREATE_COMPLETE`.
   ![CloudFormation stack complete](/static/img/setup/setup-cloudformation-create-complete.png)

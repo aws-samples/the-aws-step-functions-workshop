@@ -3,7 +3,7 @@ title: 'AWS CDK y configuración del proyecto'
 weight: 124
 ---
 
-El entorno AWS Cloud9 viene con algunas utilidades de AWS preinstaladas. Ejecute el siguiente comando en su terminal de AWS Cloud9 para verificar si contiene una versión actualizada de AWS CDK. Debería ser v2.x.
+El entorno AWS Cloud9 viene con algunas utilidades de AWS preinstaladas. Ejecuta el siguiente comando en su terminal de AWS Cloud9 para verificar si contiene una versión actualizada de AWS CDK. Debería ser v2.x.
 
 ```bash
 cdk --version

@@ -26,7 +26,7 @@ Un ejemplo de funciones de paso que muestra el procesamiento de entrada y salida
 
 - En la pestaña `Configuración` del diseñador, ingresa un nombre para este estado: `Invoke HelloFunction`.
 - Deberías tener una función Lambda llamada `HelloFunction` ya implementada en su cuenta.
-- Configura este estado para invocar esa función. Encuentre el campo `Parámetros de la API` y Haz clic en `Ingresar nombre de función`. Desplázate por la lista de menú hasta encontrar **HelloFunction:$LATEST**. Selecciona este valor.
+- Configura este estado para invocar esa función. Encuentra el campo `Parámetros de la API` y Haz clic en `Ingresar nombre de función`. Desplázate por la lista de menú hasta encontrar **HelloFunction:$LATEST**. Selecciona este valor.
 
 ![Configuration](/static/img/module-6/configuration.png)
 
@@ -35,7 +35,7 @@ Un ejemplo de funciones de paso que muestra el procesamiento de entrada y salida
 - Haz clic en la pestaña `Output` y marca la casilla para `Add original input to output using ResultPath - optional`. Selecciona `Combine original input with result`. Ingresa la siguiente cadena como el filtro ResultPath: `$.data.lambdaresult`.
 - Marca la casilla para `Filter output with OutputPath` e ingresa `$.data` para el valor.
   ![Config Output](/static/img/module-6/config-output.png)
-- Haz clic en la pestaña `Error handling`. Encuentre la sección **Retry on errors** y elimina el `Retrier #1` predeterminado haciendo clic en el icono de edición a la derecha y desplazándote hacia abajo para hacer clic en el botón **Remove**.
+- Haz clic en la pestaña `Error handling`. Encuentra la sección **Retry on errors** y elimina el `Retrier #1` predeterminado haciendo clic en el icono de edición a la derecha y desplazándote hacia abajo para hacer clic en el botón **Remove**.
   ![Remove Retrier](/static/img/module-6/remove-retrier.png)
 - Haz clic en **Next** y revisa el código generado y Haz clic en **Next** nuevamente.
 - Ingresa el nombre de la máquina de estados: `InputOutputProcessingMachine`. Para el rol de ejecución, elige un rol existente: `InputOutputProcessingStepFunctionRole`

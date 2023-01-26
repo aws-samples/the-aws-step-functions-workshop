@@ -3,7 +3,7 @@ title: 'Iniciar ejecución'
 weight: 44
 ---
 
-Ahora vaya adelante y haz clic en "Start execution" en esta máquina de estado utilizando los siguientes valores de entrada:
+Ahora ve adelante y haz clic en "Start execution" en esta máquina de estado utilizando los siguientes valores de entrada:
 
 ::code[{ "message": "¡Bienvenido a re:Invent!", "timer_seconds": 5 }]{showCopyAction=true language="js"}
 

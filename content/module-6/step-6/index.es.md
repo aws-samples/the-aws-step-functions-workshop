@@ -4,7 +4,7 @@ weight: 86
 ---
 
 El lenguaje de Amazon States (ASL) proporciona varias funciones intrínsecas, también conocidas como `intrinsics`, que le ayudan a realizar operaciones básicas de procesamiento de datos sin usar un estado de tarea.
-Los ejemplos de operaciones básicas incluyen operaciones matemáticas, creación de ID's únicos o unión de objetos JSON. Puede usar `intrinsics` como `States.MathAdd`, `States.UUID` o `States.JsonMerge` en su flujo de trabajo para evitar sobrecargar una función Lambda al realizar esas operaciones.
+Los ejemplos de operaciones básicas incluyen operaciones matemáticas, creación de ID's únicos o unión de objetos JSON. Puedes usar `intrinsics` como `States.MathAdd`, `States.UUID` o `States.JsonMerge` en su flujo de trabajo para evitar sobrecargar una función Lambda al realizar esas operaciones.
 
 Para una lista completa de `intrinsics`, vea la página de documentación [aquí](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-intrinsic-functions.html).
 

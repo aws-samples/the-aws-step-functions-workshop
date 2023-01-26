@@ -9,7 +9,7 @@ Los tres pilares de la observabilidad son:
   - Registros
   - Trazas
 
-*Métricas* son una representación numérica de los datos medidos en intervalos de tiempo. Las métricas proporcionan datos sobre el rendimiento de sus sistemas. Puede pensar en una métrica como una variable individual utilizada para monitorear un aspecto de su sistema. Cuando combinas todas estas métricas individuales, puedes ver cómo se está ejecutando su aplicación a lo largo del tiempo.
+*Métricas* son una representación numérica de los datos medidos en intervalos de tiempo. Las métricas proporcionan datos sobre el rendimiento de sus sistemas. Puedes pensar en una métrica como una variable individual utilizada para monitorear un aspecto de su sistema. Cuando combinas todas estas métricas individuales, puedes ver cómo se está ejecutando su aplicación a lo largo del tiempo.
 
 *Registros* ayudan a mantener un registro de los eventos que han ocurrido dentro de su aplicación o sistema. Los registros se generan con fecha y hora que pueden incluir eventos como fallas, errores, transformaciones de estado o incluso quién accedió a su sistema en un momento dado. Los registros se pueden grabar en formatos no estructurados, semiestructurados o estructurados.
 

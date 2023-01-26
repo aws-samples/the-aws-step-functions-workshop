@@ -3,7 +3,7 @@ title: 'Ejecutar tarea síncrona'
 weight: 55
 ---
 
-Ahora ejecute nuevamente la máquina de estado utilizando la entrada predeterminada. Esta vez notará que el estado `Submit Batch Job` no avanzará hasta que se complete el trabajo.
+Ahora ejecuta nuevamente la máquina de estado utilizando la entrada predeterminada. Esta vez notará que el estado `Submit Batch Job` no avanzará hasta que se complete el trabajo.
 
 ![Module 3 Workflow](/static/img/module-3/modified-workflow.png)
 

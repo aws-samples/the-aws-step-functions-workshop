@@ -36,7 +36,7 @@ En este ejercicio, configurará una máquina de estado que atrapará un error pe
 
 5. Haz clic en **Save** y luego en **Start execution**. Acepte la entrada predeterminada y Haz clic en **Start execution** nuevamente.
 
-6. Vaya a la pestaña **Execution input and output** para ver la salida de su flujo de trabajo. Debería mostrar `This is a fallback from a custom Lambda function exception`
+6. Ve a la pestaña **Execution input and output** para ver la salida de su flujo de trabajo. Debería mostrar `This is a fallback from a custom Lambda function exception`
 
 7. Para ver la salida del estado de fallback, selecciona el estado `CustomErrorFallback` en el inspector de gráficos y Haz clic en la pestaña **Input and output**.
 
@@ -64,7 +64,7 @@ En este ejercicio, configurará una máquina de estado que atrapará un error pe
 
 5. Haz clic en **Save** y luego en **Start execution**. Acepte la entrada predeterminada y Haz clic en **Start execution** de nuevo.
 
-6. Vaya a la pestaña **Execution input and output** para ver la salida de su flujo de trabajo. Debería mostrar `This is a fallback from a timeout Lambda function exception`
+6. Ve a la pestaña **Execution input and output** para ver la salida de su flujo de trabajo. Debería mostrar `This is a fallback from a timeout Lambda function exception`
 
 7. Para ver la salida del estado de fallback, selecciona el estado `TimeoutFallback` en el panel inspector de gráficos y Haz clic en la pestaña **Input and output**.
    ![Failure using Catch output](/static/img/module-8/error-handling-timeout-error-catch-output.png)

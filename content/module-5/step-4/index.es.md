@@ -18,7 +18,7 @@ Navega hasta los siguientes servicios en la consola de AWS para familiarizarse c
 
 ### Configura tu máquina de estado
 
-1. Vaya a [Step Functions](https://console.aws.amazon.com/states/home) en la consola de AWS.
+1. Ve a [Step Functions](https://console.aws.amazon.com/states/home) en la consola de AWS.
 
 2. Busca la máquina de estado que contiene **MapStateStateMachine** en su nombre. Haz clic en él y, a continuación, en **Edit** en la esquina superior derecha.
 

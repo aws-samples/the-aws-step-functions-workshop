@@ -1,5 +1,5 @@
 ---
-title: 'Construir una máquina de estado con un Estado Paralelo e Integrarlo con API Gateway'
+title: 'Construir una máquina de estado con un estado Parallel e Integrarlo con API Gateway'
 weight: 94
 ---
 
@@ -25,7 +25,7 @@ Un flujo de trabajo de funciones step que ejecuta tareas en paralelo.
 
 - Arrastra y suelta `AWS Lambda Invoke` desde la sección **Accions** en el lado izquierdo en el formulario del diseñador donde dice `Drag state here`.
   ![Invoke Lambda Function 1](/static/img/module-7/lambda-invoke-function1.png)
-- En la pestaña `Configurationn` del diseñador, ingresa `SumValues` para el nombre del estado.
+- En la pestaña `Configuration` del diseñador, ingresa `SumValues` para el nombre del estado.
 - En la sección de parámetros de la API, selecciona desde el menú desplegable de **Function name** la función con `SumFunction` en el nombre.
   ![Configuraction Sum State](/static/img/module-7/configuration-sum-state.png)
 - En la pestaña `Output`, desmarca la opción para `Filter output with OutputPath` y marca la opción para `Transform result with ResultSelector`. Pega el siguiente json en el cuadro de texto:
@@ -72,9 +72,9 @@ Un flujo de trabajo de funciones step que ejecuta tareas en paralelo.
 
 ### Configuración de la integración entre API Gateway y Step Functions
 
-1. Vaya a la [consola de API Gateway](https://console.aws.amazon.com/apigateway/home) y selecciona la API creada para este módulo: `API Gateway State Machine integration`.
+1. Ve a la [consola de API Gateway](https://console.aws.amazon.com/apigateway/home) y selecciona la API creada para este módulo: `API Gateway State Machine integration`.
    ![API Console](/static/img/module-7/api-console.png)
-2. Entre la lista de recursos, encuentre el recurso de ejecución y Haz clic en `POST`
+2. Entra la lista de recursos, encuentra el recurso de ejecución y Haz clic en `POST`
    ![API Execution](/static/img/module-7/api-execution.png)
 3. Haz clic en `Solicitud de integración`
 4. Para el tipo de integración selecciona `Servicio de AWS`
@@ -85,7 +85,7 @@ Un flujo de trabajo de funciones step que ejecuta tareas en paralelo.
 - **Método HTTP**: selecciona `POST`
 - **Tipo de acción**: selecciona `Usar nombre de acción`
 - **Action**: escriba `StartExecution`
-- **Role de ejecución**: encuentre en [IAM](https://console.aws.amazon.com/iamv2/home) el rol con `IntegrationIamRole` en su nombre y utiliza el ARN de este rol
+- **Role de ejecución**: encuentra en [IAM](https://console.aws.amazon.com/iamv2/home) el rol con `IntegrationIamRole` en su nombre y utiliza el ARN de este rol
   ![API Integration Setup](/static/img/module-7/api-integration-setup.png)
 - Haz clic en `Guardar`. Cuando se te solicite si estás seguro de que deseas cambiar la integración, Haz clic en `Aceptar`.
   Ahora has configurado una integración entre la API Gateway y las funciones Step.

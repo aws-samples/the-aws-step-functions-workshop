@@ -5,7 +5,7 @@ weight: 93
 
 Este módulo contiene los siguientes recursos:
 
-- Tres funciones AWS Lambda
+- Tres funciones de AWS Lambda
 - Un endpoint de API Gateway
 - Un rol de AWS IAM utilizado para integrar la API Gateway con Step Function
 

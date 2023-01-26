@@ -5,7 +5,7 @@ weight: 96
 
 ## Haz la integración síncrona
 
-1. Vaya al panel de control de API Gateway y selecciona la API creada para este módulo.
+1. Ve al panel de control de API Gateway y selecciona la API creada para este módulo.
    ![API Console](/static/img/module-7/api-console-4.png)
 2. De la lista de recursos, encuentra el recurso `ejecución` y haz clic en `POST`
    ![API Execution](/static/img/module-7/api-execution-new-4.png)

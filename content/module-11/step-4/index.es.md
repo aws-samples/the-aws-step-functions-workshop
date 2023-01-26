@@ -184,7 +184,7 @@ components: {}
 
 #### Desplegar el proyecto
 
-Para desplegar Amazon API Gateway y la máquina de estados AWS Step Functions en su cuenta de AWS, ejecute los siguientes comandos desde la raíz de la aplicación:
+Para desplegar Amazon API Gateway y la máquina de estados AWS Step Functions en su cuenta de AWS, ejecuta los siguientes comandos desde la raíz de la aplicación:
 
 ```bash
 sam build

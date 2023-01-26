@@ -3,9 +3,9 @@ title: 'Ejecutar una ejecución asíncrona a través de la API Gateway'
 weight: 95
 ---
 
-1. Vaya a la consola de la API Gateway y selecciona la API creada para este módulo.
+1. Ve a la consola de la API Gateway y selecciona la API creada para este módulo.
    ![API Console](/static/img/module-7/api-console-3.png)
-2. De la lista de recursos, encuentre el recurso `execution` y Haz clic en `POST`
+2. De la lista de recursos, encuentra el recurso `execution` y Haz clic en `POST`
    ![API Execution New](/static/img/module-7/api-execution-new.png)
 3. Haz clic en `Prueba`
 4. En la parte inferior de la página encontrarás un campo llamado `Cuerpo de la solicitud`, pega allí el siguiente json y reemplaza el ejemplo `stateMachineArn` con el ARN de su máquina de estado.
