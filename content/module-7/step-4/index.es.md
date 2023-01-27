@@ -1,5 +1,5 @@
 ---
-title: 'Construir una máquina de estado con un estado Parallel e integrarl con API Gateway'
+title: 'Construir una máquina de estado con un estado Parallel e integrarla con API Gateway'
 weight: 94
 ---
 
