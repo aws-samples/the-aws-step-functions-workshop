@@ -13,8 +13,8 @@ Navega hasta **Step Functions**. Si has nombrado las máquinas de estado según 
 
 - Selecciona **InputOutputProcessingMachine** de la lista de máquinas de estado.
 - Haz clic en el botón **Delete**
-- Confirme haciendo clic en el botón **Delete state machine** del cuadro de diálogo que aparece.
+- Confirma haciendo clic en el botón **Delete state machine** del cuadro de diálogo que aparece.
 - Navega a la página [CloudFormation](https://console.aws.amazon.com/cloudformation/home) en el Console de AWS.
 - Selecciona la pila con el nombre `SFW-Module-6` (o cualquier nombre que hayas elegido para la pila) y luego haz clic en `Eliminar`.
-  ![CloudFormation delete](/static/img/setup/setup-cloudformation-delete.png)
+  ![CloudFormation delete](/static/img/es/setup/setup-cloudformation-delete.png)
 - Asegúrate de que la eliminación de la pila se complete con éxito.

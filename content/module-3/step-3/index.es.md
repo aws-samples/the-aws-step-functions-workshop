@@ -12,7 +12,7 @@ Así es como se ve la definición de tarea para el trabajo AWS Batch. Tome nota 
 
 ![Module 3 Code](/static/img/module-3/initial-code.png)
 
-Ahora haz clic en **Iniciar ejecución** y use la entrada predeterminada. El servicio AWS Batch realiza un trabajo, que puede tardar un minuto o más en terminar. Observa cómo se completa rápidamente esta ejecución.
+Ahora haz clic en **Start execution** y use la entrada predeterminada. El servicio AWS Batch realiza un trabajo, que puede tardar un minuto o más en terminar. Observa cómo se completa rápidamente esta ejecución.
 
 ![Initial graph](/static/img/module-3/initial-graph.png)
 

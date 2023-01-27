@@ -22,5 +22,5 @@ Cuando se complete `sam delete` verás el siguiente mensaje:
 
 - Navega a la página de [CloudFormation](https://console.aws.amazon.com/cloudformation/home) en la consola de AWS.
 - Selecciona la pila con el nombre `SFW-Module-11` () y luego haz clic en `Eliminar`. Esto limpiará el entorno de AWS Cloud9 y cualquier otro recurso relacionado en la pila.
-  ![CloudFormation delete](/static/img/setup/setup-cloudformation-delete.png)
+  ![CloudFormation delete](/static/img/es/setup/setup-cloudformation-delete.png)
 - Asegúrate de que la eliminación de la pila se complete con éxito.

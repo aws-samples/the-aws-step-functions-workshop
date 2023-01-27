@@ -3,7 +3,7 @@ title: 'Empezando'
 weight: 20
 ---
 
-### Labortorio Organizado por AWS
+### Laboratorio Organizado por AWS
 
 Si estás en un evento organizado por AWS (re\:Invent, AWS Summit, Immersion Day, etc.) se te proveerá de una cuenta temporal de AWS con todos los recursos necesarios para el workshop desplegados. Siempre puedes solicitar el formato de evento organizado por AWS a tu equipo de cuenta de AWS. Para entrar en tu cuenta de AWS [sigue estos pasos](./hosted-event).
 
