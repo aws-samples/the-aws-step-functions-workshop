@@ -25,7 +25,7 @@ En este ejercicio, configurará una máquina de estado que atrapará un error pe
 
 ![Lambda function throws CustomError](/static/img/module-8/error-handling-lambda-function-custom-error.png)
 
-2. Ahora ubique la máquina de estado **ErrorHandlingStateMachineWithCatch-...** [state machine](https://console.aws.amazon.com/states/home). Haz clic en su enlace y Haz clic en el botón **Edit** en la esquina superior derecha de la pantalla.
+2. Ahora ubique la máquina de estado **ErrorHandlingStateMachineWithCatch-...** [state machine](https://console.aws.amazon.com/states/home). Haz clic en su enlace y haz clic en el botón **Edit** en la esquina superior derecha de la pantalla.
 3. En el campo `Resource`, reemplaza el valor actual con el ARN de la función Lambda copiada en el paso 1. Cuando la máquina de estado invoca esta función, la función fallará con el `CustomError`.
 
 ![Replace Lambda function ARN](/static/img/module-8/error-handling-state-machine-catch.png)
@@ -34,11 +34,11 @@ En este ejercicio, configurará una máquina de estado que atrapará un error pe
 
 ![Catch CustomError](/static/img/module-8/error-handling-state-machine-catch-custom-error.png)
 
-5. Haz clic en **Save** y luego en **Start execution**. Acepte la entrada predeterminada y Haz clic en **Start execution** nuevamente.
+5. Haz clic en **Save** y luego en **Start execution**. Acepte la entrada predeterminada y haz clic en **Start execution** nuevamente.
 
 6. Ve a la pestaña **Execution input and output** para ver la salida de su flujo de trabajo. Debería mostrar `This is a fallback from a custom Lambda function exception`
 
-7. Para ver la salida del estado de fallback, selecciona el estado `CustomErrorFallback` en el inspector de gráficos y Haz clic en la pestaña **Input and output**.
+7. Para ver la salida del estado de fallback, selecciona el estado `CustomErrorFallback` en el inspector de gráficos y haz clic en la pestaña **Input and output**.
 
 ![Failure using Catch output](/static/img/module-8/error-handling-custom-error-catch-output.png)
 
@@ -52,7 +52,7 @@ En este ejercicio, configurará una máquina de estado que atrapará un error pe
 
    ![La función Lambda duerme durante 10 segundos](/static/img/module-8/error-handling-lambda-sleep10.png)
 
-2. Ahora ubique la máquina de estados **ErrorHandlingStateMachineWithCatch-...** [state machine](https://console.aws.amazon.com/states/home). Haz clic en su enlace y Haz clic en el botón **Editar** en la esquina superior derecha de la pantalla.
+2. Ahora ubique la máquina de estados **ErrorHandlingStateMachineWithCatch-...** [state machine](https://console.aws.amazon.com/states/home). Haz clic en su enlace y haz clic en el botón **Editar** en la esquina superior derecha de la pantalla.
 
 3. En el campo `Resource`, reemplaza el valor actual con el ARN de la función Lambda copiada en el paso 1. Cuando la máquina de estados invoca esta función, la función dormirá durante 10 segundos.
 
@@ -62,11 +62,11 @@ En este ejercicio, configurará una máquina de estado que atrapará un error pe
 
    ![Review the Timeout Catcher](/static/img/module-8/error-handling-state-machine-timeout.png)
 
-5. Haz clic en **Save** y luego en **Start execution**. Acepte la entrada predeterminada y Haz clic en **Start execution** de nuevo.
+5. Haz clic en **Save** y luego en **Start execution**. Acepte la entrada predeterminada y haz clic en **Start execution** de nuevo.
 
 6. Ve a la pestaña **Execution input and output** para ver la salida de su flujo de trabajo. Debería mostrar `This is a fallback from a timeout Lambda function exception`
 
-7. Para ver la salida del estado de fallback, selecciona el estado `TimeoutFallback` en el panel inspector de gráficos y Haz clic en la pestaña **Input and output**.
+7. Para ver la salida del estado de fallback, selecciona el estado `TimeoutFallback` en el panel inspector de gráficos y haz clic en la pestaña **Input and output**.
    ![Failure using Catch output](/static/img/module-8/error-handling-timeout-error-catch-output.png)
 
 8. Desplázate hacia abajo hasta la tabla **Events** para obtener más detalles

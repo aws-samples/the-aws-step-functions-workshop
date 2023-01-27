@@ -5,7 +5,7 @@ weight: 145
 
 Puedes usar AWS X-Ray para visualizar las integraciones en tu máquina de estados, para identificar cuellos de botella de rendimiento y para resolver problemas de solicitudes fallidas. Cuando tu máquina de estados envía datos de trazas a X-Ray, X-Ray procesa los datos para generar un mapa de servicios y resúmenes de trazas buscables.
 
-Con X-Ray habilitado para tu máquina de estados, puedes trazar los caminos de tus solicitudes, lo que te brinda una visión detallada visual de tu flujo de trabajo completo. Puedes usar los mapas de servicios de X-Ray para ver la latencia de las solicitudes, incluidos cualquier servicio de AWS que esté integrado con X-Ray. También puedes configurar y personalizar las reglas de muestreo en X-Ray para controlar la frecuencia de las solicitudes registradas.
+Con X-Ray habilitado para tu máquina de estados, puedes trazar los caminos de tus solicitudes, lo que te brinda información visual detallada de tu flujo de trabajo completo. Puedes usar los mapas de servicios de X-Ray para ver la latencia de las solicitudes, incluyendo cualquier servicio de AWS que esté integrado con X-Ray. También puedes configurar y personalizar las reglas de muestreo en X-Ray para controlar la frecuencia con las que las solicitudes son registradas.
 
 Para obtener más información, lea [AWS X-Ray y Step Functions](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-xray-tracing.html).
 
@@ -27,19 +27,19 @@ Para trazar ejecuciones con X-Ray, el rol de ejecución de Step Functions debe t
 
 6. Navega a [X-Ray](https://console.aws.amazon.com/xray/home) en la consola de AWS.
 
-Espera unos minutos hasta que la consola de X-Ray se cargue con el Mapa de servicios. Refresca la página, si es necesario. Verás el siguiente Mapa de servicios para DetectSentimentStateMachine. 
+Espera unos minutos hasta que la consola de X-Ray se cargue con el Mapa de servicios. Refresca la página, si es necesario. Verás el siguiente Mapa de servicios para DetectSentimentStateMachine.
 
    ![Service Map](/static/img/module-12/x-ray-service-map.png)
 
-Este mapa de servicios muestra que su máquina de estado interactúa con AWS Lambda y Amazon DynamoDB. La leyenda roja en la máquina de estado DetectSentiment indica fallos. La leyenda morada en el nodo sentiment-table indica limitaciones de velocidad.
+Este mapa de servicios muestra que tu máquina de estado interactúa con AWS Lambda y Amazon DynamoDB. La leyenda roja en la máquina de estado DetectSentiment indica fallos. La leyenda morada en el nodo sentiment-table indica limitaciones de velocidad.
 
 7. Haz clic en el nodo **sentiment-table** para investigar estas limitaciones de velocidad.
 
-8. En el panel de detalles del servicio en la derecha, selecciona **Limitaciones** y Haz clic en **Ver rastreos**
+8. En el panel de detalles del servicio en la derecha, selecciona **Limitaciones** y haz clic en **Ver rastreos**
 
    ![View Traces](/static/img/module-12/x-ray-view-traces.png)
 
-9. En la página `Trazas` bajo la lista de trazas, Haz clic en una de las trazas. 
+9. En la página `Trazas` bajo la lista de trazas, haz clic en una de las trazas.
 
    ![View Traces](/static/img/module-12/x-ray-traces-list.png)
 

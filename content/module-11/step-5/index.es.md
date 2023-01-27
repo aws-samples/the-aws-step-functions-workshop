@@ -3,16 +3,16 @@ title: 'Probando el proyecto'
 weight: 135
 ---
 
-Después de crear su API REST integrando una máquina de estados express síncrona como backend, puedes probar la API.
+Después de crear tu API REST integrando una máquina de estados Express síncrona como backend, puedes probar la API.
 
 ### Prueba el API Gateway implementado usando la consola de API Gateway
 
-1. Abra la [consola de Amazon API Gateway](https://console.aws.amazon.com/apigateway/) y inicie sesión.
-2. Elige tu REST API llamado, `SAMStepFunctionsRestApi`.
+1. Abre la [consola de Amazon API Gateway](https://console.aws.amazon.com/apigateway/) e inicia sesión.
+2. Elige tu REST API llamada, `SAMStepFunctionsRestApi`.
 3. En el panel **Recursos**, puedes seleccionar el método que deseas probar. Haz clic en el método `POST`.
    ![API Gateway POST](/static/img/module-11/api-gateway-testing.png)
 4. En el panel **Ejecución del método**, en el cuadro **Cliente**, elige **PRUEBA**.
-5. Copia/pega el JSON de abajo en el campo **Cuerpo de la solicitud**.
+5. Copia y pega el JSON de abajo en el campo **Cuerpo de la solicitud**.
    :::code{showCopyAction=true showLineNumbers=true language=json}
    {
    "key": "Hello Step Functions!"
@@ -25,7 +25,7 @@ Después de crear su API REST integrando una máquina de estados express síncro
 - **Latencia** es el tiempo desde la recepción de la solicitud y la respuesta devuelta.
 - **Cuerpo de la respuesta** es el cuerpo de la respuesta HTTP.
 - **Encabezados de respuesta** son los encabezados de respuesta HTTP.
-- **Registros** son las entradas simuladas de Amazon CloudWatch Logs que se habrían escrito si este método se hubiera llamado fuera de la consola de API Gateway.
+- **Registros** son las entradas simuladas de Amazon Amazon CloudWatch Logs que se habrían escrito si este método se hubiera llamado fuera de la consola de API Gateway.
   ::alert[Aunque las entradas de CloudWatch Logs son simuladas, los resultados de la llamada al método son reales.]{header="Nota"}
 
 La salida de **Cuerpo de respuesta** debería ser:

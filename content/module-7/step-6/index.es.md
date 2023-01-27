@@ -10,7 +10,7 @@ weight: 96
 2. De la lista de recursos, encuentra el recurso `ejecución` y haz clic en `POST`
    ![API Execution](/static/img/module-7/api-execution-new-4.png)
 3. Haz clic en `Solicitud de integración`
-4. Edita la `Acción` haciendo clic en el lápiz gris y cámbiala por `StartSyncExecution` y haz clic en el botón de actualizar (marca de verificación gris)
+4. Edita la `Acción` haciendo clic en el lápiz gris y cámbiala por `StartSyncExecution`, luego haz clic en el botón de actualizar (marca de verificación gris)
    ![API Execution Sync](/static/img/module-7/api-integration-setup-sync.png)
 5. Vuelve a probar tu API.
 6. Notarás un cuerpo de respuesta más grande con más detalles de la ejecución de la máquina de estado, incluyendo la `input` y la `output`

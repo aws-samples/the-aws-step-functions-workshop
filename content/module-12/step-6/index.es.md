@@ -5,13 +5,13 @@ weight: 146
 
 ## Actualizar las unidades de capacidad provisionadas de DynamoDB
 
-1. Navega hasta la [consola de DynamoDB](https://console.aws.amazon.com/dynamodbv2/home). Asegúrese de estar en la región correcta.
+1. Navega hasta la [consola de DynamoDB](https://console.aws.amazon.com/dynamodbv2/home). Asegúrate de estar en la región correcta.
 
 2. Haz clic en **Tablas** en el menú izquierdo.
 
 3. Haz clic en la **sentiment-table** en el panel central.
 
-4. En la pestaña de configuración adicional, Haz clic en **Editar**.
+4. En la pestaña de configuración adicional, haz clic en **Editar**.
 
 5. En la página de edición de capacidad de lectura y escritura, actualiza las unidades de capacidad provisionadas bajo **Unidades escritura aprovisionadas** a **10**
 
@@ -39,7 +39,7 @@ Deberías ver ahora que no hay más fallos o cuellos de botella.
 
    ![No throttles](/static/img/module-12/x-ray-no-throttles.png)
 
-Si revisa las métricas de CloudWatch para las ejecuciones de Step Functions, también deberías ver que ExecutionsFailed ha bajado a 0. 
+Si revisa las métricas de Amazon CloudWatch para las ejecuciones de Step Functions, también deberías ver que ExecutionsFailed ha bajado a 0. 
 
    ![Zero Failed executions](/static/img/module-12/cw-states-execution-metrics-0.png)
 

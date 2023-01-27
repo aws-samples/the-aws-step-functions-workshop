@@ -11,9 +11,9 @@ En el ejercicio a continuación, crearás una definición ASL que invoca una fun
 
 ![Lambda function throws FooError](/static/img/module-8/error-handling-lambda-foo-error.png)
 
-2. Ahora localiza la [maquinaria de estado](https://console.aws.amazon.com/states/home) que comienza por **ErrorHandlingStateMachineWithRetry-...** . Haz clic en su enlace y Haz clic en el botón **Edit** en la esquina superior derecha de la pantalla.
+2. Ahora localiza la [maquinaria de estado](https://console.aws.amazon.com/states/home) que comienza por **ErrorHandlingStateMachineWithRetry-...** . Haz clic en su enlace y haz clic en el botón **Edit** en la esquina superior derecha de la pantalla.
 
-3. En el campo `Resource`, reemplaza el valor actual con el ARN de la función Lambda copiada en el paso 1. Cuando la máquina de estado invoca esta función, la función fallará. Para ver el fallo, Haz clic en **Save** y luego en **Start execution**. Acepte la entrada predeterminada y Haz clic en **Start execution** de nuevo.
+3. En el campo `Resource`, reemplaza el valor actual con el ARN de la función Lambda copiada en el paso 1. Cuando la máquina de estado invoca esta función, la función fallará. Para ver el fallo, haz clic en **Save** y luego en **Start execution**. Acepte la entrada predeterminada y haz clic en **Start execution** de nuevo.
 
 ![Replace Lambda function ARN](/static/img/module-8/error-handling-state-machine-retry.png)
 
@@ -52,7 +52,7 @@ En el ejercicio a continuación, crearás una definición ASL que invoca una fun
 
 Revisa la documentación para obtener más información sobre [parámetros de manejo de errores](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-error-handling.html).
 
-6. Haz clic en **Save** y luego en **Start execution**. Acepte la entrada predeterminada y Haz clic en **Start execution** de nuevo.
+6. Haz clic en **Save** y luego en **Start execution**. Acepte la entrada predeterminada y haz clic en **Start execution** de nuevo.
 
 7. Para ver su mensaje de error personalizado, selecciona `StartExecution` en el panel inspector de gráficos y revisa la pestaña **Input and output**.
    ![Failure using Retry output](/static/img/module-8/error-handling-custom-error-retry-output.png)

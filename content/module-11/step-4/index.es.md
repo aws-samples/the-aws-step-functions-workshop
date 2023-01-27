@@ -22,21 +22,21 @@ Crea tres archivos en este proyecto con el siguiente comando:
 touch template.yaml api.yaml hello_world.asl.json
 ```
 
-- `template.yaml` - Este archivo es el archivo de configuración principal de AWS SAM. Los plantillas de AWS SAM son una extensión de las plantillas de AWS CloudFormation, con algunos componentes adicionales que las hacen más fáciles de trabajar. Para la referencia completa de las plantillas de AWS CloudFormation, consulte [Referencia de plantillas de AWS CloudFormation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-reference.html) en la Guía del usuario de AWS CloudFormation.
+- `template.yaml` - Este archivo es el archivo de configuración principal de AWS SAM. Los plantillas de AWS SAM son una extensión de las plantillas de AWS CloudFormation, con algunos componentes adicionales que las hacen más fáciles de trabajar. Para la referencia completa de las plantillas de AWS CloudFormation, consulta [Referencia de plantillas de AWS CloudFormation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-reference.html) en la Guía del usuario de AWS CloudFormation.
 
 - `api.yaml` - Este archivo es el archivo de definición de [OpenAPI](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.1.md) que configurará la estructura de la API.
 
-- `hello_world.asl.json` - Este archivo es el archivo de definición de [Amazon States Language (ASL)](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html) que configurará el flujo de trabajo de su máquina de estado de Step Functions.
+- `hello_world.asl.json` - Este archivo es el archivo de definición de [Amazon States Language (ASL)](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html) que configurará el flujo de trabajo de tu máquina de estado de Step Functions.
 
-### Utiliza AWS SAM para crear una API REST con integrando un máquina de estado de Express síncrona
+### Utiliza AWS SAM para crear una API REST integrando un máquina de estado de Express síncrona
 
-Primero, revisará fragmentos de código para cada archivo en este proyecto. Copiará / pegará estos fragmentos en los archivos adecuados. Luego usará SAM para construir y desplegar el proyecto. Finalmente, probará el despliegue.
+Primero, revisará fragmentos de código para cada archivo en este proyecto. Copiarás y pegarás estos fragmentos en los archivos adecuados. Luego usarás SAM para construir y desplegar el proyecto. Finalmente, probarás el despliegue.
 
 #### Revisar la plantilla SAM
 
-Revisa el fragmento de código a continuación. Este código pertenece a su archivo de plantilla SAM `template.yaml`. Observa que este archivo yaml define varios recursos, incluyendo un [`AWS::Serverless::Api`](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-api.html) y un [`AWS::Serverless::StateMachine`](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-statemachine.html) con el tipo `EXPRESS`. Observa las referencias a los dos archivos de definición adicionales: `api.yaml` y `hello_world.asl.json`. Observa que el archivo define dos roles de IAM.
+Revisa el fragmento de código a continuación. Este código pertenece a tu archivo de plantilla SAM `template.yaml`. Observa que este archivo yaml define varios recursos, incluyendo un [`AWS::Serverless::Api`](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-api.html) y un [`AWS::Serverless::StateMachine`](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-statemachine.html) con el tipo `EXPRESS`. Observa las referencias a los dos archivos de definición adicionales: `api.yaml` y `hello_world.asl.json`. Observa que el archivo define dos roles de IAM.
 
-Revisa el código y luego cópielo y péguelo en el archivo `template.yaml`.
+Revisa el código, luego cópiealo y pégalo en el archivo `template.yaml`.
 
 ```bash
 AWSTemplateFormatVersion: '2010-09-09'
@@ -117,7 +117,7 @@ Outputs:
 
 Revisa el fragmento de código a continuación. Este código pertenece a tu archivo de definición ASL `hello_world.asl.json`. Este flujo de trabajo contiene un único estado `Pass` y devuelve el valor "Hello back to you!".
 
-Revisa el código y luego copia/pega en el archivo `hello_world.asl.json`.
+Revisa el código, luego cópialo y pégalo en el archivo `hello_world.asl.json`.
 
 ```bash
   {
@@ -139,7 +139,7 @@ Revisa el código y luego copia/pega en el archivo `hello_world.asl.json`.
 
 Revisa el fragmento de código a continuación. Este código pertenece a tu archivo de definición OpenAPI `api.yaml`. Este archivo define un único método POST configurado para invocar la máquina de estados `HelloWorldStateMachine`.
 
-Revisa el código y luego copia/pega en el archivo `api.yaml`.
+Revisa el código, luego cópialo y pégalo en el archivo `api.yaml`.
 
 ```bash
 openapi: "3.0.1"
@@ -180,11 +180,11 @@ paths:
 components: {}
 ```
 
-::alert[Cloud9 no guarda automáticamente sus archivos, así que asegúrese de guardarlos]{header="¡Guarde sus archivos!"}
+::alert[Cloud9 no guarda automáticamente tus archivos, así que asegúrate de guardarlos]{header="¡Guarda tus archivos!"}
 
 #### Desplegar el proyecto
 
-Para desplegar Amazon API Gateway y la máquina de estados AWS Step Functions en su cuenta de AWS, ejecuta los siguientes comandos desde la raíz de la aplicación:
+Para desplegar Amazon API Gateway y la máquina de estados AWS Step Functions en tu cuenta de AWS, ejecuta los siguientes comandos desde la raíz de la aplicación:
 
 ```bash
 sam build
@@ -193,4 +193,4 @@ sam deploy --guided
 
 ![AWS SAM deploy](/static/img/module-11/sam-deploy.png)
 
-Después de completar el despliegue, AWS SAM mostrará la url de la API REST como salida. Copia esta url. La usará para probar la aplicación en el siguiente paso.
+Después de completar el despliegue, AWS SAM mostrará la url de la API REST como salida. Copia esta url. La usarás para probar la aplicación en el siguiente paso.

@@ -23,7 +23,7 @@ En esta sección, usará `States.MathAdd` para sumar dos números sin necesidad 
 
 ![Pass State Input](/static/img/module-6/pass-state-input-intrinsic.png)
 
-4. A continuación salva  las modificaciones, Haz clic en **Start execution** y use el JSON a continuación como entrada.
+4. A continuación salva  las modificaciones, haz clic en **Start execution** y use el JSON a continuación como entrada.
 :::code{showCopyAction=true showLineNumbers=false language=json}
 {
    "comment": "Un comentario de entrada.",

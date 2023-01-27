@@ -3,11 +3,11 @@ title: 'Usar Workflow Studio para construir una máquina de estados'
 weight: 83
 ---
 
-1. Navega a [Step Functions](https://console.aws.amazon.com/states/home) en su consola de AWS. Asegúrese de estar en la región de AWS correcta.
+1. Navega a [Step Functions](https://console.aws.amazon.com/states/home) en su consola de AWS. Asegúrate de estar en la región de AWS correcta.
 
 2. Haz clic en el botón **Create state machine**.
 
-3. Para `Elegir método de autoría` selecciona **Design your workflow visually**, selecciona el tipo de máquina de estado `Tipo` como **Standard** y Haz clic en **Next**.
+3. Para `Elegir método de autoría` selecciona **Design your workflow visually**, selecciona el tipo de máquina de estado `Tipo` como **Standard** y haz clic en **Next**.
    ![Studio](/static/img/module-6/studio-selection.png)
 
 4. Deberías ver el Workflow Studio ahora.
@@ -26,7 +26,7 @@ Un ejemplo de funciones de paso que muestra el procesamiento de entrada y salida
 
 - En la pestaña `Configuración` del diseñador, ingresa un nombre para este estado: `Invoke HelloFunction`.
 - Deberías tener una función Lambda llamada `HelloFunction` ya implementada en su cuenta.
-- Configura este estado para invocar esa función. Encuentra el campo `Parámetros de la API` y Haz clic en `Ingresar nombre de función`. Desplázate por la lista de menú hasta encontrar **HelloFunction:$LATEST**. Selecciona este valor.
+- Configura este estado para invocar esa función. Encuentra el campo `Parámetros de la API` y haz clic en `Ingresar nombre de función`. Desplázate por la lista de menú hasta encontrar **HelloFunction:$LATEST**. Selecciona este valor.
 
 ![Configuration](/static/img/module-6/configuration.png)
 
@@ -37,7 +37,7 @@ Un ejemplo de funciones de paso que muestra el procesamiento de entrada y salida
   ![Config Output](/static/img/module-6/config-output.png)
 - Haz clic en la pestaña `Error handling`. Encuentra la sección **Retry on errors** y elimina el `Retrier #1` predeterminado haciendo clic en el icono de edición a la derecha y desplazándote hacia abajo para hacer clic en el botón **Remove**.
   ![Remove Retrier](/static/img/module-6/remove-retrier.png)
-- Haz clic en **Next** y revisa el código generado y Haz clic en **Next** nuevamente.
+- Haz clic en **Next** y revisa el código generado y haz clic en **Next** nuevamente.
 - Ingresa el nombre de la máquina de estados: `InputOutputProcessingMachine`. Para el rol de ejecución, elige un rol existente: `InputOutputProcessingStepFunctionRole`
   ![Iam Role](/static/img/module-6/name-iam-role.png)
-- Deja los valores predeterminados restantes y Haz clic en **Create state machine**.
+- Deja los valores predeterminados restantes y haz clic en **Create state machine**.
