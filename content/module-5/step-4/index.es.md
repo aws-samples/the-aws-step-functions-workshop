@@ -7,7 +7,6 @@ weight: 74
 
 Navega hasta los siguientes servicios en la consola de AWS para familiarizarse con los recursos. Asegúrate de estar en la región correcta. Copia el ARN del tema de SNS (nombre de recurso de Amazon) en un bloc de notas. Necesitará este valor más adelante en el módulo.
 
-
 - [AWS Lambda](https://console.aws.amazon.com/lambda/home) - busca **MapStateReadFromSQSQueueLambda** y **MapStateDeleteFromSQSQueueLambda**
 
 - [Amazon SQS](https://console.aws.amazon.com/sqs/v2/home) - busca **MapStateQueueforMessages**

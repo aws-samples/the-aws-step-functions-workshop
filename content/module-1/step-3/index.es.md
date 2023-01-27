@@ -3,7 +3,7 @@ title: 'Iniciar ejecución'
 weight: 33
 ---
 
-Sal de Workflow Studio y clickea en "Start execution":
+Sal de Workflow Studio y clickea en **Start execution**:
 ![Module 1 Start Execution button](/static/img/module-1/start-execution-btn.png)
 
 Copia y pega el siguiente valor en el campo de Input:

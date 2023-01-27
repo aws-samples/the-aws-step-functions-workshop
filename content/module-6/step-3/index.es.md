@@ -7,26 +7,26 @@ weight: 83
 
 2. Haz clic en el botón **Create state machine**.
 
-3. Para `Elegir método de autoría` selecciona **Design your workflow visually**, selecciona el tipo de máquina de estado `Tipo` como **Standard** y haz clic en **Next**.
+3. Para `Choose authoring method` selecciona **Design your workflow visually**, selecciona el tipo de máquina de estado `Type` como **Standard** y haz clic en **Next**.
    ![Studio](/static/img/module-6/studio-selection.png)
 
 4. Deberías ver el Workflow Studio ahora.
    ![Studio Designer](/static/img/module-6/studio-designer.png)
 
-5. Ingresa un `Comentario` en el lado derecho: 
+5. Ingresa un comentario en el campo `Comment` en el lado derecho:
 
 ```bash
 Un ejemplo de funciones de paso que muestra el procesamiento de entrada y salida.
 ```
 
-6. Arrastra y suelta la acción **AWS Lambda Invoke** de la sección `Actions` en el lado izquierdo en el formulario del diseñador donde dice `Drag first state here`.
+6. Arrastra la acción **AWS Lambda Invoke** de la sección `Actions` en el lado izquierdo, y suéltala en el formulario del diseñador donde dice `Drag first state here`.
    ![Lambda Invoke](/static/img/module-6/lambda-invoke-state.png)
 
 7. Configura el estado.
 
-- En la pestaña `Configuración` del diseñador, ingresa un nombre para este estado: `Invoke HelloFunction`.
+- En la pestaña `Configuration` del diseñador, ingresa un nombre para este estado: `Invoke HelloFunction`.
 - Deberías tener una función Lambda llamada `HelloFunction` ya implementada en su cuenta.
-- Configura este estado para invocar esa función. Encuentra el campo `Parámetros de la API` y haz clic en `Ingresar nombre de función`. Desplázate por la lista de menú hasta encontrar **HelloFunction:$LATEST**. Selecciona este valor.
+- Configura este estado para invocar esa función. Encuentra el campo `API Parameters` y haz clic en `Function name`. Desplázate por la lista de menú hasta encontrar **HelloFunction:$LATEST**. Selecciona este valor.
 
 ![Configuration](/static/img/module-6/configuration.png)
 
