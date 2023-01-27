@@ -21,7 +21,7 @@ Si eligiste un nombre diferente para tu máquina de estado, sigue las instruccio
 
 - Navega a la página de [CloudFormation](https://console.aws.amazon.com/cloudformation/home) en la consola de AWS.
 - Selecciona la pila con el nombre `SFW-Module-7` (o cualquier nombre que hayas elegido para la pila) y luego haz clic en **Eliminar**.
-  ![CloudFormation delete](/static/img/setup/setup-cloudformation-delete.png)
+  ![CloudFormation delete](/static/img/es/setup/setup-cloudformation-delete.png)
 - Asegúrate de que la eliminación de la pila se complete con éxito.
 
 ### Eliminar manualmente el grupo de registros de Amazon CloudWatch
