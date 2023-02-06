@@ -20,7 +20,7 @@ Se você escolheu nomes diferentes para sua máquina de estado, siga as instruç
 
 - Vá até a página do [CloudFormation](https://console.aws.amazon.com/cloudformation/home) no Console da AWS.
 - Selecione a pilha (stack) com o nome `SFW-Module-7` (ou qualquer outro nome que você tenha escolhido para a pilha) e então clique em **Delete**.
-  ![CloudFormation delete](/static/img/setup/setup-cloudformation-delete.png)
+  ![CloudFormation exclusão](/static/img/setup/setup-cloudformation-delete.png)
 - Certifique-se de que a exclusão da pilha (stack) seja concluída com êxito.
 
 ### Excluir manualmente o CloudWatch log group

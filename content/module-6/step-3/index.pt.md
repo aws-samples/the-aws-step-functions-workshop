@@ -19,12 +19,12 @@ weight: 83
 Um exemplo de Step Function mostrando input e output.
 ```
 
-6. Arraste e solte a ação **AWS Lambda Invoke** da seção `Actions` no lado esquerdo da tela, para onde diz `Drag first state here`.
+6. Arraste e solte a ação **AWS Lambda Invoke** da seção **Actions** no lado esquerdo da tela, para onde diz `Drag first state here`.
    ![Lambda Invoke](/static/img/module-6/lambda-invoke-state.png)
 
 7. Configure o estado: 
 
-- Na aba `Configuration` do designer, em **State name**, escreva o nome para esse estado: `Execute HelloFunction`.
+- Na aba **Configuration** do designer, em **State name**, escreva o nome para esse estado: `Execute HelloFunction`.
 - Você deve ter uma função Lambda chamada `HelloFunction` já provisionada na sua conta.
 - Configure esse estado para invocar a função Lambda. Ache o campo `API Parameters` e clique em `Enter function name`. Desça no menu até achar **HelloFunction:$LATEST**. Selecione esse valor. 
 
