@@ -1,6 +1,6 @@
 ---
 title: 'Resources'
-weight: 150
+weight: 157
 ---
 
 For more information on building applications with Step Functions check out a curated list of resources below.
