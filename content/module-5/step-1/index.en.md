@@ -3,6 +3,6 @@ title: 'Module Goals'
 weight: 71
 ---
 
-- Create a state machine using Map and Choice states
-- Learn Map and Choice state ASL syntax 
-- Execute the state machine and review the results
+- Learn how to use Choice states in Step Functions to build conditional logic within your workflows.
+- Learn how to use Map states in Step Functions to iterate over structured input data.
+- Learn how to take advantage of Map state concurrency settings to quickly process bigger datasets
