@@ -1,0 +1,465 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Request response
+
+  Sample SAM Template for selective chekpointing
+
+Resources:
+  ParentStateMachine:
+    Type: AWS::Serverless::StateMachine
+    Properties:
+      Definition:
+        Comment: An example of combining standard and express workflows to run a mock e-commerce workflow that does selective checkpointing.
+        StartAt: Approve Order Request
+        States:
+          Approve Order Request:
+            Type: Task
+            Resource: arn:aws:states:::sqs:sendMessage.waitForTaskToken
+            Parameters:
+              QueueUrl: "${sqsQueueUrl}"
+              MessageBody:
+                MessageTitle:
+                  "Order Request received. Pausing workflow to wait for manual
+                  approval. "
+                TaskToken.$: "$$.Task.Token"
+            Next: Notify Order Success
+            Catch:
+              - ErrorEquals:
+                  - States.ALL
+                Next: Notify Order Failure
+          Notify Order Success:
+            Type: Task
+            Resource: arn:aws:states:::sns:publish
+            Parameters:
+              Message: Order has been approved. Resuming workflow.
+              TopicArn: "${sendtoSNSArn}"
+            Next: Process Payment
+          Notify Order Failure:
+            Type: Task
+            Resource: arn:aws:states:::sns:publish
+            Parameters:
+              Message: Order not approved. Order failed.
+              TopicArn: "${sendtoSNSArn}"
+            End: true
+          Process Payment:
+            Type: Task
+            Resource: arn:aws:states:::sqs:sendMessage.waitForTaskToken
+            Parameters:
+              QueueUrl: "${sqsQueueUrl}"
+              MessageBody:
+                MessageTitle:
+                  Payment sent to third-party for processing. Pausing workflow
+                  to wait for response.
+                TaskToken.$: "$$.Task.Token"
+            Next: Notify Payment Success
+            Catch:
+              - ErrorEquals:
+                  - States.ALL
+                Next: Notify Payment Failure
+          Notify Payment Success:
+            Type: Task
+            Resource: arn:aws:states:::sns:publish
+            Parameters:
+              Message: Payment processing succeeded. Resuming workflow.
+              TopicArn: "${sendtoSNSArn}"
+            Next: Update Order History
+          Update Order History:
+            Type: Task
+            Resource: arn:aws:states:::lambda:invoke
+            OutputPath: "$.Payload"
+            Parameters:
+              FunctionName: "${UpdateDatabaseLambdaFunction}"
+              Payload:
+                Message: Update order history.
+            Retry:
+              - ErrorEquals:
+                  - Lambda.ServiceException
+                  - Lambda.AWSLambdaException
+                  - Lambda.SdkClientException
+                IntervalSeconds: 2
+                MaxAttempts: 6
+                BackoffRate: 2
+            Next: Update Data Warehouse
+          Update Data Warehouse:
+            Type: Task
+            Resource: arn:aws:states:::lambda:invoke
+            OutputPath: "$.Payload"
+            Parameters:
+              FunctionName: "${UpdateDatabaseLambdaFunction}"
+              Payload:
+                Message: Update data warehouse.
+            Retry:
+              - ErrorEquals:
+                  - Lambda.ServiceException
+                  - Lambda.AWSLambdaException
+                  - Lambda.SdkClientException
+                IntervalSeconds: 2
+                MaxAttempts: 6
+                BackoffRate: 2
+            Next: Update Customer Profile
+          Update Customer Profile:
+            Type: Task
+            Resource: arn:aws:states:::lambda:invoke
+            OutputPath: "$.Payload"
+            Parameters:
+              FunctionName: "${UpdateDatabaseLambdaFunction}"
+              Payload:
+                Message: Update customer profile.
+            Retry:
+              - ErrorEquals:
+                  - Lambda.ServiceException
+                  - Lambda.AWSLambdaException
+                  - Lambda.SdkClientException
+                IntervalSeconds: 2
+                MaxAttempts: 6
+                BackoffRate: 2
+            Next: Update Inventory
+          Update Inventory:
+            Type: Task
+            Resource: arn:aws:states:::lambda:invoke
+            OutputPath: "$.Payload"
+            Parameters:
+              FunctionName: "${UpdateDatabaseLambdaFunction}"
+              Payload:
+                Message: Update inventory.
+            Retry:
+              - ErrorEquals:
+                  - Lambda.ServiceException
+                  - Lambda.AWSLambdaException
+                  - Lambda.SdkClientException
+                IntervalSeconds: 2
+                MaxAttempts: 6
+                BackoffRate: 2
+            Next: Ship the Package
+          Notify Payment Failure:
+            Type: Task
+            Resource: arn:aws:states:::sns:publish
+            Parameters:
+              Message: Payment processing failed.
+              TopicArn: "${sendtoSNSArn}"
+            End: true
+          Ship the Package:
+            Type: Task
+            Resource: arn:aws:states:::sns:publish
+            Parameters:
+              Message:
+                Order and payment received, database is updated and the package is
+                ready to ship.
+              TopicArn: "${sendtoSNSArn}"
+            End: true
+      DefinitionSubstitutions:
+        sendtoSNSArn: !Ref SNSTopic
+        sqsQueueUrl: !Ref SQSQueue
+        UpdateDatabaseLambdaFunction: !Ref UpdateDatabaseLambdaFunction
+      Role: !GetAtt ParentStateMachineRole.Arn
+
+  ParentStateMachineRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: states.amazonaws.com
+            Action: "sts:AssumeRole"
+      Path: /
+      Policies:
+        - PolicyName: SNSPublishPolicy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "sns:Publish"
+                Resource: !Ref SNSTopic
+        - PolicyName: SQSSendMessagePolicy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "sqs:SendMessage"
+                Resource: !GetAtt [SQSQueue, Arn]
+        - PolicyName: StatesLambdaExecutionPolicy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "lambda:InvokeFunction"
+                Resource:
+                  - !GetAtt UpdateDatabaseLambdaFunction.Arn
+              - Effect: Allow
+                Action:
+                  - "events:PutTargets"
+                  - "events:PutRule"
+                  - "events:DescribeRule"
+                Resource: !Sub >-
+                  arn:${AWS::Partition}:events:${AWS::Region}:${AWS::AccountId}:rule/StepFunctionsGetEventsForStepFunctionsExecutionRule
+              - Effect: Allow
+                Action:
+                  - "states:StartExecution"
+                  - "states:DescribeExecution"
+                  - "states:StopExecution"
+                Resource: !GetAtt ChildStateMachine.Arn
+
+  ExpressLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      RetentionInDays: 7
+
+  ChildStateMachine:
+    Type: AWS::Serverless::StateMachine
+    Properties:
+      Type: "EXPRESS"
+      Logging:
+        Level: ALL
+        IncludeExecutionData: True
+        Destinations:
+          - CloudWatchLogsLogGroup:
+              LogGroupArn: !GetAtt ExpressLogGroup.Arn
+      Definition:
+        StartAt: Update Order History
+        States:
+          Update Order History:
+            Type: Task
+            Resource: arn:aws:states:::lambda:invoke
+            Parameters:
+              FunctionName: "${UpdateDatabaseLambdaFunction}"
+              Payload:
+                Message: Update order history.
+            Next: Update Data Warehouse
+          Update Data Warehouse:
+            Type: Task
+            Resource: arn:aws:states:::lambda:invoke
+            Parameters:
+              FunctionName: "${UpdateDatabaseLambdaFunction}"
+              Payload:
+                Message: Update data warehouse.
+            Next: Update Customer Profile
+          Update Customer Profile:
+            Type: Task
+            Resource: arn:aws:states:::lambda:invoke
+            Parameters:
+              FunctionName: "${UpdateDatabaseLambdaFunction}"
+              Payload:
+                Message: Update customer profile.
+            Next: Update Inventory
+          Update Inventory:
+            Type: Task
+            Resource: arn:aws:states:::lambda:invoke
+            Parameters:
+              FunctionName: "${UpdateDatabaseLambdaFunction}"
+              Payload:
+                Message: Update inventory.
+            End: true
+      DefinitionSubstitutions:
+        UpdateDatabaseLambdaFunction: !Ref UpdateDatabaseLambdaFunction
+      Role: !GetAtt ChildStateMachineRole.Arn
+
+  ChildStateMachineRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: states.amazonaws.com
+            Action: "sts:AssumeRole"
+      Path: /
+      Policies:
+        - PolicyName: ExpressStatesExecutionPolicy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "lambda:InvokeFunction"
+                Resource:
+                  - !GetAtt UpdateDatabaseLambdaFunction.Arn
+        - PolicyName: CloudWatchLogs
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "logs:CreateLogDelivery"
+                  - "logs:GetLogDelivery"
+                  - "logs:UpdateLogDelivery"
+                  - "logs:DeleteLogDelivery"
+                  - "logs:ListLogDeliveries"
+                  - "logs:PutResourcePolicy"
+                  - "logs:DescribeResourcePolicies"
+                  - "logs:DescribeLogGroups"
+                Resource:
+                  - "*"
+
+  SQSQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      DelaySeconds: 0
+      VisibilityTimeout: 30
+      RedrivePolicy:
+        deadLetterTargetArn: !GetAtt [SQSQueueDLQ, Arn]
+        maxReceiveCount: 1
+
+  SQSQueueDLQ:
+    Type: AWS::SQS::Queue
+    Properties:
+      DelaySeconds: 0
+      VisibilityTimeout: 30
+
+  SNSTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      DisplayName: "ShipPackageLambdaFunction"
+
+  UpdateDatabaseLambdaFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt UpdateDatabaseLambdaFunctionRole.Arn
+      InlineCode: |
+        exports.lambdaHandler = async(event, context, callback) => {
+
+          await new Promise(resolve => setTimeout(resolve, 300));
+            return { "statusCode": 200,
+            "body": {
+              "updated": true
+            }
+          }
+        }
+      Handler: index.lambdaHandler
+      Runtime: nodejs16.x
+      Timeout: 3
+
+  UpdateDatabaseLambdaFunctionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: "sts:AssumeRole"
+      Policies:
+        - PolicyName: CloudWatchLogsPolicy
+          PolicyDocument:
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "logs:CreateLogGroup"
+                  - "logs:CreateLogStream"
+                  - "logs:PutLogEvents"
+                Resource: !Sub "arn:${AWS::Partition}:logs:*:*:*"
+
+  ShipPackageLambdaFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt ShipLambdaExecutionRole.Arn
+      InlineCode: |
+        console.log('Loading function');
+        var AWS = require('aws-sdk');
+        var stepfunctions = new AWS.StepFunctions({ apiVersion: '2016-11-23' });
+
+        exports.lambdaHandler = async (event, context, callback) => {
+
+            await new Promise(resolve => setTimeout(resolve, Math.floor(Math.random() * 6000) + 1000));
+
+
+            for (const record of event.Records) {
+                const body = JSON.parse(record.body);
+
+                console.log('body', body)
+                const taskToken = body.TaskToken;
+
+                const params = {
+                    output: "\"Callback task completed successfully.\"",
+                    taskToken: taskToken
+                };
+                console.log(`Calling Step Functions to complete callback task with params ${JSON.stringify(params)}`);
+                try {
+                    let response = await stepfunctions.sendTaskSuccess(params).promise();
+                } catch (error) {
+                    let response = await stepfunctions.sendTaskFailure({ "taskToken": taskToken, "error": 500, "cause": error }).promise();
+                    return {
+                        'statusCode': 500,
+                        'body': {
+                            'updated': True
+                        }
+                    }
+                }
+            }
+            return {
+                'statusCode': 200,
+                'body': {
+                    'updated': True
+                }
+            }
+        }
+      Handler: index.lambdaHandler
+      Runtime: nodejs16.x
+      Timeout: 8
+      Events:
+        SQSEvent:
+          Type: SQS
+          Properties:
+            Queue: !GetAtt SQSQueue.Arn
+            BatchSize: 10
+            Enabled: true
+
+  ShipLambdaExecutionRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: "sts:AssumeRole"
+      Policies:
+        - PolicyName: SQSReceiveMessagePolicy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "sqs:ReceiveMessage"
+                  - "sqs:DeleteMessage"
+                  - "sqs:GetQueueAttributes"
+                  - "sqs:ChangeMessageVisibility"
+                Resource: !GetAtt SQSQueue.Arn
+        - PolicyName: CloudWatchLogsPolicy
+          PolicyDocument:
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "logs:CreateLogGroup"
+                  - "logs:CreateLogStream"
+                  - "logs:PutLogEvents"
+                Resource: !Sub "arn:${AWS::Partition}:logs:*:*:*"
+        - PolicyName: StatesExecutionPolicy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "states:SendTaskSuccess"
+                  - "states:SendTaskFailure"
+                Resource: "*"
+
+Outputs:
+  ParentStateMachineArn:
+    Value:
+      Ref: ParentStateMachine
+  ChildStateMachineArn:
+    Value:
+      Ref: ChildStateMachine
+  ExecutionInput:
+    Description: Sample input to StartExecution.
+    Value: |
+      {}

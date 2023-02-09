@@ -5,6 +5,7 @@ defaultLocaleCode: en-US
 localeCodes:
   - en-US
   - pt-BR
+  - es-US
   - fr-FR
 # END Locale
 

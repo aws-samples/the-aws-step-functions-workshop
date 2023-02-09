@@ -9,5 +9,5 @@ Siga as instruções nesta página se desejar limpar recursos em sua própria co
 
 - Navegue para [CloudFormation](https://console.aws.amazon.com/cloudformation/home) no Console AWS.
 - Selecione a pilha com o nome `SFW-Module-12` (ou qualquer nome que você tenha escolhido para a pilha) e clique em Excluir.
-  ![Supprimer la pile CloudFormation](/static/img/setup/setup-cloudformation-delete.png)
+  ![CloudFormation exclusão](/static/img/setup/setup-cloudformation-delete.png)
 - Certifique-se de que a exclusão da pilha seja concluída com sucesso.

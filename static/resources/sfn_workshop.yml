@@ -48,8 +48,12 @@ Resources:
     Type: 'AWS::CloudFormation::Stack'
     Properties:
       TemplateURL: https://serverless-stepfunctions-artifacts-17oiei2i27urc.s3.amazonaws.com/resources/module_12.yml
-
+  SFWModule13:
+    Type: 'AWS::CloudFormation::Stack'
+    Properties:
+      TemplateURL: https://serverless-stepfunctions-artifacts-17oiei2i27urc.s3.amazonaws.com/resources/module_13.yml
   SFWModule14:
     Type: 'AWS::CloudFormation::Stack'
     Properties:
       TemplateURL: https://serverless-stepfunctions-artifacts-17oiei2i27urc.s3.amazonaws.com/resources/module_14.yml
+
