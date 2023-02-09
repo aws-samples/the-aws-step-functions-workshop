@@ -358,100 +358,101 @@ Resources:
   NOAAWeatherStateMachine:
     Type: AWS::StepFunctions::StateMachine
     Properties:
-      Name: NOAAWeatherStateMachine
-      DefinitionString: !Sub |
-        {
-          "Comment": "Distributed map to find temperature stats by month",
-          "StartAt": "DistributedMap",
-          "States": {
-            "DistributedMap": {
-              "Type": "Map",
-              "ItemReader": {
-                "Resource": "arn:aws:states:::s3:listObjectsV2",
-                "Parameters": {
-                  "Bucket": "${InputBucket}"
-                }
-              },
-              "ItemProcessor": {
-                "ProcessorConfig": {
-                  "Mode": "DISTRIBUTED",
-                  "ExecutionType": "EXPRESS"
-                },
-                "States": {
-                  "Lambda Invoke": {
-                    "Type": "Task",
-                    "Resource": "arn:aws:states:::lambda:invoke",
-                    "OutputPath": "$.Payload",
-                    "Parameters": {
-                      "Payload.$": "$",
-                      "FunctionName": "${DistributedMapTestFunctionName}"
-                    },
-                    "Retry": [
-                      {
-                        "ErrorEquals": [
-                          "Lambda.TooManyRequestsException",
-                          "Lambda.ServiceException",
-                          "Lambda.AWSLambdaException",
-                          "Lambda.SdkClientException"
-                        ],
-                        "IntervalSeconds": 2,
-                        "MaxAttempts": 6,
-                        "BackoffRate": 2
-                      }
-                    ],
-                    "End": true
+      DefinitionString: !Sub 
+        - |-
+          {
+            "Comment": "Distributed map to find temperature stats by month",
+            "StartAt": "DistributedMap",
+            "States": {
+              "DistributedMap": {
+                "Type": "Map",
+                "ItemReader": {
+                  "Resource": "arn:aws:states:::s3:listObjectsV2",
+                  "Parameters": {
+                    "Bucket": "${InputBucket}"
                   }
                 },
-                "StartAt": "Lambda Invoke"
+                "ItemProcessor": {
+                  "ProcessorConfig": {
+                    "Mode": "DISTRIBUTED",
+                    "ExecutionType": "EXPRESS"
+                  },
+                  "States": {
+                    "Lambda Invoke": {
+                      "Type": "Task",
+                      "Resource": "arn:aws:states:::lambda:invoke",
+                      "OutputPath": "$.Payload",
+                      "Parameters": {
+                        "Payload.$": "$",
+                        "FunctionName": "${DistributedMapTestFunctionName}"
+                      },
+                      "Retry": [
+                        {
+                          "ErrorEquals": [
+                            "Lambda.TooManyRequestsException",
+                            "Lambda.ServiceException",
+                            "Lambda.AWSLambdaException",
+                            "Lambda.SdkClientException"
+                          ],
+                          "IntervalSeconds": 2,
+                          "MaxAttempts": 6,
+                          "BackoffRate": 2
+                        }
+                      ],
+                      "End": true
+                    }
+                  },
+                  "StartAt": "Lambda Invoke"
+                },
+                "Label": "DistributedMap",
+                "MaxConcurrency": 3000,
+                "ToleratedFailurePercentage": 5,
+                "ResultWriter": {
+                  "Resource": "arn:aws:states:::s3:putObject",
+                  "Parameters": {
+                    "Bucket": "${ResultsBucket}",
+                    "Prefix": "results"
+                  }
+                },
+                "ItemBatcher": {
+                  "BatchInput": {},
+                  "MaxItemsPerBatch": 500
+                },
+                "Next": "Reducer"
               },
-              "Label": "DistributedMap",
-              "MaxConcurrency": 3000,
-              "ToleratedFailurePercentage": 5,
-              "ResultWriter": {
-                "Resource": "arn:aws:states:::s3:putObject",
+              "Reducer": {
+                "Type": "Task",
+                "Resource": "arn:aws:states:::lambda:invoke",
+                "OutputPath": "$.Payload",
                 "Parameters": {
-                  "Bucket": "${ResultsBucket}",
-                  "Prefix": "results"
-                }
-              },
-              "ItemBatcher": {
-                "BatchInput": {},
-                "MaxItemsPerBatch": 500
-              },
-              "Next": "Reducer"
-            },
-            "Reducer": {
-              "Type": "Task",
-              "Resource": "arn:aws:states:::lambda:invoke",
-              "OutputPath": "$.Payload",
-              "Parameters": {
-                "Payload.$": "$",
-                "FunctionName": "${ReducerFunctionName}"
-              },
-              "Retry": [
-                {
-                  "ErrorEquals": [
-                    "Lambda.TooManyRequestsException",
-                    "Lambda.ServiceException",
-                    "Lambda.AWSLambdaException",
-                    "Lambda.SdkClientException"
-                  ],
-                  "IntervalSeconds": 2,
-                  "MaxAttempts": 6,
-                  "BackoffRate": 2
-                }
-              ],
-              "End": true
+                  "Payload.$": "$",
+                  "FunctionName": "${ReducerFunctionName}"
+                },
+                "Retry": [
+                  {
+                    "ErrorEquals": [
+                      "Lambda.TooManyRequestsException",
+                      "Lambda.ServiceException",
+                      "Lambda.AWSLambdaException",
+                      "Lambda.SdkClientException"
+                    ],
+                    "IntervalSeconds": 2,
+                    "MaxAttempts": 6,
+                    "BackoffRate": 2
+                  }
+                ],
+                "End": true
+              }
             }
           }
-        }
-      DefinitionSubstitutions:
-        DistributedMapTestFunctionName: !Ref TemperaturesFunction
-        ReducerFunctionName: !GetAtt ReducerFunction.Arn
-        InputBucket: !Ref DistributedMapWorkshopDataset
-        ResultsBucket: !Ref ResultsBucket
-      Role: !GetAtt TemperatureStateMachineRole.Arn
-      Logging:
+        - {
+            DistributedMapTestFunctionName: !Ref TemperaturesFunction,
+            ReducerFunctionName: !Ref ReducerFunction,
+            InputBucket: !Ref DistributedMapWorkshopDataset,
+            ResultsBucket: !Ref ResultsBucket
+          }
+      RoleArn: !GetAtt TemperatureStateMachineRole.Arn
+      LoggingConfiguration:
         Destinations:
           - CloudWatchLogsLogGroup:
               LogGroupArn: !GetAtt NOAAWeatherLogGroup.Arn
@@ -583,11 +584,10 @@ Resources:
             await send(event, context, responseStatus, responseData);
             return;
           };
-      CodeUri: ./src
       Runtime: nodejs18.x
       MemorySize: 1024
       Timeout: 180
-      Handler: app.handler
+      Handler: index.handler
       Environment:
         Variables:
           BUCKET_NAME: !Ref DistributedMapWorkshopDataset
