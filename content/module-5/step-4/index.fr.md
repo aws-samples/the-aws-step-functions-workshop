@@ -7,15 +7,9 @@ weight: 74
 
 Accédez aux services ci-dessous dans la console AWS pour vous familiariser avec les ressources. Assurez-vous d'être dans la bonne région. Copiez l'ARN de la rubrique SNS (Amazon Resource Name) dans un bloc-notes. Vous aurez besoin de cette valeur plus tard dans le module.
 
-- [AWS Lambda](https://console.aws.amazon.com/lambda/home) - trouvez **MapStateReadFromSQSQueueLambda** et **MapStateDeleteFromSQSQueueLambda**
-
-- [Amazon SQS](https://console.aws.amazon.com/sqs/v2/home) - trouvez **MapStateQueueforMessages**
-
 - [Amazon DynamoDB](https://console.aws.amazon.com/dynamodbv2/home) - trouvez **MapStateTable**
 
-- [Amazon SNS](https://console.aws.amazon.com/sns/v3/home) - trouvez **MapStateTopicforMessages** *(copiez l'ARN de la rubrique)*
-
-### Configurez votre machine à états
+### Afficher votre machine à état
 
 1. Accédez à [Step Functions](https://console.aws.amazon.com/states/home) dans la console AWS.
 
@@ -23,129 +17,22 @@ Accédez aux services ci-dessous dans la console AWS pour vous familiariser avec
 
 ![Modifier la machine à états](/static/img-fr/module-5/map-state-definition-edit.png)
 
-3. Copiez la définition ASL ci-dessous en cliquant sur l'icône carrée dans le coin supérieur droit de l'exemple de code ci-dessous. Remplacez la définition dans votre machine à états par ce code. La définition ci-dessous contient un total de 4 valeurs **BLANK** dans les champs d'état `Map` et `Choice`. Lisez la documentation pour savoir comment mettre à jour ces valeurs **BLANK** avec la syntaxe et les paramètres d'état corrects. (Les conseils pour reussir sont ci-dessous.)
+3. Ouvrez **MapStateStateMachine** dans Workflow Studio en cliquant sur le bouton Workflow Studio sur le côté droit de l'écran.
+![EDIT](/static/img/module-5/workflow-studio-button.png)
 
-   - En savoir plus sur la syntaxe d'état [Map](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-map-state.html).
+![EDIT](/static/img-fr/module-5/module5-workflowstudio.png)
 
-   - En savoir plus sur les [objets contextuels de l'état Map](https://docs.aws.amazon.com/step-functions/latest/dg/input-output-contextobject.html#contextobject-map)
-
-   - En savoir plus sur la syntaxe d'état [Choice](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-choice-state.html).
-
-```bash
-{
-  "Comment": "An example of the Amazon States Language for reading messages from an SQS queue and iteratively processing each message.",
-  "StartAt": "Read messages from SQS queue",
-  "States": {
-    "Read messages from SQS queue": {
-      "Type": "Task",
-      "Resource": "arn:aws:states:::lambda:invoke",
-      "OutputPath": "$.Payload",
-      "Parameters": {
-        "FunctionName": "MapStateReadFromSQSQueueLambda"
-      },
-      "Next": "Are there messages to process?"
-    },
-    "Are there messages to process?": {
-      "Type": "Choice",
-      "Choices": [
-        {
-          "Variable": "**BLANK**",
-          "StringEquals": "No messages",
-          "Next": "**BLANK**"
-        }
-      ],
-      "Default": "Process Messages"
-    },
-    "Process Messages": {
-      "Type": "Map",
-      "Next": "Finish",
-      "ItemsPath": "$",
-      "Parameters": {
-        "MessageNumber.$": "$$.**BLANK**",
-        "MessageDetails.$": "$$.**BLANK**"
-      },
-      "Iterator": {
-        "StartAt": "Write message to DynamoDB",
-        "States": {
-          "Write message to DynamoDB": {
-            "Type": "Task",
-            "Resource": "arn:aws:states:::dynamodb:putItem",
-            "ResultPath": null,
-            "Parameters": {
-              "TableName": "MapStateTable",
-              "ReturnConsumedCapacity": "TOTAL",
-              "Item": {
-                "MessageId": {
-                  "S.$": "$.MessageDetails.MessageId"
-                },
-                "Body": {
-                  "S.$": "$.MessageDetails.Body"
-                }
-              }
-            },
-            "Next": "Remove message from SQS queue"
-          },
-          "Remove message from SQS queue": {
-            "Type": "Task",
-            "Resource": "arn:aws:states:::lambda:invoke",
-            "InputPath": "$.MessageDetails",
-            "ResultPath": null,
-            "Parameters": {
-              "FunctionName": "MapStateDeleteFromSQSQueueLambda",
-              "Payload": {
-                "ReceiptHandle.$": "$.ReceiptHandle"
-              }
-            },
-            "Next": "Publish message to SNS topic"
-          },
-          "Publish message to SNS topic": {
-            "Type": "Task",
-            "Resource": "arn:aws:states:::sns:publish",
-            "InputPath": "$.MessageDetails",
-            "Parameters": {
-              "Subject": "Message from Step Functions!",
-              "Message.$": "$.Body",
-              "TopicArn": "arn:aws:sns:us-east-1:1234567890:MapStateTopicforMessages"
-            },
-            "End": true
-          }
-        }
-      }
-    },
-    "Finish": {
-      "Type": "Succeed"
-    }
-  }
-}
-```
-
-**Conseils**
-
-- Copiez/collez ce code pour remplacer la syntaxe d'état `Choice` :
-
-```bash
-"Type": "Choice",
-"Choices": [
-  {
-    "Variable": "$",
-    "StringEquals": "No messages",
-    "Next": "Finish"
-  }
-```
-
-- Copiez/collez ce code pour remplacer la syntaxe d'état `Map` :
-
-```bash
-"Type": "Map",
-"Next": "Finish",
-"ItemsPath": "$",
-      "Parameters": {
-        "MessageNumber.$": "$$.Map.Item.Index",
-        "MessageDetails.$": "$$.Map.Item.Value"
-},
-```
-
-5. Les définitions ASL peuvent contenir des paramètres de ressource. Mettez à jour le `TopicArn` avec la valeur correcte, copiée précédement dans votre bloc-notes.
-
-6. Cliquez sur `Enregistrer` (enregistrez même en cas d'avertissement)
-   ![Bouton enregistrer](/static/img-fr/module-5/map-state-definition.png)
+4. Cliquez sur l'état `Map` "Iterate Over Input Array" et notez les détails de la configuration.
+   1. **Mode de traitement : Inline** - Il s'agit du mode de traitement des entrées et des sources de données relativement plus petites. Si vous souhaitez en savoir plus sur la façon de traiter des ensembles de données plus volumineux tels que ceux venant de S3, consultez le module `Map distribuée` plus tard dans l'atelier !
+   2. **Source de l'élément - Fournir un chemin d'accès au tableau d'éléments** - Ce paramètre est utilisé pour pointer l'état `Map` vers le tableau spécifique dans l'entrée JSON.
+   3. **Nombre maximal de simultanéités** - Ce paramètre est utilisé pour définir le nombre d'éléments que nous voulons traiter en parallèle. La valeur par défaut est 0, ce qui signifie que nous traiterons les données de manière séquentielle, un élément à la fois. Nous explorerons ce paramètre dans le module.
+   :::expand{header="Capture d'écran de la configuration de l'état `Map` (Cliquez pour agrandir)" defaultExpanded=false}
+   ![Configuration de l'état Map](/static/img-fr/module-5/map-state-configuration.png)
+   ::::
+1. Sélectionnez l'état `Map` "Priority Filter" et affichez les `Choice Rules` que nous avons définies dans la machine à état.
+   1. **Rule #1** : $.priority == "LOW". Dans chaque élément du tableau, nous vérifierons la priorité et Step Functions enverra l'élément vers l'état défini pour cette règle. Dans ce cas, les éléments de priorité "LOW" sont envoyé vers un état de success "Low Priority Order Detected", ils ne sont pas écrits dans la table DynamoDB.
+   2. **Rule #2** : $.priority == "HIGH". Dans ce cas, les éléments de priorité "HIGH" sont envoyé à "Insert High Priority Order" et sont écrits dans la table DynamoDB.
+   3. Lorsque vous travaillez avec des états `Choice` dans vos propres machines à état, utilisez Workshop Studio et le bouton "Ajouter une nouvelle règle de choix" pour créer rapidement la logique dont vous avez besoin pour acheminer vos données.
+  ::::expand{header="Capture d'écran de configuration de l'état de choix (Cliquez pour agrandir)" defaultExpanded=false}
+  ![Configuration de l'état de choix](/static/img-fr/module-5/choice-state-configuration.png)
+  ::::

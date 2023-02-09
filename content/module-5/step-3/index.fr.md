@@ -5,17 +5,11 @@ weight: 73
 
 Ce module illustre le parallélisme dynamique à l'aide des états Map et Choice. Ce module contient les ressources suivantes :
 
-- Deux fonctions AWS Lambda
-
-- Une file d'attente Amazon Simple Queue Service (Amazon SQS)
-
-- Une rubrique Amazon Simple Notification Service (Amazon SNS)
-
 - Une table Amazon DynamoDB
 
 - Une machine à états AWS Step Functions
 
-Dans ce module, Step Functions appelle une fonction AWS Lambda qui récupère les messages d'une file d'attente Amazon SQS. La fonction Lambda renvoie ensuite un tableau JSON de ces messages à un état Map. L'état Map parcourt chaque message du tableau en créant dynamiquement des branches de workflows distinctes. Chaque branche de workflow écrit un message dans DynamoDB, puis appelle une deuxième fonction Lambda pour supprimer le message d'Amazon SQS. Enfin, la branche publie le message dans la rubrique Amazon SNS.
+Dans ce module, vous allez transmettre un tableau JSON de commandes à traiter par votre machine à état. Un état `Map` est utilisé pour itérer sur le tableau d'entrée, similaire à une boucle dans les langages de programmation. À chaque itération, l'état `Map` crée dynamiquement des branches de workflow distinctes. Un état `Choice` est utilisé pour déterminer quelle action entreprendre pour cet élément dans le tableau JSON, similaire à une instruction `if` dans les langages de programmation. Si le champ `priority` de l'élément actuel a une valeur "HIGH", Step Functions écrit les détails dans DynamoDB. Si le champ `priority` de l'élément actuel est "LOW", aucune action n'est entreprise.
 
 ![Workflow visuel](/static/img/module-5/visual-workflow.png)
 

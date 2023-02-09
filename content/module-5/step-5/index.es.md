@@ -1,59 +1,60 @@
 ---
-title: 'Ejecuta la máquina de estado y revisa los resultados'
+title: 'Ejecuta la máquina de estados y revisa los resultados'
 weight: 75
 ---
 
-1. **Suscríbase al tema de Amazon SNS (opcional)**
-
- - Abra la [consola de Amazon SNS](https://console.aws.amazon.com/sns/home).
-
- - Haz clic para ver los temas 
- 
- - Haz clic en el tema **MapStateTopicForMessages**
-
- - En Suscripciones, selecciona Crear suscripción.
-
- - Verás la página Crear suscripción, en la que se muestra el ARN del tema.
-
- - En Protocolo, selecciona Correo electrónico.
-
- - En Punto de enlace, introduce tu dirección de correo electrónico.
-
- - Selecciona Crear suscripción.
-
- - Abre la confirmación de suscripción enviada a tu dirección de correo electrónico y haz clic en el enlace `Confirm subscription`.
-
-:::alert{header="Note" type="warning"}
-Debe confirmarlo haciendo clic en el enlace enviado por correo electrónico para que la suscripción esté activa.
-:::
-
-![SNS](/static/img/module-5/sns-subscription.png)
-
-2. **Añadir mensajes a la cola de Amazon SQS**
-
- - Abra la [consola de Amazon SQS](https://console.aws.amazon.com/sqs/home).
-
- - Haz clic en la cola **MapStateQueueForMessages**.
-
- - Haz clic en el botón **Enviar y recibir mensajes**.
-
- - En la ventana Enviar mensaje, introduce un mensaje y pulse **Enviar mensaje**.
-
- - Sigue enviando mensajes hasta que tengas muchos en la cola.
-
-:::alert{header="Note type="info"}
-Con solo unos pocos elementos en la cola, la acción SQS ReceiveMessage a veces puede devolver solo un mensaje. Para aumentar tus posibilidades de recuperar y procesar varios mensajes, añade más mensajes a la cola. 
-:::
-
-![SQS](/static/img/module-5/sqs-send-message.png)
-
-3. Regrese a [Step Functions](https://console.aws.amazon.com/states/home). Haz clic en **MapStateMachine** y **Start execution**. Copia y pega el JSON de abajo como carga de entrada.
+1. En la consola de [Step Functions](https://console.aws.amazon.com/states/home) , navega a **MapStateMachine** y da clic en **Start execution**. Tendrás que reemplazar el payload de ejecución por default. Expande `Payload de Ejecución`, copia y pega el JSON como tu payload de ejecución.
+   ::::expand{header="Payload de Ejecución (Clic para expander)" defaultExpanded=false}
    :::code{showCopyAction=true showLineNumbers=false language=json}
-   { "Comment": "Testing Map & Choice states" }
+   {
+      "Data": [
+         {
+         "orderId": "1",
+         "customerId": "1",
+         "priority": "HIGH"
+         },
+         {
+         "orderId": "2",
+         "customerId": "2",
+         "priority": "HIGH"
+         },
+         {
+         "orderId": "3",
+         "customerId": "3",
+         "priority": "HIGH"
+         },
+         {
+         "orderId": "4",
+         "customerId": "4",
+         "priority": "LOW"
+         },
+         {
+         "orderId": "5",
+         "customerId": "5",
+         "priority": "HIGH"
+         },
+         {
+         "orderId": "6",
+         "customerId": "6",
+         "priority": "LOW"
+         },
+         {
+         "orderId": "7",
+         "customerId": "7",
+         "priority": "HIGH"
+         }
+      ]
+   }
    :::
+   ::::
 
-4. Cuando se complete una ejecución, selecciona algunos de los estados del **Graph View** y consulte sus valores **Input** y **Output**. Si creaste una suscripción por correo electrónico, deberías recibir mensajes de correo electrónico. También puedes consultar la tabla [DynamoDB](https://console.aws.amazon.com/dynamodbv2/home) para ver si los elementos se han insertado correctamente en **MapStateTable**.
+2. La ejecución debe terminar después de unos segundos. Cuando la ejecución haya terminado, dirigete hacia las iteraciones del estado Map  en la **Table View**.
+   1. Clic en el símbolo + de color gris para expander las iteraciones del estado Map.
+   2. Expander las iteraciones #0 a la #2, #4, y #6 del estado Map muestra la máquina de estados seguida del path para elementos de prioridad `HIGH`, insertando los detalles de la orden en DynamoDB para aquellos elementos que se encuentran en el arreglo de entrada.
+   3. Expander las iteraciones de #3 y #5 del estado Map muestra que la máquina de estados seguida por el path para elementos de prioridad `LOW`, que es un estado Success, detecta que los elementos son elementos de prioridad `LOW`. 
+   4. La concurrencia máxima para el estado Map es de 1 iteración a la vez, lo que significa que procesaremos el arreglo de manera secuencia.. Justo después de que la primera iteración del mapa termine, la segunda comenzará, y así sucesivamente. Puedes revisar los detalles de la itración, duración y timestamps en las columnas Duration, Timeline, y Started After. En esta ejecución puedes ver como cada iteración del estado Map inició justo después de que la anterior termina. En el siguiente paso, demostraremos como actualizar tu máquina de estados para correr múltiples iteraciones de forma paralela. 
+   5. También puedes revisar la tabla de [DynamoDB](https://console.aws.amazon.com/dynamodbv2/home) para ver si los items fueron puestos exitosamente dentro de la tabla **MapStateTable**.
 
-![DDB](/static/img/module-5/ddb-map-state.png)
+![Vista de la tabla con 1 rama](/static/img/module-5/table-view-1-branch.png)
 
-::alert[**¡Enhorabuena!** Has ejecutado una máquina de estado utilizando los estados Map y Choice.]{type="success"}
+::alert[**Felicidades!** Aprendiste como usar estados Map y Choice en una máquina de estados]{type="success"}
