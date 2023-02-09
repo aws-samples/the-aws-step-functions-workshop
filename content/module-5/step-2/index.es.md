@@ -1,6 +1,6 @@
 ---
 title: 'Configuración'
-weight: 62
+weight: 72
 ---
 
 :::alert{header="Importante" type="warning"}
