@@ -3,53 +3,58 @@ title: "Exécuter la machine à états et examiner les résultats"
 weight: 75
 ---
 
-1. **S'abonner à la rubrique Amazon SNS (facultatif)**
-
-   - Ouvrez la [console Amazon SNS](https://console.aws.amazon.com/sns/home).
-
-   - Cliquez pour voir les rubriques
-
-   - Cliquez sur le sujet **MapStateTopicforMessages**
-
-   - Sous `Abonnements`, choisissez **Créer un abonnement**.
-
-   - La page `Créer un abonnement` s'affiche, répertoriant l'ARN de rubrique pour la rubrique.
-
-   - Sous `Protocole`, choisissez **Adresse de messagerie**.
-
-   - Sous `Endpoint`, saisissez votre adresse e-mail.
-
-   - Choisissez **Créer un abonnement**.
-
-   - Ouvrez la confirmation d'abonnement envoyée à votre adresse e-mail et cliquez sur le lien **Confirmer l'abonnement**.
-
-:::alert{header="Note" type="warning"}
-Vous devez confirmer l'abonnement en cliquant sur le lien envoyé par e-mail avant que l'abonnement ne soit actif.
-:::
-
-![SNS](/static/img-fr/module-5/sns-subscription.png)
-
-2. **Ajouter des messages à la file d'attente Amazon SQS**
-
-   - Ouvrez la [console Amazon SQS](https://console.aws.amazon.com/sqs/home).
-
-   - Cliquez sur la file d'attente `MapStateQueueforMessages`.
-
-   - Cliquez sur le bouton **Envoyer et recevoir des messages**.
-
-   - Dans la fenêtre `Envoyer un message`, saisissez un message et cliquez sur **Envoyer un message**.
-
-   - Continuez à envoyer des messages jusqu'à ce que vous en ayez plusieurs dans la file d'attente.
-
-![SQS](/static/img-fr/module-5/sqs-send-message.png)
-
-3. Revenir à [Step Functions](https://console.aws.amazon.com/states/home). Cliquez sur **MapStateMachine**, puis **Démarrer l'exécution**. Copiez/collez le JSON ci-dessous comme valeur d'entrée.
+1. Dans la console [Step Functions](https://console.aws.amazon.com/states/home), accédez à **MapStateMachine** et cliquez sur **Démarrer une exécution**. Vous devrez remplacer la charge utile d'exécution par défaut. Agrandissez `Entrée d'exécution` ci-dessous, puis copiez/collez le JSON comme entrée d'exécution.
+   ::::expand{header="Entrée d'exécution (Cliquez pour agrandir)" defaultExpanded=false}
    :::code{showCopyAction=true showLineNumbers=false language=json}
-   { "Comment": "Tester les états Map et Choice" }
-   :::
+   {
+      "Data": [
+         {
+         "orderId": "1",
+         "customerId": "1",
+         "priority": "HIGH"
+         },
+         {
+         "orderId": "2",
+         "customerId": "2",
+         "priority": "HIGH"
+         },
+         {
+         "orderId": "3",
+         "customerId": "3",
+         "priority": "HIGH"
+         },
+         {
+         "orderId": "4",
+         "customerId": "4",
+         "priority": "LOW"
+         },
+         {
+         "orderId": "5",
+         "customerId": "5",
+         "priority": "HIGH"
+         },
+         {
+         "orderId": "6",
+         "customerId": "6",
+         "priority": "LOW"
+         },
+         {
+         "orderId": "7",
+         "customerId": "7",
+         "priority": "HIGH"
+         }
+      ]
+   }
+   ::::
 
-4. Lorsqu'une exécution est terminée, sélectionnez certains états dans `Affichage du graphique` et affichez leurs valeurs **Entrée** et **Sortie**. Si vous avez créé un abonnement par e-mail, vous devriez recevoir des e-mails. Vous pouvez également vérifier la table [DynamoDB](https://console.aws.amazon.com/dynamodbv2/home) pour voir si les éléments ont été insérés avec succès dans `MapStateTable`.
 
-![DDB](/static/img-fr/module-5/ddb-map-state.png)
+2. L'exécution devrait se terminer en quelques secondes. Une fois l'exécution terminée, parcourez les itérations de l'état `Map` dans la **Vue Table**.
+   1. Cliquez sur le symbole gris `+` pour développer les itérations de l'état `Map`.
+   2. Ouvrir les itérations #0 à #2, #4 et #6 de l'état `Map` montre que la machine à état a suivi le chemin des éléments de priorité "HIGH", en insérant les détails de la commande pour ces éléments dans le tableau d'entrée dans DynamoDB.
+   3. Ouvrir les itérations #3 et #5 de l'état `Map` montre que la machine à état a suivi la logique pour les éléments de priorité "LOW", qui est un état `Success`, détectant que l'élément était un élément de priorité "LOW".
+   4. La simultanéité maximale par défaut pour l'état Map est d'une itération à la fois, ce qui signifie que nous traitons le tableau de manière séquentielle. Juste après la fin de la première itération de l'état Map, la seconde commence, et ainsi de suite. Vous pouvez voir les détails des durées et des horodatages des itérations dans les colonnes "Durée", "Chronologie" et "Demarré après". Dans cette exécution, vous verrez comment chaque itération de l'état `Map` a commencé après la fin de la précédente. Dans l'étape suivante, nous montrerons comment mettre à jour votre machine à état pour exécuter plusieurs itérations en parallèle.
+   5. Vous pouvez également vérifier la table [DynamoDB](https://console.aws.amazon.com/dynamodbv2/home) pour voir si les éléments ont été placés avec succès dans **MapStateTable**.
 
-::alert[**Félicitations !** Vous avez exécuté une machine à états en utilisant les états Map et Choice.]{type="success"}
+![Table View avec 1 branche](/static/img-fr/module-5/table-view-1-branch.png)
+
+::alert[**Félicitations !** Vous avez appris à utiliser les états Map et Choice dans une machine à états !]{type="success"}

@@ -57,9 +57,8 @@ Resources:
       Code:
         ZipFile: |
           # -----------------------------------------------------------
-          #    MIT No Attribution
-          #
-          #    Copyright 2022 Amazon Web Services
+          #    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+          #    SPDX-License-Identifier: MIT-0
           #
           #    Permission is hereby granted, free of charge, to any person obtaining a copy of this
           #    software and associated documentation files (the "Software"), to deal in the Software
@@ -93,9 +92,8 @@ Resources:
       Code:
         ZipFile: |
           # -----------------------------------------------------------
-          #    MIT No Attribution
-          #
-          #    Copyright 2022 Amazon Web Services
+          #    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+          #    SPDX-License-Identifier: MIT-0
           #
           #    Permission is hereby granted, free of charge, to any person obtaining a copy of this
           #    software and associated documentation files (the "Software"), to deal in the Software
@@ -129,9 +127,8 @@ Resources:
       Code:
         ZipFile: |
           # -----------------------------------------------------------
-          #    MIT No Attribution
-          #
-          #    Copyright 2022 Amazon Web Services
+          #    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+          #    SPDX-License-Identifier: MIT-0
           #
           #    Permission is hereby granted, free of charge, to any person obtaining a copy of this
           #    software and associated documentation files (the "Software"), to deal in the Software
