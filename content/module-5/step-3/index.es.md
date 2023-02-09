@@ -3,19 +3,13 @@ title: 'Descripción general de la arquitectura'
 weight: 73
 ---
 
-Este módulo demuestra el paralelismo dinámico mediante los estados Map y Choice. Contiene los siguientes recursos:
-
-- Dos funciones de AWS Lambda
-
-- Una cola de Amazon Simple Queue Service (Amazon SQS)
-
-- Un tema de Amazon Simple Notification Service (Amazon SNS)
+Este módulo demuestra el paralelismo dinámico usando estados Map y Choice. Contiene los siguientes recursos:
 
 - Una tabla de Amazon DynamoDB
 
-- Una máquina de estado en AWS Step Functions
+- Una máquina de estados AWS Step Functions
 
-En este módulo, Step Functions invoca una función de AWS Lambda que recupera los mensajes de una cola de Amazon SQS. Un estado `Choice` determina la ruta de ejecución de la máquina de estado. Si hay mensajes que procesar, el estado `Choice` pasa una matriz JSON de esos mensajes a un estado `Map`. El estado `Map` recorre cada mensaje de la matriz de forma dinámica y crea ramas de flujo de trabajo independientes. Cada rama del flujo de trabajo escribe un mensaje en DynamoDB y, a continuación, invoca una segunda función de Lambda para eliminar el mensaje de Amazon SQS. Por último, la rama publica el mensaje en el tema Amazon SNS.
+Es este módulo, pasarás un arreglo JSON de órdenes a ser procesadas por tu máquina de estados. Un estado tipo Map es usado para iterar sobre el arreglo de entrada, similiar a un loop en los lenguajes de programación. En cada iteración, el estado tipo Map dinámicamente crea ramas separadas de flujos de trabajo. Un estado tipo choice es usado para determinar que acción tomar para cada elemento del arreglo JSON, similar a una declaración if en los lenguajes de programación. Si el campo `priority` de los elementos actuales tienen un valor `"HIGH"`, Step Funcitons escribe el detalle de la orden dentro de DynamoDB. Si el campo `priority` del elemento actual es `"LOW"`, ninguna acción será realizada. 
 
 ![Visual Workflow](/static/img/module-5/visual-workflow.png)
 
