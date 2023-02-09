@@ -1,11 +1,7 @@
-# Aws-workshop-template
-
-## Powerpoint template
-
-The images in the Introduction section were created from a Powerpoint at [this workdocs location](https://amazon.awsapps.com/workdocs/index.html#/document/8d80b53c20323c14316a722c047e8ae03136295b87f19d6839498a04568d5066).
+Welcome to the source code repository for [The AWS Step Functions Workshop](https://catalog.workshops.aws/stepfunctions/en-US)!
 
 
-## Repo structure
+## Repository structure
 
 ```bash
 .
@@ -35,22 +31,17 @@ Under the `content` folder, Each folder requires at least one `index.<lang>.md` 
 
 ```aidl
 +++
-title = "AWS Workshop Template"
+title = "Welcome to The AWS Step Functions Workshop!"
 weight = 0
 +++
 ```
 
 The title will be the title on navigation panel on the left. The weight determines the order the page appears in the navigation panel.
 
-## Development and Deployment Instructions
-
-All active development for this workshop should be performed in the GitLab repository. Once a development activity is complete the mainline branch in GitLab  will be merged into the mainline branch at Workshop Studio.
-
-For more detail, [read this Quip document](https://quip-amazon.com/F8Z8AlqRYDFB/Developing-and-deploying-The-AWS-Step-Functions-Workshop).
-
 ## Local development
 
-The local development preview utility allows you to view changes to your content without having to push changes to the repository. You run the utility on your computer to perform local builds. When you update content, the webpages will automatically reload so you can view your changes. This makes content authoring and editing easier and faster. This project contains the *preview_build* utility for MacOs in the root directory.
+The root directory of this project contains the *preview_build* utility for MacOs and the *preview_build.exe* utility for Windows. This utility allows you to perform local development by viewing the workshop in a local web server. You run the utility on your computer to perform local builds. When you update content, the webpages will automatically reload so you can view your changes. This makes content authoring and editing easier and faster. 
 
-[Learn more about local development](https://catalog.workshops.aws/docs/en-US/create-a-workshop/authoring-a-workshop/local-development).
+
+
 
