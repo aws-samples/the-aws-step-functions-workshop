@@ -16,16 +16,20 @@ We've provided data processing code in the following Lambda functions:
 
 ### Creating the Workflow
 
-1. Create a new workflow and navigate to Workflow Studio.
-2. Click on the patterns tab and drag **Process S3 objects** onto the Workflow Studio canvas.
+1. Navigate to [Step Functions](https://console.aws.amazon.com/states/home) in your AWS console. Make sure you are in the correct region.
+
+2. If you are not on the `State machines` page, click on `State machines` on the left side menu and click **Create state machine**
+
+3. For `Choose authoring method` select **Design your workflow visually**, select state machine `Type` as **Standard** and click on `Next`.
+4. Click on the patterns tab and drag **Process S3 objects** onto the Workflow Studio canvas.
 ![Distributed Map Pattern](/static/img/module-14/DistributedMap-Pattern.png)
-3. Configure the Distributed Map state with the following values:
+5. Configure the Distributed Map state with the following values:
     | Setting        | Value      | Notes   |
     | ---            | ---        | ---     |
     | **Processing mode** | Distributed | Map State in distributed mode runs child workflow executions for each map iteration to achieve up to 10K concurrent workflows |
     | **Item source** | Amazon S3 | |
     | **S3 item source** | S3 object list | Since we have multiple CSV files we want to analyze, we'll use this item source as it uses S3 ListObjects to get a list a paginated list of objects in the bucket. |
-    | **S3 bucket** | Use the *dmap-demo-noaadatabucket* bucket. | You can find the S3 bucket name in the CloudFormation stack resources tab for this module |
+    | **S3 bucket** | Use the *distributedmapworkshopdataset* bucket. | You can find the S3 bucket name in the CloudFormation stack resources tab for this module |
     | **Enable batching** | Check this box | |
     | **Max items per batch** | 500 | Define the number of items to be processed by each child workflow execution |
     | **Set concurrency limit** | 3000 | The Lambda burst concurrency maximum is 3000. You can modify this concurrency setting based on the capacity of your downstream systems. |
@@ -34,10 +38,10 @@ We've provided data processing code in the following Lambda functions:
     | **Tolerated failure threshold** | 5% | Use this setting to consider a job *failed* if a minimum threshold of child workflow executions failed. This is useful if you have inconsistencies in your dataset. |
     | **Use state name as label in Map Run ARN** | Check this box | |
     | **Export Map state results to Amazon S3** | Check this box | |
-    | **S3 Bucket** | Use the *dmap-demo-resultsbucket* bucket. | You can find the S3 bucket name in the CloudFormation stack resources tab for this module |
-4. Drag an AWS Lambda Invoke task state onto the canvas below the Distributed Map state.
+    | **S3 Bucket** | Use the *distributedmapresultsbucket* bucket. | You can find the S3 bucket name in the CloudFormation stack resources tab for this module |
+6. Drag an AWS Lambda Invoke task state onto the canvas below the Distributed Map state.
 ![Distributed Map Pattern](/static/img/module-14/DistributedMap-Reducer.png)
-5. Configure the Lambda Invoke state with the following values:
+7. Configure the Lambda Invoke state with the following values:
    1. Function name: *Reducer function*
    2. Payload: *Use state input as payload*
 

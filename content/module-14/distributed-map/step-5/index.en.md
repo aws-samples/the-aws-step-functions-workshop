@@ -3,7 +3,7 @@ title: 'Run the workflow and view results'
 weight: 5
 ---
 
-1. Now go ahead and "Start execution" on this state machine using the default execution input.
+1. Click on **Start execution** and use the default input payload.
 2. The execution will take up to 1 minute to complete successfully.
 3. In the execution details page, click on the Distributed Map state in the Graph View, then click on the Details tab.
 ![Distributed Map Pattern](/static/img/module-14/DistributedMap-JobRun.png)
