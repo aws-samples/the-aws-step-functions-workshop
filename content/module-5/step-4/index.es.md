@@ -8,7 +8,7 @@ weight: 74
 Navega a los servicios en la consola para familiarizarte con los recursos. Asegúrate que te encuentres en la región correta. Copia el ARN (Amazon Resource Name) del tópico de SNS a un bloc de notas.
 Lo necesitarás más adelante en el módulo. 
 
-- [Amazon DynamoDB](https://console.aws.amazon.com/dynamodbv2/home) - busca **MapStateTable**
+1. Navega a [Step Functions](https://console.aws.amazon.com/states/home) en la consola de AWS.
 
 ### Observa tu máquina de estados
 
