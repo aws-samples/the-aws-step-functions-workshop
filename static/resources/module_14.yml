@@ -79,7 +79,7 @@ Resources:
               - Effect: Allow
                 Action:
                   - S3:PutObject
-                Resource: !Join ["/", [!GetAtt ResultsBucket.Arn, "*"]]
+                Resource: !Join ["/", [!GetAtt DistributedMapResultsBucket.Arn, "*"]]
         - PolicyName: StartExecutionPolicy
           PolicyDocument:
             Version: "2012-10-17"
@@ -87,7 +87,7 @@ Resources:
               - Effect: Allow
                 Action:
                   - states:StartExecution
-                Resource: !Sub "arn:aws:states:${AWS::Region}:${AWS::AccountId}:stateMachine:NOAAWeatherStateMachine"
+                Resource: !Sub "arn:aws:states:${AWS::Region}:${AWS::AccountId}:stateMachine:DistributedMap-WeatherAnalysis"
         - PolicyName: InvokeMapperReducerPolicy
           PolicyDocument:
             Version: "2012-10-17"
@@ -344,16 +344,13 @@ Resources:
       MemorySize: 2048
       Environment:
         Variables:
-          RESULTS_BUCKET_NAME: !Ref ResultsBucket
+          RESULTS_BUCKET_NAME: !Ref DistributedMapResultsBucket
           RESULTS_DYNAMODB_TABLE_NAME: !Ref ResultsDynamoDBTable
       Policies:
         - S3ReadPolicy:
-            BucketName: !Ref ResultsBucket
+            BucketName: !Ref DistributedMapResultsBucket
         - DynamoDBWritePolicy:
             TableName: !Ref ResultsDynamoDBTable
-
-  NOAAWeatherLogGroup:
-    Type: AWS::Logs::LogGroup
 
   FunctionS3Create:
     Type: 'AWS::Serverless::Function'
@@ -497,9 +494,6 @@ Resources:
     Properties:
       ServiceToken: !GetAtt FunctionS3Create.Arn
 Outputs:
-  StateMachineLogGroupName:
-    Description: CloudWatch log group name for the distributed map state machine
-    Value: !Ref NOAAWeatherLogGroup
   DynamoDBTableName:
     Description: DynamoDB table name where final results are written
     Value: !Ref ResultsDynamoDBTable
@@ -508,4 +502,4 @@ Outputs:
     Value: !Ref DistributedMapWorkshopDataset
   StateMachineResultsBucket:
     Description: Bucket where the distributed map run will write results
-    Value: !Ref ResultsBucket
+    Value: !Ref DistributedMapResultsBucket
