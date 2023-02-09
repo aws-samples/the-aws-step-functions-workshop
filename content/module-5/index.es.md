@@ -9,7 +9,7 @@ El estado [Choice](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-s
 
 - Choices (Obligatorio) - una matriz de reglas de elección que determina a qué estado la máquina de estados pasa después.
 
-- Default (Opcional, recomendado) - el nombre del estado al que se transiciona si ninguna de las transiciones en Elecciones se toma.
+- Default (Opcional, recomendado) - el nombre del estado al que se transiciona si ninguna de las transiciones en `Choice` se toma.
 
 ## Estado Map
 
