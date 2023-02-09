@@ -45,8 +45,9 @@ We've provided data processing code in the following Lambda functions:
    1. Function name: *Reducer function*
    2. Payload: *Use state input as payload*
 8. Click on **Next** and review the generated ASL and click **Next** again.
-9. Enter the a State machine name: `DistributedMap-WeatherAnalysis`. For the Execution role, choose an existing role: `TemperatureStateMachineRole`
-10. Leave the rest of the defaults and click **Create state machine**.
+9. Enter the a State machine name: `DistributedMap-WeatherAnalysis`. 
+10. For the Execution role, choose an existing role: `TemperatureStateMachineRole`
+11. Leave the rest of the defaults and click **Create state machine**.
 
 ::alert[In the next step, you'll execute the workflow and view the results of the data processing job.]{type="success"}
 
