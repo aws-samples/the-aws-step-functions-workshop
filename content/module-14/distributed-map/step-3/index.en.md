@@ -3,7 +3,7 @@ title: "Let's explore the dataset"
 weight: 3
 ---
 
-Navigate to the S3 Bucket starting with the name **distributedmapworkshopdataset** to view a subset of the original NOAA source data.
+Navigate to the S3 Bucket starting with the name **sfw-module-14-distributedmapworkshopdataset** to view a subset of the original NOAA source data.
 
 The CSV files we copied into the S3 bucket contain daily weather data between 1929 and 1937 for each city. The excerpt below shows the columns we're interested in.
 

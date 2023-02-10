@@ -33,8 +33,8 @@ We've provided data processing code in the following Lambda functions:
     | **Enable batching** | Check this box | |
     | **Max items per batch** | 500 | Define the number of items to be processed by each child workflow execution |
     | **Set concurrency limit** | 3000 | The Lambda burst concurrency maximum is 3000. You can modify this concurrency setting based on the capacity of your downstream systems. |
-    | **Child execution type** | Express | Expand **Additional configuration** to see this setting. Given each of these child workflow executions only take a few seconds to run, we can use Express workflows. |
-    | **Set a tolerated failure threshold** | Check this box | |
+    | **Child execution type** | Express | Given each of these child workflow executions only take a few seconds to run, we can use Express workflows. |
+    | **Set a tolerated failure threshold** | Expand **Additional configuration** to see this setting. Check this box | |
     | **Tolerated failure threshold** | 5% | Use this setting to consider a job *failed* if a minimum threshold of child workflow executions failed. This is useful if you have inconsistencies in your dataset. |
     | **Use state name as label in Map Run ARN** | Check this box | |
     | **Export Map state results to Amazon S3** | Check this box | |

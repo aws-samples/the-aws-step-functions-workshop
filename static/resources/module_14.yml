@@ -96,8 +96,8 @@ Resources:
                 Action:
                   - lambda:InvokeFunction
                 Resource:
-                  - !GetAtt TemperaturesFunction.Arn
-                  - !GetAtt ReducerFunction.Arn
+                  - !Join [":", [!GetAtt TemperaturesFunction.Arn, "*"]]
+                  - !Join [":", [!GetAtt ReducerFunction.Arn, "*"]]
 
   TemperaturesFunction:
     Type: AWS::Serverless::Function
@@ -366,7 +366,9 @@ Resources:
           // Get service clients module and commands using ES6 syntax.
           const { S3Client, ListObjectsCommand, CopyObjectCommand, DeleteObjectCommand } = require("@aws-sdk/client-s3");
           const response = require("./cfn-response.js");
-          const client = new S3Client();
+          const sourceClient = new S3Client({region: "us-east-1"});
+          const targetClient = new S3Client({region: process.env.AWS_REGION});
+
 
           function send(event, context, responseStatus, responseData, physicalResourceId, noEcho) {
             try {
@@ -436,14 +438,14 @@ Resources:
                 const bucketParams = {
                   Bucket: process.env.BUCKET_NAME
                 }
-                const s3Contents = await client.send(new ListObjectsCommand(bucketParams));
+                const s3Contents = await targetClient.send(new ListObjectsCommand(bucketParams));
                 for (let i = 0; i < s3Contents["Contents"].length; i += 1) {
                   const params = {
                     Bucket: process.env.BUCKET_NAME,
                     CopySource: `${process.env.BUCKET_NAME}/${s3Contents["Contents"][i]["Key"]}`,
                     Key: s3Contents["Contents"][i]["Key"]
                   };
-                  const data = await client.send(new DeleteObjectCommand(params));
+                  const data = await targetClient.send(new DeleteObjectCommand(params));
                   console.log(data)
                 }
               } catch (error) {
@@ -456,7 +458,7 @@ Resources:
                 const bucketParams = {
                   Bucket: "noaa-gsod-pds"
                 }
-                const s3Copy = await client.send(new ListObjectsCommand(bucketParams));
+                const s3Copy = await sourceClient.send(new ListObjectsCommand(bucketParams));
                 console.log(s3Copy)
                 for (let i = 0; i < s3Copy["Contents"].length; i += 1) {
                   const params = {
@@ -464,7 +466,7 @@ Resources:
                     CopySource: `noaa-gsod-pds/${s3Copy["Contents"][i]["Key"]}`,
                     Key: s3Copy["Contents"][i]["Key"]
                   };
-                  const data = await client.send(new CopyObjectCommand(params));
+                  const data = await targetClient.send(new CopyObjectCommand(params));
                   console.log(data)
                 }
               // Response data that is sent back to CloudFormation:
@@ -479,7 +481,7 @@ Resources:
           };
       Runtime: nodejs18.x
       MemorySize: 1024
-      Timeout: 180
+      Timeout: 600
       Handler: index.handler
       Environment:
         Variables:
