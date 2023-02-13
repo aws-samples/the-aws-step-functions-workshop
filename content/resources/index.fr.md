@@ -1,6 +1,6 @@
 ---
 title: 'Ressources'
-weight: 150
+weight: 500
 ---
 
 Pour plus d'informations sur la création d'applications avec Step Functions, consultez une liste organisée de ressources ci-dessous.
