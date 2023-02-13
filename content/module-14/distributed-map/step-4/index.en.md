@@ -32,7 +32,7 @@ We've provided data processing code in the following Lambda functions:
     | **S3 bucket** | Use the *distributedmapworkshopdataset* bucket. | You can find the S3 bucket name in the CloudFormation stack resources tab for this module or use the *Browse S3 or enter S3 URI option* and look for *distributedmapworkshopdataset* with the Browse S3 button. |
     | **Enable batching** | Check this box | |
     | **Max items per batch** | 500 | Define the number of items to be processed by each child workflow execution |
-    | **Set concurrency limit** | 500 | The Lambda burst concurrency maximum is 3000. You can modify this concurrency setting based on the capacity of your downstream systems. |
+    | **Set concurrency limit** | 500 | The [Lambda burst concurrency limit](https://docs.aws.amazon.com/lambda/latest/dg/burst-concurrency.html) varies by region. You can modify this concurrency setting based on the capacity of your downstream systems. |
     | **Child execution type** | Express | Given each of these child workflow executions only take a few seconds to run, we can use Express workflows. |
     | **Set a tolerated failure threshold** | Expand **Additional configuration** to see this setting. Check this box | |
     | **Tolerated failure threshold** | 5% | Use this setting to consider a job *failed* if a minimum threshold of child workflow executions failed. This is useful if you have inconsistencies in your dataset. |
