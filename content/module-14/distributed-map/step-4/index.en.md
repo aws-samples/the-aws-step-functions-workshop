@@ -5,7 +5,7 @@ weight: 4
 
 In this step, you'll create a workflow in Workflow Studio to analyze the weather data using the Distributed Map state.
 
-We've provided the data processing code to you in the CloudFormation stack deployed for this module. The workflow you'll build orchestrates the parallel processing of the weather data. The Distributed Map state runs a child workflow execution for a subset of the data (Configurable using Item Batching); each child workflow execution will execute the data processing code for calculate the highest temperature averages in a month within that subset. After the every child workflow execution completes, we'll use the Reducer Lambda function to get the highest temperature averages across the entire dataset.
+We've provided the data processing code to you in the CloudFormation stack deployed for this module. The workflow you'll build orchestrates the parallel processing of the weather data. The Distributed Map state runs a child workflow execution for a subset of the data (Configurable using Item Batching); each child workflow execution will execute the data processing code for calculating the highest temperature averages in a month within that subset. After the every child workflow execution completes, we'll use the Reducer Lambda function to get the highest temperature averages across the entire dataset.
 
 ![Distributed Map Architecture](/static/img/module-14/DistributedMap.png)
 
@@ -32,14 +32,14 @@ We've provided data processing code in the following Lambda functions:
     | **S3 bucket** | Use the *distributedmapworkshopdataset* bucket. | You can find the S3 bucket name in the CloudFormation stack resources tab for this module or use the *Browse S3 or enter S3 URI option* and look for *distributedmapworkshopdataset* with the Browse S3 button. |
     | **Enable batching** | Check this box | |
     | **Max items per batch** | 500 | Define the number of items to be processed by each child workflow execution |
-    | **Set concurrency limit** | 3000 | The Lambda burst concurrency maximum is 3000. You can modify this concurrency setting based on the capacity of your downstream systems. |
+    | **Set concurrency limit** | 500 | The Lambda burst concurrency maximum is 3000. You can modify this concurrency setting based on the capacity of your downstream systems. |
     | **Child execution type** | Express | Given each of these child workflow executions only take a few seconds to run, we can use Express workflows. |
     | **Set a tolerated failure threshold** | Expand **Additional configuration** to see this setting. Check this box | |
     | **Tolerated failure threshold** | 5% | Use this setting to consider a job *failed* if a minimum threshold of child workflow executions failed. This is useful if you have inconsistencies in your dataset. |
     | **Use state name as label in Map Run ARN** | Check this box | |
     | **Export Map state results to Amazon S3** | Check this box | |
-    | **S3 Bucket** | Use the *distributedmapresultsbucket* bucket. | You can find the S3 bucket name in the CloudFormation stack resources tab for this module or use *Browse S3 or enter S3 URI option* and look for *distributedmapresults* with the Browse S3 button. |
-    | **Prefix** | results | |
+    | **S3 Bucket** | Use the *distributedmapresultsbucket* bucket. | Use *Browse S3 or enter S3 URI option*. You can find the S3 bucket name in the CloudFormation stack resources tab for this module or look for the *distributedmapresults* bucket with the Browse S3 button. |
+    | **Prefix** | results | Append the "results" prefix at the end of the S3 URI i.e. s3://*distributedmapresults* bucket/results |
 6. Select the Lambda Invoke state within the Distributed Map state.
    1. Function name: *TemperaturesFunction*
    2. Payload: *Use state input as payload*
